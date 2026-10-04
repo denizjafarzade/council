@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from 'react'
 import Builder from './builder/Builder'
-import { Logo } from './builder/ui'
+import { Brand } from './builder/ui'
 import { PlainEnglish } from './components/Brief'
 import DebateStream from './components/DebateStream'
 import EventPicker, { StageBar } from './components/EventPicker'
@@ -93,7 +93,8 @@ export default function App() {
     <RosterContext.Provider value={roster}>
       <div className="min-h-full bg-desk font-sans text-base text-ink">
         <header className="flex flex-wrap items-center gap-x-6 gap-y-3 border-b border-line px-7 py-4">
-          <Logo />
+          <Brand />
+          <span className="hidden h-10 w-px bg-line sm:block" aria-hidden="true" />
           <div className="flex min-w-64 flex-1 flex-col">
             <span className="font-mono text-xs uppercase tracking-[0.08em] text-muted">
               {state.council?.name || council?.name || 'Default council'} · {seats} seats · {marketCount} markets

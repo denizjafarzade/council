@@ -19,15 +19,17 @@ export function Icon({ name, size = 16, stroke = 2 }) {
   )
 }
 
-export function Logo() {
+export function Logo({ size = 36 }) {
+  return <img src="/verdisk-logo.png" alt="" width={size} height={size} className="shrink-0 select-none" draggable="false" />
+}
+
+/** Logo plus product name, for page headers. */
+export function Brand() {
   return (
-    <svg width="32" height="32" viewBox="0 0 32 32" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true"
-      className="text-gold">
-      <circle cx="16" cy="16" r="5" />
-      {[[16, 4], [26.4, 10], [26.4, 22], [16, 28], [5.6, 22], [5.6, 10]].map(([x, y]) => (
-        <circle key={`${x}-${y}`} cx={x} cy={y} r="2" />
-      ))}
-    </svg>
+    <span className="flex items-center gap-2.5">
+      <Logo />
+      <span className="text-xl font-semibold tracking-[0.01em]">Verdisk</span>
+    </span>
   )
 }
 
