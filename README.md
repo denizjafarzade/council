@@ -11,6 +11,9 @@ AI Trading Council: pick a market event, watch four country delegates (HK, CN, U
 ```
 backend/
   app.py              # FastAPI: POST /council/run, GET /council/stream/{run_id}
+  llm.py              # call_llm via OpenRouter, retries, fallbacks, cost log
+  models.py           # model per agent per profile (premium / cheap / free)
+  prompts.py          # builds each agent's prompt from agents/prompts/
   orchestrator.py     # stages: data -> blind vote -> debate -> revote -> spillover -> brief
   council_math.py     # Chair maths in Python: matrix, dissent, vote shifts
   schemas.py          # pydantic models mirroring the five shared contracts
@@ -40,9 +43,27 @@ cd frontend && npm install
 | Regenerate mocks | `make mocks` | `.venv/Scripts/python mocks/generate_mock.py` |
 | Verify tickers | | `.venv/Scripts/python backend/data/fetch.py --check` |
 
-Copy `.env.example` to `.env` and add API keys. The Vite dev server proxies `/council` to the backend.
+Copy `.env.example` to `.env` and add the OpenRouter key. The Vite dev server proxies `/council` to the backend.
 
 **Stage 0 behaviour:** `/council/stream/{run_id}` replays `mocks/council_run.json` with a 300 ms delay, so the UI can point at the real endpoint from the start. Stage 1A swaps in real agents behind the same stream.
+
+## LLMs (OpenRouter)
+
+Every LLM call goes through `call_llm(system, user, schema, agent)` in [`backend/llm.py`](backend/llm.py): JSON schema output, pydantic validation, one retry on bad JSON, then fallback models. It logs tokens and USD cost per agent.
+
+Each delegate runs on a model from a different lab, so mistakes are less correlated (see [`backend/models.py`](backend/models.py)). Switch profiles with `COUNCIL_PROFILE`:
+
+| Agent | premium (demo) | cheap (dev) |
+|---|---|---|
+| CHAIR | Claude Opus 5.5 | Claude Sonnet 5.5 |
+| HK | Claude Sonnet 5.5 | Gemini 3.8 Flash |
+| CN | GPT-6.1 Sol | DeepSeek V4.1 Flash |
+| US | Gemini Pro (latest) | GPT-6 Luna |
+| JP | Grok 4.7 | Qwen 3.8 Flash |
+| BEAR | Qwen 3.8 Max | GLM 5.3 Flash |
+| SPILLOVER | GPT-6.1 Sol Pro | GPT-6 Luna Pro |
+
+`free` uses free Qwen/Nemotron models (50 requests/day on a $0 balance). Stage 3 votes use `typesafe/jev-router` (Jev). Smoke test: `cd backend && ../.venv/Scripts/python smoke_llm.py HK`.
 
 ## Contracts
 
