@@ -1,6 +1,7 @@
 """FastAPI: POST /council/run, GET /council/stream/{run_id} (Server-Sent Events)."""
 
 import json
+import logging
 import uuid
 from typing import AsyncIterator
 
@@ -10,6 +11,9 @@ from fastapi.responses import StreamingResponse
 
 from orchestrator import run_council
 from schemas import RunRequest, RunResponse
+
+# Per-agent token usage and skipped agents show up in the uvicorn console.
+logging.basicConfig(level=logging.INFO, format="%(asctime)s %(name)s %(levelname)s %(message)s")
 
 app = FastAPI(title="AI Trading Council")
 app.add_middleware(CORSMiddleware, allow_origins=["*"], allow_methods=["*"], allow_headers=["*"])

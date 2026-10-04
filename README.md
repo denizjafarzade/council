@@ -11,9 +11,8 @@ AI Trading Council: pick a market event, watch four country delegates (HK, CN, U
 ```
 backend/
   app.py              # FastAPI: POST /council/run, GET /council/stream/{run_id}
-  llm.py              # call_llm via OpenRouter, retries, fallbacks, cost log
+  llm.py              # call_llm: OpenRouter (model per agent), Anthropic or Bedrock
   models.py           # model per agent per profile (premium / cheap / free)
-  prompts.py          # builds each agent's prompt from agents/prompts/
   orchestrator.py     # stages: data -> blind vote -> debate -> revote -> spillover -> brief
   council_math.py     # Chair maths in Python: matrix, dissent, vote shifts
   schemas.py          # pydantic models mirroring the five shared contracts
@@ -39,6 +38,7 @@ cd frontend && npm install
 |---|---|---|
 | Backend on :8000 | `make backend` | `cd backend && ../.venv/Scripts/python -m uvicorn app:app --reload --port 8000` |
 | Frontend on :5173 | `make frontend` | `cd frontend && npm run dev` |
+| Check API keys | `make keys` | `.venv/Scripts/python backend/check_keys.py` |
 | Tests | `make test` | `.venv/Scripts/python -m pytest backend/tests -q` |
 | Regenerate mocks | `make mocks` | `.venv/Scripts/python mocks/generate_mock.py` |
 | Verify tickers | | `.venv/Scripts/python backend/data/fetch.py --check` |
@@ -49,7 +49,7 @@ Copy `.env.example` to `.env` and add the OpenRouter key. The Vite dev server pr
 
 ## LLMs (OpenRouter)
 
-Every LLM call goes through `call_llm(system, user, schema, agent)` in [`backend/llm.py`](backend/llm.py): JSON schema output, pydantic validation, one retry on bad JSON, then fallback models. It logs tokens and USD cost per agent.
+Every LLM call goes through `call_llm(system, user, schema, agent=...)` in [`backend/llm.py`](backend/llm.py). With `LLM_PROVIDER=openrouter` it asks for JSON-schema output, falls through to backup models on API errors within the timeout, and logs tokens and USD cost per agent. Invalid JSON raises `LLMOutputError`, and the orchestrator retries once.
 
 Each delegate runs on a model from a different lab, so mistakes are less correlated (see [`backend/models.py`](backend/models.py)). Switch profiles with `COUNCIL_PROFILE`:
 
