@@ -1,0 +1,5 @@
+[
+  {"id": "HK-hibor", "name": "1M HIBOR", "value": null, "as_of": "", "source": "HKMA"},
+  {"id": "CN-lpr", "name": "1Y Loan Prime Rate", "value": null, "as_of": "", "source": "PBoC"},
+  {"id": "JP-boj", "name": "BoJ policy rate", "value": null, "as_of": "", "source": "Bank of Japan"}
+]

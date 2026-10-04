@@ -1,0 +1,107 @@
+{
+  "country": "CN",
+  "as_of": "2026-09-30T15:00:00+08:00",
+  "series": [
+    {
+      "id": "CN-idx",
+      "name": "Shanghai Composite",
+      "last": 3842.2,
+      "chg_1d_pct": 0.31,
+      "chg_1m_pct": -3.61,
+      "vol_20d_pct": 11.2
+    },
+    {
+      "id": "CN-fx",
+      "name": "USD/CNY",
+      "last": 6.7048,
+      "chg_1d_pct": 0.0,
+      "chg_1m_pct": -0.21,
+      "vol_20d_pct": 1.06
+    }
+  ],
+  "sectors": [
+    {
+      "sector": "Tech",
+      "ticker": "688981.SS",
+      "chg_1m_pct": -12.98,
+      "vol_20d_pct": 36.97
+    },
+    {
+      "sector": "Financials",
+      "ticker": "601398.SS",
+      "chg_1m_pct": 2.6,
+      "vol_20d_pct": 14.52
+    },
+    {
+      "sector": "Property",
+      "ticker": "000002.SZ",
+      "chg_1m_pct": 35.67,
+      "vol_20d_pct": 69.0
+    },
+    {
+      "sector": "Energy",
+      "ticker": "601857.SS",
+      "chg_1m_pct": -1.84,
+      "vol_20d_pct": 22.74
+    }
+  ],
+  "macro": [],
+  "news": [
+    {
+      "id": "CN-n1",
+      "title": "The fiscal fallout from China’s property bust",
+      "source": "East Asia Forum",
+      "url": "https://news.google.com/rss/articles/CBMiigFBVV95cUxOMEhRM1FrbTVJbzVyTlljVFM0X0ZLWUVlVlNTakRZb2JQa3U0ai15c2ZKSG1XeG1HTEVYNmVLUi03YlB1S19pdmpNa0RFejBjVGwxdHZwaTlOZnlhTWJtS1p3OW1Sb0ZhS3MtRG9UQ0VQWkF5ZFF2TE5PSmQxb3ZMVHdGZFJWcjZJUFE?oc=5",
+      "published": "2026-10-03T23:00+00:00"
+    },
+    {
+      "id": "CN-n2",
+      "title": "Best Chinese Stocks To Buy And Watch: Track The Latest China Stock News",
+      "source": "Investor's Business Daily",
+      "url": "https://news.google.com/rss/articles/CBMid0FVX3lxTE9xb0Q2UnVEMWdJTlo4ZUd5dTUzQ3p2eUdxdlB1MlE5LUxsU1VkdFpKQ2F6alh6R1ZsLU9KbURjZWRkN2djRGVsRElrbDFxcW1JNkFHZkMyZU01cHR1Smp2ZU1CdTNuNFBLS0V6Uk9LUXZKWjRXLVZV?oc=5",
+      "published": "2026-10-02T17:11+00:00"
+    },
+    {
+      "id": "CN-n3",
+      "title": "China stocks edge higher as property shares slide after new stimulus",
+      "source": "Prop News Time",
+      "url": "https://news.google.com/rss/articles/CBMivAFBVV95cUxQckczdFRxU3pqYnN2cTlUMXV6REpMZ1RHQmx1S2hIOUxsTng1UXhvdUQxV2FOdjVuQWJaRnQzQkhNNm5lMHZ5b1h5WXM3d3pDLUFFcWlQYmx2VE9PLXV3MmFDZWM5blRKQVNITDVvZnVzWVlNYzB5UG80OG81S2hHaXNCWDdxUFVvYWJuc1puVmV3UkFJZXRISm5XaFpiZGRWeU9Pa21BejlNMGc2UmwzQlpGQ0IzNmVWQVZlSA?oc=5",
+      "published": "2026-10-02T12:00+00:00"
+    },
+    {
+      "id": "CN-n4",
+      "title": "The yuan exchange rate on the Moscow Stock Exchange decreased by 0.0255 rubles by 10:20 MSK",
+      "source": "AKM.RU",
+      "url": "https://news.google.com/rss/articles/CBMivAFBVV95cUxNMVhRbC1jbjMza25MQkJkM3lTOVZUS3ViVmJkR1IxaE9hTmszSEVyTk0wSTBYWU9uY0d0dUdrOU0ySzNwbThNWTR2TkxRMTRtQ0JXdFFhb1Y5YzlSUnloaWQwSFZIc3Y2WWtDa1hZbDNDQTJIQnJrbXN2eUlzcFQ1MFRCZFplMXhrRUFNUlZnczJ6VG9IaHIwdTh1NXZmQVFFdlJGeVlwRzZrLU9scDdJamFrTlpJaXlraVNNNg?oc=5",
+      "published": "2026-10-02T09:28+00:00"
+    },
+    {
+      "id": "CN-n5",
+      "title": "China Stocks Fall to One-Year Low; PBOC Cuts PSL Rate to 1.5% - News and Statistics",
+      "source": "IndexBox",
+      "url": "https://news.google.com/rss/articles/CBMilwFBVV95cUxOS2k2NDJLWk1Sc3VFZUhWbk55RVZRLTc2U25mZjhqbVFQZ09IbGtwQ3BabllIcGlVdTMxbnpsQVhlOGxLbmtuMFNFVFNYWm9QSkQ0amZqM1V3THNkaXR4eGJCalpjWmpmT3pielJ1eGY4WlZna1RRaVltc21GMmsxWTlDUk1lV3BGeXJDczJLb1lIb0VscG9z?oc=5",
+      "published": "2026-10-02T05:31+00:00"
+    },
+    {
+      "id": "CN-n6",
+      "title": "Hong Kong stocks plunge 3% as China stimulus fails to impress investors",
+      "source": "Moneycontrol.com",
+      "url": "https://news.google.com/rss/articles/CBMi0AFBVV95cUxQTHloRzlyZ3RacEdXYU52SUFTTEFqRXJxWkx2M1NJUGRXUkxma0tMVGFpM240c3FKczkwaVZvYWlqYUs2R0VsV1pKYUhpbDUzMFgtSlNGQWxtVm90TFFSZXk5MWNQSVg5SjdPS1ZlN1Y1d0ZaeF9zYTJ1enFFWmpkVjVGbEc2ejF0ME5mb0RNa0piOFowTThYM0JlM3loZFhlVlFvWUgzWF9zTkRaTER6MUZkSWUyY3k1RmVrQ1cwTTRNUlY4allhVklHTGFjRWxM0gHWAUFVX3lxTFBCbzlLSmFJMjFGaV9nM0FzRGFTMmhIdzM5TlY4VXhWLTNxNVJTTng5QTk3NUJZLTFsYzNVU2w5N1V5QkJYd1l0WnVWcXB4cjRJSTdyZ1dVMUlJMXlwVkZ2S3h0MGpaQm1wNl82TFQ5cXE3ekd1RG11Qi1LbFVKQXhsX3E0Vlh3UFlXV3hiQ3JyZ3Mya0prMnNQLXV2c3pQWGhmd2EwQ1RLZWs4eDlQS2hHVmZaQWVCbmJ0TWEwMXQtVWNkUV92eUY1SHctQWVHUG9IUFdTLWc?oc=5",
+      "published": "2026-10-02T04:45+00:00"
+    },
+    {
+      "id": "CN-n7",
+      "title": "More aggressive China stimulus unlikely for now, BofA says",
+      "source": "Yahoo Finance",
+      "url": "https://news.google.com/rss/articles/CBMipwFBVV95cUxOZThtYTc5N2xMU0FmUk1rQ1JVaEo4aEVpUVdoWlhDZ3lsRGRnU1RnMWJmRTE5bm1JOGJTWElMeFBCNlpNaDNPanlSTGV4RnpmTEpHOG8xcUNGWi1LdmhjTHJTdUVaTmhaSU5SeEh4QU1CUkxRVTlOS0ZEdTgwUGxGWWpkX2MzUk45SHpqWVdmdWpWWE1NUzNvLU9QcjRTeEVBaGxNcmpIWQ?oc=5",
+      "published": "2026-10-02T04:33+00:00"
+    },
+    {
+      "id": "CN-n8",
+      "title": "Global Market: Chinese stocks slide as US-China optimism fades, tech shares tumble",
+      "source": "The Economic Times",
+      "url": "https://news.google.com/rss/articles/CBMi7gFBVV95cUxNano3T3U1WlVVUTJKaFBBSGYza3oyMnZGWXJ3d2N3VHR0Q3F6eFU5WFRwUWNXRGRyZXIyZ1pJcXBXcVRyRnpSbURaUVpCQlh3ZGRyYkIwYXFLN1JwNEQyb2o3LWNWaWROYmdVb1liMVRDazRXNTVaZmtFQ0hJelVZYlA4SWhuY0Z5cnlsZm9VNFVQNGlMZ2h5V1pFTjhMTlVwUWh4RlZSZnd3Nll1WVA3MHV1a0l4Y1dZWlZhdW1QWEVPVGk3QmNKZGs0RVBMLVhwNnBZQ2hyYU94UWhBLUFNc01acGhDNzhONHRKNzJn0gHzAUFVX3lxTE54N3diYVJ6QVRreWpUdFlYc01zQlM0cmU0bmpnMDNqbXBpUnpsQ0otMjE4OUxCZFBZS1g1dkM4NTZ6ZFVfNDFFTFQ0T2pGY05aSzlSTDVraEVSUndqai1PZW5IWUxYWWFwMXpTdDBmSzFTZVZvaVFOdkc0dVp0ZVlXMHdzVzFlUDJwWHZPMmdWdC1GYjVkRS11R3BRNWptWURsUUl1a2s3Mm5rU3dkMGF6VW9GamplcHdlOThYNWo4dmlMeFhISlpRcXdkNUVoRFk0aXVfM08yXzgtaXN3M1hnYVVzNklpLWsxMGFDTXdFRDMtSQ?oc=5",
+      "published": "2026-10-01T16:10+00:00"
+    }
+  ]
+}

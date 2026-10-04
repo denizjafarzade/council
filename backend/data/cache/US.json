@@ -1,0 +1,121 @@
+{
+  "country": "US",
+  "as_of": "2026-10-02T16:00:00-04:00",
+  "series": [
+    {
+      "id": "US-idx",
+      "name": "S&P 500",
+      "last": 7722.72,
+      "chg_1d_pct": 0.73,
+      "chg_1m_pct": 0.73,
+      "vol_20d_pct": 10.35
+    },
+    {
+      "id": "US-fx",
+      "name": "US Dollar Index",
+      "last": 101.93,
+      "chg_1d_pct": -0.17,
+      "chg_1m_pct": 2.38,
+      "vol_20d_pct": 4.3
+    },
+    {
+      "id": "US-10y",
+      "name": "US 10Y Treasury yield",
+      "last": 5.277,
+      "chg_1d_pct": 0.76,
+      "chg_1m_pct": 10.03,
+      "vol_20d_pct": 15.23
+    }
+  ],
+  "sectors": [
+    {
+      "sector": "Tech",
+      "ticker": "XLK",
+      "chg_1m_pct": 8.83,
+      "vol_20d_pct": 17.55
+    },
+    {
+      "sector": "Financials",
+      "ticker": "XLF",
+      "chg_1m_pct": -7.23,
+      "vol_20d_pct": 11.11
+    },
+    {
+      "sector": "Property",
+      "ticker": "XLRE",
+      "chg_1m_pct": -6.68,
+      "vol_20d_pct": 9.15
+    },
+    {
+      "sector": "Energy",
+      "ticker": "XLE",
+      "chg_1m_pct": -3.5,
+      "vol_20d_pct": 20.98
+    }
+  ],
+  "macro": [
+    {
+      "id": "US-ffr",
+      "name": "Effective Fed funds rate (as of 2026-10-01)",
+      "value": 3.88
+    }
+  ],
+  "news": [
+    {
+      "id": "US-n1",
+      "title": "History Says Coca-Cola Stock Holds Up When the S&P 500 Falls",
+      "source": "The Motley Fool",
+      "url": "https://news.google.com/rss/articles/CBMiqwFBVV95cUxOc3RkUi1rZFpYcjNtWlVzaGlGT0JETU9HWUs4TFVlTWlPcklZb0l6WGVYakVYRnV4VzAwNjR1a1liTGZQNGRKN1d2S0kzTkphdkhVSUlPei0zVXRvZUQ2MGxranFFRjIxd0p4QmJBdUJpdVgtcnJjWUs5OXpjQ1NXdWdnTHZXRm5xakJqMmc2dmVjRDVReV8zNEdwME9DUkxSbzlsVC1aMkJVb0U?oc=5",
+      "published": "2026-10-03T22:23+00:00"
+    },
+    {
+      "id": "US-n2",
+      "title": "Bessent says rising Treasury yields reflect global trend, not cause for alarm",
+      "source": "Yahoo Finance",
+      "url": "https://news.google.com/rss/articles/CBMiogFBVV95cUxNSTAtU1NhTVU3VTRyQWIyQW9TcEdlcklkbk50Vjd0RW93Z1ZqOEZfLUpSYXZVaVJXYmp4bE82QUdoMlVTQm4tN3ZLMlIwUi01bWo3WVVYQXRwZjk1b2x3X1R1U0hGcGdmUmhRS25RdlJ5VkYzSEI3X185MEFMa0NTVUZWbWVMU2VvZUlCMVgyZWFaUV84azBILXB4QXM4VHpTY3c?oc=5",
+      "published": "2026-10-03T17:19+00:00"
+    },
+    {
+      "id": "US-n3",
+      "title": "Global Bond Selloff Pushes U.S. Treasury Yields to 24-Year Highs",
+      "source": "Yahoo Finance",
+      "url": "https://news.google.com/rss/articles/CBMijwFBVV95cUxQMUNTU1B2WHNZSy1CRU8yVDBqT0RWaEZHNjVQZ1FQM0g3T0JTbGlzM1YzWHhNeExfd0hlc1BuWU5QeXlzV0UzOFJRWWd5dGxheHdGcUNVZDhmYVRuS2F4Nm0tbHBoeEgxX1VzRVJ0dkpxMHVhb0ZRRXVTTjl6cDMyUWpaek4xWXZWYUViUEF0aw?oc=5",
+      "published": "2026-10-03T13:22+00:00"
+    },
+    {
+      "id": "US-n4",
+      "title": "3 Brokerage Stocks Tied To Higher Treasury Yields",
+      "source": "Yahoo Finance",
+      "url": "https://news.google.com/rss/articles/CBMimwFBVV95cUxQWm5ULWRnRUMtUDkwRTNCYVdPNUxfRUtfeEZNUW1nNmlHVktKRUdRZlFsSDIzVHBqN01UWkJrUWJmRnpWeTZzSDI0NXB1SXd2dkpCR2M0SHloMjA2cnNmX3RiWk9KX2RybXF6MTVlcE5sa1pGek43NWNicldfSzRpSEpJTTctdDZYX3FfVGRJMjlTdTRjVlgxNzJodw?oc=5",
+      "published": "2026-10-03T12:09+00:00"
+    },
+    {
+      "id": "US-n5",
+      "title": "As Treasury yields touch generational highs, investors brace for the market fallout",
+      "source": "MarketWatch",
+      "url": "https://news.google.com/rss/articles/CBMiwwFBVV95cUxQOFdhOGNEVXNJbzQxSVVuTHF2Tk1KbFN3TE9oeFhiUFI1SndMQndzNWtkUzA0YVVhbFpJU0VRMjhnQ3FtbnJQcWZ5VE9vRjZ5YTJBN2RZOHNrazVGazhTMGxfTW0zcXhoNl9XWlgtZWd3ZVBjMGVVY2oteEF5Q1dkcTh1RHpMRFFvMVpKZXdTWmlsOURBa3RJM3VNRjdqajdxSlFxSDlRblZFUFczc1lha001R0pOeGZ1b1ZkMGRsYTF2N0E?oc=5",
+      "published": "2026-10-03T11:30+00:00"
+    },
+    {
+      "id": "US-n6",
+      "title": "Bond market zig zags threaten S&P 500's smooth ride",
+      "source": "Axios",
+      "url": "https://news.google.com/rss/articles/CBMiigFBVV95cUxPb1pSU3RsYk9QZzdoU0t4UlY1S1QtRUFtOTBFTEp0TkdxY2stLVhFckw5bHdNUUxRVGdUdHhnVmFQRmhhcVRnZE9FV0NxbmdFVnY3dWgtbDBkX1BDRDBEZ0lKTHZ0Z1Y0SWNYaDY2ZEhuMldyUDdZLTFIY21TVENBdjdidjZVNld5alE?oc=5",
+      "published": "2026-10-03T11:06+00:00"
+    },
+    {
+      "id": "US-n7",
+      "title": "The mystery of spiking Treasury yields",
+      "source": "Axios",
+      "url": "https://news.google.com/rss/articles/CBMie0FVX3lxTE1ocnhfTHBGODQyMmpLRTM2eDNzZnRXNnJPUE9aZy1fR2lBY2c0ekkzR19SWm93Y1ZiZVFicG9Oa2VfUGFMQ2l1V3NIbW83eVBMdE9NZ0d6THJrc3hHY05OUmFmS2N3bFpvbmVQOVpDenNRNTlTVVYySE4zaw?oc=5",
+      "published": "2026-10-03T04:16+00:00"
+    },
+    {
+      "id": "US-n8",
+      "title": "Surging Treasury yields and Fed minutes put markets on watch.",
+      "source": "CME Group",
+      "url": "https://news.google.com/rss/articles/CBMisAFBVV95cUxNRmtob2RJVlpmTGxNWUpDMkZsYVdoQ29iX1JvY0huZGRwM1NfUkVZbWFPYjdUelktRGNUcW9GLTNSLXlTTFJXWG1aSjBEZjlfUUpaRmZiMVk1aTI2Nzhqa29UUkkyRkkzN2RrRTc5SEplM0tOR1ZVZU5yMXBIc3BhNTlscDA2d0ZCTnkzV05rMzJBZDhRd1I4RG56TWF5eUV6aTRZSjdkMlpSeVphaUFUaA?oc=5",
+      "published": "2026-10-03T01:33+00:00"
+    }
+  ]
+}

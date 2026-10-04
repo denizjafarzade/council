@@ -1,0 +1,107 @@
+{
+  "country": "HK",
+  "as_of": "2026-10-02T16:00:00+08:00",
+  "series": [
+    {
+      "id": "HK-idx",
+      "name": "Hang Seng Index",
+      "last": 23972.29,
+      "chg_1d_pct": -2.6,
+      "chg_1m_pct": -5.29,
+      "vol_20d_pct": 15.27
+    },
+    {
+      "id": "HK-fx",
+      "name": "USD/HKD",
+      "last": 7.8463,
+      "chg_1d_pct": 0.0,
+      "chg_1m_pct": 0.08,
+      "vol_20d_pct": 0.21
+    }
+  ],
+  "sectors": [
+    {
+      "sector": "Tech",
+      "ticker": "3033.HK",
+      "chg_1m_pct": -8.26,
+      "vol_20d_pct": 19.84
+    },
+    {
+      "sector": "Financials",
+      "ticker": "0005.HK",
+      "chg_1m_pct": -8.06,
+      "vol_20d_pct": 26.56
+    },
+    {
+      "sector": "Property",
+      "ticker": "0016.HK",
+      "chg_1m_pct": -7.67,
+      "vol_20d_pct": 34.61
+    },
+    {
+      "sector": "Energy",
+      "ticker": "0883.HK",
+      "chg_1m_pct": -6.0,
+      "vol_20d_pct": 27.66
+    }
+  ],
+  "macro": [],
+  "news": [
+    {
+      "id": "HK-n1",
+      "title": "Financial, Tech Heavyweights Rout Sends Hang Seng Down 2.2% For The Week",
+      "source": "BusinessToday Malaysia",
+      "url": "https://news.google.com/rss/articles/CBMitgFBVV95cUxPTmpqSDJSLTE0eEJHNWMtUXBsaUFWM2tsQnIxUHl2NWVoVklXNml5VGRNUFV3NDNTNUkya0RnM0JTU0g4TzRvMGl2cnFUSUxhOVh1YkVlYnlNdGdMaUdLLTV6aVh0LWI5X3VxejF1ZFJrS0pzN0JNNkMtVF9wcFNLXzQ1V21xelV0SnlCc05yc01UOFBFU0VKOXdGaUpqWE4tRnkzczdUcnBNc1ZhdjRRYnR6NWlvdw?oc=5",
+      "published": "2026-10-04T00:51+00:00"
+    },
+    {
+      "id": "HK-n2",
+      "title": "Hong Kong Stocks Slump, Chinese Mainland Markets Pause for Weeklong Holiday",
+      "source": "citynewsservice.cn",
+      "url": "https://news.google.com/rss/articles/CBMi3AFBVV95cUxQdmxzRnR4OUppZElSdWdNa0NKRF9udnUwZ01zdmZETzRDRTl5RHdweHlTWFhjZnhvZ1NtM1hPQktLOGtIRkdvNGlFSkJRSDdjZUtDTGFBWnJtNTQtbC1VMGJsNmFqaXhfbWg3aTNlMVVfNWc5Y2xRNG5VUmtsejluRDlTRU4wT1RUVndhcV9YbnJNZENpbDgyajloZlBjS29VbERHNFhaWk45UXVkX2F3RVFFNWRqdFVPRjlFdVl6REtoUE1PRi1hX1RabGxJeE5teFJfYjJJU0txcENI?oc=5",
+      "published": "2026-10-03T11:16+00:00"
+    },
+    {
+      "id": "HK-n3",
+      "title": "Hang Seng Tech Tumbles Nearly 40% in a Year While Nasdaq Keeps Hitting Records — Why the Same AI Cycle Produced Divergent Paths",
+      "source": "finance.biggo.com",
+      "url": "https://news.google.com/rss/articles/CBMidkFVX3lxTE83WU9sMVU4SnppaDBqdjZlNDU3UWhUZ21pR0hpLWdRZV9nSXNrOUx4eVlic3NORWF2bnhuLVJFa3RGaEtqX2ZNRVFxVUI1Nk1uUF9MakMxQmE0REFEd1d1eTUzUEFFX3hOcW10VGxOTHB4ZDIxQ0E?oc=5",
+      "published": "2026-10-03T10:35+00:00"
+    },
+    {
+      "id": "HK-n4",
+      "title": "Hang Seng Sinks Nearly 641 Points As Banks, Tech Stocks Slide",
+      "source": "BusinessToday Malaysia",
+      "url": "https://news.google.com/rss/articles/CBMiqAFBVV95cUxQVEtHTFl6Nk13ck5wVl9sakVLNnFuRXNxcElTRDdOc2pSREZEZXJrd182NHBPN3FFaTU5Ykh0R21pekJBZDI3S2d0c3JUUGtMRExqanNlOFZyQ0hjd1JEbEFBRGFfSHJrdHBTamFrdTlucWpieXBJV2JiandlbndXYWhBZ0FrUFAwMzZNaFR6TVNoZkZrdkFtM21wbjNZUTN2Z0hPSGZzT2w?oc=5",
+      "published": "2026-10-03T01:52+00:00"
+    },
+    {
+      "id": "HK-n5",
+      "title": "Hong Kong Stock Exchange: Hang Seng Index Plunges to 23,972.29, Its Steepest Drop Since March, as Banks and Tech Slide After the Holiday",
+      "source": "BBN Times",
+      "url": "https://news.google.com/rss/articles/CBMigwJBVV95cUxQUjZ2by1UUVMwZGE4azRfazlmQWdqbmlkZXJudDNiM2owd3c0M0J4U0EzeVNYM0JpQzNEbkhVTVl6alhqWU96aU54RFh2MjJzRFgyVmY0ZmN6RmNyUnBjbHRfdHBjdXF0MHVBb2lPc0w1dm80bUE2bGw5Z0toZDNwNGVPYVBIVm1zY0thMkFxYk1BWHFKTURDcWVnaWZDTmJib2MzV2JZcnhRQzFmR2tEOWFnOVk4dXNlaWtjN21MTmpGbngwdFQ0TlBNRVBjR2liNDVEOEhzaWdNNExOeDVic29ualp3Ql9JNG1ONG8wb0xCemphVXViOEo5ZWs3a2JSSTln?oc=5",
+      "published": "2026-10-02T21:53+00:00"
+    },
+    {
+      "id": "HK-n6",
+      "title": "Hong Kong Stocks Plunge, HSBC, Alibaba, Tencent and Xiaomi Tumble",
+      "source": "CryptoRank",
+      "url": "https://news.google.com/rss/articles/CBMiogFBVV95cUxOelZJMVlDblVVSHhxUk1JWGc1MURzRHVDN3FmeXVNMWxySVZHSG5TNTk1R1NDbkdjX3dISEpNek15WTNPNVQ3ampsRHVpNVp2TnNPRDFWbmNXQTY3N1p3al90c2hpSHQwZkc5ZmwtT3ZNcURFd3pWUE1KY21xX21pUDJ0dnBzM0pGcUpuWE8teXNKbTh2LXU0aXl1MzJXLUhJS2c?oc=5",
+      "published": "2026-10-02T13:10+00:00"
+    },
+    {
+      "id": "HK-n7",
+      "title": "Back to a critical juncture! The Hang Seng Index falls below 24,000 again. What lies ahead for Hong Kong stocks amid US Treasury volatility?",
+      "source": "Moomoo",
+      "url": "https://news.google.com/rss/articles/CBMingFBVV95cUxPN2lvSGowclc3Ymd0UjV2S0VId1dVV25yam5ranpkWGs3M1EwbnQyZ2xhZFh4d1I5bXY5T1VPRWNsQkRKSi03bC1DUFlNbjhjcHZfWnRFa0U1MmgzRnBEYy1rVndXYzFrUUExWktnT3Nickh2czhmWG94MDZ0cDNVbGtTMC1zYVZ6blE5MnBOT0toa2hFMTU1QVB3X0hIUQ?oc=5",
+      "published": "2026-10-02T12:44+00:00"
+    },
+    {
+      "id": "HK-n8",
+      "title": "Hang Seng closes down 2.8% while Shanghai barely moves",
+      "source": "24/7 Wall St.",
+      "url": "https://news.google.com/rss/articles/CBMiywFBVV95cUxQY1hrWWdyR1BKUFp5dDNlcVpxSmdZT0RyQ3p2S1pvbG9YS1hHU2czU21paGlyajJkZnZyR29DSTFqUUJ4bHhDTldUZ0VneVA5SXdpcTRCWFpoRmkwemtCbTdUbVoxd3dlaHFpQ0dBRlJpSW94MjN3enhHX1J3ZDA3Uk1kbG4yZmh6dWN0YTBaVmhMSzdyLXVSdnpLeUF5YlY3OTRvOXVxWnF2SDZ3ZHJzdnhvVV9oWFNzbG9ZOERBZWlKSDYwbkVyUXpDZw?oc=5",
+      "published": "2026-10-02T12:03+00:00"
+    }
+  ]
+}

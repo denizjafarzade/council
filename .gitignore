@@ -5,5 +5,4 @@ __pycache__/
 .env
 node_modules/
 frontend/dist/
-backend/data/cache/*.json
 runs/

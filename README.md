@@ -41,6 +41,8 @@ cd frontend && npm install
 | Check API keys | `make keys` | `.venv/Scripts/python backend/check_keys.py` |
 | Tests | `make test` | `.venv/Scripts/python -m pytest backend/tests -q` |
 | Regenerate mocks | `make mocks` | `.venv/Scripts/python mocks/generate_mock.py` |
+| Fetch real data into the cache | | `.venv/Scripts/python backend/data/fetch.py` |
+| Validate the cache, no network | | `.venv/Scripts/python backend/data/fetch.py --offline` |
 | Verify tickers | | `.venv/Scripts/python backend/data/fetch.py --check` |
 
 Copy `.env.example` to `.env` and add the OpenRouter key. The Vite dev server proxies `/council` to the backend.
@@ -82,4 +84,7 @@ Agent ids: `CHAIR`, `HK`, `CN`, `US`, `JP`, `BEAR`, `SPILLOVER`. Stage names: `d
 - Tickers (one per cell) are in `backend/data/fetch.py`. All 25 verified on 4 Oct with Friday 2 Oct closes.
 - CN index is the Shanghai Composite (`000001.SS`): CSI 300 has only 1 day of history on yfinance.
 - Mainland markets are closed for Golden Week (1 to 7 Oct), so CN data is as of 30 Sep.
-- HIBOR, LPR, the BoJ rate and JGB yields are not on yfinance. Add them as `macro` values in Stage 1B.
+- `backend/data/cache/*.json` is committed: real Friday-close DataPacks, so the engine runs without fetching.
+- Rates: US 10Y from yfinance; Fed funds (DFF) and JGB 10Y (monthly) from FRED; 1M HIBOR from the HKMA API.
+- The HKMA API was down (502) on 4 Oct, so HK has no `macro` yet. Gaps are filled from `backend/data/macro_manual.json` (hand-entered, with date and source), then from the previous cache. Values are never invented.
+- News: 8 newest unique headlines per country from Google News RSS over the last 7 days, using market-focused queries (see `NEWS_QUERY`).

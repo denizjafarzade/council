@@ -60,3 +60,16 @@ def test_stream_endpoint_emits_the_mock_run(monkeypatch):
     names = [line[len("event: "):] for line in body.splitlines() if line.startswith("event: ")]
     assert names[:-1] == [e["event"] for e in RUN]
     assert names[-1] == "end"
+
+
+def test_cached_datapacks_are_valid_and_citable():
+    cache = ROOT / "backend" / "data" / "cache"
+    for c in COUNTRIES:
+        path = cache / f"{c}.json"
+        if not path.exists():
+            continue  # cache is optional; orchestrator falls back to mocks
+        pack = DataPack.model_validate_json(path.read_text(encoding="utf-8"))
+        assert pack.country == c
+        assert {s.sector for s in pack.sectors} == set(SECTORS)
+        assert f"{c}-idx" in pack.source_ids() and f"{c}-fx" in pack.source_ids()
+        assert len({n.id for n in pack.news}) == len(pack.news)
