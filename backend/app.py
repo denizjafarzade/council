@@ -13,6 +13,7 @@ from fastapi.responses import StreamingResponse
 
 import library
 import orchestrator
+import recorder
 from library import CouncilError
 from models import all_models, profile
 from orchestrator import run_council
@@ -51,9 +52,34 @@ def sse(event: str, data: dict) -> str:
 
 
 async def _stream(req: RunRequest) -> AsyncIterator[str]:
+    if recorder.offline_mode():
+        # Offline (demo with Wi-Fi off): serve the recording of this event, never the network.
+        run = recorder.load(recorder.slug_for(req.event))
+        if run is None:
+            yield sse("error", {"message": f"Offline mode: no recording for \"{req.event}\". "
+                                           "Pick a pre-recorded preset."})
+        else:
+            async for event, data in recorder.replay(run):
+                yield sse(event, data)
+        yield sse("end", {})
+        return
+
+    rec = None if orchestrator.mock_mode() else recorder.Recorder(req.event, req.council_id)
     async for event, data in run_council(req):
+        if rec:
+            rec.add(event, data)
         yield sse(event, data)
+    if rec and (path := rec.save(profile())):
+        logging.getLogger("council").info("recorded run to %s", path)
     yield sse("end", {})
+
+
+def _sse_response(body: AsyncIterator[str]) -> StreamingResponse:
+    return StreamingResponse(
+        body,
+        media_type="text/event-stream",
+        headers={"Cache-Control": "no-cache", "X-Accel-Buffering": "no"},
+    )
 
 
 @app.get("/council/stream/{run_id}")
@@ -61,11 +87,28 @@ async def stream(run_id: str) -> StreamingResponse:
     req = RUNS.get(run_id)
     if req is None:
         raise HTTPException(404, f"unknown run_id {run_id}")
-    return StreamingResponse(
-        _stream(req),
-        media_type="text/event-stream",
-        headers={"Cache-Control": "no-cache", "X-Accel-Buffering": "no"},
-    )
+    return _sse_response(_stream(req))
+
+
+# --- recorded runs (Stage 4) -----------------------------------------------------------
+
+@app.get("/council/recordings")
+def recordings() -> list[dict]:
+    return recorder.list_recordings()
+
+
+@app.get("/council/replay/{slug}")
+async def replay(slug: str, speed: float = 1.0) -> StreamingResponse:
+    run = recorder.load(slug)
+    if run is None:
+        raise HTTPException(404, f"no recording {slug}")
+
+    async def body() -> AsyncIterator[str]:
+        async for event, data in recorder.replay(run, speed):
+            yield sse(event, data)
+        yield sse("end", {})
+
+    return _sse_response(body())
 
 
 # --- library: roles and markets --------------------------------------------------------
