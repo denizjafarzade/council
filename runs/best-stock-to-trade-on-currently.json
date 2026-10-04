@@ -3216,7 +3216,145 @@
      "What do you already hold? Overlap with US Tech, or with rate-sensitive Financials and Property, could concentrate your exposure to Treasury yields."
     ],
     "disclaimer": "Research and decision support only. Not investment advice.",
-    "plain_english": "You asked which stock is best right now, and our data cannot name one; it only shows how whole industries have moved. In the US, technology companies have done well recently, but rising interest rates weigh on banks, property and energy. In mainland China, technology shares have fallen sharply and property shares are swinging wildly, so the council leans cautious. For Singapore we only have a broad market picture, so the council stays on the fence. The council is most divided on US technology, and this is research, not advice to buy or sell."
+    "plain_english": "You asked which stock is best right now, and our data cannot name one; it only shows how whole industries have moved. In the US, technology companies have done well recently, but rising interest rates weigh on banks, property and energy. In mainland China, technology shares have fallen sharply and property shares are swinging wildly, so the council leans cautious. For Singapore we only have a broad market picture, so the council stays on the fence. The council is most divided on US technology, and this is research, not advice to buy or sell.",
+    "risk": {
+     "markets": {
+      "CN": {
+       "score": 33,
+       "label": "moderate",
+       "components": {
+        "volatility": 19,
+        "drawdown": 60,
+        "council_view": 17,
+        "disagreement": 46,
+        "uncertainty": 60
+       },
+       "inputs": {
+        "vol_20d_pct": 11.2,
+        "chg_1m_pct": -3.61
+       }
+      },
+      "US": {
+       "score": 18,
+       "label": "low",
+       "components": {
+        "volatility": 14,
+        "drawdown": 0,
+        "council_view": 20,
+        "disagreement": 50,
+        "uncertainty": 25
+       },
+       "inputs": {
+        "vol_20d_pct": 10.35,
+        "chg_1m_pct": 0.73
+       }
+      },
+      "SG": {
+       "score": 9,
+       "label": "low",
+       "components": {
+        "volatility": 2,
+        "drawdown": 33,
+        "council_view": 0,
+        "disagreement": 16,
+        "uncertainty": 0
+       },
+       "inputs": {
+        "vol_20d_pct": 8.42,
+        "chg_1m_pct": -1.96
+       }
+      }
+     },
+     "portfolio": null,
+     "together": {
+      "score": 20,
+      "label": "low",
+      "basis": "average of markets"
+     },
+     "by_seat": {
+      "BEAR": {
+       "score": 31,
+       "label": "moderate",
+       "basis": "average of markets",
+       "markets": {
+        "CN": 44,
+        "US": 33,
+        "SG": 15
+       }
+      },
+      "CHAIR": {
+       "score": 18,
+       "label": "low",
+       "basis": "average of markets",
+       "markets": {
+        "CN": 31,
+        "US": 15,
+        "SG": 9
+       }
+      },
+      "BULL": {
+       "score": 20,
+       "label": "low",
+       "basis": "average of markets",
+       "markets": {
+        "CN": 27,
+        "US": 15,
+        "SG": 17
+       }
+      },
+      "US": {
+       "score": 19,
+       "label": "low",
+       "basis": "average of markets",
+       "markets": {
+        "US": 15,
+        "CN": 30,
+        "SG": 11
+       }
+      },
+      "SPILLOVER": {
+       "score": 20,
+       "label": "low",
+       "basis": "average of markets",
+       "markets": {
+        "CN": 33,
+        "US": 19,
+        "SG": 9
+       }
+      },
+      "CN": {
+       "score": 19,
+       "label": "low",
+       "basis": "average of markets",
+       "markets": {
+        "CN": 32,
+        "US": 11,
+        "SG": 15
+       }
+      },
+      "SG": {
+       "score": 13,
+       "label": "low",
+       "basis": "average of markets",
+       "markets": {
+        "CN": 19,
+        "US": 4,
+        "SG": 16
+       }
+      },
+      "US-NEWS": {
+       "score": 18,
+       "label": "low",
+       "basis": "average of markets",
+       "markets": {
+        "US": 15,
+        "CN": 31,
+        "SG": 8
+       }
+      }
+     },
+     "method": "council view 35% (negative views only), volatility 25% (8-25%), 1-month drawdown 20% (0 to -6%), disagreement 10%, unverified claims 10%; portfolio adds up to 10 points for market concentration"
+    }
    }
   },
   {

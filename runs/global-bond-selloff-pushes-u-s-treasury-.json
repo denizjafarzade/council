@@ -2904,7 +2904,193 @@
      "Your Japan financial holdings may overlap with similar rate risk in your US and Hong Kong banks; does this news change how concentrated that combined bet feels?"
     ],
     "disclaimer": "Research and decision support only. Not investment advice.",
-    "plain_english": "Borrowing costs around the world jumped sharply, with US government bond rates reaching their highest level in about 24 years. The council expects businesses that depend on cheap loans, like real estate and banks in the US, Hong Kong and Japan, to struggle more from here. Mainland China looks more mixed because its markets were closed for a holiday and local policy support is unclear. The council is most divided on big US technology companies, which have kept rising despite higher rates but could be hurt if rates keep climbing. This is research to help you think, not advice to buy or sell anything."
+    "plain_english": "Borrowing costs around the world jumped sharply, with US government bond rates reaching their highest level in about 24 years. The council expects businesses that depend on cheap loans, like real estate and banks in the US, Hong Kong and Japan, to struggle more from here. Mainland China looks more mixed because its markets were closed for a holiday and local policy support is unclear. The council is most divided on big US technology companies, which have kept rising despite higher rates but could be hurt if rates keep climbing. This is research to help you think, not advice to buy or sell anything.",
+    "risk": {
+     "markets": {
+      "HK": {
+       "score": 52,
+       "label": "moderate",
+       "components": {
+        "volatility": 43,
+        "drawdown": 88,
+        "council_view": 50,
+        "disagreement": 0,
+        "uncertainty": 60
+       },
+       "inputs": {
+        "vol_20d_pct": 15.27,
+        "chg_1m_pct": -5.29
+       }
+      },
+      "CN": {
+       "score": 22,
+       "label": "low",
+       "components": {
+        "volatility": 19,
+        "drawdown": 60,
+        "council_view": 15,
+        "disagreement": 0,
+        "uncertainty": 0
+       },
+       "inputs": {
+        "vol_20d_pct": 11.2,
+        "chg_1m_pct": -3.61
+       }
+      },
+      "US": {
+       "score": 29,
+       "label": "low",
+       "components": {
+        "volatility": 14,
+        "drawdown": 0,
+        "council_view": 50,
+        "disagreement": 25,
+        "uncertainty": 50
+       },
+       "inputs": {
+        "vol_20d_pct": 10.35,
+        "chg_1m_pct": 0.73
+       }
+      },
+      "JP": {
+       "score": 38,
+       "label": "moderate",
+       "components": {
+        "volatility": 92,
+        "drawdown": 0,
+        "council_view": 30,
+        "disagreement": 0,
+        "uncertainty": 40
+       },
+       "inputs": {
+        "vol_20d_pct": 23.67,
+        "chg_1m_pct": 3.01
+       }
+      }
+     },
+     "portfolio": {
+      "score": 39,
+      "label": "moderate",
+      "components": {
+       "weighted_markets": 38,
+       "concentration": 0.7
+      },
+      "covered_pct": 99.9
+     },
+     "together": {
+      "score": 39,
+      "label": "moderate",
+      "components": {
+       "weighted_markets": 38,
+       "concentration": 0.7
+      },
+      "covered_pct": 99.9,
+      "basis": "your exposure"
+     },
+     "by_seat": {
+      "HK": {
+       "score": 57,
+       "label": "high",
+       "components": {
+        "weighted_markets": 56,
+        "concentration": 0.7
+       },
+       "covered_pct": 30.6,
+       "basis": "your exposure",
+       "markets": {
+        "HK": 56
+       }
+      },
+      "US": {
+       "score": 34,
+       "label": "moderate",
+       "components": {
+        "weighted_markets": 33,
+        "concentration": 0.7
+       },
+       "covered_pct": 36.8,
+       "basis": "your exposure",
+       "markets": {
+        "US": 33
+       }
+      },
+      "CHAIR": {
+       "score": 36,
+       "label": "moderate",
+       "components": {
+        "weighted_markets": 36,
+        "concentration": 0.7
+       },
+       "covered_pct": 99.9,
+       "basis": "your exposure",
+       "markets": {
+        "HK": 56,
+        "CN": 26,
+        "US": 17,
+        "JP": 40
+       }
+      },
+      "SPILLOVER": {
+       "score": 38,
+       "label": "moderate",
+       "components": {
+        "weighted_markets": 38,
+        "concentration": 0.7
+       },
+       "covered_pct": 99.9,
+       "basis": "your exposure",
+       "markets": {
+        "HK": 57,
+        "CN": 27,
+        "US": 22,
+        "JP": 40
+       }
+      },
+      "JP": {
+       "score": 44,
+       "label": "moderate",
+       "components": {
+        "weighted_markets": 43,
+        "concentration": 0.7
+       },
+       "covered_pct": 26.0,
+       "basis": "your exposure",
+       "markets": {
+        "JP": 43
+       }
+      },
+      "CN": {
+       "score": 25,
+       "label": "low",
+       "components": {
+        "weighted_markets": 24,
+        "concentration": 0.7
+       },
+       "covered_pct": 6.5,
+       "basis": "your exposure",
+       "markets": {
+        "CN": 24
+       }
+      },
+      "BEAR": {
+       "score": 52,
+       "label": "moderate",
+       "components": {
+        "weighted_markets": 52,
+        "concentration": 0.7
+       },
+       "covered_pct": 99.9,
+       "basis": "your exposure",
+       "markets": {
+        "HK": 66,
+        "CN": 37,
+        "US": 43,
+        "JP": 51
+       }
+      }
+     },
+     "method": "council view 35% (negative views only), volatility 25% (8-25%), 1-month drawdown 20% (0 to -6%), disagreement 10%, unverified claims 10%; portfolio adds up to 10 points for market concentration"
+    }
    }
   },
   {

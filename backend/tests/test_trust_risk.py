@@ -67,16 +67,23 @@ def _cells(view, conf=1.0, dissent=0.0):
 def test_market_risk_components():
     calm = risk.market_risk(_pack(8, 2), _cells("bullish"), 0.0)
     assert calm["score"] == 0 and calm["label"] == "low"
-    stressed = risk.market_risk(_pack(35, -10), _cells("bearish", dissent=1.0), 1.0)
+    stressed = risk.market_risk(_pack(25, -6), _cells("bearish", dissent=1.0), 1.0)
     assert stressed["score"] == 100 and stressed["label"] == "high"
-    mid = risk.market_risk(_pack(21.5, -5), _cells("neutral", dissent=0.5), 0.5)
+    mid = risk.market_risk(_pack(16.5, -3), _cells("bearish", conf=0.5, dissent=0.5), 0.5)
     assert mid["components"] == {"volatility": 50, "drawdown": 50, "council_view": 50, "disagreement": 50,
-                                 "uncertainty": 50} and mid["score"] == 50
+                                 "uncertainty": 50} and mid["score"] == 50 and mid["label"] == "moderate"
+
+
+def test_a_neutral_council_adds_no_risk_and_positive_views_take_some_off():
+    assert risk.market_risk(_pack(8, 0), _cells("neutral"), 0.0)["components"]["council_view"] == 0
+    mixed = [MatrixCell(country="HK", sector="Tech", view="bearish", confidence=0.8, dissent=0),
+             MatrixCell(country="HK", sector="Energy", view="bullish", confidence=0.8, dissent=0)]
+    assert risk.market_risk(_pack(8, 0), mixed, 0.0)["components"]["council_view"] == 20  # (0.8 - 0.4) / 2
 
 
 def test_missing_parts_are_left_out_not_guessed():
     only_votes = risk.market_risk(None, _cells("bearish"), None)
-    assert only_votes["components"]["volatility"] is None and only_votes["score"] == round((0.3 * 100 + 0.1 * 0) / 0.4)
+    assert only_votes["components"]["volatility"] is None and only_votes["score"] == round((0.35 * 100 + 0.1 * 0) / 0.45)
 
 
 def test_portfolio_risk_weights_exposure_and_adds_concentration():
@@ -103,7 +110,7 @@ def test_single_ai_risk_leaves_out_disagreement():
     from schemas import VoteCell
 
     cells = [VoteCell(country="HK", sector=s, view="bearish", confidence=1.0) for s in ("Tech", "Energy")]
-    seat = risk.seat_risk(cells, {"HK": _pack(35, -10)}, 0.0, None)
-    assert seat["markets"] == {"HK": round((0.3 * 100 + 0.2 * 100 + 0.3 * 100 + 0.1 * 0) / 0.9)}
-    held = risk.seat_risk(cells, {"HK": _pack(35, -10)}, 0.0, {"by_market": [{"name": "HK", "pct": 100}]})
+    seat = risk.seat_risk(cells, {"HK": _pack(25, -6)}, 0.0, None)
+    assert seat["markets"] == {"HK": round((0.25 * 100 + 0.2 * 100 + 0.35 * 100 + 0.1 * 0) / 0.9)}
+    held = risk.seat_risk(cells, {"HK": _pack(25, -6)}, 0.0, {"by_market": [{"name": "HK", "pct": 100}]})
     assert held["basis"] == "your exposure"

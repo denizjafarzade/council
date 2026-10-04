@@ -1,9 +1,11 @@
 """Quantitative risk score, computed in code (no model calls), 0 = low risk, 100 = high.
 
-Per market, from measured data and the council's computed results:
-  volatility    index 20-day annualised volatility, 8% -> 0 ... 35% -> 100
-  drawdown      index 1-month change, 0% or up -> 0 ... -10% or worse -> 100
-  council view  final matrix, confidence-weighted: all bullish -> 0, neutral -> 50, all bearish -> 100
+Per market, from measured data and the council's computed results. Ranges match where major
+equity indices actually trade, so ordinary markets spread out instead of bunching in the middle:
+  volatility    index 20-day annualised volatility, 8% -> 0 ... 25% -> 100
+  drawdown      index 1-month change, 0% or up -> 0 ... -6% or worse -> 100
+  council view  final matrix, confidence-weighted: only negative views add risk (bearish at full
+                confidence -> 100), neutral adds nothing, positive views subtract half as much
   disagreement  mean dissent across the market's sectors, x100
   uncertainty   share of the market seat's claims that failed the citation/number checks, x100
 
@@ -14,9 +16,9 @@ show how the number was made.
 
 from schemas import DataPack, MatrixCell
 
-WEIGHTS = {"volatility": 0.30, "drawdown": 0.20, "council_view": 0.30, "disagreement": 0.10, "uncertainty": 0.10}
-VOL_LOW, VOL_HIGH = 8.0, 35.0
-DRAWDOWN_FULL = -10.0
+WEIGHTS = {"volatility": 0.25, "drawdown": 0.20, "council_view": 0.35, "disagreement": 0.10, "uncertainty": 0.10}
+VOL_LOW, VOL_HIGH = 8.0, 25.0
+DRAWDOWN_FULL = -6.0
 CONCENTRATION_POINTS = 10.0
 SCORE = {"bearish": -1, "neutral": 0, "bullish": 1}
 
@@ -26,7 +28,15 @@ def _clamp(x: float) -> float:
 
 
 def label(score: float) -> str:
-    return "low" if score < 35 else "moderate" if score < 60 else "high"
+    return "low" if score < 30 else "moderate" if score < 55 else "high"
+
+
+def _view_risk(cells: list[MatrixCell]) -> float:
+    """Negative views add risk in proportion to confidence; neutral adds none; positive views
+    take off half as much (a positive call is weaker evidence of safety than a negative one is of risk)."""
+    per_cell = [c.confidence if c.view == "bearish" else -0.5 * c.confidence if c.view == "bullish" else 0.0
+                for c in cells]
+    return _clamp(100 * sum(per_cell) / len(per_cell))
 
 
 def market_risk(pack: DataPack | None, cells: list[MatrixCell], unverified_share: float | None,
@@ -38,8 +48,7 @@ def market_risk(pack: DataPack | None, cells: list[MatrixCell], unverified_share
     parts: dict[str, float | None] = {
         "volatility": _clamp((idx.vol_20d_pct - VOL_LOW) / (VOL_HIGH - VOL_LOW) * 100) if idx else None,
         "drawdown": _clamp(idx.chg_1m_pct / DRAWDOWN_FULL * 100) if idx else None,
-        "council_view": (_clamp(50 * (1 - sum(SCORE[c.view] * c.confidence for c in cells) / len(cells)))
-                         if cells else None),
+        "council_view": _view_risk(cells) if cells else None,
         "disagreement": (_clamp(100 * sum(c.dissent for c in cells) / len(cells))
                          if cells and with_disagreement else None),
         "uncertainty": _clamp(100 * unverified_share) if unverified_share is not None else None,
@@ -115,5 +124,6 @@ def compute(packs: dict[str, DataPack], matrix: list[MatrixCell], markets: list[
             "portfolio": portfolio_risk(per_market, exposure),
             "together": overall(per_market, exposure),
             "by_seat": {a: r for a, r in by_seat.items() if r},
-            "method": "volatility 30%, 1-month drawdown 20%, council view 30%, disagreement 10%, "
-                      "unverified claims 10%; portfolio adds up to 10 points for market concentration"}
+            "method": "council view 35% (negative views only), volatility 25% (8-25%), 1-month drawdown 20% "
+                      "(0 to -6%), disagreement 10%, unverified claims 10%; portfolio adds up to 10 points "
+                      "for market concentration"}

@@ -1,6 +1,6 @@
 import { useMemo, useState } from 'react'
 import { DISCLAIMER } from '../lib/constants'
-import { LEAN_WORDS, SECTOR_NAMES, bearishShareLine, buildCards, exposureLine, plain, when } from '../lib/cards'
+import { LEAN_WORDS, SECTOR_NAMES, bottomLine, buildCards, exposureLine, plain, when } from '../lib/cards'
 import { plainEnglish } from '../lib/plain'
 import { useAgent } from '../lib/roster'
 import { Flag, Panel, SourceChip } from './bits'
@@ -94,6 +94,57 @@ function Card({ card, portfolio, sources }) {
   )
 }
 
+const OUTLOOK = {
+  cautious: { label: 'Cautious', style: 'text-bear', border: 'border-bear' },
+  mixed: { label: 'Mixed', style: 'text-gold-text', border: 'border-gold' },
+  positive: { label: 'Positive', style: 'text-bull', border: 'border-bull' },
+}
+const LEAN_SHORT = { bearish: ['Negative', 'text-bear'], neutral: ['No clear lean', 'text-muted'], bullish: ['Positive', 'text-bull'] }
+
+/** The answer first: outlook for the user's money, risk, one sentence why. */
+function BottomLine({ line }) {
+  const o = OUTLOOK[line.outlook]
+  return (
+    <section className={`flex flex-wrap items-center gap-5 rounded-xl border-l-4 ${o.border} bg-desk px-5 py-4`}>
+      <div className="flex min-w-[15rem] flex-1 flex-col gap-1.5">
+        <span className="text-[13px] font-semibold uppercase tracking-[0.06em] text-muted">Bottom line</span>
+        <span className={`text-[28px] font-semibold leading-none ${o.style}`}>{o.label} outlook</span>
+        <p className="text-[17px] leading-snug text-ink">{line.why}</p>
+        <p className="text-[13px] text-muted">{line.note}</p>
+      </div>
+      {line.risk && (
+        <div className="flex w-36 flex-col items-center gap-0.5 text-center">
+          <span className="text-[13px] text-muted">Risk</span>
+          <span className={`font-mono text-[36px] font-semibold leading-none ${RISK_STYLE[line.risk.label]}`}>{line.risk.score}</span>
+          <span className={`text-sm font-semibold ${RISK_STYLE[line.risk.label]}`}>
+            <span className="capitalize">{line.risk.label}</span> · out of 100
+          </span>
+        </div>
+      )}
+    </section>
+  )
+}
+
+/** One line per market; the full card opens on tap. */
+function MarketRow({ card, portfolio, sources }) {
+  const [lean, leanStyle] = LEAN_SHORT[card.councilLean] || ['Waiting', 'text-muted']
+  return (
+    <details className="group rounded-xl border border-line bg-desk">
+      <summary className="flex cursor-pointer list-none items-center gap-3 px-4 py-2.5">
+        <Flag code={card.code} />
+        <span className="flex-1 font-semibold text-ink">{card.name}</span>
+        <span className="w-28 text-right text-sm text-muted">{card.exposure ? `${card.exposure}% of your money` : 'not held'}</span>
+        <span className={`w-28 text-right text-sm font-semibold ${leanStyle}`}>{lean}</span>
+        <span className={`w-20 text-right font-mono text-sm font-semibold ${card.risk ? RISK_STYLE[card.risk.label] : 'text-muted'}`}>
+          {card.risk ? `risk ${card.risk.score}` : '-'}
+        </span>
+        <span className="text-muted group-open:rotate-180" aria-hidden="true">▾</span>
+      </summary>
+      <div className="px-3 pb-3"><Card card={card} portfolio={portfolio} sources={sources} /></div>
+    </details>
+  )
+}
+
 function TrustNote({ brief, votes }) {
   const weights = Object.entries(brief?.evidence_weights || {}).filter(([, w]) => w < 1)
   const fallbacks = Object.values(votes.revote).concat(Object.values(votes.blind)).filter((v) => v.fallback)
@@ -146,10 +197,14 @@ export default function MeaningCards({ state, packs, names, sources }) {
   const portfolio = state.portfolio
   const brief = state.brief
   const risk = brief?.risk
-  const questions = (brief?.questions_for_you || []).map((q) => plain(q, names, sectorNames))
+  // Lines the compliance guardrail withheld are counted, not repeated as boilerplate.
+  const isWithheld = (t) => t.startsWith('Withheld by')
+  const questions = (brief?.questions_for_you || []).filter((q) => !isWithheld(q)).map((q) => plain(q, names, sectorNames))
+  const withheldQuestions = (brief?.questions_for_you || []).filter(isWithheld).length
   const keyRisks = (brief?.key_risks || []).map((r) => plain(r, names, sectorNames))
   const started = state.mode !== 'idle'
   const plainText = useMemo(() => plainEnglish(brief, state.event, names), [brief, state.event, names])
+  const line = useMemo(() => bottomLine(cards, portfolio, risk), [cards, portfolio, risk])
 
   return (
     <Panel title="Result" bodyClassName="px-5 py-4"
@@ -164,59 +219,39 @@ export default function MeaningCards({ state, packs, names, sources }) {
           <p className="text-muted">Pick a headline and convene the council. Load your trades first to see your own exposure and risk.</p>
         ) : (
           <>
-            <div className="flex flex-wrap items-start gap-5">
-              <div className="flex min-w-[16rem] flex-1 flex-col gap-2">
-                <p className="text-[22px] font-semibold leading-snug text-ink">
-                  {brief ? plain(brief.headline, names, sectorNames) : 'The council is still working…'}
-                </p>
-                <p className="text-[16px] leading-snug text-ink">{bearishShareLine(cards, portfolio)}</p>
-              </div>
-              {risk?.portfolio ? (
-                <div className="flex w-56 flex-col gap-1 rounded-xl border border-line bg-desk px-4 py-3">
-                  <span className="text-[13px] text-muted">Your portfolio risk</span>
-                  <span className={`font-mono text-[34px] font-semibold leading-none ${RISK_STYLE[risk.portfolio.label]}`}>
-                    {risk.portfolio.score}<span className="text-base text-muted">/100</span>
-                  </span>
-                  <span className={`text-sm font-semibold capitalize ${RISK_STYLE[risk.portfolio.label]}`}>{risk.portfolio.label}</span>
-                  <details className="text-[13px] text-muted">
-                    <summary className="cursor-pointer">How this is calculated</summary>
-                    <p className="mt-1">Markets weighted by your exposure: {risk.portfolio.components.weighted_markets}/100, plus {risk.portfolio.components.concentration} for concentration.</p>
-                    <p className="mt-1">Each market: {risk.method}.</p>
-                  </details>
-                </div>
-              ) : risk && portfolio === null && (
-                <p className="w-56 text-[13px] text-muted">Load your trades to get a portfolio risk score. Market scores are on each card.</p>
-              )}
+            {line ? <BottomLine line={line} /> : <p className="text-[18px] text-muted">The council is still working…</p>}
+            <div className="flex flex-col gap-2">
+              <h3 className="text-[13px] font-semibold uppercase tracking-[0.06em] text-muted">Your markets</h3>
+              {[...held, ...rest].map((c) => <MarketRow key={c.code} card={c} portfolio={portfolio} sources={sources} />)}
+              <p className="text-[13px] text-muted">Tap a market for what happened, the specialist's view and what to watch.</p>
             </div>
-            {plainText && <p className="text-[17px] leading-relaxed text-ink">{plainText}</p>}
-            {keyRisks.length > 0 && (
-              <div className="flex flex-col gap-1.5">
-                <h3 className="text-[13px] font-semibold uppercase tracking-[0.06em] text-muted">Key risks</h3>
-                <ol className="flex list-decimal flex-col gap-1 pl-5 text-[15px] leading-snug marker:text-muted">
-                  {keyRisks.map((r, i) => <li key={i}>{r}</li>)}
-                </ol>
-              </div>
-            )}
-            <TrustNote brief={brief} votes={state.votes} />
-            <h3 className="text-[13px] font-semibold uppercase tracking-[0.06em] text-muted">What this means for you</h3>
-            <div className="grid grid-cols-1 gap-3 lg:grid-cols-2">
-              {(held.length ? held : cards).map((c) => <Card key={c.code} card={c} portfolio={portfolio} sources={sources} />)}
-            </div>
-            {held.length > 0 && rest.length > 0 && (
-              <details className="rounded-xl border border-line px-4 py-2.5">
-                <summary className="cursor-pointer text-sm text-muted">Markets you don't hold ({rest.map((c) => c.name).join(', ')})</summary>
-                <div className="mt-3 grid grid-cols-1 gap-3 lg:grid-cols-2">
-                  {rest.map((c) => <Card key={c.code} card={c} portfolio={portfolio} sources={sources} />)}
-                </div>
-              </details>
-            )}
-            {questions.length > 0 && (
+            {(questions.length > 0 || withheldQuestions > 0) && (
               <div className="flex flex-col gap-1.5">
                 <h3 className="text-[13px] font-semibold uppercase tracking-[0.06em] text-muted">Ask yourself</h3>
                 <ul className="flex list-disc flex-col gap-1 pl-5 text-[15px] leading-snug marker:text-muted">
                   {questions.map((q, i) => <li key={i}>{q}</li>)}
                 </ul>
+                {withheldQuestions > 0 && (
+                  <p className="text-[13px] text-muted">
+                    {withheldQuestions} question{withheldQuestions > 1 ? 's were' : ' was'} withheld by the compliance guardrail.
+                  </p>
+                )}
               </div>
+            )}
+            {brief && (
+              <details className="rounded-xl border border-line px-4 py-2.5">
+                <summary className="cursor-pointer text-sm font-medium text-ink">Why the council thinks this</summary>
+                <div className="mt-3 flex flex-col gap-3">
+                  <p className="text-[17px] font-semibold leading-snug">{plain(brief.headline, names, sectorNames)}</p>
+                  {plainText && <p className="text-[15px] leading-relaxed">{plainText}</p>}
+                  {keyRisks.filter((r) => !isWithheld(r)).length > 0 && (
+                    <ol className="flex list-decimal flex-col gap-1 pl-5 text-[15px] leading-snug marker:text-muted">
+                      {keyRisks.filter((r) => !isWithheld(r)).map((r, i) => <li key={i}>{r}</li>)}
+                    </ol>
+                  )}
+                  <TrustNote brief={brief} votes={state.votes} />
+                </div>
+              </details>
             )}
           </>
         )}

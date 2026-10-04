@@ -155,3 +155,37 @@ export function exposureLine(card, portfolio) {
   if (!card.exposure) return 'You hold nothing here.'
   return `${pct(card.exposure)} of your invested money.`
 }
+
+/**
+ * The bottom line for the user's money, worded in code from the council's final views:
+ * an outlook (cautious / mixed / positive) weighted by exposure, the risk level, and which
+ * markets drive it. Research language only: it never says buy, sell or hold.
+ */
+export function bottomLine(cards, portfolio, risk) {
+  const voted = cards.filter((c) => c.councilLean)
+  if (!voted.length) return null
+  const held = portfolio?.by_market?.length ? voted.filter((c) => c.exposure > 0) : []
+  const basis = held.length ? held : voted
+  const weight = (c) => (held.length ? c.exposure : 1)
+  const total = basis.reduce((a, c) => a + weight(c), 0) || 1
+  const outlookScore = basis.reduce((a, c) => a + weight(c) * (SCORE[c.councilLean] ?? 0), 0) / total
+  const outlook = outlookScore <= -0.25 ? 'cautious' : outlookScore >= 0.25 ? 'positive' : 'mixed'
+  const neg = basis.filter((c) => c.councilLean === 'bearish').map((c) => c.name)
+  const pos = basis.filter((c) => c.councilLean === 'bullish').map((c) => c.name)
+  const list = (xs) => (xs.length > 1 ? `${xs.slice(0, -1).join(', ')} and ${xs[xs.length - 1]}` : xs[0])
+  const whose = held.length ? 'your money' : 'these markets'
+
+  let why
+  if (outlook === 'cautious') why = `The council expects more downside than upside for most of ${whose}${neg.length ? `, mainly ${list(neg)}` : ''}.`
+  else if (outlook === 'positive') why = `The council expects more upside than downside for most of ${whose}${pos.length ? `, mainly ${list(pos)}` : ''}.`
+  else why = `The council sees no clear direction for ${whose} overall${neg.length || pos.length ? `: ${[neg.length && `${list(neg)} ${neg.length > 1 ? 'lean' : 'leans'} negative`, pos.length && `${list(pos)} ${pos.length > 1 ? 'lean' : 'leans'} positive`].filter(Boolean).join(', ')}` : ''}.`
+
+  const r = risk?.portfolio || risk?.together
+  return {
+    outlook,
+    why,
+    risk: r ? { score: r.score, label: r.label } : null,
+    note: 'This is research, not a recommendation to buy or sell. Before acting, weigh how long you plan to hold, '
+      + 'how big these positions are for you, and the questions below.',
+  }
+}
