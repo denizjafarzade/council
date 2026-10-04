@@ -250,6 +250,9 @@ async def load_data(markets: list[str] = COUNTRIES) -> tuple[dict[str, DataPack]
     packs, problems = {}, []
     for code in markets:
         pack = _read_pack(code)
+        if pack is None and os.getenv("COUNCIL_OFFLINE", "") not in ("", "0", "false"):
+            problems.append(f"Offline mode: no cached data for {code}; its members argue from their brief only.")
+            pack = _empty_pack(code)
         if pack is None:
             try:
                 pack = await asyncio.wait_for(asyncio.to_thread(_fetch_pack, code), FETCH_TIMEOUT_S)

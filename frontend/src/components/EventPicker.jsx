@@ -1,9 +1,25 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { PRESETS, STAGES } from '../lib/constants'
+import { slugify } from '../lib/council'
 
-export default function EventPicker({ state, onRun, onReplay }) {
+/** Recordings bundled with the frontend, plus any the backend has saved since. */
+function useRecordings(bundled, status) {
+  const [remote, setRemote] = useState([])
+  useEffect(() => {
+    fetch('/council/recordings')
+      .then((r) => (r.ok ? r.json() : []))
+      .then(setRemote)
+      .catch(() => setRemote([]))
+  }, [status]) // refetch after each run: a finished live run is a new recording
+  return Object.fromEntries([...bundled, ...remote].map((r) => [r.slug, r])) // backend entries carry dates, so they win
+}
+
+export default function EventPicker({ state, onRun, onReplay, recordings: bundled = [], onReplayRecorded }) {
   const [text, setText] = useState(PRESETS[0])
   const running = state.status === 'running'
+  const recordings = useRecordings(bundled, state.status)
+  const recorded = recordings[slugify(text)]
+  const [speed, setSpeed] = useState(1)
 
   function submit(e) {
     e.preventDefault()
@@ -35,6 +51,30 @@ export default function EventPicker({ state, onRun, onReplay }) {
         >
           Replay mock
         </button>
+        {onReplayRecorded && (
+          <button
+            type="button"
+            disabled={running || !recorded}
+            onClick={() => onReplayRecorded(recorded.slug, recorded.event || text.trim(), speed)}
+            className="rounded-lg border border-emerald-600/70 px-4 py-2 text-emerald-200 hover:bg-emerald-900/40 disabled:opacity-40"
+            title={recorded ? `Replay the recorded run${recorded.recorded_at ? ` from ${new Date(recorded.recorded_at).toLocaleString()}` : ''}` : 'No recorded run for this event yet'}
+          >
+            ▶ Replay recorded
+          </button>
+        )}
+        {onReplayRecorded && recorded && (
+          <select
+            value={speed}
+            onChange={(e) => setSpeed(Number(e.target.value))}
+            disabled={running}
+            className="rounded-lg border border-slate-700 bg-slate-950 px-2 py-2 text-sm text-slate-200"
+            title="Replay speed: 2× fits the 90-second live-run slot in the pitch"
+          >
+            <option value={1}>1× real speed</option>
+            <option value={2}>2×</option>
+            <option value={4}>4×</option>
+          </select>
+        )}
       </form>
       <div className="flex flex-wrap gap-2">
         {PRESETS.map((p) => (
@@ -47,6 +87,7 @@ export default function EventPicker({ state, onRun, onReplay }) {
               text === p ? 'bg-sky-500/20 text-sky-200 ring-sky-500' : 'text-slate-300 ring-slate-700 hover:bg-slate-800'
             }`}
           >
+            {recordings[slugify(p)] && <span className="mr-1 text-emerald-400" title="Recorded run available">●</span>}
             {p}
           </button>
         ))}

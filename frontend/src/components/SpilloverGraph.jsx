@@ -4,35 +4,50 @@ import { Panel, SourceChip } from './bits'
 
 // Edges carry numbered badges; mechanisms are listed beside the graph so long text never
 // collides with nodes. Hovering an edge or a list row highlights both.
-const W = 540
+const MIN_W = 540 // grows with the column count so nodes never overlap
+const COL_GAP = 46
 const H = 300
 const NODE_W = 112
 const NODE_H = 40
 const POS = '#34d399'
 const NEG = '#fb7185'
 
-/** Layered layout: column = longest path from a root (the event), rows spread evenly. */
+const MAX_PER_COL = 5 // taller columns split into staggered sub-columns
+
+/** Layered layout: column = BFS distance from the roots (the event). BFS cannot loop on cycles. */
 function layout(spill) {
   const ids = spill.nodes.map((n) => n.id)
-  const depth = Object.fromEntries(ids.map((id) => [id, 0]))
-  const edges = spill.edges.filter((e) => depth[e.from] !== undefined && depth[e.to] !== undefined && e.from !== e.to)
-  // Bellman-Ford style relaxation; capped so a cycle cannot loop forever.
-  for (let i = 0; i < ids.length; i++) {
-    let moved = false
+  const known = new Set(ids)
+  const edges = spill.edges.filter((e) => known.has(e.from) && known.has(e.to) && e.from !== e.to)
+  const incoming = new Set(edges.map((e) => e.to))
+  const roots = ids.filter((id) => !incoming.has(id))
+  const depth = {}
+  const queue = roots.length ? [...roots] : ids.slice(0, 1)
+  queue.forEach((id) => (depth[id] = 0))
+  while (queue.length) {
+    const id = queue.shift()
     for (const e of edges) {
-      if (depth[e.to] < depth[e.from] + 1 && depth[e.from] + 1 < ids.length) {
-        depth[e.to] = depth[e.from] + 1
-        moved = true
+      if (e.from === id && depth[e.to] === undefined) {
+        depth[e.to] = depth[id] + 1
+        queue.push(e.to)
       }
     }
-    if (!moved) break
   }
-  const cols = Math.max(...Object.values(depth)) + 1
-  const byCol = Array.from({ length: cols }, () => [])
-  for (const n of spill.nodes) byCol[depth[n.id]].push(n)
+  const maxDepth = Math.max(0, ...Object.values(depth))
+  for (const id of ids) if (depth[id] === undefined) depth[id] = maxDepth + 1 // unreachable nodes go last
+
+  // Split crowded levels into sub-columns so every node keeps a readable size.
+  const levels = []
+  for (const n of spill.nodes) (levels[depth[n.id]] ||= []).push(n)
+  const cols = []
+  for (const level of levels.filter(Boolean)) {
+    const parts = Math.ceil(level.length / MAX_PER_COL)
+    for (let k = 0; k < parts; k++) cols.push(level.filter((_, i) => i % parts === k))
+  }
   const pos = {}
-  const xGap = cols > 1 ? (W - NODE_W - 8) / (cols - 1) : 0
-  byCol.forEach((col, c) => {
+  const w = Math.max(MIN_W, cols.length * (NODE_W + COL_GAP))
+  const xGap = cols.length > 1 ? (w - NODE_W - 8) / (cols.length - 1) : 0
+  cols.forEach((col, c) => {
     col.forEach((n, r) => {
       pos[n.id] = { x: 4 + c * xGap, y: ((r + 1) * H) / (col.length + 1) - NODE_H / 2 }
     })
@@ -63,7 +78,7 @@ function layout(spill) {
     p.bx = mx
     p.by = my
   }
-  return { pos, edges, paths }
+  return { pos, edges, paths, w }
 }
 
 /** Split a label into at most two lines of ~13 characters. */
@@ -81,7 +96,7 @@ function wrap(label, max = 13) {
 function Graph({ spill, graph, label, sources, hover, setHover, big, markets }) {
   return (
     <div className={`flex h-full min-h-0 gap-3 ${big ? 'text-base' : ''}`}>
-      <svg viewBox={`0 0 ${W} ${H}`} className={`h-full min-w-0 ${big ? 'flex-[5]' : 'flex-[3]'}`}>
+      <svg viewBox={`0 0 ${graph.w} ${H}`} className={`h-full min-w-0 ${big ? 'flex-[5]' : 'flex-[3]'}`}>
         <defs>
           {[
             ['pos', POS],

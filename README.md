@@ -49,6 +49,21 @@ Copy `.env.example` to `.env` and add the OpenRouter key. The Vite dev server pr
 
 **Stage 0 behaviour:** `/council/stream/{run_id}` replays `mocks/council_run.json` with a 300 ms delay, so the UI can point at the real endpoint from the start. Stage 1A swaps in real agents behind the same stream.
 
+## Demo safety (Stage 4)
+
+```bash
+python scripts/record_presets.py   # record the 4 presets into runs/ (real LLM calls; ~$0.45 each on premium)
+python scripts/demo.py             # backend OFFLINE + frontend, opens the browser; works with Wi-Fi off
+python scripts/demo.py --live      # same, but runs call the LLMs
+```
+
+(`make record` and `make demo` do the same.)
+
+- Every complete live run is saved to `runs/{event_slug}.json` with event timings, so the latest good run is always on disk. Incomplete runs never overwrite a recording.
+- `GET /council/replay/{slug}?speed=1` streams a recording at real speed (pauses capped at 12 s); `GET /council/recordings` lists them.
+- `COUNCIL_OFFLINE=1`: `POST /council/run` for a recorded event serves its recording; any other event gets a clear error. Data loading never fetches.
+- The UI marks recorded presets with ●, has **▶ Replay recorded** with 1×/2×/4× speed (2× fits the 90-second slot), and labels the screen "Replay of recorded run". Recordings are also bundled into the frontend, so a replay still plays if the backend is down.
+
 ## Frontend
 
 One dark screen sized for a projector. **Replay mock** plays `mocks/council_run.json` with no backend; **Convene council** POSTs `/council/run` and streams `/council/stream/{run_id}` over `EventSource`.

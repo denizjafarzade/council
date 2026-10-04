@@ -32,7 +32,7 @@ function Toasts({ toasts, dismiss }) {
 }
 
 export default function App() {
-  const { state, replayMock, runLive, dismiss } = useCouncil()
+  const { state, replayMock, runLive, replayRecorded, recordings, dismiss } = useCouncil()
   const sources = useMemo(() => sourcesFor(state.mode), [state.mode])
   const asOf = useMemo(() => asOfFor(state.mode), [state.mode])
   const roster = useMemo(() => buildRoster(state.council), [state.council])
@@ -61,7 +61,15 @@ export default function App() {
               <>
                 Event: <span className="text-slate-200">{state.event}</span>
                 {state.mode === 'mock' && <span className="ml-2 rounded bg-slate-700 px-1.5 text-xs">mock replay</span>}
-                {state.mode === 'live' && <span className="ml-2 rounded bg-emerald-600/30 px-1.5 text-xs text-emerald-300">live</span>}
+                {state.mode === 'live' && !state.recording && (
+                  <span className="ml-2 rounded bg-emerald-600/30 px-1.5 text-xs text-emerald-300">live</span>
+                )}
+                {state.recording && (
+                  <span className="ml-2 rounded bg-amber-500/20 px-1.5 text-xs text-amber-200" title="Stage 4 demo safety: a saved run played at real speed">
+                    Replay of recorded run
+                    {state.recording.recorded_at && ` · recorded ${new Date(state.recording.recorded_at).toLocaleString([], { dateStyle: 'medium', timeStyle: 'short' })}`}
+                  </span>
+                )}
               </>
             ) : (
               DISCLAIMER
@@ -81,7 +89,13 @@ export default function App() {
         </div>
       </header>
 
-      <EventPicker state={state} onRun={(event) => runLive(event, council)} onReplay={replayMock} />
+      <EventPicker
+        state={state}
+        onRun={(event) => runLive(event, council)}
+        onReplay={replayMock}
+        recordings={recordings}
+        onReplayRecorded={replayRecorded}
+      />
 
       <main className="grid min-h-0 flex-1 grid-cols-1 gap-3 lg:grid-cols-12">
         <div className="min-h-[24rem] lg:col-span-3 lg:min-h-0">

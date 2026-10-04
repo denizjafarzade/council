@@ -21,10 +21,13 @@ function index(packs) {
       }
     }
     for (const s of p.sectors) {
-      map[`${p.country}-${s.sector}`] = {
+      const entry = {
         kind: 'sector', label: `${p.country} ${s.sector} (${s.ticker})`, value: pct(s.chg_1m_pct),
         detail: `1m change · vol ${fmt(s.vol_20d_pct)}%`, asOf: p.as_of,
       }
+      map[`${p.country}-${s.sector}`] = entry
+      // Agents often cite the ticker itself (XLK, 8035.T); it is in the DataPack, so it counts.
+      if (s.ticker) map[s.ticker] = entry
     }
     for (const m of p.macro) map[m.id] = { kind: 'macro', label: m.name, value: fmt(m.value), asOf: p.as_of }
     for (const n of p.news) {
@@ -37,11 +40,11 @@ function index(packs) {
 const SOURCES = { live: index(cachePacks), mock: index(mockPacks) }
 
 export function sourcesFor(mode) {
-  // Before the first live fetch the engine also falls back to mocks.
-  return mode === 'live' && Object.keys(SOURCES.live).length ? SOURCES.live : SOURCES.mock
+  // Live runs and their recordings cite the cache; before the first fetch the engine also falls back to mocks.
+  return (mode === 'live' || mode === 'replay') && Object.keys(SOURCES.live).length ? SOURCES.live : SOURCES.mock
 }
 
 export function asOfFor(mode) {
-  const packs = Object.values(mode === 'live' && Object.keys(cachePacks).length ? cachePacks : mockPacks)
+  const packs = Object.values((mode === 'live' || mode === 'replay') && Object.keys(cachePacks).length ? cachePacks : mockPacks)
   return Object.fromEntries(packs.map((p) => [p.country, p.as_of]))
 }

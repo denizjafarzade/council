@@ -6,11 +6,11 @@ import { Flag, Panel } from './bits'
 
 const SHORT = { Tech: 'Tech', Financials: 'Fin', Property: 'Prop', Energy: 'Energy' }
 
-function Cell({ cell, changed, from }) {
+function Cell({ cell, changed, from, final }) {
   if (!cell) return <div className="h-12 rounded-md bg-slate-800/40" />
   const v = VIEW_STYLE[cell.view]
   const alpha = 0.18 + 0.72 * cell.confidence // opacity = confidence
-  const split = cell.dissent >= 0.5
+  const split = final && cell.dissent >= 0.5 // blind votes are naturally split; flag it after the debate
   return (
     <div
       className={`relative flex h-12 flex-col items-center justify-center rounded-md transition-all duration-700 ${
@@ -54,7 +54,7 @@ function Grid({ title, matrix, compare, markets }) {
               const cell = matrix[key]
               const before = compare?.[key]
               const changed = !!(cell && before && before.view !== cell.view)
-              return <Cell key={key} cell={cell} changed={changed} from={before?.view} />
+              return <Cell key={key} cell={cell} changed={changed} from={before?.view} final={!!compare} />
             })}
           </div>
         ))}

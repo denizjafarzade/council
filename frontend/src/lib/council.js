@@ -3,7 +3,8 @@
 import { COUNTRIES, SECTORS, STAGES } from './constants'
 
 export const initialState = {
-  mode: 'idle', // idle | mock | live
+  mode: 'idle', // idle | mock | live | replay
+  recording: null, // set when the run is a replay of a recorded run (Stage 4)
   status: 'idle', // idle | running | done | error
   event: '',
   council: null, // the backend's "council" event: markets and seats for this run
@@ -16,12 +17,17 @@ export const initialState = {
   toasts: [],
 }
 
+// Same as library.slugify in the backend, so "Fed cuts 50bp" finds runs/fed-cuts-50bp.json.
+export function slugify(text) {
+  return text.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '').slice(0, 40) || 'council'
+}
+
 let seq = 0
 
 export function councilReducer(state, action) {
   switch (action.type) {
     case 'reset':
-      return { ...initialState, mode: action.mode, event: action.event, status: 'running' }
+      return { ...initialState, mode: action.mode, event: action.event, status: 'running', recording: action.recording ?? null }
     case 'status':
       return { ...state, status: action.status }
     case 'toast':
@@ -40,6 +46,8 @@ function applyEvent(state, event, data) {
   switch (event) {
     case 'council':
       return { ...state, council: data }
+    case 'replay':
+      return { ...state, recording: data }
     case 'stage':
       return { ...state, stages: { ...state.stages, [data.name]: data.status } }
     case 'vote':

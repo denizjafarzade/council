@@ -4,7 +4,7 @@ else
 VENV_PY := .venv/bin/python
 endif
 
-.PHONY: install mocks test keys backend frontend demo
+.PHONY: install mocks test keys backend frontend demo record
 
 install:
 	python -m venv .venv
@@ -26,6 +26,10 @@ backend:
 frontend:
 	cd frontend && npm run dev
 
-# Stage 4: starts backend in --offline mode plus the frontend.
+# Stage 4: backend in offline mode (recorded runs, cached data) plus the frontend.
 demo:
-	$(MAKE) -j2 backend frontend
+	$(VENV_PY) scripts/demo.py
+
+# Stage 4: pre-record the 4 preset events into runs/ (real LLM calls, costs credits).
+record:
+	$(VENV_PY) scripts/record_presets.py
