@@ -1,0 +1,83 @@
+{
+  "country": "SA",
+  "as_of": "2026-10-02T16:00:00-04:00",
+  "series": [
+    {
+      "id": "SA-idx",
+      "name": "iShares MSCI Saudi Arabia ETF (index proxy)",
+      "last": 36.22,
+      "chg_1d_pct": 0.3,
+      "chg_1m_pct": -5.75,
+      "vol_20d_pct": 8.68
+    },
+    {
+      "id": "SA-fx",
+      "name": "USD/SAR",
+      "last": 3.7542,
+      "chg_1d_pct": 3.15,
+      "chg_1m_pct": 1.88,
+      "vol_20d_pct": 19.67
+    }
+  ],
+  "sectors": [],
+  "macro": [],
+  "news": [
+    {
+      "id": "SA-n1",
+      "title": "Enterprise value to EBITDA forward of Saudi Top for Trading Company – TADAWUL:9552",
+      "source": "TradingView",
+      "url": "https://news.google.com/rss/articles/CBMirwFBVV95cUxPT3Nydy1QYkRUcF9Dbnh2TUFxbkFDVGo1UjBqOF9Fa24wWXR2UTM4WTBVY2R1eUVuRWFhX0xmU012bnh6dWUwWWxGLXRGWmd5TXZqVTY5ZEVyRU02eXA5Tm92WTc4RXBTa2w3bTNWYWRGbHU0QWk0RkhoYzFCaldZSFJZYm1Pc0tMaWVHQjJEWm9yMEVpOUs5N3F3T25XRXJqc1RHTjN6dTI3ak10elpz?oc=5",
+      "published": "2026-10-03T23:13+00:00"
+    },
+    {
+      "id": "SA-n2",
+      "title": "Saudi Arabia shares lower at close of trade; Tadawul All Share down 0.46%",
+      "source": "Investing.com India",
+      "url": "https://news.google.com/rss/articles/CBMixAFBVV95cUxOZ0lmQ3MxRVJjSVVrTUhMZWQ0bTV1c3ZxOGNFQjJGR1ZtbmgzMmZ3dVd3X0U5VVkyTDlmczItNzVWQ0JXWTZQWWItaWJ1dlU4RDZUS3lDYWp2ODNMTHpLVkJad2dDNkdTMDZabWlMdi1KMmt3OVc4RXd4cE1EYzZZUWxJdHN5ZlZrSm4yZmFfYUcxQWo5aDZsWVJLcS1jaVg4eWRyRDRQclh2c1RNZzhKOVlqNzc3OV8zZU9tdDRJXzJvWkxV?oc=5",
+      "published": "2026-10-01T20:41+00:00"
+    },
+    {
+      "id": "SA-n3",
+      "title": "Tadawul's Sukuk/Bonds Market sees 57 negotiated deals worth SAR 7.8B in 9M 2026",
+      "source": "ارقام : اخبار ومعلومات سوق الأسهم السعودي - تاسي",
+      "url": "https://news.google.com/rss/articles/CBMiakFVX3lxTE42QTE4bl9TUjRGUVVLa0w2OWlJY1MzWEF5NXNhSmJfeVNHTFo1V0NnNjdzRmhiVjFqYno3YTdtVGdrTVBHRnllNzc1TGlUeVZLeG00bE1CVnlHZzNIWWh6ZDYwRTBBcXpNLVE?oc=5",
+      "published": "2026-10-01T17:30+00:00"
+    },
+    {
+      "id": "SA-n4",
+      "title": "Tadawul Slips on Thursday as Saudi Benchmark Ends Lower",
+      "source": "Business Upturn",
+      "url": "https://news.google.com/rss/articles/CBMiugFBVV95cUxQSEMtb0RUTDZHdEt3TU5kazJJM3RPWjRBUjhDVUNuQzJLQ0I1dFkwUG9SaExkSGJWeW9Edjg0NElPMHltTDdHY2RLbkI2TWpZUnFfMEo3Q2tRVEVfUVZEUUsxb2ZtQTcyV2QzdXZEODY2b0dVbGNGcVRwU2tRNWJZczNIZnBRX0VCTHlVUTlwTWZnblpabzQzV2xHQjhVUmFFUzA1UUY4QnZnbHBEbXJqcVFFellwb05iekE?oc=5",
+      "published": "2026-10-01T16:57+00:00"
+    },
+    {
+      "id": "SA-n5",
+      "title": "Saudi Stocks Slip As Investors Watch US-Iran De-Escalation Talks",
+      "source": "Finimize",
+      "url": "https://news.google.com/rss/articles/CBMimAFBVV95cUxNRG9FdVhodjNiMll5ZkVqSGRMT2Z1WDhONzZCcXR3a0lFVTI1aDVKRzZnYWZxMGZ6ZHNobjdOQUpJNDV0Skw1cHBTMG91RnBoTFV0NzA3VW9uQW94YzlXLUcwZ1ZCbTQ5NWp1bVFsbEItcDR6UEFUa24wTjQ2T29SZVpMcHNER1NlZDBXUWFwT21wRkVJQVpIMA?oc=5",
+      "published": "2026-10-01T13:48+00:00"
+    },
+    {
+      "id": "SA-n6",
+      "title": "Tadawul sees SAR 70.3M negotiated deals",
+      "source": "ارقام : اخبار ومعلومات سوق الأسهم السعودي - تاسي",
+      "url": "https://news.google.com/rss/articles/CBMib0FVX3lxTE9VaUt0SzdBU0lreUhGSjZMazZrTzBtM1dONzRlaUhnMDVKQ0hlM083MmZWNTBnd21rbFZMa1hvTWViQTJ2N2ZHVmRaY2s5LWpKaVk2cURISERCWjJDYkNYRWdXYWRpWXVzeXdDcXpwMA?oc=5",
+      "published": "2026-10-01T13:29+00:00"
+    },
+    {
+      "id": "SA-n7",
+      "title": "Saudi Arabia stocks lower at close of trade; Tadawul All Share down 0.46%",
+      "source": "Investing.com",
+      "url": "https://news.google.com/rss/articles/CBMixgFBVV95cUxPRlhBQWNGVlBwSktKSEFvOGozeFZWZjVLdlA2LVF6WVFNOFJFZlNyOC12RWRYVFNTWjJSQk0zZmZROEwwaW9fUjg1T1hvWkVXQ3R5NTdZVlhVU0taQmVkVFFHVUNuQzZ3OS1YYk5TS01qUGZvS2ZqTldGd0VHOEV3dmJsZkk1ek1NMGoxd0czM3hnQVktUFMtXy1HUkNNdDN3eUYwZGxVNi0talNvS3NYT2l4blhrdWlXWTVaSjl3M0MzUnpmbXc?oc=5",
+      "published": "2026-10-01T12:57+00:00"
+    },
+    {
+      "id": "SA-n8",
+      "title": "Tadawul Equities Start October in Red; Umm Al Qura for Development Ticks Down",
+      "source": "marketscreener.com",
+      "url": "https://news.google.com/rss/articles/CBMiyAFBVV95cUxOZjc0dXJwd011bUdZalVtd0ZQekhIendINnBxQmo1azFaVzFrQ2QxaTFmaG1Md2RBeEpta2RLTHdoNGpZUUdDN21oQ1N3a2otRDNVbG9venQ4VHR0dzBTVE92MDhGNk5rRDVpbVVmLU91eFIzRUNUdXpWbndQUFhBRER1WXZ0SGFKTlpLLS0zUjI3ZUFheFBBMlBzVzRjUHFQMnBXSFRVb0Q2eWhUUTdrQmZVQUc5UDdTRGlURnRkaWlsQjhkaHU3cA?oc=5",
+      "published": "2026-10-01T12:31+00:00"
+    }
+  ],
+  "coverage": "partial"
+}

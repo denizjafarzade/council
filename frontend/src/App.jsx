@@ -1,4 +1,5 @@
-import { useEffect, useMemo } from 'react'
+import { useEffect, useMemo, useState } from 'react'
+import Builder from './builder/Builder'
 import Brief from './components/Brief'
 import DebateStream from './components/DebateStream'
 import EventPicker, { StageBar } from './components/EventPicker'
@@ -7,6 +8,7 @@ import SpilloverGraph from './components/SpilloverGraph'
 import WhoChanged from './components/WhoChanged'
 import { useCouncil } from './hooks/useCouncil'
 import { DISCLAIMER } from './lib/constants'
+import { RosterContext, buildRoster } from './lib/roster'
 import { asOfFor, sourcesFor } from './lib/sources'
 
 function Toasts({ toasts, dismiss }) {
@@ -33,8 +35,23 @@ export default function App() {
   const { state, replayMock, runLive, dismiss } = useCouncil()
   const sources = useMemo(() => sourcesFor(state.mode), [state.mode])
   const asOf = useMemo(() => asOfFor(state.mode), [state.mode])
+  const roster = useMemo(() => buildRoster(state.council), [state.council])
+  // Build the council first; the session screen runs it.
+  const [view, setView] = useState('build')
+  const [council, setCouncil] = useState(null)
+
+  function convene(event, config) {
+    setCouncil(config)
+    setView('session')
+    runLive(event, config)
+  }
+
+  if (view === 'build') {
+    return <Builder onConvene={convene} onBackToSession={state.mode === 'idle' ? null : () => setView('session')} />
+  }
 
   return (
+    <RosterContext.Provider value={roster}>
     <div className="flex min-h-full flex-col gap-3 p-4 lg:h-full">
       <header className="flex flex-wrap items-center justify-between gap-3">
         <div>
@@ -51,10 +68,20 @@ export default function App() {
             )}
           </p>
         </div>
-        <StageBar stages={state.stages} />
+        <div className="flex flex-wrap items-center gap-3">
+          <StageBar stages={state.stages} />
+          <button
+            type="button"
+            onClick={() => setView('build')}
+            disabled={state.status === 'running'}
+            className="rounded-lg border border-slate-600 px-3 py-1.5 text-sm text-slate-200 hover:bg-slate-800 disabled:opacity-40"
+          >
+            {state.council ? `Edit council (${state.council.members.length} seats)` : 'Build a council'}
+          </button>
+        </div>
       </header>
 
-      <EventPicker state={state} onRun={runLive} onReplay={replayMock} />
+      <EventPicker state={state} onRun={(event) => runLive(event, council)} onReplay={replayMock} />
 
       <main className="grid min-h-0 flex-1 grid-cols-1 gap-3 lg:grid-cols-12">
         <div className="min-h-[24rem] lg:col-span-3 lg:min-h-0">
@@ -78,5 +105,6 @@ export default function App() {
 
       <Toasts toasts={state.toasts} dismiss={dismiss} />
     </div>
+    </RosterContext.Provider>
   )
 }

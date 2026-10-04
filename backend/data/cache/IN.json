@@ -1,0 +1,83 @@
+{
+  "country": "IN",
+  "as_of": "2026-10-01T15:30:00+05:30",
+  "series": [
+    {
+      "id": "IN-idx",
+      "name": "Nifty 50",
+      "last": 22421.95,
+      "chg_1d_pct": -0.88,
+      "chg_1m_pct": -6.79,
+      "vol_20d_pct": 10.29
+    },
+    {
+      "id": "IN-fx",
+      "name": "USD/INR",
+      "last": 96.3,
+      "chg_1d_pct": 0.08,
+      "chg_1m_pct": 1.91,
+      "vol_20d_pct": 5.66
+    }
+  ],
+  "sectors": [],
+  "macro": [],
+  "news": [
+    {
+      "id": "IN-n1",
+      "title": "Canucks’ Pettersson buries backhand goal off Ohgren’s nifty feed",
+      "source": "Sportsnet.ca",
+      "url": "https://news.google.com/rss/articles/CBMinwFBVV95cUxOSmRYVHZMdDc2T0JJdTR1TmZzWkhCQzhVTTRWQnNHZ2FMTW95dGs4WDhLNU5LLUJ6QmVEYnY1OWxZS3VFOXRFM2gwdlVfNVhRbDNqM2tYVFpCVTJEYU83anZON2thMVdEMXdXblExLXdKSy1NSDV1S2VqaU9NNDBuajJRbk51dG1RNTFOQzlKZVhod3Fib1JHVGMxUHJzN1U?oc=5",
+      "published": "2026-10-04T04:54+00:00"
+    },
+    {
+      "id": "IN-n2",
+      "title": "José Ramírez's nifty play to first",
+      "source": "MLB.com",
+      "url": "https://news.google.com/rss/articles/CBMijAFBVV95cUxPTTE3RTdrSGVIU18tdGZOUk5CRDEtZE05M0VzbmtuVThWbDlZeWxvOXB3ZHlRdTVhcXlZV0F4MHFOckNnSkpDQ2ZuY2VnRnJIYkkwVUE5WGpwaWozUzZDMUl1OHc0c3pKZ0JsMmhMa2ZmU2RWTW5nSWNKS1dIYm1HMkZxTzZDSHg5SXhCNQ?oc=5",
+      "published": "2026-10-03T20:12+00:00"
+    },
+    {
+      "id": "IN-n3",
+      "title": "In the Curator’s Words: Beyond the lawn: A San Diego County garden showcases the future of sustainable landscapes",
+      "source": "San Diego Union-Tribune",
+      "url": "https://news.google.com/rss/articles/CBMi8AFBVV95cUxQQTAtd2FTR2szcnBIU2liU0t0amdMSjVMMlRsM2NZdEdNR3RGWXE0OTE3Y3dqSzVMUG1TRDQ4X29nclJFeGU1aHJ0dGZwcUhUVkx3RzB1WWVnN2JoLUNOMHhaWjBDTzBScVRpZUJXcWJtOU1mU0ZGcFY1Ym5DODFNcFpYVGJQWFhtbUJHZUZENzV3aXN5VXI5Um91SkRRMjBEc0lSUXdTWlVfaUVZT2wyM3JKS3BTYl9ENEVITmkzV3Jhdnp3SmpwcDAwZnhDcndKc0tfWHNqN0hKRlhWMkw3WTdnSWZyalJFSi0wSUhXQkE?oc=5",
+      "published": "2026-10-03T13:04+00:00"
+    },
+    {
+      "id": "IN-n4",
+      "title": "Stock Market Outlook October 2026: Can Sensex, Nifty Recover? What Analysts Are Saying",
+      "source": "ETV Bharat",
+      "url": "https://news.google.com/rss/articles/CBMi0gFBVV95cUxQamZwTFZweXdGSXUyYlBrUTItN3dlY21KWnMzTTZZR1A3bjNUT0VlLUdEcUI5VXZPMFpJZ2pMWTg4ZTZlU19GUUtnVUxyREh5WWJsZ183VVNyZC1TRng2Q0FOdnBwZVNEY21QYWI1ZHpQbHpLazNnN1pZRy1nMTZIaFdVaXNPczBjZEo3Q2xwVjJBemhtcmlmekhzVGJycUV6WXF1aG1wN0w3YkJaWVhsamVpTzl2X0VlYUJIcTNMZVQ0X1ZBMGt5TFNXZE5EbEdYUVHSAdcBQVVfeXFMTTIwMWlXOUxSdjgwc09kX0NQMm8tMklJLXlfNk9hbnlTR1YyVU5ZMG9IcDdLNVVPZmZiUUF5czVWblAzOXhMOWNvYXFiZmhISnYxb2d6ZFFUenZJZUFXcEhhd1pqWVJRZkZ4d0JNc2hiQW1nMU1ZbXlzQ0ZPNVdLa0s0RUViWVNLSWpMdnlSSHh1bUNMWk1GS2tEdHF3U3FzNHNPMEM2LWU0SWllaGJxSzdneE54UWNNXzhjQ0tONVZEQlBRWUktaFFmemk5NmM4UGNZNlRmYnM?oc=5",
+      "published": "2026-10-03T11:53+00:00"
+    },
+    {
+      "id": "IN-n5",
+      "title": "Chartist Talk: Is Nifty more likely to witness a pullback than a breakdown below 22,000 next week? SBI...",
+      "source": "Moneycontrol.com",
+      "url": "https://news.google.com/rss/articles/CBMiogJBVV95cUxOZS1jLVNja29LYTZpc09VcDlULTRkVUJsa0xRVDA5MWFBbDRzeEVBUnloMnd3YXRMQnNPMmR3WndaSm15cDlvSjlWX21XMWVLQXZDY0swekpHYUNSZTRTc1hQcVROQV9VWXRjX05MVWdYUUQxbzZacW9rZTYwLWYwMXk5TU16YVZ1VGpWYkUxUVZMTkVGa2hzcWdrSGZ5NGZRSlJ0a3gxaHZwQUx6N2xNYmxMZzNESl9yak04b01Jb1Y5UFBNY3M0T1lscXUtanVwUXRkVGhDVnhrQm4tcHRLdFptVEVQeUpUMExYbUI0MGR6dzUybF9JOEZld3dnLTZJOHJxcTNOSGxBd1pCNWFraWJoeThfSmJWVl9ZMkQ2ak55UdIBpwJBVV95cUxQMHJBekZVaTJvc1IzNVpMeTR2LXVuRENsVUlmcjNmeDI4d3pNSnJUWEVsU0ZlMjdlOWJFdi1HMkQ4QjI2alR0S01GT182bzZCRFFLcmlwa09zQWQ1SXkzR3lMbF8tYjh2cE5nLXZSeWtIekpLT1RuQWgxSE9tbjdLTWZDcDFKYi05RGRBd25FU0dfdHhaUjBsV1hXbFdJT1JrV0dNdGNVdVhLQlowVDlSZnB1X3JVVVlSeTRSaF9KcHNlS3plLV9zRUVlWlRDblZBWkNsUG9odWpUUFpSUEZQRVRLMDUxVlRuZDF5ajlZRGVuY2ptdFV6UEZpN2VpSmNBb3p3QW5qYkYwSVYzcnc5YndDVk1ldmhWdGtHOVhRWVFqSUx0TVBN?oc=5",
+      "published": "2026-10-03T01:45+00:00"
+    },
+    {
+      "id": "IN-n6",
+      "title": "Indiabulls Says Reserve Bank Of India Grants Certificate As Core Investment Company",
+      "source": "TradingView",
+      "url": "https://news.google.com/rss/articles/CBMi6AFBVV95cUxQSVVISzliRDd0b21zemk0eEJQLWQ4eEV1VEY3RC0za1lBdkRSQzhWUWJsY1Q3Z3VhMWhWREdlMExvWXhmTzRYU2FoS1lyVzlhLXRJanNIZlBTdkVheFZhZThiTk0zTEJFVWpfajFCcmZ1emZ4SnR3YlFwOGhPQ1pibTUyTzFoOXhlbVl4N2ZzTWdnazJsOWptaFdBNThaQWNyZXhhb01fQzdQQ3FCbWhLZmRZdDkzQzh6Tm5HOFlsTlNMM2FGX0FCTThPdFJzSWhOX0NOT0dZWms3bFVSb044a0JWYi1qQWRW?oc=5",
+      "published": "2026-10-02T15:07+00:00"
+    },
+    {
+      "id": "IN-n7",
+      "title": "Rush Is Nifty At Fifty (Something)",
+      "source": "Houston Press",
+      "url": "https://news.google.com/rss/articles/CBMid0FVX3lxTE5qaWpfcFoyWXNWS3Z5UHBIMnlTV3VTeWVTY1NaUm9MMW8tMW5XdEY4Z1NfNGhBaGljc0F1TlpvZFNRakR1ZHVYS2ZSLWdMcEJIUkExcXFlLXBuOTFzVWZ6SXlJREpxdUM5UkZZZlFEQnlPcWs4emNz?oc=5",
+      "published": "2026-10-02T14:57+00:00"
+    },
+    {
+      "id": "IN-n8",
+      "title": "FII Selling, Rupee Weakness Deepen Pressure On Equities",
+      "source": "TradingView",
+      "url": "https://news.google.com/rss/articles/CBMisAFBVV95cUxPdkhqdHNqZkpaLVpscUVzNXlnNnJvRmtha1NHT0NvN0F1enIzazItRmhYLWhXNjhuM09Ic1hUYzRsR09NbDVsMzU2bEQ2aE1FdWJzTktsQXpHcWhBSjJDNmxyMFV3ZTZvSG1tZ3lRMHNxQ0FHQzZsU2ZmVVp1bUZoUFVqWUxDLU0zTnNTVWhHT1RlYlZyYjV1YWNXYVFSWUdxZWZSb29uMVVWMC1FcW1JbQ?oc=5",
+      "published": "2026-10-02T14:31+00:00"
+    }
+  ],
+  "coverage": "partial"
+}

@@ -1,0 +1,83 @@
+{
+  "country": "SG",
+  "as_of": "2026-10-02T17:00:00+08:00",
+  "series": [
+    {
+      "id": "SG-idx",
+      "name": "Straits Times Index",
+      "last": 5634.82,
+      "chg_1d_pct": -0.58,
+      "chg_1m_pct": -1.96,
+      "vol_20d_pct": 8.42
+    },
+    {
+      "id": "SG-fx",
+      "name": "USD/SGD",
+      "last": 1.2789,
+      "chg_1d_pct": -0.1,
+      "chg_1m_pct": 0.96,
+      "vol_20d_pct": 2.79
+    }
+  ],
+  "sectors": [],
+  "macro": [],
+  "news": [
+    {
+      "id": "SG-n1",
+      "title": "Not SGX’s fault if stocks have no liquidity, says chairman: Markets this week",
+      "source": "The Straits Times",
+      "url": "https://news.google.com/rss/articles/CBMiygFBVV95cUxNTEdNbEtfbG51TFFnMkd4SG9vVHVzb1d6QW15dTZEX2JRa0VCUUNMNzJFV2VRUVFOdk9ET0NjX2RxVmZ4TmRQUEJvODljeEJEci1hMG1Ma3B1elVlNzNNUWQ5bnN3RHBMX1BBTmJUMmRzODFxOUEyclJiWmRYNi0zak1SWDFOcW5kb21xWXlmUEJveGNtQ3RIdF92OHhoWE5lRmtfVXhUZFR6UWthWWotazVaa0xXazQ2T3ZFYXcxc2w2a056MGpYdURR?oc=5",
+      "published": "2026-10-04T04:00+00:00"
+    },
+    {
+      "id": "SG-n2",
+      "title": "Convert 50 SGD (Singapore Dollar) to RECALL (RECALL)",
+      "source": "Bybit",
+      "url": "https://news.google.com/rss/articles/CBMiX0FVX3lxTE1ncU9MbWhBU3pvdWF1bHpDMHRTWTRfd2RLM3VnNmJSd0J3bVJRZEI2bjAyaUd1djBwckxaUkdWVTduNmlHWGR6QThHbk1JZjJLM3l6cngyNm16UDAzdjVz?oc=5",
+      "published": "2026-10-03T00:00+00:00"
+    },
+    {
+      "id": "SG-n3",
+      "title": "Convert 5 CARV (CARV) to SGD (Singapore Dollar)",
+      "source": "Bybit",
+      "url": "https://news.google.com/rss/articles/CBMiW0FVX3lxTE41UXdJYWx6TE9FUmtWSGN6TjZ5V205aUx0XzFxaml6NUNXUVgxQXVDZjNVMzJxUVVRb0w3LW9POWFYdlZ3cC1JNTVQS1hveWoxZ2U2T3AxWTBNQVk?oc=5",
+      "published": "2026-10-03T00:00+00:00"
+    },
+    {
+      "id": "SG-n4",
+      "title": "Convert 10000 SGD (Singapore Dollar) to PIEVERSE (Pieverse)",
+      "source": "Bybit",
+      "url": "https://news.google.com/rss/articles/CBMiZkFVX3lxTE8wTkY2YVAxbUcxYkVJWlNaZ0dUMUt0TWJDSTgxSEQ1cnh0ZXIzQWhkOFdEM25jaDF2RGpfcmZXWlFMN2l4T2Rqcm9BV0Zjbi05WUx6TkhnVzBFS1J0U2tNb2hHdF8xUQ?oc=5",
+      "published": "2026-10-03T00:00+00:00"
+    },
+    {
+      "id": "SG-n5",
+      "title": "Convert 1 SGD (Singapore Dollar) to KAIA (Kaia)",
+      "source": "Bybit",
+      "url": "https://news.google.com/rss/articles/CBMiW0FVX3lxTE1NRE81SXdybDlraURuY3I2dXU5U01vTkk3T21SanNDbmhpTzBiNTRla1R2ckJibHNsWXdrWjdsN2k3M3J1azlGeWdtXzg3dGIzMDJnOG1mNjRtWmM?oc=5",
+      "published": "2026-10-03T00:00+00:00"
+    },
+    {
+      "id": "SG-n6",
+      "title": "RCRWD to SGD: CrowdStrike Tokenized Stock (Reality) Price in Singapore Dollar",
+      "source": "CoinGecko",
+      "url": "https://news.google.com/rss/articles/CBMiaEFVX3lxTE91bVB3OVJSOG9VWDVhSDA0LU5KUUhnaWpmU0RkcjlNcjE5alhfUnY0Rm1aUk9fWHBfNkR0WkN0QWtJMWk0MXFZSk9rZ1NoeXFaSU1TcWxtemRxVHZUS3dhdmtUZkJPcmtx?oc=5",
+      "published": "2026-10-02T21:00+00:00"
+    },
+    {
+      "id": "SG-n7",
+      "title": "Convert 1 ETH (Ethereum) to SGD (Singapore Dollar)",
+      "source": "Bybit",
+      "url": "https://news.google.com/rss/articles/CBMiV0FVX3lxTE1uQkdrelJRZzJDR0tIM2htMVBUUFBKNXVqU042UXhCOWxZc3RQa0ZwVzZtLVFnQ1dNT0dSWVN1Nm9aTXRuSVFDdW9BTGdHWG1LbUZSTHE2aw?oc=5",
+      "published": "2026-10-02T20:09+00:00"
+    },
+    {
+      "id": "SG-n8",
+      "title": "Convert 1 SGD (Singapore Dollar) to USDT (Tether USDT)",
+      "source": "Bybit",
+      "url": "https://news.google.com/rss/articles/CBMiWEFVX3lxTFA0MmViV0lrNkhKWkdZR3lXSktKREUzWExaMUs5eGpwUDRtSkJVSEl6UC1zMDdFREFoUDRudmZqMmlaQy12cnBCUW5yZWxVdTFERklYYUZQTzA?oc=5",
+      "published": "2026-10-02T18:52+00:00"
+    }
+  ],
+  "coverage": "partial"
+}

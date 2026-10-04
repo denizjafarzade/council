@@ -1,0 +1,83 @@
+{
+  "country": "KR",
+  "as_of": "2026-10-02T15:30:00+09:00",
+  "series": [
+    {
+      "id": "KR-idx",
+      "name": "KOSPI",
+      "last": 7003.74,
+      "chg_1d_pct": 0.46,
+      "chg_1m_pct": 2.46,
+      "vol_20d_pct": 28.82
+    },
+    {
+      "id": "KR-fx",
+      "name": "USD/KRW",
+      "last": 1342.51,
+      "chg_1d_pct": -1.06,
+      "chg_1m_pct": -1.17,
+      "vol_20d_pct": 12.27
+    }
+  ],
+  "sectors": [],
+  "macro": [],
+  "news": [
+    {
+      "id": "KR-n1",
+      "title": "Foreign investors sell W20.3tr in Korean stocks, led by SK hynix and Samsung Electronics",
+      "source": "The Korea Herald",
+      "url": "https://news.google.com/rss/articles/CBMiV0FVX3lxTE1FckZBTnlqYkV4YnRqc3RMRFhHTV9uc0F3ZldiOHFucG9OdXItNlA0V0RtdEZkQzRmWFM4QUhPR0gwMDc2Ti14cHp0LWFNWGpxNnhUZ1gwcw?oc=5",
+      "published": "2026-10-04T04:02+00:00"
+    },
+    {
+      "id": "KR-n2",
+      "title": "KOSPI Tests 7,000 Support Level as Samsung Electronics Earnings and U.S. Rates Emerge as Key Catalysts",
+      "source": "finance.biggo.com",
+      "url": "https://news.google.com/rss/articles/CBMidkFVX3lxTFBDM2ZYN0xHenhGOUdlblBaWVc1aEt5d0VDbGV6ay1ZOHVwa2pTQ2ZlY3FaMmpienhmRktPLW5JbFpYTG94VlV1N1RFTHJrRXFqUlRwMFlBb3hNMHBCTUtyaVBxRllucGJZUjRpd0dtaXkyWDRQWEE?oc=5",
+      "published": "2026-10-03T23:35+00:00"
+    },
+    {
+      "id": "KR-n3",
+      "title": "South Korea's KOSPI Posts -19% Q3 Return, Worst Among 20 Major Global Markets",
+      "source": "finance.biggo.com",
+      "url": "https://news.google.com/rss/articles/CBMidkFVX3lxTFBCa09HdWFyYmNuaTVFODg4TDNVSU4xck5BYXcydEpEZWR0XzZ0U09HQThESDhOLXhza1pyMGZWUGNfMklqTGxHTk91SmRKSGVVRjNJQlNQZTBPNzJIWTJkTk1zOXg4QmRyTmxfLWJwdVhNbll2NlE?oc=5",
+      "published": "2026-10-03T22:05+00:00"
+    },
+    {
+      "id": "KR-n4",
+      "title": "Automakers Offer 15 Million Won Discounts, 48-Month Installments",
+      "source": "조선일보",
+      "url": "https://news.google.com/rss/articles/CBMiiAFBVV95cUxQY0VMN1YyeFdYR1JERXdONjVrcE40bEhIUFdleEJ1R0RmeUNXT2daSGdqQjNOTFZOSHhySVZDVDNVQjEwRWFVblVLMjNRbHE5NUtiY2szeWtLdFZWZmU5ZzN6MnUzVENmTHl0NGFWT0lra2dLZUxnS21xMU94a1V0ZEFwX2dmeDVj?oc=5",
+      "published": "2026-10-03T19:53+00:00"
+    },
+    {
+      "id": "KR-n5",
+      "title": "System Failures Cost Major Securities Firms 7 Billion Won",
+      "source": "조선일보",
+      "url": "https://news.google.com/rss/articles/CBMijgFBVV95cUxPTjRQV1ZGRkNPLUR5b25CNGhiQ3dVMXR1ZUI2blFnQ2xQdzFzMlEwMU00MjhZS0dVWFp2TEtsZDNiUXUtdTRRSnFtTVJVVzJ1ZWluUnpfT2F4VXhhb2NqVDVHU1dTQ2VsX295a095ZkNXM0MyOEhkYUZyTVJ5VExjUFpxM1hodGxiM1R0Smln?oc=5",
+      "published": "2026-10-03T04:46+00:00"
+    },
+    {
+      "id": "KR-n6",
+      "title": "Hanwha Eagles Finalize Contracts with 11 Rookies",
+      "source": "조선일보",
+      "url": "https://news.google.com/rss/articles/CBMihgFBVV95cUxOTGlvOWM1a29hSDZKQW83UEhvMXhoZGVMeEhnUjJzQUt5dXVUVmVycFFHbDctVmRlWjkxb1ZyUU5tYVZsLUJBVXFZNWQ5bzZzRXBEdzE2WXl4S1JTemVHZGYwUXdVaDZfN1BPTmI0emctREV1RmlDY2oydFUza1MySWRBUHBLQQ?oc=5",
+      "published": "2026-10-03T04:20+00:00"
+    },
+    {
+      "id": "KR-n7",
+      "title": "South Korea's KOSPI rises above 7,000 on tech buying",
+      "source": "IntelliNews",
+      "url": "https://news.google.com/rss/articles/CBMiqwFBVV95cUxPTlBYc0picnRBOVgwdU5tZGVmYy1XUzlzSllRRFNpS1ZwRnlfUXdDTDBzdW5EUXV3bmZyMmlEcjdpbXVjQzJydS1UNEM2WWREQzE2NGh0YldZQkJLRjUzWTl6S0RLMG5leWhSeE4yemotLVVGQXNkRzBlNVc5dHRob1BzWTMzLXRDYnl1YWNkRmFLT2lMaGVubjNQLVhIelZmS1FWTmJpZlRqWFE?oc=5",
+      "published": "2026-10-03T02:49+00:00"
+    },
+    {
+      "id": "KR-n8",
+      "title": "Gasoline, Diesel Fall 20 Weeks, Remain in 1,800 Won Range",
+      "source": "조선일보",
+      "url": "https://news.google.com/rss/articles/CBMijgFBVV95cUxQUlNDQW1kR1A2V0FpTlNQendQYUJZSEQ1OXdBMTZnLThoRjJqOTZkUDZkbWtJX21RV0JSWlZOV0czNVBZU1Q3SE1DMkQyRGd4ZjNDZHlwRVp5djNOY2lDMTJ2RGEzdkhlWF8zcU1YenNwLVh4QnFjVTBwRDdLVlRiMHBqaTdzZF9TbjU5LVhB?oc=5",
+      "published": "2026-10-03T01:45+00:00"
+    }
+  ],
+  "coverage": "partial"
+}

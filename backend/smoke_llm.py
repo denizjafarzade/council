@@ -8,13 +8,18 @@ import logging
 import sys
 from collections import Counter
 
-from models import model_for, profile
-from orchestrator import ask_vote, load_data
+import library
+from models import profile
+from orchestrator import Run, load_data
 
 
 async def main(agent: str = "HK") -> None:
-    print(f"profile={profile()} model={model_for(agent)}")
-    vote = await ask_vote(agent, "Fed cuts 50bp", load_data())
+    council = library.default_council()
+    run = Run(council, library.resolve(council))
+    seat = next(s for s in run.seats if s.id == agent)
+    print(f"profile={profile()} model={run.model(seat)}")
+    packs, _ = await load_data(council.markets)
+    vote = await run.ask_vote(seat, "blind", "Fed cuts 50bp", packs, {}, None)
     print(f"{len(vote.cells)} cells:", dict(Counter(c.view for c in vote.cells)))
     for c in vote.cells:
         if c.country == agent or agent in ("CHAIR", "BEAR", "SPILLOVER"):

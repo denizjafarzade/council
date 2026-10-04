@@ -1,7 +1,14 @@
 """Council run: data -> blind vote -> debate -> revote -> spillover -> brief.
 
-Every stage degrades instead of failing: an agent that times out or returns bad
-JSON twice is skipped with an "error" event and the run continues without it.
+The council is configurable (library.py): any markets, any number of seats per market,
+any cross-market seats. Each seat's stage decides when it speaks:
+  debate    argues in the debate rounds (market specialists, custom thematic seats)
+  rebuttal  speaks once after the rounds, against or for the consensus (Bear, Bull, Risk)
+  spillover draws the spillover graph
+  chair     writes the brief (exactly one)
+
+Every stage degrades instead of failing: a seat that times out or returns bad JSON twice
+is skipped with an "error" event and the run continues without it.
 COUNCIL_MOCK=1 replays mocks/council_run.json instead (no API keys needed).
 """
 
@@ -9,16 +16,20 @@ import asyncio
 import json
 import logging
 import os
+import zlib
 from collections.abc import AsyncIterator, Awaitable, Callable
 from pathlib import Path
 from typing import TypeVar
 
 from pydantic import BaseModel
 
+import library
 from council_math import compute_matrix, compute_vote_shifts
+from library import Seat
 from llm import LLMError, LLMOutputError, call_llm
+from models import model_for
 from schemas import (
-    AGENTS, COUNTRIES, DISCLAIMER, SECTORS, Brief, DataPack, DelegateReport, MatrixCell, RunRequest, Spillover,
+    COUNTRIES, DISCLAIMER, SECTORS, Brief, Council, DataPack, DelegateReport, MatrixCell, RunRequest, Spillover,
     Trigger, Vote,
 )
 
@@ -30,44 +41,48 @@ MOCK_PACKS = ROOT / "mocks" / "datapacks"
 CACHE_DIR = ROOT / "backend" / "data" / "cache"
 PROMPTS = ROOT / "backend" / "agents" / "prompts"
 MOCK_DELAY_S = 0.3
-DEBATE_ROUNDS = int(os.getenv("DEBATE_ROUNDS", "2"))  # guide: 2 max; 1 if runs are too slow
-
-DELEGATES = list(COUNTRIES)
-# Chair, Bear and Spillover see every market; delegates see only their own.
-SEES_ALL = {"CHAIR", "BEAR", "SPILLOVER"}
+FETCH_TIMEOUT_S = 30.0
+# Profile seats whose models a market seat can borrow, for model diversity (models.py).
+DELEGATE_MODEL_KEYS = ["HK", "CN", "US", "JP"]
+STAGE_MODEL_KEY = {"rebuttal": "BEAR", "spillover": "SPILLOVER", "chair": "CHAIR", "debate": "BEAR"}
 
 BLIND_TASK = (
-    "Blind vote. You have not seen any other agent's view. Give a view (bearish, neutral, bullish) and a "
-    "confidence (0 to 1) for each of the 16 cells: every country in HK, CN, US, JP crossed with every "
-    "sector in Tech, Financials, Property, Energy, each exactly once. Set agent to \"{agent}\", round to "
-    "\"blind\", and leave because and source empty."
+    "Blind vote. You have not seen any other member's view. Give a view (bearish, neutral, bullish) and a "
+    "confidence (0 to 1) for each of the {n} cells: every market in {markets} crossed with every sector in "
+    "Tech, Financials, Property, Energy, each exactly once. Set agent to \"{agent}\", round to \"blind\", "
+    "and leave because and source empty."
 )
 DEBATE_TASK = (
-    "Debate round {n} of {total}. Using the blind votes and the debate so far (under OTHER AGENTS SO FAR), "
-    "write a DelegateReport: impact_summary in one or two sentences on {market}, up to 5 claims each citing "
-    "source ids from your DATA, at most 2 challenges to other delegates whose claims conflict with your data, "
+    "Debate round {n} of {total}. Using the blind votes and the debate so far (under OTHER MEMBERS SO FAR), "
+    "write a DelegateReport from your focus: impact_summary in one or two sentences, up to 5 claims each citing "
+    "source ids from your DATA, at most 2 challenges to other members whose claims conflict with your data, "
     "and 1 to 3 triggers. Set agent to \"{agent}\"."
 )
-BEAR_TASK = (
-    "The delegates have finished debating. Computed from the blind votes, the strongest consensus cells "
-    "(highest agreement, then confidence) are:\n{cells}\nArgue the case against each using the data, and flag "
-    "any delegate claim with no source. Write a DelegateReport with agent set to \"BEAR\", one challenge per "
-    "cell addressed to the delegate whose market it is."
+REBUTTAL_TASK = (
+    "The debate rounds are over. Computed from the blind votes:\n"
+    "STRONGEST CONSENSUS (highest agreement, then confidence):\n{consensus}\n"
+    "MOST BEARISH OR SPLIT:\n{contested}\n"
+    "Respond from your focus, using whichever of these lists it calls for. Write a DelegateReport with agent "
+    "set to \"{agent}\", one challenge per cell you address, aimed at the member whose market it is."
 )
 REVOTE_TASK = (
     "{revote}\nYOUR BLIND VOTE WAS:\n{blind}\nSet agent to \"{agent}\", round to \"revote\", leave source "
     "empty, and fill because only on cells whose view changed."
 )
 SPILLOVER_TASK = (
-    "The debate is over. Return the Spillover graph for this event across HK, CN, US and JP: 6 to 12 nodes "
-    "(give each node the country it sits in), and edges whose from and to are node ids. Cite only source ids "
-    "that appear in DATA."
+    "The debate is over. Return the Spillover graph for this event across {markets}: 6 to 12 nodes (give each "
+    "node the market code it sits in), and edges whose from and to are node ids. Cite only source ids that "
+    "appear in DATA."
 )
 CHAIR_TASK = (
     "Computed in code from the revotes (do not recompute or contradict):\n"
     "FINAL MATRIX:\n{matrix}\nMOST SPLIT CELL: {split}\nVOTE SHIFTS:\n{shifts}\n"
     "Write headline (one sentence), exactly 3 key_risks, 3 triggers and 3 questions_for_you. Name the most "
     "split cell in a key risk."
+)
+COVERAGE_NOTE = (
+    "\nDATA COVERAGE: your market's DATA has the index, FX and headlines but no sector proxies. Judge its "
+    "sector cells from the index and news, keep confidence lower there, and say \"not in our data\" where needed."
 )
 
 T = TypeVar("T", bound=BaseModel)
@@ -87,6 +102,14 @@ def mock_mode() -> bool:
     return os.getenv("COUNCIL_MOCK", "") not in ("", "0", "false")
 
 
+def council_for(req: RunRequest) -> Council:
+    if req.council:
+        return req.council
+    if req.council_id:
+        return library.get_council(req.council_id)
+    return library.default_council(req.countries)
+
+
 async def run_council(req: RunRequest) -> AsyncIterator[Event]:
     """Yield (event_name, payload) pairs matching the SSE contract."""
     if mock_mode():
@@ -94,60 +117,70 @@ async def run_council(req: RunRequest) -> AsyncIterator[Event]:
             yield e
         return
     event = req.event
+    council = council_for(req)
+    seats = library.resolve(council)  # app.py already rejected invalid councils with a 422
+    run = Run(council, seats)
 
     yield stage("data", "started")
-    packs = load_data(req.countries)
+    packs, problems = await load_data(council.markets)
+    yield "council", council_event(council, seats, packs)
+    for message in problems:
+        yield "error", {"message": message}
     yield stage("data", "done")
 
     # 2-3. Blind vote
     yield stage("blind_vote", "started")
     blinds: dict[str, Vote] = {}
-    async for name, data in blind_vote(event, packs):
+    async for name, data in run.votes("blind", event, packs, blinds, None):
         if name == "vote":
             blinds[data["agent"]] = Vote.model_validate(data)
         yield name, data
     yield stage("blind_vote", "done" if blinds else "failed")
 
-    # 4. Debate
+    # 4. Debate rounds, then the rebuttal seats (Bear, Bull, Risk, ...)
     yield stage("debate", "started")
-    yield "message", {"agent": "CHAIR", "text": f"Council convened on: {event}. Blind votes are in; "
-                      "delegates, make your case.", "source_ids": []}
+    yield "message", {"agent": run.chair.id, "text": f"Council convened on: {event}. Blind votes are in; "
+                      "members, make your case.", "source_ids": []}
     reports: list[DelegateReport] = []
-    for n in range(1, DEBATE_ROUNDS + 1):
-        async for name, data in debate_round(n, event, packs, blinds, reports):
-            yield name, data
-    async for name, data in bear_attack(event, packs, blinds, reports):
-        yield name, data
+    for n in range(1, council.debate_rounds + 1):
+        async for e in run.debate_round(n, event, packs, blinds, reports):
+            yield e
+    async for e in run.rebuttals(event, packs, blinds, reports):
+        yield e
     yield stage("debate", "done" if reports else "failed")
 
     # 5-6. Revote, with spillover mapped in parallel (both only need the transcript).
     transcript = render_transcript(reports)
-    spill_task = asyncio.create_task(ask(
-        "SPILLOVER", Spillover, SPILLOVER_TASK, event, data_for("SPILLOVER", packs), transcript,
+    spiller = run.spillover_seat()
+    spill_task = asyncio.create_task(run.ask(
+        spiller, Spillover, SPILLOVER_TASK.format(markets=", ".join(council.markets)), event, packs, transcript,
         "Return the Spillover JSON.", check=check_spillover,
-    ))
+    )) if spiller else None
     yield stage("revote", "started")
     revotes: dict[str, Vote] = {}
-    async for name, data in revote(event, packs, blinds, transcript):
+    async for name, data in run.votes("revote", event, packs, blinds, transcript):
         if name == "vote":
             revotes[data["agent"]] = Vote.model_validate(data)
         yield name, data
     yield stage("revote", "done" if revotes else "failed")
 
     yield stage("spillover", "started")
-    try:
-        spill = await spill_task
-        yield "spillover", spill.model_dump(mode="json", by_alias=True)
-        yield stage("spillover", "done")
-    except LLMError as e:
-        yield skipped("SPILLOVER", "spillover", e)
-        yield stage("spillover", "failed")
+    if spill_task is None:
+        yield stage("spillover", "skipped")
+    else:
+        try:
+            spill = await spill_task
+            yield "spillover", spill.model_dump(mode="json", by_alias=True)
+            yield stage("spillover", "done")
+        except LLMError as e:
+            yield skipped(spiller.id, "spillover", e)
+            yield stage("spillover", "failed")
 
     # 7. Brief
     yield stage("brief", "started")
-    brief, chair_err = await write_brief(event, packs, blinds, revotes, transcript)
+    brief, chair_err = await run.write_brief(event, packs, blinds, revotes, transcript)
     if chair_err:
-        yield skipped("CHAIR", "brief", chair_err)
+        yield skipped(run.chair.id, "brief", chair_err)
     if brief is None:
         yield stage("brief", "failed")
         return
@@ -156,6 +189,8 @@ async def run_council(req: RunRequest) -> AsyncIterator[Event]:
 
 
 async def replay_mock() -> AsyncIterator[Event]:
+    council = library.default_council()
+    yield "council", council_event(council, library.resolve(council), {})
     for e in json.loads(MOCK_RUN.read_text(encoding="utf-8")):
         await asyncio.sleep(MOCK_DELAY_S)
         yield e["event"], e["data"]
@@ -170,104 +205,98 @@ def skipped(agent: str, stage_name: str, err: Exception) -> Event:
     return "error", {"message": f"{agent} skipped in {stage_name}: {err}", "agent": agent}
 
 
-# --- 1. load_data -------------------------------------------------------------
-
-def load_data(countries: list[str] = COUNTRIES) -> dict[str, DataPack]:
-    """DataPacks from data/cache/{country}.json, falling back to mocks/datapacks/."""
-    packs = {}
-    for c in countries:
-        path = CACHE_DIR / f"{c}.json"
-        if not path.exists():
-            log.warning("no cached DataPack for %s, using mock", c)
-            path = MOCK_PACKS / f"{c}.json"
-        packs[c] = DataPack.model_validate_json(path.read_text(encoding="utf-8"))
-    return packs
-
-
-def data_for(agent: str, packs: dict[str, DataPack]) -> str:
-    if agent in SEES_ALL:
-        return json.dumps({c: p.model_dump(mode="json") for c, p in packs.items()})
-    return packs[agent].model_dump_json()
+def council_event(council: Council, seats: list[Seat], packs: dict[str, DataPack]) -> dict:
+    lib = library.markets()
+    return {
+        "name": council.name,
+        "markets": [{"code": c, "name": lib[c].name,
+                     "coverage": packs[c].coverage or lib[c].coverage if c in packs else lib[c].coverage,
+                     "as_of": packs[c].as_of if c in packs else None} for c in council.markets],
+        "sectors": list(SECTORS),
+        "members": [{"id": s.id, "name": s.member.name, "role": s.role.id, "role_name": s.role.name,
+                     "stage": s.stage, "market": s.market.code if s.market else None,
+                     "phases": s.member.phases.model_dump()} for s in seats],
+        "debate_rounds": council.debate_rounds,
+    }
 
 
-# --- prompts and the one agent-call helper --------------------------------------
+# --- 1. load_data -------------------------------------------------------------------
 
-def build_prompt(agent: str, task: str, event: str, data: str, transcript: str | None, schema: type) -> str:
-    """System prompt = shared rules + the agent's role file with its placeholders filled."""
-    shared = (PROMPTS / "_shared.md").read_text(encoding="utf-8")
-    role = (PROMPTS / f"{agent}.md").read_text(encoding="utf-8")
+def _read_pack(code: str) -> DataPack | None:
+    for folder in (CACHE_DIR, MOCK_PACKS):
+        path = folder / f"{code}.json"
+        if path.exists():
+            if folder is MOCK_PACKS:
+                log.warning("no cached DataPack for %s, using mock", code)
+            return DataPack.model_validate_json(path.read_text(encoding="utf-8"))
+    return None
+
+
+def _fetch_pack(code: str) -> DataPack:
+    from data import fetch  # imported lazily: pulls in yfinance
+
+    pack = fetch.build(code, [])
+    CACHE_DIR.mkdir(parents=True, exist_ok=True)
+    (CACHE_DIR / f"{code}.json").write_text(pack.model_dump_json(indent=2), encoding="utf-8")
+    return pack
+
+
+def _empty_pack(code: str) -> DataPack:
+    return DataPack(country=code, as_of="unknown", series=[], sectors=[], macro=[], news=[], coverage="none")
+
+
+async def load_data(markets: list[str] = COUNTRIES) -> tuple[dict[str, DataPack], list[str]]:
+    """DataPacks from data/cache, then mocks/datapacks, then a live fetch; never fails the run."""
+    packs, problems = {}, []
+    for code in markets:
+        pack = _read_pack(code)
+        if pack is None:
+            try:
+                pack = await asyncio.wait_for(asyncio.to_thread(_fetch_pack, code), FETCH_TIMEOUT_S)
+            except Exception as e:  # noqa: BLE001 - any data failure leaves that market without data
+                log.error("no data for %s: %s", code, e)
+                problems.append(f"No market data for {code} ({e}); its members argue from their brief only.")
+                pack = _empty_pack(code)
+        packs[code] = pack
+    return packs, problems
+
+
+# --- prompts ------------------------------------------------------------------------------
+
+def data_for(seat: Seat, packs: dict[str, DataPack]) -> str:
+    if seat.sees_all:
+        return json.dumps({c: p.model_dump(mode="json", exclude_none=True) for c, p in packs.items()})
+    return packs[seat.market.code].model_dump_json(exclude_none=True)
+
+
+def build_prompt(seat: Seat, markets: list[str], task: str, event: str, data: str, transcript: str | None,
+                 schema: type) -> str:
+    """System prompt = shared rules + the seat template filled from the member, its role and market."""
+    lib = library.markets()
+    shared = (PROMPTS / "_shared.md").read_text(encoding="utf-8").replace(
+        "{MARKETS}", ", ".join(f"{lib[c].name} ({c})" if c in lib else c for c in markets))
+    market = seat.market
+    partial = market is not None and market.coverage == "partial"
     fills = {
+        "{NAME}": seat.member.name,
+        "{ROLE_NAME}": seat.role.name,
+        "{FOR_MARKET}": f" for {market.name} ({market.code})" if market else "",
+        "{SEES}": (f"You see only the {market.code} DataPack." if market
+                   else "You see every market's DataPack and the full transcript."),
+        "{INSTRUCTIONS}": seat.instructions,
+        "{LOCAL_KNOWLEDGE}": f"LOCAL KNOWLEDGE:\n{seat.brief}\n" if seat.brief else "",
+        "{COVERAGE_NOTE}": COVERAGE_NOTE if partial else "",
         "{TASK}": task,
         "{EVENT}": event,
         "{DATAPACK_JSON}": data,
         "{TRANSCRIPT_OR_NONE}": transcript or "None yet.",
         "{SCHEMA}": json.dumps(schema.model_json_schema()),
     }
+    role = (PROMPTS / "_seat.md").read_text(encoding="utf-8")
     for key, value in fills.items():
         role = role.replace(key, value)
     return f"{shared}\n\n{role}"
 
-
-async def ask(agent: str, schema: type[T], task: str, event: str, data: str, transcript: str | None,
-              user: str, check: Callable[[T], T] = lambda x: x) -> T:
-    """One agent call. Retries once on invalid output; raises LLMError if it still fails."""
-    system = build_prompt(agent, task, event, data, transcript, schema)
-    for attempt in (1, 2):
-        try:
-            out, _usage = await call_llm(system, f"EVENT: {event}\n{user}", schema, agent=agent)
-            return check(out)
-        except LLMOutputError as e:
-            if attempt == 2:
-                raise
-            log.warning("%s gave invalid %s, retrying: %s", agent, schema.__name__, e)
-    raise AssertionError("unreachable")
-
-
-async def in_parallel(calls: dict[str, Awaitable[T]]) -> AsyncIterator[tuple[str, T | LLMError]]:
-    """Run agent calls concurrently; yield (agent, result or error) as each one lands."""
-
-    async def one(agent: str, call: Awaitable[T]) -> tuple[str, T | LLMError]:
-        try:
-            return agent, await call
-        except LLMError as e:
-            return agent, e
-
-    for next_done in asyncio.as_completed([one(a, c) for a, c in calls.items()]):
-        yield await next_done
-
-
-# --- 2-3. blind_vote --------------------------------------------------------------
-
-def check_vote(vote: Vote, agent: str, rnd: str) -> Vote:
-    """Pin identity fields and require each of the 16 cells exactly once."""
-    vote = vote.model_copy(update={"agent": agent, "round": rnd, "source": "llm"})
-    if rnd == "blind":
-        vote = vote.model_copy(update={"cells": [c.model_copy(update={"because": None}) for c in vote.cells]})
-    cells = [(c.country, c.sector) for c in vote.cells]
-    expected = {(c, s) for c in COUNTRIES for s in SECTORS}
-    if len(cells) != len(expected) or set(cells) != expected:
-        missing = sorted(f"{c}/{s}" for c, s in expected - set(cells))
-        raise LLMOutputError(f"vote must cover all 16 cells once; got {len(cells)}, missing {missing}")
-    return vote
-
-
-def ask_vote(agent: str, event: str, packs: dict[str, DataPack]) -> Awaitable[Vote]:
-    """One agent's blind vote (also used by smoke_llm.py)."""
-    return ask(agent, Vote, BLIND_TASK.format(agent=agent), event, data_for(agent, packs), None,
-               "Return your blind vote as JSON.", check=lambda v: check_vote(v, agent, "blind"))
-
-
-async def blind_vote(event: str, packs: dict[str, DataPack]) -> AsyncIterator[Event]:
-    """All 7 agents in parallel; each vote is emitted the moment it lands."""
-    calls = {a: ask_vote(a, event, packs) for a in AGENTS}
-    async for agent, result in in_parallel(calls):
-        if isinstance(result, LLMError):
-            yield skipped(agent, "blind vote", result)
-        else:
-            yield "vote", result.model_dump(mode="json", exclude_none=True)
-
-
-# --- 4. debate ---------------------------------------------------------------------
 
 def render_votes(votes: dict[str, Vote]) -> str:
     return "\n".join(
@@ -296,72 +325,18 @@ def report_events(report: DelegateReport) -> list[Event]:
     return events
 
 
-def pin_agent(agent: str) -> Callable[[DelegateReport], DelegateReport]:
-    return lambda r: r.model_copy(update={"agent": agent})
+def check_vote(vote: Vote, agent: str, rnd: str, markets: list[str]) -> Vote:
+    """Pin identity fields and require each cell exactly once."""
+    vote = vote.model_copy(update={"agent": agent, "round": rnd, "source": "llm"})
+    if rnd == "blind":
+        vote = vote.model_copy(update={"cells": [c.model_copy(update={"because": None}) for c in vote.cells]})
+    cells = [(c.country, c.sector) for c in vote.cells]
+    expected = {(c, s) for c in markets for s in SECTORS}
+    if len(cells) != len(expected) or set(cells) != expected:
+        missing = sorted(f"{c}/{s}" for c, s in expected - set(cells))
+        raise LLMOutputError(f"vote must cover all {len(expected)} cells once; got {len(cells)}, missing {missing}")
+    return vote
 
-
-async def debate_round(n: int, event: str, packs: dict[str, DataPack], blinds: dict[str, Vote],
-                       reports: list[DelegateReport]) -> AsyncIterator[Event]:
-    """Delegates argue in parallel, each seeing all blind votes and every earlier report."""
-    context = f"BLIND VOTES:\n{render_votes(blinds)}\n\nDEBATE SO FAR:\n{render_transcript(reports) or 'Nothing yet.'}"
-    calls = {
-        d: ask(d, DelegateReport, DEBATE_TASK.format(n=n, total=DEBATE_ROUNDS, market=d, agent=d), event,
-               data_for(d, packs), context, "Return your DelegateReport as JSON.", check=pin_agent(d))
-        for d in DELEGATES if d in packs
-    }
-    new: list[DelegateReport] = []
-    async for agent, result in in_parallel(calls):
-        if isinstance(result, LLMError):
-            yield skipped(agent, f"debate round {n}", result)
-            continue
-        new.append(result)
-        for e in report_events(result):
-            yield e
-    # Later rounds see this round's reports only once the whole round is in.
-    reports.extend(new)
-
-
-def strongest_consensus(blinds: dict[str, Vote], k: int = 3) -> list[MatrixCell]:
-    cells = compute_matrix(list(blinds.values()))
-    return sorted(cells, key=lambda c: (c.dissent, -c.confidence))[:k]
-
-
-async def bear_attack(event: str, packs: dict[str, DataPack], blinds: dict[str, Vote],
-                      reports: list[DelegateReport]) -> AsyncIterator[Event]:
-    targets = "\n".join(f"- {c.country}/{c.sector}: {c.view}, confidence {c.confidence}, dissent {c.dissent}"
-                        for c in strongest_consensus(blinds))
-    context = f"BLIND VOTES:\n{render_votes(blinds)}\n\nDEBATE:\n{render_transcript(reports)}"
-    try:
-        report = await ask("BEAR", DelegateReport, BEAR_TASK.format(cells=targets), event, data_for("BEAR", packs),
-                           context, "Return your DelegateReport as JSON.", check=pin_agent("BEAR"))
-    except LLMError as e:
-        yield skipped("BEAR", "debate", e)
-        return
-    reports.append(report)
-    for e in report_events(report):
-        yield e
-
-
-# --- 5. revote -------------------------------------------------------------------------
-
-async def revote(event: str, packs: dict[str, DataPack], blinds: dict[str, Vote],
-                 transcript: str) -> AsyncIterator[Event]:
-    revote_rules = (PROMPTS / "_revote.md").read_text(encoding="utf-8").strip()
-    calls = {}
-    for a in AGENTS:
-        # An agent that missed the blind vote still revotes; it just has nothing to compare against.
-        blind = render_votes({a: blinds[a]}) if a in blinds else "You did not vote in the blind round."
-        task = REVOTE_TASK.format(revote=revote_rules, blind=blind, agent=a)
-        calls[a] = ask(a, Vote, task, event, data_for(a, packs), transcript, "Return your revote as JSON.",
-                       check=lambda v, a=a: check_vote(v, a, "revote"))
-    async for agent, result in in_parallel(calls):
-        if isinstance(result, LLMError):
-            yield skipped(agent, "revote", result)
-        else:
-            yield "vote", result.model_dump(mode="json", exclude_none=True)
-
-
-# --- 6. spillover ------------------------------------------------------------------------
 
 def check_spillover(s: Spillover) -> Spillover:
     nodes = {n.id for n in s.nodes}
@@ -373,34 +348,163 @@ def check_spillover(s: Spillover) -> Spillover:
     return s
 
 
-# --- 7. brief ----------------------------------------------------------------------------
+def pin_agent(agent: str) -> Callable[[DelegateReport], DelegateReport]:
+    return lambda r: r.model_copy(update={"agent": agent})
+
+
+async def in_parallel(calls: dict[str, Awaitable[T]]) -> AsyncIterator[tuple[str, T | LLMError]]:
+    """Run seat calls concurrently; yield (seat id, result or error) as each one lands."""
+
+    async def one(agent: str, call: Awaitable[T]) -> tuple[str, T | LLMError]:
+        try:
+            return agent, await call
+        except LLMError as e:
+            return agent, e
+
+    for next_done in asyncio.as_completed([one(a, c) for a, c in calls.items()]):
+        yield await next_done
+
 
 FALLBACK_HEADLINE = "Council matrix computed; the Chair's summary is unavailable for this run."
 
 
-async def write_brief(event: str, packs: dict[str, DataPack], blinds: dict[str, Vote], revotes: dict[str, Vote],
-                      transcript: str) -> tuple[Brief | None, LLMError | None]:
-    """Matrix, dissent and shifts in Python; the Chair LLM only writes the prose fields.
+class Run:
+    """One council run: the seats plus every stage that calls them."""
 
-    If the Chair fails, the brief still ships with the computed matrix and shifts.
-    """
-    final_votes = list(revotes.values()) or list(blinds.values())
-    if not final_votes:
-        return None, None
-    matrix = compute_matrix(final_votes)
-    shifts = compute_vote_shifts(list(blinds.values()), list(revotes.values()))
-    split = max(matrix, key=lambda c: c.dissent)
+    def __init__(self, council: Council, seats: list[Seat]):
+        self.council = council
+        self.markets = council.markets
+        self.seats = seats
+        self.chair = next(s for s in seats if s.stage == "chair")
 
-    task = CHAIR_TASK.format(
-        matrix="\n".join(f"{c.country}/{c.sector}: {c.view} conf {c.confidence} dissent {c.dissent}" for c in matrix),
-        split=f"{split.country}/{split.sector} (dissent {split.dissent})",
-        shifts="\n".join(f"{s.agent} {s.cell}: {s.from_} -> {s.to} because {s.because}" for s in shifts) or "None.",
-    )
-    err = None
-    try:
-        notes = await ask("CHAIR", ChairNotes, task, event, data_for("CHAIR", packs), transcript,
-                          "Return the Chair's notes as JSON.")
-    except LLMError as e:
-        err = e
+    def model(self, seat: Seat) -> str:
+        if seat.market:
+            like = seat.market.code if seat.market.code in DELEGATE_MODEL_KEYS else \
+                DELEGATE_MODEL_KEYS[zlib.crc32(seat.id.encode()) % len(DELEGATE_MODEL_KEYS)]
+        else:
+            like = STAGE_MODEL_KEY[seat.stage]
+        return model_for(seat.id, explicit=seat.member.model, like=like)
+
+    async def ask(self, seat: Seat, schema: type[T], task: str, event: str, packs: dict[str, DataPack],
+                  transcript: str | None, user: str, check: Callable[[T], T] = lambda x: x) -> T:
+        """One seat call. Retries once on invalid output; raises LLMError if it still fails."""
+        system = build_prompt(seat, self.markets, task, event, data_for(seat, packs), transcript, schema)
+        for attempt in (1, 2):
+            try:
+                out, _usage = await call_llm(system, f"EVENT: {event}\n{user}", schema, agent=seat.id,
+                                             model=self.model(seat))
+                return check(out)
+            except LLMOutputError as e:
+                if attempt == 2:
+                    raise
+                log.warning("%s gave invalid %s, retrying: %s", seat.id, schema.__name__, e)
+        raise AssertionError("unreachable")
+
+    def ask_vote(self, seat: Seat, rnd: str, event: str, packs: dict[str, DataPack],
+                 blinds: dict[str, Vote], transcript: str | None) -> Awaitable[Vote]:
+        if rnd == "blind":
+            task = BLIND_TASK.format(n=len(self.markets) * len(SECTORS), markets=", ".join(self.markets),
+                                     agent=seat.id)
+            user = "Return your blind vote as JSON."
+        else:
+            rules = (PROMPTS / "_revote.md").read_text(encoding="utf-8").strip()
+            # A seat that missed the blind vote still revotes; it just has nothing to compare against.
+            blind = render_votes({seat.id: blinds[seat.id]}) if seat.id in blinds else \
+                "You did not vote in the blind round."
+            task = REVOTE_TASK.format(revote=rules, blind=blind, agent=seat.id)
+            user = "Return your revote as JSON."
+        return self.ask(seat, Vote, task, event, packs, transcript, user,
+                        check=lambda v: check_vote(v, seat.id, rnd, self.markets))
+
+    async def votes(self, rnd: str, event: str, packs: dict[str, DataPack], blinds: dict[str, Vote],
+                    transcript: str | None) -> AsyncIterator[Event]:
+        """Every voting seat in parallel; each vote is emitted the moment it lands."""
+        phase = "vote" if rnd == "blind" else "revote"
+        voters = [s for s in self.seats if getattr(s.member.phases, phase)]
+        calls = {s.id: self.ask_vote(s, rnd, event, packs, blinds, transcript) for s in voters}
+        async for agent, result in in_parallel(calls):
+            if isinstance(result, LLMError):
+                yield skipped(agent, "blind vote" if rnd == "blind" else "revote", result)
+            else:
+                yield "vote", result.model_dump(mode="json", exclude_none=True)
+
+    async def debate_round(self, n: int, event: str, packs: dict[str, DataPack], blinds: dict[str, Vote],
+                           reports: list[DelegateReport]) -> AsyncIterator[Event]:
+        """Debating seats argue in parallel, each seeing all blind votes and every earlier report."""
+        context = f"BLIND VOTES:\n{render_votes(blinds)}\n\nDEBATE SO FAR:\n{render_transcript(reports) or 'Nothing yet.'}"
+        debaters = [s for s in self.seats if s.stage == "debate" and s.member.phases.debate]
+        calls = {
+            s.id: self.ask(s, DelegateReport, DEBATE_TASK.format(n=n, total=self.council.debate_rounds, agent=s.id),
+                           event, packs, context, "Return your DelegateReport as JSON.", check=pin_agent(s.id))
+            for s in debaters
+        }
+        new: list[DelegateReport] = []
+        async for agent, result in in_parallel(calls):
+            if isinstance(result, LLMError):
+                yield skipped(agent, f"debate round {n}", result)
+                continue
+            new.append(result)
+            for e in report_events(result):
+                yield e
+        # Later rounds see this round's reports only once the whole round is in.
+        reports.extend(new)
+
+    async def rebuttals(self, event: str, packs: dict[str, DataPack], blinds: dict[str, Vote],
+                        reports: list[DelegateReport]) -> AsyncIterator[Event]:
+        seats = [s for s in self.seats if s.stage == "rebuttal" and s.member.phases.debate]
+        if not seats:
+            return
+        cells = compute_matrix(list(blinds.values()), self.markets)
+        consensus = sorted(cells, key=lambda c: (c.dissent, -c.confidence))[:3]
+        contested = sorted(cells, key=lambda c: (c.view != "bearish", -c.dissent))[:3]
+        task_for = lambda s: REBUTTAL_TASK.format(  # noqa: E731
+            consensus=render_cells(consensus), contested=render_cells(contested), agent=s.id)
+        context = f"BLIND VOTES:\n{render_votes(blinds)}\n\nDEBATE:\n{render_transcript(reports)}"
+        calls = {s.id: self.ask(s, DelegateReport, task_for(s), event, packs, context,
+                                "Return your DelegateReport as JSON.", check=pin_agent(s.id)) for s in seats}
+        new: list[DelegateReport] = []
+        async for agent, result in in_parallel(calls):
+            if isinstance(result, LLMError):
+                yield skipped(agent, "debate", result)
+                continue
+            new.append(result)
+            for e in report_events(result):
+                yield e
+        reports.extend(new)
+
+    def spillover_seat(self) -> Seat | None:
+        return next((s for s in self.seats if s.stage == "spillover" and s.member.phases.debate), None)
+
+    async def write_brief(self, event: str, packs: dict[str, DataPack], blinds: dict[str, Vote],
+                          revotes: dict[str, Vote], transcript: str) -> tuple[Brief | None, LLMError | None]:
+        """Matrix, dissent and shifts in Python; the Chair LLM only writes the prose fields.
+
+        If the Chair fails, the brief still ships with the computed matrix and shifts.
+        """
+        final_votes = list(revotes.values()) or list(blinds.values())
+        if not final_votes:
+            return None, None
+        matrix = compute_matrix(final_votes, self.markets)
+        shifts = compute_vote_shifts(list(blinds.values()), list(revotes.values()))
+        split = max(matrix, key=lambda c: c.dissent)
+
         notes = ChairNotes(headline=FALLBACK_HEADLINE, key_risks=[], triggers=[], questions_for_you=[])
-    return Brief(**notes.model_dump(), matrix=matrix, vote_shifts=shifts, disclaimer=DISCLAIMER), err
+        err = None
+        if self.chair.member.phases.debate:
+            task = CHAIR_TASK.format(
+                matrix=render_cells(matrix),
+                split=f"{split.country}/{split.sector} (dissent {split.dissent})",
+                shifts="\n".join(f"{s.agent} {s.cell}: {s.from_} -> {s.to} because {s.because}"
+                                 for s in shifts) or "None.",
+            )
+            try:
+                notes = await self.ask(self.chair, ChairNotes, task, event, packs, transcript,
+                                       "Return the Chair's notes as JSON.")
+            except LLMError as e:
+                err = e
+        return Brief(**notes.model_dump(), matrix=matrix, vote_shifts=shifts, disclaimer=DISCLAIMER), err
+
+
+def render_cells(cells: list[MatrixCell]) -> str:
+    return "\n".join(f"- {c.country}/{c.sector}: {c.view}, confidence {c.confidence}, dissent {c.dissent}"
+                     for c in cells)

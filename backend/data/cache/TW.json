@@ -1,0 +1,83 @@
+{
+  "country": "TW",
+  "as_of": "2026-10-02T13:30:00+08:00",
+  "series": [
+    {
+      "id": "TW-idx",
+      "name": "TAIEX",
+      "last": 48475.74,
+      "chg_1d_pct": 0.25,
+      "chg_1m_pct": 3.25,
+      "vol_20d_pct": 15.23
+    },
+    {
+      "id": "TW-fx",
+      "name": "USD/TWD",
+      "last": 31.8,
+      "chg_1d_pct": -0.23,
+      "chg_1m_pct": 0.22,
+      "vol_20d_pct": 3.58
+    }
+  ],
+  "sectors": [],
+  "macro": [],
+  "news": [
+    {
+      "id": "TW-n1",
+      "title": "TSMC Weighs Texas Fab Beyond $265B Arizona Bet [2026]",
+      "source": "shattered.io",
+      "url": "https://news.google.com/rss/articles/CBMibkFVX3lxTE8xMXlqSWF4M3otR0dOLXl5ZmhJNkhIX0cyeWdpbDV3QmNNUktCWkZoYU5vRlNuM0NvYzMwanZ1SDdnS3FBRlZrbnJRcmxCVDJkQ3RYSW5QaFkxcWFDRG5CTzNnbWNGVTZVZVNYRnJn?oc=5",
+      "published": "2026-10-03T21:48+00:00"
+    },
+    {
+      "id": "TW-n2",
+      "title": "Elon Musk confirms discussions with TSMC about Terafab chipmaking collaboration — Intel is the only other named partner, Terafab to exclusively supply Tesla, SpaceX, and xAI",
+      "source": "Tom's Hardware",
+      "url": "https://news.google.com/rss/articles/CBMiygJBVV95cUxNeXItamxLWmIyc21RQWhkVFlValdBRFZZWF9aamZYcmZrdFBXM1BZSHAzZFhydlFHcUNpMlE3bV83dlJLZ0ZIQnZtWGFuNmp4Vzh1QVA2WFFFZk5faHU2U0ZyZlE0RzJxdWplX3pFTm1QTVdibHZTMUZFOHRmTGFjWk1XRnQtSVFLTmpoVjd1cV9HR3dlRDB1TW5jdnpIMk9WZjJhUFRINXFqMWFlNjFVNldTUWxxQk1zeXJlQ1lwRzNaOHpZemdEaWNtUnd3RXdCSEpuNWphVWxuMXZpeGM5cXBYaUlRU0dVVnpGaUF1d09pMWM5MkhQY2FWQnlWeHROQ2RibUZwWVY4VXNtS1JjZ0lzZGZWS183UjZpZVJfZU9UV0NKa05Oam1SY2JNeFhMWjd5RTdYNmVnQWUzZ0lrb21GaVJpR2lWTGc?oc=5",
+      "published": "2026-10-03T14:50+00:00"
+    },
+    {
+      "id": "TW-n3",
+      "title": "Musk confirms talks with TSMC over his Texas chip factory project",
+      "source": "digitimes.com",
+      "url": "https://news.google.com/rss/articles/CBMikwFBVV95cUxPcGtjWHVkYVZrd1RyRFJFMk5MT2VDWmVBQ3ZFZTJpUFVZOFVtTjhIc2xuTGJvSTZrTkhhOFR5ekdXQXhuTDJodGx2MGdTTkFsdkZySjY4SFVSQjFrQ2JjMzAzdVlEWDdJcVppTlNleVVBUmpWSkZSMmg2YjZZQXJFVnJZY09ZaFYtNW5Mck9YTzVwdlU?oc=5",
+      "published": "2026-10-03T14:36+00:00"
+    },
+    {
+      "id": "TW-n4",
+      "title": "TSMC Explores Collaboration with Elon Musk's Terafab Project",
+      "source": "TechPowerUp",
+      "url": "https://news.google.com/rss/articles/CBMimgFBVV95cUxQRkFvb0dFSWVSSUtXSWZhdHpOU0lSdXdnc08tOGpBRVpaQk1mcEUxLVQzNDFIbE1pcDBMWnFpZXE0bVdwWEF6emwwSUMyNUVUNkpwYWxsRDJpTzBQNlkyR3l1UkJOSXo2S3lIbUZNN09JazJIVEJnNFRjZTd1djQ3ZTZOZVZYeGRTVnhIcW50Z0pvZnkyUWU2TUFB0gGfAUFVX3lxTE11NFZheFJlZUU0T2pYQnBwNEQxRzFxSDVfMTVzaTdGLTQ3RFgtMDlzbnh6RXRMWElRXzlDeG9ON19Sb1BSZDNQMWg2em9ScG1pSkJscl9iWkhVVlhhYmRpVC1qUmlfeGNZOFdsTEx1eFFmQnBnR1BlTGxmcVdGZDJMYk1tbmZOM3JiMGVQanVhVjdOdnhNN2JiS3gtSXpGaw?oc=5",
+      "published": "2026-10-03T11:36+00:00"
+    },
+    {
+      "id": "TW-n5",
+      "title": "Prediction: This AI Chip Stock Will Be the Biggest Winner of 2027 (Hint: It’s Not Nvidia, AMD, or Broadcom)",
+      "source": "The Motley Fool",
+      "url": "https://news.google.com/rss/articles/CBMi3AFBVV95cUxOQ1dsUlo3Q2FTM0d3bkJSX0lkSmtqbklsOU9QRVQwM1N2d1VfQzkyN0N0ZUlydDBqMlBnU2RlTkxDOFBvQ0lNWnBoZXBibUFabEEweHRyWmFsbkNyMUJDLVBIcnNnd01nNkFncWR0YzlhQU13TEdCVnRTQXlKNzNRQnZHQ0taWmFJNGs1NVRQLWZiS240eGc4U08tc1d3UlpTQ0dDRm1qNWZ4Mm80bVZGV1VSMUtpS3p6WE1rZmtoYTl1MW1aTTMwQkdIdWVhNmRvQjAwZncyRHFCeU5i?oc=5",
+      "published": "2026-10-03T10:20+00:00"
+    },
+    {
+      "id": "TW-n6",
+      "title": "AMD, Intel Hike Chip Prices 10% as TSMC Costs Bite [2026]",
+      "source": "tech-insider.org",
+      "url": "https://news.google.com/rss/articles/CBMifEFVX3lxTFBDS3ZXWWVVNFVIcEYzTmI4UlMzM0NjSTBXTVZxTTZhRGthSHA0eHVvZ3pmdUFhY0ZtX2ltSVJMZDVyZ0hDWE1fV0JMcUZVRUdMNkJCbVJSR3dPUlpTaGVjbW93RkpfTHpCQ2laUUdQZW1oUDdtb3p3Wi1EUTI?oc=5",
+      "published": "2026-10-03T01:24+00:00"
+    },
+    {
+      "id": "TW-n7",
+      "title": "TSMC (TSM) Exceeds Market Returns: Some Facts to Consider",
+      "source": "Yahoo Finance",
+      "url": "https://news.google.com/rss/articles/CBMinAFBVV95cUxNZ0hHNmhfYy1ScnlWRTMxU2M0UXJMWDBrOWR0Zk5UQ3lveXMyRjdyS2FnWXYxT1hHVHo5eEItaWszSktqTEJQQjNDVUQzNnpyVVBvU0l3UzUyOG1SMWJrS05JUi1MSFdyNjU5TU1va1Y0U1k0NzVjdDhmX18zOWtqSGNWNmJHLWlpUUZyU1ZrajhZZ2laaVlPX2s5SS0?oc=5",
+      "published": "2026-10-02T20:45+00:00"
+    },
+    {
+      "id": "TW-n8",
+      "title": "Exclusive: TSMC Exploring Plans to Work With Elon Musk’s Terafab",
+      "source": "culpium.com",
+      "url": "https://news.google.com/rss/articles/CBMia0FVX3lxTE9qY0NDVDJLdkNxdnlFR0VXaWNvVmIzdEF1enBsWmloZE9HYWs3LWsyVEdPSXB5bVEydHJUdWU5YjlrOHpyZk1zc0dOQ2ozSzJfTDBjbTFLVzFPTjJJRXdqRmQ5RG1JSW4wbWRR?oc=5",
+      "published": "2026-10-02T18:48+00:00"
+    }
+  ],
+  "coverage": "partial"
+}

@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useState } from 'react'
+import { marketColor, marketsOf } from '../lib/roster'
 import { Panel, SourceChip } from './bits'
 
 // Edges carry numbered badges; mechanisms are listed beside the graph so long text never
@@ -7,7 +8,6 @@ const W = 540
 const H = 300
 const NODE_W = 112
 const NODE_H = 40
-const COUNTRY_COLOR = { HK: '#f472b6', CN: '#fb923c', US: '#38bdf8', JP: '#a78bfa' }
 const POS = '#34d399'
 const NEG = '#fb7185'
 
@@ -78,7 +78,7 @@ function wrap(label, max = 13) {
   return rest ? [first, rest] : [first]
 }
 
-function Graph({ spill, graph, label, sources, hover, setHover, big }) {
+function Graph({ spill, graph, label, sources, hover, setHover, big, markets }) {
   return (
     <div className={`flex h-full min-h-0 gap-3 ${big ? 'text-base' : ''}`}>
       <svg viewBox={`0 0 ${W} ${H}`} className={`h-full min-w-0 ${big ? 'flex-[5]' : 'flex-[3]'}`}>
@@ -106,7 +106,7 @@ function Graph({ spill, graph, label, sources, hover, setHover, big }) {
         })}
         {spill.nodes.map((n) => {
           const p = graph.pos[n.id]
-          const color = COUNTRY_COLOR[n.country] || '#fbbf24'
+          const color = n.country ? marketColor(n.country, markets) : '#fbbf24'
           const lines = wrap(n.label)
           const tx = n.country ? 26 : NODE_W / 2
           return (
@@ -188,7 +188,8 @@ export default function SpilloverGraph({ state, sources }) {
   const [expanded, setExpanded] = useState(false)
   const graph = useMemo(() => (spill?.nodes?.length ? layout(spill) : null), [spill])
   const label = useMemo(() => Object.fromEntries((spill?.nodes || []).map((n) => [n.id, n.label])), [spill])
-  const props = { spill, graph, label, sources, hover, setHover }
+  const markets = marketsOf(state)
+  const props = { spill, graph, label, sources, hover, setHover, markets }
 
   useEffect(() => {
     if (!expanded) return undefined

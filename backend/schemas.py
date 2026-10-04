@@ -4,18 +4,24 @@ Do not change a field here without telling the other track: the frontend and
 mocks/council_run.json are built against these shapes.
 """
 
-from typing import Literal, Optional, Union
+from typing import Annotated, Literal, Optional, Union
 
 from pydantic import BaseModel, ConfigDict, Field
 
-Country = Literal["HK", "CN", "US", "JP"]
+# Markets and council members are configurable (see Council below), so these are
+# plain strings. The defaults keep the original seven agents and four markets.
+Country = str  # a market code, e.g. "HK" or "UK"
 Sector = Literal["Tech", "Financials", "Property", "Energy"]
 View = Literal["bearish", "neutral", "bullish"]
-AgentId = Literal["CHAIR", "HK", "CN", "US", "JP", "BEAR", "SPILLOVER"]
+AgentId = str  # a council member id, e.g. "HK", "BEAR" or "US-TECHNICAL"
 
 COUNTRIES: list[str] = ["HK", "CN", "US", "JP"]
 SECTORS: list[str] = ["Tech", "Financials", "Property", "Energy"]
 AGENTS: list[str] = ["CHAIR", "HK", "CN", "US", "JP", "BEAR", "SPILLOVER"]
+
+MarketCode = Annotated[str, Field(pattern=r"^[A-Z]{2,4}$")]
+MemberId = Annotated[str, Field(pattern=r"^[A-Z0-9][A-Z0-9-]{0,39}$")]
+Slug = Annotated[str, Field(pattern=r"^[a-z0-9][a-z0-9-]{0,39}$")]
 DISCLAIMER = "Research and decision support only. Not investment advice."
 
 
@@ -62,6 +68,8 @@ class DataPack(Model):
     sectors: list[SectorProxy]
     macro: list[Macro]
     news: list[News]
+    # full = index, 4 sector proxies, FX, rates, news; partial = index, FX, news only.
+    coverage: Optional[Literal["full", "partial", "none"]] = None
 
     def source_ids(self) -> set[str]:
         ids = {s.id for s in self.series} | {m.id for m in self.macro} | {n.id for n in self.news}
@@ -166,7 +174,7 @@ class Brief(Model):
 
 class StageEvent(Model):
     name: Literal["data", "blind_vote", "debate", "revote", "spillover", "brief"]
-    status: Literal["started", "done", "failed"]
+    status: Literal["started", "done", "failed", "skipped"]  # skipped: no seat for this stage
 
 
 class Message(Model):
@@ -180,7 +188,99 @@ class ErrorEvent(Model):
     agent: Optional[AgentId] = None
 
 
+# Council configuration: who sits on the council and which markets it covers.
+
+class Phases(Model):
+    vote: bool = True     # blind vote
+    debate: bool = True   # speaks in its stage (debate rounds, rebuttal, spillover map, brief)
+    revote: bool = True
+
+
+RoleStage = Literal["debate", "rebuttal", "spillover", "chair"]
+
+
+class RoleDef(Model):
+    """A seat type in the role library. Built-ins ship in agents/roles.json; users add more."""
+    id: Slug
+    name: str = Field(min_length=1, max_length=60)
+    scope: Literal["market", "cross"]  # market = sees one market's data; cross = sees all
+    stage: RoleStage = "debate"
+    blurb: str = Field("", max_length=200)
+    instructions: str = Field(min_length=1, max_length=4000)  # may use {MARKET_NAME}
+    limited_data: bool = False
+    required: bool = False
+    builtin: bool = False
+
+
+class MarketClose(Model):
+    hour: int = Field(ge=0, le=23)
+    minute: int = Field(0, ge=0, le=59)
+    utc_offset: float = Field(ge=-12, le=14)
+
+
+class MarketDef(Model):
+    """A market the council can cover. Built-ins ship in agents/markets.json; users add more."""
+    code: MarketCode
+    name: str = Field(min_length=1, max_length=60)
+    lat: Optional[float] = Field(None, ge=-90, le=90)
+    lon: Optional[float] = Field(None, ge=-180, le=180)
+    coverage: Literal["full", "partial"] = "partial"
+    brief: str = Field("", max_length=2000)
+    # role -> [ticker, display name]; "idx" and "fx" for partial markets, plus sectors for full ones.
+    tickers: dict[str, tuple[str, str]] = Field(default_factory=dict)
+    close: Optional[MarketClose] = None
+    news_query: str = ""
+    builtin: bool = False
+
+
+class Member(Model):
+    """One seat on the council."""
+    id: MemberId
+    name: str = Field(min_length=1, max_length=60)
+    role: Slug
+    market: Optional[MarketCode] = None  # required for market-scope roles
+    instructions: Optional[str] = Field(None, max_length=4000)  # overrides the role's
+    brief: Optional[str] = Field(None, max_length=2000)  # overrides the market's local knowledge
+    phases: Phases = Field(default_factory=Phases)
+    model: Optional[str] = None  # explicit OpenRouter model id; None = profile default
+
+
+class Council(Model):
+    id: Optional[Slug] = None
+    name: str = Field("Untitled council", min_length=1, max_length=80)
+    markets: list[MarketCode] = Field(min_length=1, max_length=16)
+    members: list[Member] = Field(min_length=1, max_length=40)
+    debate_rounds: int = Field(2, ge=1, le=2)
+
+
+class CouncilMarket(Model):
+    code: str
+    name: str
+    coverage: str
+    as_of: Optional[str] = None
+
+
+class CouncilMember(Model):
+    id: str
+    name: str
+    role: str
+    role_name: str
+    stage: RoleStage
+    market: Optional[str] = None
+    phases: Phases
+
+
+class CouncilEvent(Model):
+    """First SSE event of a run: who is seated and which markets are covered."""
+    name: str
+    markets: list[CouncilMarket]
+    sectors: list[str]
+    members: list[CouncilMember]
+    debate_rounds: int
+
+
 EVENT_MODELS: dict[str, type[Model]] = {
+    "council": CouncilEvent,
     "stage": StageEvent,
     "vote": Vote,
     "message": Message,
@@ -190,12 +290,15 @@ EVENT_MODELS: dict[str, type[Model]] = {
     "error": ErrorEvent,
 }
 
-EventPayload = Union[StageEvent, Vote, Message, DelegateReport, Spillover, Brief, ErrorEvent]
+EventPayload = Union[CouncilEvent, StageEvent, Vote, Message, DelegateReport, Spillover, Brief, ErrorEvent]
 
 
 class RunRequest(Model):
-    event: str
-    countries: list[Country] = Field(default_factory=lambda: list(COUNTRIES))
+    event: str = Field(min_length=1, max_length=500)
+    # Pass a council inline (the builder does), or the id of a saved one. Neither = the default council.
+    council: Optional[Council] = None
+    council_id: Optional[Slug] = None
+    countries: list[Country] = Field(default_factory=lambda: list(COUNTRIES))  # default council's markets
     sectors: list[Sector] = Field(default_factory=lambda: list(SECTORS))
 
 

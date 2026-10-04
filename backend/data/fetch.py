@@ -93,6 +93,32 @@ HKMA = ("https://api.hkma.gov.hk/public/market-data-and-statistics/daily-monetar
         "daily-figures-interbank-liquidity?pagesize=5&sortby=end_of_date&sortorder=desc")
 
 
+def _library_market(country: str):
+    """Markets beyond the four above (UK, IN, custom ones...) come from the market library."""
+    import library
+
+    m = library.markets().get(country)
+    if m is None or "idx" not in m.tickers:
+        raise KeyError(f"no tickers for market {country}")
+    return m
+
+
+def tickers_for(country: str) -> dict[str, tuple[str, str]]:
+    return TICKERS[country] if country in TICKERS else {k: tuple(v) for k, v in _library_market(country).tickers.items()}
+
+
+def close_for(country: str) -> tuple[int, int, timezone]:
+    if country in CLOSE:
+        hour, tz = CLOSE[country]
+        return hour, 0, tz
+    c = _library_market(country).close
+    return (c.hour, c.minute, timezone(timedelta(hours=c.utc_offset))) if c else (16, 0, timezone.utc)
+
+
+def news_query_for(country: str) -> str:
+    return NEWS_QUERY.get(country) or _library_market(country).news_query or _library_market(country).name
+
+
 # --- prices ------------------------------------------------------------------------
 
 def history(ticker: str):
@@ -119,7 +145,7 @@ def stats(closes) -> dict:
 
 def fetch_prices(country: str, report: list) -> tuple[list, list, object]:
     series, sectors, idx_date = [], [], None
-    for role, (ticker, name) in TICKERS[country].items():
+    for role, (ticker, name) in tickers_for(country).items():
         try:
             s = stats(history(ticker))
         except Exception as e:  # noqa: BLE001 - report every failure, keep going
@@ -196,12 +222,13 @@ def _with_fallbacks(country: str, macro: list, report: list) -> list:
 # --- news --------------------------------------------------------------------------
 
 def fetch_news(country: str, report: list) -> list:
-    q = urllib.parse.quote(NEWS_QUERY[country])
+    query = news_query_for(country)
+    q = urllib.parse.quote(query)
     url = f"https://news.google.com/rss/search?q={q}+when:7d&hl=en-US&gl=US&ceid=US:en"
     try:
         items = ET.fromstring(_get(url)).findall("./channel/item")
     except Exception as e:  # noqa: BLE001
-        report.append((country, "news", NEWS_QUERY[country][:20], None, None, f"FAIL {str(e)[:50]}"))
+        report.append((country, "news", query[:20], None, None, f"FAIL {str(e)[:50]}"))
         return []
     parsed = []
     for it in items:
@@ -224,7 +251,7 @@ def fetch_news(country: str, report: list) -> list:
     news = [{"id": f"{country}-n{i + 1}", "title": t, "source": s, "url": u,
              "published": p.isoformat(timespec="minutes")}
             for i, (p, t, s, u) in enumerate(parsed[:NEWS_PER_COUNTRY])]
-    report.append((country, "news", NEWS_QUERY[country][:20], len(news), None, "OK" if news else "FAIL no items"))
+    report.append((country, "news", query[:20], len(news), None, "OK" if news else "FAIL no items"))
     return news
 
 
@@ -232,8 +259,9 @@ def fetch_news(country: str, report: list) -> list:
 
 def build(country: str, report: list) -> DataPack:
     series, sectors, idx_date = fetch_prices(country, report)
-    hour, tz = CLOSE[country]
-    as_of = datetime.combine(idx_date, datetime.min.time()).replace(hour=hour, tzinfo=tz) if idx_date else datetime.now(tz)
+    hour, minute, tz = close_for(country)
+    as_of = (datetime.combine(idx_date, datetime.min.time()).replace(hour=hour, minute=minute, tzinfo=tz)
+             if idx_date else datetime.now(tz))
     return DataPack.model_validate({
         "country": country,
         "as_of": as_of.isoformat(),
@@ -241,6 +269,7 @@ def build(country: str, report: list) -> DataPack:
         "sectors": sectors,
         "macro": fetch_macro(country, report),
         "news": fetch_news(country, report),
+        "coverage": "full" if len(sectors) == len(SECTORS) else "partial",
     })
 
 

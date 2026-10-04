@@ -1,0 +1,83 @@
+{
+  "country": "AU",
+  "as_of": "2026-10-02T16:00:00+10:00",
+  "series": [
+    {
+      "id": "AU-idx",
+      "name": "S&P/ASX 200",
+      "last": 8682.1,
+      "chg_1d_pct": 0.79,
+      "chg_1m_pct": -3.75,
+      "vol_20d_pct": 11.29
+    },
+    {
+      "id": "AU-fx",
+      "name": "USD/AUD",
+      "last": 1.4373,
+      "chg_1d_pct": -0.41,
+      "chg_1m_pct": 3.5,
+      "vol_20d_pct": 6.21
+    }
+  ],
+  "sectors": [],
+  "macro": [],
+  "news": [
+    {
+      "id": "AU-n1",
+      "title": "S&P/ASX Fins-x-AREIT OPIC Today — SP:OXXJ Index Chart",
+      "source": "TradingView",
+      "url": "https://news.google.com/rss/articles/CBMiV0FVX3lxTE45dWZxOXBrRkV4Zkw4a2F4V2VOTl9JTWJPSm10U1paUklySkZEelZ5aHBnbjMtVWhESU11OWRfVkFYNnQ5Q3dUQ21zVEZhV0FtVnV4V1VSZw?oc=5",
+      "published": "2026-10-02T20:57+00:00"
+    },
+    {
+      "id": "AU-n2",
+      "title": "Technical Analysis of S&P/ASX 200 Materials Index (SP:XMJ)",
+      "source": "TradingView",
+      "url": "https://news.google.com/rss/articles/CBMiZEFVX3lxTE5zSlllU2JrdXlUTVgxQVM2LWlqTzYwSEFIVFE4aWJwSk5sYUJBSmpGMmdjWmpNVXZqZ0FtTlNxZGRTZHBGMlhLeHNDVnVyQnpkS3lfNU83OGktWTJ4dkFpbUxHR0E?oc=5",
+      "published": "2026-10-02T18:31+00:00"
+    },
+    {
+      "id": "AU-n3",
+      "title": "Technical Analysis of S&P/ASX 200 Financials Index (SP:XFJ)",
+      "source": "TradingView",
+      "url": "https://news.google.com/rss/articles/CBMiZEFVX3lxTE9PU3VKRHRxTXphSlV1dWdyQjdsNDZWMUFmUmx1V3B1LXFqZ0dWUkRiRmVnaUZSTEdWUlJ5dlZwWFg0eWw3eDVWVFdxUUFjeXhHMElEb3Bra0xrTDdOUFJMZWI5dUo?oc=5",
+      "published": "2026-10-02T14:19+00:00"
+    },
+    {
+      "id": "AU-n4",
+      "title": "Technical Analysis of S&P/ASX 200 Industrials Index (SP:XNJ)",
+      "source": "TradingView",
+      "url": "https://news.google.com/rss/articles/CBMiZEFVX3lxTFBzelRva3Y5bllCcEN1RDdEWm9VcXlDTEZyV1BpcFpwMFVzaEVzVkY1ZnVNa2Z4SVB4aGlpTXV5VnpsaENxVXA4Y0trOGtQem1kbGxFSmJDbVQ4dHJlOEx2ak5jY3g?oc=5",
+      "published": "2026-10-02T13:04+00:00"
+    },
+    {
+      "id": "AU-n5",
+      "title": "ASX 200 Rose Even As Bond Yields Stayed Elevated",
+      "source": "Finimize",
+      "url": "https://news.google.com/rss/articles/CBMigwFBVV95cUxPdGFKQU55dnpmTGNfT210VFFZQUJPTDJmR2x5eHdzUG9ETGowTnlQSFpRQlZRX1hqV1p2QkdkekpxeG9kU3JPTUZjclFWSmV2N2Jha1haeXA5UUF0Wng4NEZfWHdlczJueGpMbnRIdUlrek9qZ3BBd2g1MEtMYUNoc1hZNA?oc=5",
+      "published": "2026-10-02T11:55+00:00"
+    },
+    {
+      "id": "AU-n6",
+      "title": "Australian Dollar flattens against Japanese Yen after Tokyo CPI data",
+      "source": "tmgm.com",
+      "url": "https://news.google.com/rss/articles/CBMi0wFBVV95cUxQdU16MC1XTjlyY3FUNUdOU1pfbTVmNnc3by1GQjRITkNtd2FTVVVmcE1uT0xtMUZMS2JOZmVQOFNkWXBfWVBzT2VQV0dUbjVIaFBsYWVUeGRiV2ZOakw0ZmNjd3Z1N3JqS04xUWg3dy00NlZnd3oyRzNDVmh2d0VzR2ZpcFRQcTA0TWxJMmYxR04taGZBN2JkWmNZaVVCU3VTaThyRzN5WEVfdGMtSC1BQ0c0Q2hZcU5xaHh1cTB6MkpGQ3dFTkswbzZ2RjIxY2Z0WEln?oc=5",
+      "published": "2026-10-02T08:51+00:00"
+    },
+    {
+      "id": "AU-n7",
+      "title": "Australia stocks higher at close of trade; S&P/ASX 200 up 0.79%",
+      "source": "Investing.com",
+      "url": "https://news.google.com/rss/articles/CBMitgFBVV95cUxNOTJEcGUyT0laaUZGQTRicm9uUElkNlNBbk5WaEFzc2hzc0hVVFZVX3d6aUJBRm0xZ2wwU3poS0ZQNGdSbEhoMTVzWW55aGxremFOYzVpX0hfS2hXU3lSNk5KWmw1eVNtVlRNWGV5VVkwRm9PZmJvbm5HVE1zUS1DczJxdkxFTG9iUl9haUVJTU5YeEFaSXpkLTZmck9qRklPSWM0VjQyTFU2WTFGb3RGRzNMNGdNZw?oc=5",
+      "published": "2026-10-02T08:36+00:00"
+    },
+    {
+      "id": "AU-n8",
+      "title": "Weekly Wrap: Banks and technology lifted ASX 200 despite Thursday sell-off",
+      "source": "TradingView",
+      "url": "https://news.google.com/rss/articles/CBMizgFBVV95cUxPWEpvalBTcWtCOGFReVg2Sm13bjdyaGgwM3QzVGdpeUo4QlU3bERzdVJXNUxCSWhJRFJ0OC16NHB1MVBrU3dWLUkzSFd5VXFFdnBwYWxnVjZIRldTSlQxMWRFbmtZNFFBMGpHMl9TS0RMdFhoV2dvNVkyQllTT2VlV1g0dl92LVN0aWFlLXI2RkM2ZDBnbWdoOGlISzBQekNZQTJobzZtS3U1bDBlUEN1dk4tREFnQWRoQmxJWllKLUo4Yy0ySmtWR1ZzbjM2UQ?oc=5",
+      "published": "2026-10-02T08:04+00:00"
+    }
+  ],
+  "coverage": "partial"
+}

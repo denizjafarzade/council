@@ -1,5 +1,23 @@
 @import "tailwindcss";
 
+/* Council builder palette ("night desk"): near-black ground, one gold accent. */
+@theme {
+  --font-sans: "IBM Plex Sans", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, monospace;
+  --color-desk: #0d1015;
+  --color-panel: #151a21;
+  --color-raised: #1b222b;
+  --color-line: #29313c;
+  --color-line-strong: #3a4452;
+  --color-ink: #eceff3;
+  --color-muted: #a3adba;
+  --color-gold: #e8b04a;
+  --color-gold-hover: #f3c873;
+  --color-gold-soft: #2a2414;
+  --color-gold-ink: #1a1408;
+  --color-gold-text: #f3d08a;
+}
+
 html,
 body,
 #root {

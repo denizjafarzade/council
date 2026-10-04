@@ -1,0 +1,83 @@
+{
+  "country": "CA",
+  "as_of": "2026-10-02T16:00:00-04:00",
+  "series": [
+    {
+      "id": "CA-idx",
+      "name": "S&P/TSX Composite",
+      "last": 35502.7,
+      "chg_1d_pct": 0.99,
+      "chg_1m_pct": -1.63,
+      "vol_20d_pct": 11.55
+    },
+    {
+      "id": "CA-fx",
+      "name": "USD/CAD",
+      "last": 1.4247,
+      "chg_1d_pct": 0.19,
+      "chg_1m_pct": 3.32,
+      "vol_20d_pct": 2.74
+    }
+  ],
+  "sectors": [],
+  "macro": [],
+  "news": [
+    {
+      "id": "CA-n1",
+      "title": "Why Tourmaline Oil (TSX:TOU) Shares Climbed Today",
+      "source": "Yahoo Finance",
+      "url": "https://news.google.com/rss/articles/CBMilgFBVV95cUxPZzRPc180NDZ6MFdvenVXTkJxQzBEWHBWcXUweFZINk9CNkNNYzBrbnJLZ1RHZEFDWFBIY2d3SVFKNlFueDRpNTd2UV9HaUFCVlU5T2htdGNpRUR1SVN1UVFLQXVUR1REeEduUnpCWDRSV2tDVHZ6YjJuMHVqWkxQQWRWdzlNWXd3YzdSZFRuTDRoN3FDOEE?oc=5",
+      "published": "2026-10-04T02:08+00:00"
+    },
+    {
+      "id": "CA-n2",
+      "title": "Suncor Energy (TSX:SU) Could Be 8% Undervalued After Pathways CCS Deal",
+      "source": "Yahoo Finance",
+      "url": "https://news.google.com/rss/articles/CBMiiwFBVV95cUxOWWtrV3djSHBCOFQtVWNTWUgwa2FRcmJValNRRThsRzJjUXdpT2FuUHp4S21EcV9yUUQ3clkyUlJfX3BCU0RibTBoTVhJdzZoV25pbVhrZW1MdDVfRmE5dDU5N052X3owWFhoam1zYldCc3F1SkFOWFFhT1lrSHNtTE1iOERvYlhNeThV?oc=5",
+      "published": "2026-10-04T02:08+00:00"
+    },
+    {
+      "id": "CA-n3",
+      "title": "Is Imperial Oil (TSX:IMO) Expensive As Kearl Reaches 1 Billion Barrels?",
+      "source": "Yahoo Finance",
+      "url": "https://news.google.com/rss/articles/CBMimwFBVV95cUxOWkxpaHFYLW1JTVFqQnlEVTNPOGR2Y1k5TWFSOU9HanAwMW1nVENfS1pDbk1oNVlXWGNqQ0pfQXBoMVJFOWJWeVNNR1U4bTZWbVZqenAwV1BnRXhXTHlFZ2ZQS2VvdEFIWWNBUGNaNHpBRG5ZSDZxak1meFExM2w0TjRVb2hiRlU3RV9ULWk0eG5kWFNlQllua3NROA?oc=5",
+      "published": "2026-10-04T02:08+00:00"
+    },
+    {
+      "id": "CA-n4",
+      "title": "Canadian Pacific Kansas City (TSX:CP) Could Be 12% Undervalued Following Labor Deal",
+      "source": "Yahoo Finance",
+      "url": "https://news.google.com/rss/articles/CBMingFBVV95cUxPQXVsU3hTb0ZuYmh2dzFFOFlIejJYTTl1SjhDMzhGeVVqSGFDY0NvSk9tWGV6ak10cUZuUDFJaU5IazFQVkUySHVVTU9SQVA5ZW5Na2VncEdtWGZKUVY3MEFyT185V1QyUkxLdWFEZjhRRGRwdkJldzZmdXAwOTR4UkpvYndORXlZSWxLbTlKdUh5ZjRfS2pDTVZZbkt3dw?oc=5",
+      "published": "2026-10-04T02:08+00:00"
+    },
+    {
+      "id": "CA-n5",
+      "title": "Did New Gaspé Skarn and Moly Hits Just Shift Osisko Metals' (TSX:OM) Investment Narrative?",
+      "source": "Yahoo Finance Australia",
+      "url": "https://news.google.com/rss/articles/CBMifkFVX3lxTE9sUnViOHBEM0VibmdmaFY3cnpROGFqMzFpLU1SdmI1cVZhTS1fRkxieWlSVFZQVF9EWV9SVVhVNm9wd2c1LTVzeElGNjk5dUpYbnFYd0JsRWR6a2FUeDhBZDhIZkZtQmt2VGZJWW1vVElqQlpIZEhmbEJUQjVkZw?oc=5",
+      "published": "2026-10-04T01:09+00:00"
+    },
+    {
+      "id": "CA-n6",
+      "title": "Is Sun Life (TSX:SLF) Quietly Redefining Its Health Ecosystem With Disability Care Navigation?",
+      "source": "Yahoo Finance",
+      "url": "https://news.google.com/rss/articles/CBMijgFBVV95cUxPeF8tcG82cVUtNUk2S0ZnY2QtYXltd1lPSjlJTllSVm5GTXh6ZnZ3WkRabTRFNno5VWU2MDVXdEF4ZHIwZFlVdE0ybE05cWZmc3dDSlFOMEdpdUh3TmdzVFNsNFpscFRMS3pGMENFenJjZENsbVBGZVpLTFRwbkhaZ3N5RTJqTEw0RmZGcXBn?oc=5",
+      "published": "2026-10-04T00:12+00:00"
+    },
+    {
+      "id": "CA-n7",
+      "title": "Cenovus Energy (TSX:CVE) Is Up 5.6% After Boosting 2026 Outlook And Advancing Pathways CCS Framework",
+      "source": "Yahoo Finance",
+      "url": "https://news.google.com/rss/articles/CBMiiAFBVV95cUxQemRkLUVzYW1oaXRQMHRRY3JlNjZoZ0NURnhFdE1ncTMzRTFEaWd6RjRySE5mUnd0dlBybVY2V0JZdmZndDVEb1VBQ1o5RFVDZjNfaHJMVFNPRWNSQTZJRUpEYktUQWdiYjJtS3NxanF1eWxlOHlucEpITHF2QXNZLTFDeFFtZ2Nf?oc=5",
+      "published": "2026-10-04T00:12+00:00"
+    },
+    {
+      "id": "CA-n8",
+      "title": "Bank of Nova Scotia (TSX:BNS) Is Back In Focus, What Is Catching Attention?",
+      "source": "Yahoo Finance",
+      "url": "https://news.google.com/rss/articles/CBMikwFBVV95cUxQa1V4bm41WGFneEZhdFoydHdzQU9qV3k1ajJqZ0xEYmFzdXViTnBVaG4zb0NqS1d1NGVHbjZMU1ZiUDNGYWxaYTlQejRabU9JcVBTSHpYb05mWHBfT2xZYzh2OVlORldneVh1a19PeFBlOUpuUlZlTGgzaWhjQjBpQnBPNFRmRnkzaTlvQlVHVDgzbGs?oc=5",
+      "published": "2026-10-04T00:11+00:00"
+    }
+  ],
+  "coverage": "partial"
+}

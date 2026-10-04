@@ -58,7 +58,8 @@ def test_stream_endpoint_emits_the_mock_run(monkeypatch):
     with client.stream("GET", f"/council/stream/{run_id}") as r:
         body = "".join(r.iter_text())
     names = [line[len("event: "):] for line in body.splitlines() if line.startswith("event: ")]
-    assert names[:-1] == [e["event"] for e in RUN]
+    assert names[0] == "council"  # who is seated, before the replayed run
+    assert names[1:-1] == [e["event"] for e in RUN]
     assert names[-1] == "end"
 
 

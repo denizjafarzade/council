@@ -16,10 +16,13 @@ def _view(score: float) -> str:
     return "neutral"
 
 
-def compute_matrix(revotes: list[Vote]) -> list[MatrixCell]:
-    """Confidence-weighted average of revotes per cell; dissent = spread of views (0..1)."""
+def compute_matrix(revotes: list[Vote], markets: list[str] = COUNTRIES) -> list[MatrixCell]:
+    """Confidence-weighted average of revotes per cell; dissent = spread of views (0..1).
+
+    One seat, one vote: a market with several seats weighs each of them equally.
+    """
     out = []
-    for c in COUNTRIES:
+    for c in markets:
         for s in SECTORS:
             cells = [cell for v in revotes for cell in v.cells if cell.country == c and cell.sector == s]
             if not cells:

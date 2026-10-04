@@ -1,6 +1,7 @@
 import { useMemo } from 'react'
-import { COUNTRIES, SECTORS, VIEW_STYLE } from '../lib/constants'
+import { SECTORS, VIEW_STYLE } from '../lib/constants'
 import { briefMatrix, computeMatrix } from '../lib/council'
+import { marketsOf, votersOf } from '../lib/roster'
 import { Flag, Panel } from './bits'
 
 const SHORT = { Tech: 'Tech', Financials: 'Fin', Property: 'Prop', Energy: 'Energy' }
@@ -32,7 +33,7 @@ function Cell({ cell, changed, from }) {
   )
 }
 
-function Grid({ title, matrix, compare }) {
+function Grid({ title, matrix, compare, markets }) {
   return (
     <div className="min-w-0 flex-1">
       <h3 className="mb-2 text-sm font-semibold text-slate-300">{title}</h3>
@@ -43,7 +44,7 @@ function Grid({ title, matrix, compare }) {
             {SHORT[s]}
           </span>
         ))}
-        {COUNTRIES.map((c) => (
+        {markets.map((c) => (
           <div key={c} className="contents">
             <span className="flex items-center gap-1 text-xs font-semibold text-slate-300">
               <Flag code={c} className="h-3 w-[18px]" />
@@ -63,10 +64,13 @@ function Grid({ title, matrix, compare }) {
 }
 
 export default function Matrix({ state }) {
-  const blind = useMemo(() => computeMatrix(state.votes.blind), [state.votes.blind])
+  const markets = useMemo(() => marketsOf(state), [state])
+  const blindVoters = votersOf(state, 'blind')
+  const revoters = votersOf(state, 'revote')
+  const blind = useMemo(() => computeMatrix(state.votes.blind, markets), [state.votes.blind, markets])
   const final = useMemo(
-    () => (state.brief ? briefMatrix(state.brief) : computeMatrix(state.votes.revote)),
-    [state.brief, state.votes.revote],
+    () => (state.brief ? briefMatrix(state.brief, revoters) : computeMatrix(state.votes.revote, markets)),
+    [state.brief, state.votes.revote, markets, revoters],
   )
   const nBlind = Object.keys(state.votes.blind).length
   const nRevote = Object.keys(state.votes.revote).length
@@ -84,8 +88,13 @@ export default function Matrix({ state }) {
       }
     >
       <div className="flex gap-4">
-        <Grid title={`Blind vote${nBlind ? ` (${nBlind}/7)` : ''}`} matrix={blind} />
-        <Grid title={state.brief ? 'Final (Chair)' : `After debate${nRevote ? ` (${nRevote}/7)` : ''}`} matrix={final} compare={blind} />
+        <Grid title={`Blind vote${nBlind ? ` (${nBlind}/${blindVoters})` : ''}`} matrix={blind} markets={markets} />
+        <Grid
+          title={state.brief ? 'Final (Chair)' : `After debate${nRevote ? ` (${nRevote}/${revoters})` : ''}`}
+          matrix={final}
+          compare={blind}
+          markets={markets}
+        />
       </div>
     </Panel>
   )

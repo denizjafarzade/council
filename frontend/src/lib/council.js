@@ -6,6 +6,7 @@ export const initialState = {
   mode: 'idle', // idle | mock | live
   status: 'idle', // idle | running | done | error
   event: '',
+  council: null, // the backend's "council" event: markets and seats for this run
   stages: Object.fromEntries(STAGES.map((s) => [s.id, 'pending'])),
   votes: { blind: {}, revote: {} },
   feed: [], // messages, vote arrivals and errors, in arrival order
@@ -37,6 +38,8 @@ export function councilReducer(state, action) {
 function applyEvent(state, event, data) {
   const id = ++seq
   switch (event) {
+    case 'council':
+      return { ...state, council: data }
     case 'stage':
       return { ...state, stages: { ...state.stages, [data.name]: data.status } }
     case 'vote':
@@ -75,10 +78,10 @@ function viewOf(score) {
 }
 
 /** Confidence-weighted matrix from a set of votes: { "HK/Tech": {view, confidence, dissent, n} } */
-export function computeMatrix(votes) {
+export function computeMatrix(votes, markets = COUNTRIES) {
   const out = {}
   const list = Object.values(votes)
-  for (const c of COUNTRIES) {
+  for (const c of markets) {
     for (const s of SECTORS) {
       const cells = list.flatMap((v) => v.cells.filter((x) => x.country === c && x.sector === s))
       if (!cells.length) continue
@@ -95,8 +98,8 @@ export function computeMatrix(votes) {
   return out
 }
 
-export function briefMatrix(brief) {
-  return Object.fromEntries(brief.matrix.map((m) => [`${m.country}/${m.sector}`, { ...m, n: 7 }]))
+export function briefMatrix(brief, voters = 7) {
+  return Object.fromEntries(brief.matrix.map((m) => [`${m.country}/${m.sector}`, { ...m, n: voters }]))
 }
 
 /** Cells where an agent changed view between blind and revote (used before the brief lands). */

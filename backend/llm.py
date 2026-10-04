@@ -83,10 +83,14 @@ def _client() -> tuple[str, str, anthropic.AsyncAnthropic | anthropic.AsyncAnthr
     raise LLMError(f"unknown LLM_PROVIDER {provider()!r}")
 
 
-async def call_llm(system: str, user: str, schema: type[T], *, agent: str = "?") -> tuple[T, Usage]:
-    """Ask the model for one `schema` object. Raises LLMOutputError or LLMError."""
+async def call_llm(system: str, user: str, schema: type[T], *, agent: str = "?",
+                   model: str | None = None) -> tuple[T, Usage]:
+    """Ask the model for one `schema` object. Raises LLMOutputError or LLMError.
+
+    `model` (OpenRouter only) overrides the per-agent profile choice in models.py.
+    """
     if provider() == "openrouter":
-        return await _call_openrouter(system, user, schema, agent)
+        return await _call_openrouter(system, user, schema, agent, model)
 
     provider_name, model, client = _client()
     kwargs = dict(
@@ -137,11 +141,12 @@ def _extract_json(text: str) -> str:
     return text[start:end + 1] if start != -1 and end > start else text
 
 
-async def _call_openrouter(system: str, user: str, schema: type[T], agent: str) -> tuple[T, Usage]:
+async def _call_openrouter(system: str, user: str, schema: type[T], agent: str,
+                           model: str | None = None) -> tuple[T, Usage]:
     key = os.getenv("OPENROUTER_API_KEY")
     if not key:
         raise LLMError("OPENROUTER_API_KEY is not set")
-    primary = model_for(agent)
+    primary = model or model_for(agent)
     models = [primary] + [m for m in fallbacks() if m != primary]
     body = {
         "messages": [{"role": "system", "content": system}, {"role": "user", "content": user}],

@@ -2,7 +2,7 @@ import { useCallback, useEffect, useReducer, useRef } from 'react'
 import mockRun from '../../../mocks/council_run.json'
 import { councilReducer, initialState } from '../lib/council'
 
-const SSE_EVENTS = ['stage', 'vote', 'message', 'report', 'spillover', 'brief', 'error']
+const SSE_EVENTS = ['council', 'stage', 'vote', 'message', 'report', 'spillover', 'brief', 'error']
 const MOCK_DELAY_MS = 300
 
 export function useCouncil() {
@@ -32,9 +32,9 @@ export function useCouncil() {
     [stop],
   )
 
-  /** Start a real council run and stream it over SSE. */
+  /** Start a real council run and stream it over SSE. `council` is the builder's config (optional). */
   const runLive = useCallback(
-    async (event) => {
+    async (event, council) => {
       stop()
       dispatch({ type: 'reset', mode: 'live', event })
       let runId
@@ -42,8 +42,14 @@ export function useCouncil() {
         const r = await fetch('/council/run', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ event }),
+          body: JSON.stringify(council ? { event, council } : { event }),
         })
+        if (r.status === 422) {
+          const detail = (await r.json().catch(() => ({}))).detail
+          dispatch({ type: 'toast', text: `The council can't run: ${typeof detail === 'string' ? detail : 'invalid configuration'}` })
+          dispatch({ type: 'status', status: 'error' })
+          return
+        }
         if (!r.ok) throw new Error(`HTTP ${r.status}`)
         runId = (await r.json()).run_id
       } catch (e) {

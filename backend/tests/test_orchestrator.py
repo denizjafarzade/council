@@ -10,6 +10,7 @@ import pytest
 ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT / "backend"))
 
+import library  # noqa: E402
 import orchestrator  # noqa: E402
 from llm import LLMError, LLMOutputError, Usage  # noqa: E402
 from schemas import (  # noqa: E402
@@ -47,7 +48,7 @@ class FakeLLM:
         self.calls: list[tuple[str, str, str]] = []  # (agent, schema, system)
         self.fail = fail or {}
 
-    async def __call__(self, system, user, schema, *, agent):
+    async def __call__(self, system, user, schema, *, agent, model=None):
         self.calls.append((agent, schema.__name__, system))
         key = (agent, schema.__name__)
         if key in self.fail:
@@ -125,7 +126,7 @@ def test_agents_see_the_right_data_and_context(monkeypatch):
     assert "BLIND VOTES:" in round1 and "Nothing yet." in round1
     assert "[CN] CN impact summary" in round2  # round 2 sees other delegates' round-1 reports
     bear = systems[("BEAR", "DelegateReport")][0]
-    assert "strongest consensus" in bear and "[JP] JP impact summary" in bear
+    assert "STRONGEST CONSENSUS" in bear and "[JP] JP impact summary" in bear
     assert "YOUR BLIND VOTE WAS" in systems[("US", "Vote")][1]
     assert "FINAL MATRIX" in systems[("CHAIR", "ChairNotes")][0]
 
@@ -175,7 +176,7 @@ def test_votes_are_emitted_as_they_arrive(monkeypatch):
     delays = {a: 0.05 * i for i, a in enumerate(reversed(AGENTS))}  # >15 ms Windows timer tick
     fake = FakeLLM()
 
-    async def slow(system, user, schema, *, agent):
+    async def slow(system, user, schema, *, agent, model=None):
         if schema is Vote and "blind" in user:
             await asyncio.sleep(delays[agent])
         return await fake(system, user, schema, agent=agent)
@@ -190,12 +191,15 @@ def test_load_data_prefers_cache_and_falls_back_to_mocks(tmp_path, monkeypatch):
     (tmp_path / "HK.json").write_text(json.dumps({**mock_hk, "as_of": "cached"}), encoding="utf-8")
     monkeypatch.setattr(orchestrator, "CACHE_DIR", tmp_path)
 
-    packs = orchestrator.load_data()
+    packs, problems = asyncio.run(orchestrator.load_data())
+    assert problems == []
     assert packs["HK"].as_of == "cached"
     assert packs["US"].country == "US"
 
 
-def test_every_agent_has_a_prompt_file():
-    for a in AGENTS:
-        prompt = orchestrator.build_prompt(a, "TASK", "EVENT", "{}", None, Vote)
-        assert "{" + "TASK}" not in prompt and "Rules:" in prompt
+def test_every_seat_prompt_is_fully_filled():
+    council = library.default_council()
+    for seat in library.resolve(council):
+        prompt = orchestrator.build_prompt(seat, council.markets, "TASK", "EVENT", "{}", None, Vote)
+        assert "{" not in prompt.replace("{}", "").split("SCHEMA:")[0], prompt
+        assert "Rules:" in prompt and seat.member.name in prompt

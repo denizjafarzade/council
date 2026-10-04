@@ -51,8 +51,20 @@ def profile() -> str:
     return name
 
 
-def model_for(agent: str) -> str:
-    return os.getenv(f"MODEL_{agent}") or PROFILES[profile()][agent]
+def model_for(agent: str, *, explicit: str | None = None, like: str | None = None) -> str:
+    """The model for one council member.
+
+    Order: MODEL_<ID> env override, the member's own model, the profile's entry for this id,
+    then the profile entry of the seat it is `like` (custom members have no entry of their own).
+    """
+    table = PROFILES[profile()]
+    return (os.getenv(f"MODEL_{agent.replace('-', '_')}") or explicit or table.get(agent)
+            or table.get(like or "") or table["BEAR"])
+
+
+def all_models() -> list[str]:
+    """Every model named in any profile, for the member editor's model picker."""
+    return sorted({m for table in PROFILES.values() for m in table.values()})
 
 
 def fallbacks() -> list[str]:

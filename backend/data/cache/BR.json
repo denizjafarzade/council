@@ -1,0 +1,83 @@
+{
+  "country": "BR",
+  "as_of": "2026-10-02T17:00:00-03:00",
+  "series": [
+    {
+      "id": "BR-idx",
+      "name": "Ibovespa",
+      "last": 192115.0,
+      "chg_1d_pct": 2.63,
+      "chg_1m_pct": 3.73,
+      "vol_20d_pct": 15.16
+    },
+    {
+      "id": "BR-fx",
+      "name": "USD/BRL",
+      "last": 5.2223,
+      "chg_1d_pct": -0.01,
+      "chg_1m_pct": 2.38,
+      "vol_20d_pct": 8.23
+    }
+  ],
+  "sectors": [],
+  "macro": [],
+  "news": [
+    {
+      "id": "BR-n1",
+      "title": "Brazil Central Bank Tightens Betting Payment Rules",
+      "source": "lcb.org",
+      "url": "https://news.google.com/rss/articles/CBMie0FVX3lxTE9iM2ZoUnpkeXptWEk1ZEw4RWZOZGFrbzVEa0JNYnV5V01jNFphRWZYMDg4eDRKLVBIcEpMNV9OdF9nRFF1cmItVVZHQzNTLXZsVUxzNndqeWNKQmhmWm94RGlyUWhmUjZDVjJPLUZoWTYzRkx5TU5SaDZTMNIBgAFBVV95cUxNdlpTZi13TWdkS3VYVDMwdmJLYmF5ZjNRYWxIRzJWNXdLMUYzdnlYa2NoQmVLd2l2N0NjbDZfcERCd2d5Y1d6RXdJdW9KUHM5cTZmQzhNcXpNQ0RlUVRGSjF5NnZQaWt0R3ozNjN2ZkZOeF9Uai1mMmFkN1dCUWJPTQ?oc=5",
+      "published": "2026-10-03T18:28+00:00"
+    },
+    {
+      "id": "BR-n2",
+      "title": "Ibovespa Jumps Ahead of Election",
+      "source": "TradingView",
+      "url": "https://news.google.com/rss/articles/CBMiiwFBVV95cUxOa096U1YwejFpUWJIcnBSakF0SVFXdHVzUmtvNWdGMi1iQ2tNT0tUczRtRnQyeWYxd1RyeG41Y0JiQWZLd25JZXVLYnlZVmFTRGpZYjhQLUZSTXpQeHp5SlhicTg5MS1HY0o2eUVwSmRVYk1oTExlckExLXJTNDBnUFBXUG11NEhQa3gw?oc=5",
+      "published": "2026-10-02T20:45+00:00"
+    },
+    {
+      "id": "BR-n3",
+      "title": "Pound Sterling vs Brazilian Real holds gains as pair trades above key moving averages but faces resistance",
+      "source": "Traders Union",
+      "url": "https://news.google.com/rss/articles/CBMimAFBVV95cUxOeGZ6TW9NMzhmZWdlYndDazRVRHpfR1d3TFNkeVlvSm1HM185MVl6LXM0bEZUX1FTTmdyZHF6eXFhQnlNR1o4aG1MYnVyaFAzTlhHc280TXRfaGtObHFqU1JGaEMzazVKN0k1N05oa28xYW9fM1ZKV0FPYmRkMDhuYjRZVDktalhUZ08wQWdFTWNJN3hxWnkydg?oc=5",
+      "published": "2026-10-02T16:25+00:00"
+    },
+    {
+      "id": "BR-n4",
+      "title": "MUSEBOOK to BRL",
+      "source": "Crypto.com",
+      "url": "https://news.google.com/rss/articles/CBMiUkFVX3lxTFB3bFJfbGllZlBPWC1vLWo4a1RMY0w0TEg3YnJqc1hRcENPekRiUGJVSF9DUEg0UUs2b1VlLXRMT19UZlF3dksxU1NZWGVLYkduYXc?oc=5",
+      "published": "2026-10-01T16:56+00:00"
+    },
+    {
+      "id": "BR-n5",
+      "title": "Bullish technical momentum drives US Dollar vs Brazilian Real higher by over 1%",
+      "source": "Traders Union",
+      "url": "https://news.google.com/rss/articles/CBMilwFBVV95cUxPUl90Uk04TFlmcEhjVHZJbjJ2SFRSOThXa1hvSGZCbmtQdDRGb1ViTFlsRHNtY2FVT0wwbU1iOW5tZm8tS3EyTFpBcks0RHA0SFEzVDdVVWp0UE1laHNGVTlkU19ad080VGF2Mmp0RmxhWkJtdGRReWlfZTlZTGRxUlJGdElZYWFKRlpBd0JrbExDZF9oN1Fj?oc=5",
+      "published": "2026-10-01T16:55+00:00"
+    },
+    {
+      "id": "BR-n6",
+      "title": "Brazilian Real Under Pressure Ahead of Election",
+      "source": "TradingView",
+      "url": "https://news.google.com/rss/articles/CBMinwFBVV95cUxQMnFnYnVaa0w3NDZqb1k2Q05DVVVkNHdaV2JHRFFYeUEtRjJZT2htUlNaazBTaFNCWmZQS1FlcjRqN1RCYU5SbjBQVEVTSU5fSzN2VEhCNHQ3cXdnZF9BZWF4cTdoOG1Ob05LYWhuR0ltd2hfM0Z1YXl2RGlleDNGak53cVZGdldiOXdJbmtEbF9sc3NFNmUxZnotTkdocXM?oc=5",
+      "published": "2026-10-01T16:40+00:00"
+    },
+    {
+      "id": "BR-n7",
+      "title": "Ibovespa Gains Ahead of Election Poll and Presidential Debate",
+      "source": "TradingView",
+      "url": "https://news.google.com/rss/articles/CBMisgFBVV95cUxQZkZkUndkQXNSTG1Hd2VEYnBZLTJGWUk0MExkT2k1TFk3eXFrTXA4VEpuUlRsRm5tc215Y2VkeVpSRUtaXy1FLWlCZW9yZlZ5Vm9QWVJ1N3J2em5oTmE0R3ZaU3hTMzlVOW1lWlJfMTZEQURUSU5NbVFNR2tUb2h2R0puM2RrVjJpbFRUTkk4R2oyNHNFeG5BOW9NLVpMd2l4dGFuSWU5dzhWRXo0dUZMTDlB?oc=5",
+      "published": "2026-10-01T13:53+00:00"
+    },
+    {
+      "id": "BR-n8",
+      "title": "Brazil Central Bank Bars Crypto Settlement in Cross-Border Payments",
+      "source": "tokenpost.com",
+      "url": "https://news.google.com/rss/articles/CBMiW0FVX3lxTE1Wb0NGeHlxWmJxRmlOZ2J1bmZzaVdxR0UtUzFuUHNDZjFiREE2UzJicC1NTzRkX1E4eUFyTmJhdjJ4S1psUVZwcGh0WTFRYzVJZUFEMV9PbGxUZ2M?oc=5",
+      "published": "2026-10-01T00:06+00:00"
+    }
+  ],
+  "coverage": "partial"
+}

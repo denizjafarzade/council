@@ -1,6 +1,6 @@
 // Small shared pieces: flags, agent badges, source chips.
 import { useState } from 'react'
-import { AGENTS } from '../lib/constants'
+import { useAgent } from '../lib/roster'
 
 // Simplified SVG flags: Windows does not render flag emoji.
 export function Flag({ code, className = 'h-4 w-6' }) {
@@ -41,17 +41,23 @@ export function Flag({ code, className = 'h-4 w-6' }) {
         <rect width="12" height={(20 / 13) * 7} fill="#3c3b6e" />
       </svg>
     )
-  return null
+  // Markets without a drawn flag (UK, IN, custom ones) get their code instead.
+  return (
+    <span className={`${className} inline-flex shrink-0 items-center justify-center rounded-[2px] bg-slate-700 font-mono text-[9px] font-semibold leading-none text-slate-100`}
+      aria-label={code}>
+      {code}
+    </span>
+  )
 }
 
 export function AgentIcon({ agent, className }) {
-  const a = AGENTS[agent]
-  if (!a) return null
+  const a = useAgent(agent)
+  if (!a.flag && !a.icon) return null
   return a.flag ? <Flag code={a.flag} className={className} /> : <span className="text-base leading-none">{a.icon}</span>
 }
 
 export function AgentName({ agent }) {
-  const a = AGENTS[agent] || { label: agent, color: '#cbd5e1' }
+  const a = useAgent(agent)
   return (
     <span className="inline-flex items-center gap-1.5 font-semibold" style={{ color: a.color }}>
       <AgentIcon agent={agent} />

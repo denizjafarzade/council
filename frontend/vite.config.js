@@ -7,6 +7,7 @@ export default defineConfig({
   server: {
     // Lets the UI import ../mocks/council_run.json.
     fs: { allow: ['..'] },
-    proxy: { '/council': 'http://localhost:8000', '/health': 'http://localhost:8000' },
+    // '/council' also covers '/councils'.
+    proxy: { '/council': 'http://localhost:8000', '/library': 'http://localhost:8000', '/health': 'http://localhost:8000' },
   },
 })
