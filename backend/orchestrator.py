@@ -23,11 +23,13 @@ from typing import TypeVar
 
 from pydantic import BaseModel
 
+import jev
 import library
 from council_math import compute_matrix, compute_vote_shifts
 from library import Seat
 from llm import LLMError, LLMOutputError, call_llm
 from models import model_for
+from verify import check_claim
 from schemas import (
     COUNTRIES, DISCLAIMER, SECTORS, Brief, Council, DataPack, DelegateReport, MatrixCell, RunRequest, Spillover,
     Trigger, Vote,
@@ -158,7 +160,7 @@ async def run_council(req: RunRequest) -> AsyncIterator[Event]:
     )) if spiller else None
     yield stage("revote", "started")
     revotes: dict[str, Vote] = {}
-    async for name, data in run.votes("revote", event, packs, blinds, transcript):
+    async for name, data in run.votes("revote", event, packs, blinds, transcript, reports):
         if name == "vote":
             revotes[data["agent"]] = Vote.model_validate(data)
         yield name, data
@@ -315,19 +317,28 @@ def render_transcript(reports: list[DelegateReport]) -> str:
     return "\n".join(lines)
 
 
-def report_events(report: DelegateReport) -> list[Event]:
-    """A report streams as chat messages (summary, then each challenge) followed by the report itself."""
+def report_events(report: DelegateReport, visible: list[DataPack], all_packs: list[DataPack],
+                  event: str) -> list[Event]:
+    """A report streams as chat messages, then the report itself: the summary, each claim with
+    its sources (checked against the author's data), then each challenge."""
     ids = list(dict.fromkeys(i for c in report.claims for i in c.source_ids))
-    events: list[Event] = [("message", {"agent": report.agent, "text": report.impact_summary, "source_ids": ids})]
+    # The summary rides on its claims' citations, so only its ids and numbers are checked.
+    summary_problems = [p for p in check_claim(report.impact_summary, ids, visible, event, all_packs)
+                        if p != "cites no source"]
+    events: list[Event] = [("message", {"agent": report.agent, "text": report.impact_summary, "source_ids": ids,
+                                        "unverified": summary_problems})]
+    events += [("message", {"agent": report.agent, "text": c.text, "source_ids": c.source_ids,
+                            "unverified": check_claim(c.text, c.source_ids, visible, event, all_packs)})
+               for c in report.claims]
     events += [("message", {"agent": report.agent, "text": f"Challenge to {c.to_agent}: {c.text}", "source_ids": []})
                for c in report.challenges]
     events.append(("report", report.model_dump(mode="json")))
     return events
 
 
-def check_vote(vote: Vote, agent: str, rnd: str, markets: list[str]) -> Vote:
+def check_vote(vote: Vote, agent: str, rnd: str, markets: list[str], source: str = "llm") -> Vote:
     """Pin identity fields and require each cell exactly once."""
-    vote = vote.model_copy(update={"agent": agent, "round": rnd, "source": "llm"})
+    vote = vote.model_copy(update={"agent": agent, "round": rnd, "source": source})
     if rnd == "blind":
         vote = vote.model_copy(update={"cells": [c.model_copy(update={"because": None}) for c in vote.cells]})
     cells = [(c.country, c.sector) for c in vote.cells]
@@ -377,6 +388,28 @@ class Run:
         self.seats = seats
         self.chair = next(s for s in seats if s.stage == "chair")
 
+    def visible(self, seat: Seat, packs: dict[str, DataPack]) -> list[DataPack]:
+        return list(packs.values()) if seat.sees_all else [packs[seat.market.code]]
+
+    def report_events(self, report: DelegateReport, packs: dict[str, DataPack], event: str) -> list[Event]:
+        seat = next(s for s in self.seats if s.id == report.agent)
+        return report_events(report, self.visible(seat, packs), list(packs.values()), event)
+
+    def agent_context(self, seat: Seat, event: str, packs: dict[str, DataPack], reports: list[DelegateReport],
+                      transcript: str | None) -> dict:
+        """Jev's state for one seat: who it is, what it can see, and what it argued."""
+        own = [r for r in reports if r.agent == seat.id]
+        return {
+            "member": {"name": seat.member.name, "role": seat.role.name, "focus": seat.instructions,
+                       "market": f"{seat.market.name} ({seat.market.code})" if seat.market else "all markets",
+                       "local_knowledge": seat.brief},
+            "event": event,
+            "data": {p.country: data_lines(p) for p in self.visible(seat, packs)},
+            "debate_notes": render_transcript(own) or (
+                "Blind vote: no debate yet." if transcript is None else "This member did not speak in the debate."),
+            "council_debate": (transcript or "")[-6000:],
+        }
+
     def model(self, seat: Seat) -> str:
         if seat.market:
             like = seat.market.code if seat.market.code in DELEGATE_MODEL_KEYS else \
@@ -400,7 +433,25 @@ class Run:
                 log.warning("%s gave invalid %s, retrying: %s", seat.id, schema.__name__, e)
         raise AssertionError("unreachable")
 
-    def ask_vote(self, seat: Seat, rnd: str, event: str, packs: dict[str, DataPack],
+    async def ask_vote(self, seat: Seat, rnd: str, event: str, packs: dict[str, DataPack],
+                       blinds: dict[str, Vote], transcript: str | None,
+                       reports: list[DelegateReport] = ()) -> Vote:
+        """Jev's calibrated vote when it is configured; the LLM's vote if Jev is off or fails."""
+        if jev.enabled():
+            own = [r for r in reports if r.agent == seat.id]
+            try:
+                vote = await jev.vote_with_jev(
+                    self.agent_context(seat, event, packs, list(reports), transcript),
+                    [(c, s) for c in self.markets for s in SECTORS], agent=seat.id, rnd=rnd,
+                    market_names={c: library.markets()[c].name for c in self.markets},
+                    previous=blinds.get(seat.id),
+                    reason=" ".join(own[-1].impact_summary.split()[:20]) if own else "")
+                return check_vote(vote, seat.id, rnd, self.markets, source="jev")
+            except (jev.JevError, LLMOutputError) as e:
+                log.warning("%s: Jev %s vote failed, using the LLM: %s", seat.id, rnd, e)
+        return await self.llm_vote(seat, rnd, event, packs, blinds, transcript)
+
+    def llm_vote(self, seat: Seat, rnd: str, event: str, packs: dict[str, DataPack],
                  blinds: dict[str, Vote], transcript: str | None) -> Awaitable[Vote]:
         if rnd == "blind":
             task = BLIND_TASK.format(n=len(self.markets) * len(SECTORS), markets=", ".join(self.markets),
@@ -417,11 +468,11 @@ class Run:
                         check=lambda v: check_vote(v, seat.id, rnd, self.markets))
 
     async def votes(self, rnd: str, event: str, packs: dict[str, DataPack], blinds: dict[str, Vote],
-                    transcript: str | None) -> AsyncIterator[Event]:
+                    transcript: str | None, reports: list[DelegateReport] = ()) -> AsyncIterator[Event]:
         """Every voting seat in parallel; each vote is emitted the moment it lands."""
         phase = "vote" if rnd == "blind" else "revote"
         voters = [s for s in self.seats if getattr(s.member.phases, phase)]
-        calls = {s.id: self.ask_vote(s, rnd, event, packs, blinds, transcript) for s in voters}
+        calls = {s.id: self.ask_vote(s, rnd, event, packs, blinds, transcript, reports) for s in voters}
         async for agent, result in in_parallel(calls):
             if isinstance(result, LLMError):
                 yield skipped(agent, "blind vote" if rnd == "blind" else "revote", result)
@@ -444,7 +495,7 @@ class Run:
                 yield skipped(agent, f"debate round {n}", result)
                 continue
             new.append(result)
-            for e in report_events(result):
+            for e in self.report_events(result, packs, event):
                 yield e
         # Later rounds see this round's reports only once the whole round is in.
         reports.extend(new)
@@ -468,7 +519,7 @@ class Run:
                 yield skipped(agent, "debate", result)
                 continue
             new.append(result)
-            for e in report_events(result):
+            for e in self.report_events(result, packs, event):
                 yield e
         reports.extend(new)
 
@@ -503,6 +554,17 @@ class Run:
             except LLMError as e:
                 err = e
         return Brief(**notes.model_dump(), matrix=matrix, vote_shifts=shifts, disclaimer=DISCLAIMER), err
+
+
+def data_lines(pack: DataPack) -> list[str]:
+    """A DataPack as short text lines with their source ids (Jev takes text state)."""
+    lines = [f"{s.id} {s.name}: last {s.last}, 1d {s.chg_1d_pct}%, 1m {s.chg_1m_pct}%, 20d vol {s.vol_20d_pct}%"
+             for s in pack.series]
+    lines += [f"{pack.country}-{s.sector} ({s.ticker}): 1m {s.chg_1m_pct}%, 20d vol {s.vol_20d_pct}%"
+              for s in pack.sectors]
+    lines += [f"{m.id} {m.name}: {m.value}" for m in pack.macro]
+    lines += [f"{n.id} {n.title} ({n.source}, {n.published[:10]})" for n in pack.news]
+    return lines or [f"No market data for {pack.country}."]
 
 
 def render_cells(cells: list[MatrixCell]) -> str:

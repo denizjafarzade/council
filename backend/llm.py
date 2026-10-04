@@ -26,7 +26,8 @@ from pydantic import BaseModel, ValidationError
 
 from models import fallbacks, model_for
 
-load_dotenv(Path(__file__).resolve().parent.parent / ".env")
+# override=True: the project .env wins over stale keys set in the Windows/shell environment.
+load_dotenv(Path(__file__).resolve().parent.parent / ".env", override=True)
 
 log = logging.getLogger("council.llm")
 

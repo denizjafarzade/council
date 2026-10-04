@@ -181,6 +181,9 @@ class Message(Model):
     agent: AgentId
     text: str
     source_ids: list[str]
+    # Stage 3A trust checks: why this message is unverified (unknown ids, numbers that don't
+    # match the cited data, no source). Empty = verified, or nothing to check.
+    unverified: list[str] = Field(default_factory=list)
 
 
 class ErrorEvent(Model):

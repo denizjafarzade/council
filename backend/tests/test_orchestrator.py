@@ -100,7 +100,7 @@ def test_full_run_emits_every_stage_and_valid_contracts(monkeypatch):
     # Each report is preceded by its summary message, carrying the claim source ids.
     i = next(k for k, (n, d) in enumerate(events) if n == "report" and d["agent"] == "HK")
     summary = next(d for n, d in events[:i] if n == "message" and d["agent"] == "HK")
-    assert summary == {"agent": "HK", "text": "HK impact summary", "source_ids": ["HK-idx"]}
+    assert summary == {"agent": "HK", "text": "HK impact summary", "source_ids": ["HK-idx"], "unverified": []}
 
     brief = next(d for n, d in events if n == "brief")
     assert brief["headline"] == "Council view"

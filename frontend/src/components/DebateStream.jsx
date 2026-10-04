@@ -17,7 +17,10 @@ function Message({ msg, sources }) {
       <div className="mb-1 flex items-center gap-2">
         <AgentName agent={msg.agent} />
         {unverified && (
-          <span className="rounded bg-amber-500/20 px-1.5 text-xs font-semibold text-amber-300" title="Cites a source that is not in the data">
+          <span
+            className="rounded bg-amber-500/20 px-1.5 text-xs font-semibold text-amber-300"
+            title={Array.isArray(msg.unverified) && msg.unverified.length ? msg.unverified.join('; ') : 'Cites a source that is not in the data'}
+          >
             ⚠ unverified
           </span>
         )}

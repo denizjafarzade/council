@@ -13,7 +13,8 @@ import anthropic
 import httpx
 from dotenv import load_dotenv
 
-load_dotenv(Path(__file__).resolve().parent.parent / ".env")
+# override=True: the project .env wins over stale keys set in the Windows/shell environment.
+load_dotenv(Path(__file__).resolve().parent.parent / ".env", override=True)
 
 
 def check_llm() -> bool:
