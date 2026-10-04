@@ -51,6 +51,7 @@ def test_cited_source_ids_exist_in_datapacks():
 
 
 def test_stream_endpoint_emits_the_mock_run(monkeypatch):
+    monkeypatch.setenv("COUNCIL_MOCK", "1")
     monkeypatch.setattr(orchestrator, "MOCK_DELAY_S", 0)
     client = TestClient(app)
     run_id = client.post("/council/run", json={"event": "Fed cuts 50bp"}).json()["run_id"]
