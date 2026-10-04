@@ -36,6 +36,7 @@ cd frontend && npm install
 |---|---|---|
 | Backend on :8000 | `make backend` | `cd backend && ../.venv/Scripts/python -m uvicorn app:app --reload --port 8000` |
 | Frontend on :5173 | `make frontend` | `cd frontend && npm run dev` |
+| Check API keys | `make keys` | `.venv/Scripts/python backend/check_keys.py` |
 | Tests | `make test` | `.venv/Scripts/python -m pytest backend/tests -q` |
 | Regenerate mocks | `make mocks` | `.venv/Scripts/python mocks/generate_mock.py` |
 | Verify tickers | | `.venv/Scripts/python backend/data/fetch.py --check` |
