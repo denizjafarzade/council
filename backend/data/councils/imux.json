@@ -1,0 +1,113 @@
+{
+  "id": "imux",
+  "name": "IMUX",
+  "markets": [
+    "US"
+  ],
+  "members": [
+    {
+      "id": "CHAIR",
+      "name": "Chair",
+      "role": "chair",
+      "market": null,
+      "instructions": null,
+      "brief": null,
+      "phases": {
+        "vote": true,
+        "debate": true,
+        "revote": true
+      },
+      "model": null
+    },
+    {
+      "id": "US",
+      "name": "United States Macro Strategist",
+      "role": "macro",
+      "market": "US",
+      "instructions": null,
+      "brief": null,
+      "phases": {
+        "vote": true,
+        "debate": true,
+        "revote": true
+      },
+      "model": null
+    },
+    {
+      "id": "US-TECHNICAL",
+      "name": "United States Market Analyst",
+      "role": "technical",
+      "market": "US",
+      "instructions": null,
+      "brief": null,
+      "phases": {
+        "vote": true,
+        "debate": true,
+        "revote": true
+      },
+      "model": null
+    },
+    {
+      "id": "US-FUNDAMENTALS",
+      "name": "United States Fundamentals Analyst",
+      "role": "fundamentals",
+      "market": "US",
+      "instructions": null,
+      "brief": null,
+      "phases": {
+        "vote": true,
+        "debate": true,
+        "revote": true
+      },
+      "model": null
+    },
+    {
+      "id": "US-NEWS",
+      "name": "United States News Analyst",
+      "role": "news",
+      "market": "US",
+      "instructions": null,
+      "brief": null,
+      "phases": {
+        "vote": true,
+        "debate": true,
+        "revote": true
+      },
+      "model": null
+    },
+    {
+      "id": "US-SENTIMENT",
+      "name": "United States Sentiment Analyst",
+      "role": "sentiment",
+      "market": "US",
+      "instructions": null,
+      "brief": null,
+      "phases": {
+        "vote": true,
+        "debate": true,
+        "revote": true
+      },
+      "model": null
+    },
+    {
+      "id": "RISK",
+      "name": "Risk Officer",
+      "role": "risk",
+      "market": null,
+      "instructions": null,
+      "brief": null,
+      "phases": {
+        "vote": true,
+        "debate": true,
+        "revote": true
+      },
+      "model": null
+    }
+  ],
+  "sectors": [
+    "Health",
+    "Tech",
+    "Materials"
+  ],
+  "debate_rounds": 1
+}

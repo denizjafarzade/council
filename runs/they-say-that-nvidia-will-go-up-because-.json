@@ -1,0 +1,2468 @@
+{
+ "event": "They say that Nvidia will go up because of the development of AI, should I invest in that",
+ "slug": "they-say-that-nvidia-will-go-up-because-",
+ "recorded_at": "2026-10-04T08:01:51+00:00",
+ "duration_s": 142.33,
+ "profile": "premium",
+ "council": null,
+ "events": [
+  {
+   "t": 0.01,
+   "event": "stage",
+   "data": {
+    "name": "data",
+    "status": "started"
+   }
+  },
+  {
+   "t": 0.01,
+   "event": "council",
+   "data": {
+    "name": "Nvidia desk",
+    "markets": [
+     {
+      "code": "US",
+      "name": "United States",
+      "coverage": "full",
+      "as_of": "2026-10-02T16:00:00-04:00"
+     }
+    ],
+    "sectors": [
+     "Tech",
+     "Financials",
+     "Property",
+     "Energy"
+    ],
+    "members": [
+     {
+      "id": "CHAIR",
+      "name": "Chair",
+      "role": "chair",
+      "role_name": "Chair",
+      "stage": "chair",
+      "market": null,
+      "phases": {
+       "vote": true,
+       "debate": true,
+       "revote": true
+      }
+     },
+     {
+      "id": "US",
+      "name": "United States Macro Strategist",
+      "role": "macro",
+      "role_name": "Macro Strategist",
+      "stage": "debate",
+      "market": "US",
+      "phases": {
+       "vote": true,
+       "debate": true,
+       "revote": true
+      }
+     },
+     {
+      "id": "US-TECHNICAL",
+      "name": "United States Market Analyst",
+      "role": "technical",
+      "role_name": "Market Analyst",
+      "stage": "debate",
+      "market": "US",
+      "phases": {
+       "vote": true,
+       "debate": true,
+       "revote": true
+      }
+     },
+     {
+      "id": "US-FUNDAMENTALS",
+      "name": "United States Fundamentals Analyst",
+      "role": "fundamentals",
+      "role_name": "Fundamentals Analyst",
+      "stage": "debate",
+      "market": "US",
+      "phases": {
+       "vote": true,
+       "debate": true,
+       "revote": true
+      }
+     },
+     {
+      "id": "US-NEWS",
+      "name": "United States News Analyst",
+      "role": "news",
+      "role_name": "News Analyst",
+      "stage": "debate",
+      "market": "US",
+      "phases": {
+       "vote": true,
+       "debate": true,
+       "revote": true
+      }
+     },
+     {
+      "id": "US-SENTIMENT",
+      "name": "United States Sentiment Analyst",
+      "role": "sentiment",
+      "role_name": "Sentiment Analyst",
+      "stage": "debate",
+      "market": "US",
+      "phases": {
+       "vote": true,
+       "debate": true,
+       "revote": true
+      }
+     },
+     {
+      "id": "RISK",
+      "name": "Risk Officer",
+      "role": "risk",
+      "role_name": "Risk Officer",
+      "stage": "rebuttal",
+      "market": null,
+      "phases": {
+       "vote": true,
+       "debate": true,
+       "revote": true
+      }
+     },
+     {
+      "id": "SPILLOVER",
+      "name": "Spillover Analyst",
+      "role": "spillover",
+      "role_name": "Spillover Analyst",
+      "stage": "spillover",
+      "market": null,
+      "phases": {
+       "vote": true,
+       "debate": true,
+       "revote": true
+      }
+     },
+     {
+      "id": "BEAR",
+      "name": "Bear Researcher",
+      "role": "bear",
+      "role_name": "Bear Researcher",
+      "stage": "rebuttal",
+      "market": null,
+      "phases": {
+       "vote": true,
+       "debate": true,
+       "revote": true
+      }
+     },
+     {
+      "id": "BULL",
+      "name": "Bull Researcher",
+      "role": "bull",
+      "role_name": "Bull Researcher",
+      "stage": "rebuttal",
+      "market": null,
+      "phases": {
+       "vote": true,
+       "debate": true,
+       "revote": true
+      }
+     }
+    ],
+    "debate_rounds": 1
+   }
+  },
+  {
+   "t": 0.01,
+   "event": "stage",
+   "data": {
+    "name": "data",
+    "status": "done"
+   }
+  },
+  {
+   "t": 0.01,
+   "event": "stage",
+   "data": {
+    "name": "blind_vote",
+    "status": "started"
+   }
+  },
+  {
+   "t": 7.81,
+   "event": "vote",
+   "data": {
+    "agent": "US-FUNDAMENTALS",
+    "round": "blind",
+    "cells": [
+     {
+      "country": "US",
+      "sector": "Tech",
+      "view": "bullish",
+      "confidence": 0.8
+     },
+     {
+      "country": "US",
+      "sector": "Financials",
+      "view": "bearish",
+      "confidence": 0.6
+     },
+     {
+      "country": "US",
+      "sector": "Property",
+      "view": "bearish",
+      "confidence": 0.7
+     },
+     {
+      "country": "US",
+      "sector": "Energy",
+      "view": "neutral",
+      "confidence": 0.5
+     }
+    ],
+    "source": "llm"
+   }
+  },
+  {
+   "t": 7.82,
+   "event": "vote",
+   "data": {
+    "agent": "CHAIR",
+    "round": "blind",
+    "cells": [
+     {
+      "country": "US",
+      "sector": "Tech",
+      "view": "neutral",
+      "confidence": 0.5
+     },
+     {
+      "country": "US",
+      "sector": "Financials",
+      "view": "bearish",
+      "confidence": 0.45
+     },
+     {
+      "country": "US",
+      "sector": "Property",
+      "view": "bearish",
+      "confidence": 0.6
+     },
+     {
+      "country": "US",
+      "sector": "Energy",
+      "view": "neutral",
+      "confidence": 0.35
+     }
+    ],
+    "source": "llm"
+   }
+  },
+  {
+   "t": 9.25,
+   "event": "vote",
+   "data": {
+    "agent": "SPILLOVER",
+    "round": "blind",
+    "cells": [
+     {
+      "country": "US",
+      "sector": "Tech",
+      "view": "neutral",
+      "confidence": 0.45
+     },
+     {
+      "country": "US",
+      "sector": "Financials",
+      "view": "bearish",
+      "confidence": 0.55
+     },
+     {
+      "country": "US",
+      "sector": "Property",
+      "view": "bearish",
+      "confidence": 0.6
+     },
+     {
+      "country": "US",
+      "sector": "Energy",
+      "view": "neutral",
+      "confidence": 0.4
+     }
+    ],
+    "source": "llm"
+   }
+  },
+  {
+   "t": 9.4,
+   "event": "vote",
+   "data": {
+    "agent": "US-SENTIMENT",
+    "round": "blind",
+    "cells": [
+     {
+      "country": "US",
+      "sector": "Tech",
+      "view": "bullish",
+      "confidence": 0.8
+     },
+     {
+      "country": "US",
+      "sector": "Financials",
+      "view": "bearish",
+      "confidence": 0.7
+     },
+     {
+      "country": "US",
+      "sector": "Property",
+      "view": "bearish",
+      "confidence": 0.7
+     },
+     {
+      "country": "US",
+      "sector": "Energy",
+      "view": "bearish",
+      "confidence": 0.6
+     }
+    ],
+    "source": "llm"
+   }
+  },
+  {
+   "t": 10.32,
+   "event": "vote",
+   "data": {
+    "agent": "US-NEWS",
+    "round": "blind",
+    "cells": [
+     {
+      "country": "US",
+      "sector": "Tech",
+      "view": "bullish",
+      "confidence": 0.7
+     },
+     {
+      "country": "US",
+      "sector": "Financials",
+      "view": "bearish",
+      "confidence": 0.8
+     },
+     {
+      "country": "US",
+      "sector": "Property",
+      "view": "bearish",
+      "confidence": 0.8
+     },
+     {
+      "country": "US",
+      "sector": "Energy",
+      "view": "neutral",
+      "confidence": 0.5
+     }
+    ],
+    "source": "llm"
+   }
+  },
+  {
+   "t": 11.11,
+   "event": "vote",
+   "data": {
+    "agent": "US",
+    "round": "blind",
+    "cells": [
+     {
+      "country": "US",
+      "sector": "Tech",
+      "view": "bullish",
+      "confidence": 0.9
+     },
+     {
+      "country": "US",
+      "sector": "Financials",
+      "view": "bearish",
+      "confidence": 0.8
+     },
+     {
+      "country": "US",
+      "sector": "Property",
+      "view": "bearish",
+      "confidence": 0.8
+     },
+     {
+      "country": "US",
+      "sector": "Energy",
+      "view": "bearish",
+      "confidence": 0.7
+     }
+    ],
+    "source": "llm"
+   }
+  },
+  {
+   "t": 11.41,
+   "event": "vote",
+   "data": {
+    "agent": "US-TECHNICAL",
+    "round": "blind",
+    "cells": [
+     {
+      "country": "US",
+      "sector": "Tech",
+      "view": "bullish",
+      "confidence": 0.85
+     },
+     {
+      "country": "US",
+      "sector": "Financials",
+      "view": "neutral",
+      "confidence": 0.5
+     },
+     {
+      "country": "US",
+      "sector": "Property",
+      "view": "bearish",
+      "confidence": 0.6
+     },
+     {
+      "country": "US",
+      "sector": "Energy",
+      "view": "neutral",
+      "confidence": 0.5
+     }
+    ],
+    "source": "llm"
+   }
+  },
+  {
+   "t": 24.88,
+   "event": "vote",
+   "data": {
+    "agent": "RISK",
+    "round": "blind",
+    "cells": [
+     {
+      "country": "US",
+      "sector": "Tech",
+      "view": "neutral",
+      "confidence": 0.55
+     },
+     {
+      "country": "US",
+      "sector": "Financials",
+      "view": "bearish",
+      "confidence": 0.65
+     },
+     {
+      "country": "US",
+      "sector": "Property",
+      "view": "bearish",
+      "confidence": 0.7
+     },
+     {
+      "country": "US",
+      "sector": "Energy",
+      "view": "bearish",
+      "confidence": 0.5
+     }
+    ],
+    "source": "llm"
+   }
+  },
+  {
+   "t": 26.13,
+   "event": "vote",
+   "data": {
+    "agent": "BEAR",
+    "round": "blind",
+    "cells": [
+     {
+      "country": "US",
+      "sector": "Tech",
+      "view": "bearish",
+      "confidence": 0.55
+     },
+     {
+      "country": "US",
+      "sector": "Financials",
+      "view": "bearish",
+      "confidence": 0.6
+     },
+     {
+      "country": "US",
+      "sector": "Property",
+      "view": "bearish",
+      "confidence": 0.7
+     },
+     {
+      "country": "US",
+      "sector": "Energy",
+      "view": "bearish",
+      "confidence": 0.5
+     }
+    ],
+    "source": "llm"
+   }
+  },
+  {
+   "t": 28.08,
+   "event": "vote",
+   "data": {
+    "agent": "BULL",
+    "round": "blind",
+    "cells": [
+     {
+      "country": "US",
+      "sector": "Tech",
+      "view": "bullish",
+      "confidence": 0.72
+     },
+     {
+      "country": "US",
+      "sector": "Financials",
+      "view": "neutral",
+      "confidence": 0.45
+     },
+     {
+      "country": "US",
+      "sector": "Property",
+      "view": "neutral",
+      "confidence": 0.4
+     },
+     {
+      "country": "US",
+      "sector": "Energy",
+      "view": "neutral",
+      "confidence": 0.35
+     }
+    ],
+    "source": "llm"
+   }
+  },
+  {
+   "t": 28.08,
+   "event": "stage",
+   "data": {
+    "name": "blind_vote",
+    "status": "done"
+   }
+  },
+  {
+   "t": 28.08,
+   "event": "stage",
+   "data": {
+    "name": "debate",
+    "status": "started"
+   }
+  },
+  {
+   "t": 28.08,
+   "event": "message",
+   "data": {
+    "agent": "CHAIR",
+    "text": "Council convened on: They say that Nvidia will go up because of the development of AI, should I invest in that. Blind votes are in; members, make your case.",
+    "source_ids": []
+   }
+  },
+  {
+   "t": 40.0,
+   "event": "message",
+   "data": {
+    "agent": "US-FUNDAMENTALS",
+    "text": "The artificial intelligence boom supports Technology sector earnings, while rising interest rates pressure valuations in the Financials and Property sectors.",
+    "source_ids": [
+     "XLK",
+     "EVENT",
+     "US-10y",
+     "US-n1",
+     "US-n4",
+     "XLRE",
+     "XLF"
+    ],
+    "unverified": []
+   }
+  },
+  {
+   "t": 40.0,
+   "event": "message",
+   "data": {
+    "agent": "US-FUNDAMENTALS",
+    "text": "The Technology sector shows strong momentum, rising over eight percent this month, reflecting optimism around artificial intelligence demand.",
+    "source_ids": [
+     "XLK",
+     "EVENT"
+    ],
+    "unverified": []
+   }
+  },
+  {
+   "t": 40.0,
+   "event": "message",
+   "data": {
+    "agent": "US-FUNDAMENTALS",
+    "text": "The ten-year Treasury yield has surged to multi-year highs, significantly increasing borrowing costs.",
+    "source_ids": [
+     "US-10y",
+     "US-n1",
+     "US-n4"
+    ],
+    "unverified": []
+   }
+  },
+  {
+   "t": 40.0,
+   "event": "message",
+   "data": {
+    "agent": "US-FUNDAMENTALS",
+    "text": "Higher interest rates are heavily pressuring the Property sector, which has declined over six percent in the last month.",
+    "source_ids": [
+     "XLRE",
+     "US-10y"
+    ],
+    "unverified": []
+   }
+  },
+  {
+   "t": 40.0,
+   "event": "message",
+   "data": {
+    "agent": "US-FUNDAMENTALS",
+    "text": "Financials are also facing severe headwinds, dropping over seven percent recently amid the broader bond market selloff.",
+    "source_ids": [
+     "XLF",
+     "US-n4"
+    ],
+    "unverified": []
+   }
+  },
+  {
+   "t": 40.0,
+   "event": "message",
+   "data": {
+    "agent": "US-FUNDAMENTALS",
+    "text": "Challenge to BEAR: A bearish view on Tech ignores the sector's strong recent performance and the ongoing artificial intelligence catalyst.",
+    "source_ids": []
+   }
+  },
+  {
+   "t": 40.0,
+   "event": "report",
+   "data": {
+    "agent": "US-FUNDAMENTALS",
+    "impact_summary": "The artificial intelligence boom supports Technology sector earnings, while rising interest rates pressure valuations in the Financials and Property sectors.",
+    "claims": [
+     {
+      "text": "The Technology sector shows strong momentum, rising over eight percent this month, reflecting optimism around artificial intelligence demand.",
+      "source_ids": [
+       "XLK",
+       "EVENT"
+      ]
+     },
+     {
+      "text": "The ten-year Treasury yield has surged to multi-year highs, significantly increasing borrowing costs.",
+      "source_ids": [
+       "US-10y",
+       "US-n1",
+       "US-n4"
+      ]
+     },
+     {
+      "text": "Higher interest rates are heavily pressuring the Property sector, which has declined over six percent in the last month.",
+      "source_ids": [
+       "XLRE",
+       "US-10y"
+      ]
+     },
+     {
+      "text": "Financials are also facing severe headwinds, dropping over seven percent recently amid the broader bond market selloff.",
+      "source_ids": [
+       "XLF",
+       "US-n4"
+      ]
+     }
+    ],
+    "challenges": [
+     {
+      "to_agent": "BEAR",
+      "text": "A bearish view on Tech ignores the sector's strong recent performance and the ongoing artificial intelligence catalyst."
+     }
+    ],
+    "triggers": [
+     {
+      "condition": "A sharp decline in the ten-year Treasury yield",
+      "would_change": "Would upgrade the outlook for the Property and Financials sectors."
+     },
+     {
+      "condition": "Evidence of slowing corporate investment in artificial intelligence",
+      "would_change": "Would downgrade the bullish outlook on the Technology sector."
+     }
+    ]
+   }
+  },
+  {
+   "t": 40.41,
+   "event": "message",
+   "data": {
+    "agent": "US-TECHNICAL",
+    "text": "The artificial intelligence trend continues to drive technology sector momentum, though surging Treasury yields present significant headwinds for property and financial sectors.",
+    "source_ids": [
+     "XLK",
+     "EVENT",
+     "US-idx",
+     "US-10y",
+     "US-n1",
+     "XLF",
+     "XLRE"
+    ],
+    "unverified": []
+   }
+  },
+  {
+   "t": 40.41,
+   "event": "message",
+   "data": {
+    "agent": "US-TECHNICAL",
+    "text": "Technology shows strong momentum with a one-month gain of 8.83%, reflecting the ongoing artificial intelligence narrative.",
+    "source_ids": [
+     "XLK",
+     "EVENT"
+    ],
+    "unverified": []
+   }
+  },
+  {
+   "t": 40.41,
+   "event": "message",
+   "data": {
+    "agent": "US-TECHNICAL",
+    "text": "The broader market remains positive but muted, with the S&P 500 up 0.73% over the past month.",
+    "source_ids": [
+     "US-idx"
+    ],
+    "unverified": []
+   }
+  },
+  {
+   "t": 40.41,
+   "event": "message",
+   "data": {
+    "agent": "US-TECHNICAL",
+    "text": "Surging US 10-year Treasury yields, up 10.03% this month, are creating pressure across other sectors.",
+    "source_ids": [
+     "US-10y",
+     "US-n1"
+    ],
+    "unverified": []
+   }
+  },
+  {
+   "t": 40.41,
+   "event": "message",
+   "data": {
+    "agent": "US-TECHNICAL",
+    "text": "Financials and Property sectors are suffering from these yield spikes, dropping 7.23% and 6.68% respectively over the last month.",
+    "source_ids": [
+     "XLF",
+     "XLRE"
+    ],
+    "unverified": []
+   }
+  },
+  {
+   "t": 40.41,
+   "event": "message",
+   "data": {
+    "agent": "US-TECHNICAL",
+    "text": "Challenge to BEAR: Tech momentum remains robust at 8.83% over the last month, contradicting a bearish stance on the sector.",
+    "source_ids": []
+   }
+  },
+  {
+   "t": 40.41,
+   "event": "report",
+   "data": {
+    "agent": "US-TECHNICAL",
+    "impact_summary": "The artificial intelligence trend continues to drive technology sector momentum, though surging Treasury yields present significant headwinds for property and financial sectors.",
+    "claims": [
+     {
+      "text": "Technology shows strong momentum with a one-month gain of 8.83%, reflecting the ongoing artificial intelligence narrative.",
+      "source_ids": [
+       "XLK",
+       "EVENT"
+      ]
+     },
+     {
+      "text": "The broader market remains positive but muted, with the S&P 500 up 0.73% over the past month.",
+      "source_ids": [
+       "US-idx"
+      ]
+     },
+     {
+      "text": "Surging US 10-year Treasury yields, up 10.03% this month, are creating pressure across other sectors.",
+      "source_ids": [
+       "US-10y",
+       "US-n1"
+      ]
+     },
+     {
+      "text": "Financials and Property sectors are suffering from these yield spikes, dropping 7.23% and 6.68% respectively over the last month.",
+      "source_ids": [
+       "XLF",
+       "XLRE"
+      ]
+     }
+    ],
+    "challenges": [
+     {
+      "to_agent": "BEAR",
+      "text": "Tech momentum remains robust at 8.83% over the last month, contradicting a bearish stance on the sector."
+     }
+    ],
+    "triggers": [
+     {
+      "condition": "US 10-year Treasury yields stabilize or reverse their recent 10% monthly climb.",
+      "would_change": "Would reduce pressure on Financials and Property sectors, shifting them to neutral."
+     },
+     {
+      "condition": "Tech sector 20-day volatility spikes significantly above its current 17.55%.",
+      "would_change": "Would signal the AI momentum trade is becoming unstable, turning the view bearish."
+     }
+    ]
+   }
+  },
+  {
+   "t": 40.66,
+   "event": "message",
+   "data": {
+    "agent": "US-SENTIMENT",
+    "text": "High enthusiasm for artificial intelligence keeps technology stocks elevated, ignoring the broader market pressure from surging government borrowing costs.",
+    "source_ids": [
+     "XLK",
+     "EVENT",
+     "US-n1",
+     "US-n4",
+     "US-n5",
+     "US-10y",
+     "XLF",
+     "XLRE"
+    ],
+    "unverified": []
+   }
+  },
+  {
+   "t": 40.66,
+   "event": "message",
+   "data": {
+    "agent": "US-SENTIMENT",
+    "text": "The technology sector shows strong positive momentum, rising over eight percent this month, reflecting crowded positioning in artificial intelligence themes.",
+    "source_ids": [
+     "XLK",
+     "EVENT"
+    ],
+    "unverified": []
+   }
+  },
+  {
+   "t": 40.66,
+   "event": "message",
+   "data": {
+    "agent": "US-SENTIMENT",
+    "text": "Broader market sentiment is dominated by anxiety over surging Treasury yields hitting generational highs.",
+    "source_ids": [
+     "US-n1",
+     "US-n4",
+     "US-n5"
+    ],
+    "unverified": []
+   }
+  },
+  {
+   "t": 40.66,
+   "event": "message",
+   "data": {
+    "agent": "US-SENTIMENT",
+    "text": "The ten-year Treasury yield has spiked over ten percent in a month, crossing five percent.",
+    "source_ids": [
+     "US-10y"
+    ],
+    "unverified": []
+   }
+  },
+  {
+   "t": 40.66,
+   "event": "message",
+   "data": {
+    "agent": "US-SENTIMENT",
+    "text": "Negative sentiment is heavily concentrated in rate-sensitive sectors, with Financials and Property both falling significantly over the past month.",
+    "source_ids": [
+     "XLF",
+     "XLRE"
+    ],
+    "unverified": []
+   }
+  },
+  {
+   "t": 40.66,
+   "event": "message",
+   "data": {
+    "agent": "US-SENTIMENT",
+    "text": "Challenge to BEAR: Your bearish view on Tech contradicts the strong positive momentum and crowded bullish sentiment visible in the sector's recent performance.",
+    "source_ids": []
+   }
+  },
+  {
+   "t": 40.66,
+   "event": "report",
+   "data": {
+    "agent": "US-SENTIMENT",
+    "impact_summary": "High enthusiasm for artificial intelligence keeps technology stocks elevated, ignoring the broader market pressure from surging government borrowing costs.",
+    "claims": [
+     {
+      "text": "The technology sector shows strong positive momentum, rising over eight percent this month, reflecting crowded positioning in artificial intelligence themes.",
+      "source_ids": [
+       "XLK",
+       "EVENT"
+      ]
+     },
+     {
+      "text": "Broader market sentiment is dominated by anxiety over surging Treasury yields hitting generational highs.",
+      "source_ids": [
+       "US-n1",
+       "US-n4",
+       "US-n5"
+      ]
+     },
+     {
+      "text": "The ten-year Treasury yield has spiked over ten percent in a month, crossing five percent.",
+      "source_ids": [
+       "US-10y"
+      ]
+     },
+     {
+      "text": "Negative sentiment is heavily concentrated in rate-sensitive sectors, with Financials and Property both falling significantly over the past month.",
+      "source_ids": [
+       "XLF",
+       "XLRE"
+      ]
+     }
+    ],
+    "challenges": [
+     {
+      "to_agent": "BEAR",
+      "text": "Your bearish view on Tech contradicts the strong positive momentum and crowded bullish sentiment visible in the sector's recent performance."
+     }
+    ],
+    "triggers": [
+     {
+      "condition": "Tech sector volatility spikes sharply while Treasury yields continue to climb.",
+      "would_change": "Would indicate the bullish sentiment in AI is finally breaking under the pressure of higher rates."
+     },
+     {
+      "condition": "Financials and Property sectors begin to see positive inflows despite high yields.",
+      "would_change": "Would suggest peak bearishness in rate-sensitive sectors has passed."
+     }
+    ]
+   }
+  },
+  {
+   "t": 41.16,
+   "event": "message",
+   "data": {
+    "agent": "US",
+    "text": "Rising Treasury yields pressure rate-sensitive sectors like property and financials, while technology momentum persists despite the higher cost of capital.",
+    "source_ids": [
+     "US-10y",
+     "US-n1",
+     "US-n4",
+     "US-n5",
+     "XLK",
+     "XLRE",
+     "XLF",
+     "US-fx"
+    ],
+    "unverified": []
+   }
+  },
+  {
+   "t": 41.16,
+   "event": "message",
+   "data": {
+    "agent": "US",
+    "text": "The ten-year Treasury yield has surged to 5.277 percent, climbing 10.03 percent over the past month.",
+    "source_ids": [
+     "US-10y"
+    ],
+    "unverified": []
+   }
+  },
+  {
+   "t": 41.16,
+   "event": "message",
+   "data": {
+    "agent": "US",
+    "text": "Multiple reports highlight that these Treasury yields are reaching generational, twenty-four-year highs, threatening broader market stability.",
+    "source_ids": [
+     "US-n1",
+     "US-n4",
+     "US-n5"
+    ],
+    "unverified": []
+   }
+  },
+  {
+   "t": 41.16,
+   "event": "message",
+   "data": {
+    "agent": "US",
+    "text": "Despite surging yields, the technology sector remains highly resilient, gaining 8.83 percent over the last month.",
+    "source_ids": [
+     "XLK"
+    ],
+    "unverified": []
+   }
+  },
+  {
+   "t": 41.16,
+   "event": "message",
+   "data": {
+    "agent": "US",
+    "text": "Rate-sensitive sectors are suffering under these yields, with property down 6.68 percent and financials dropping 7.23 percent this month.",
+    "source_ids": [
+     "XLRE",
+     "XLF"
+    ],
+    "unverified": []
+   }
+  },
+  {
+   "t": 41.16,
+   "event": "message",
+   "data": {
+    "agent": "US",
+    "text": "The US Dollar Index has strengthened 2.38 percent over the past month, reflecting tighter financial conditions.",
+    "source_ids": [
+     "US-fx"
+    ],
+    "unverified": []
+   }
+  },
+  {
+   "t": 41.16,
+   "event": "message",
+   "data": {
+    "agent": "US",
+    "text": "Challenge to BEAR: Tech remains highly resilient with an 8.83 percent monthly gain, contradicting your bearish stance on the sector.",
+    "source_ids": []
+   }
+  },
+  {
+   "t": 41.16,
+   "event": "message",
+   "data": {
+    "agent": "US",
+    "text": "Challenge to BULL: Your neutral stance on property ignores the severe 6.68 percent monthly drop driven by surging Treasury yields.",
+    "source_ids": []
+   }
+  },
+  {
+   "t": 41.16,
+   "event": "report",
+   "data": {
+    "agent": "US",
+    "impact_summary": "Rising Treasury yields pressure rate-sensitive sectors like property and financials, while technology momentum persists despite the higher cost of capital.",
+    "claims": [
+     {
+      "text": "The ten-year Treasury yield has surged to 5.277 percent, climbing 10.03 percent over the past month.",
+      "source_ids": [
+       "US-10y"
+      ]
+     },
+     {
+      "text": "Multiple reports highlight that these Treasury yields are reaching generational, twenty-four-year highs, threatening broader market stability.",
+      "source_ids": [
+       "US-n1",
+       "US-n4",
+       "US-n5"
+      ]
+     },
+     {
+      "text": "Despite surging yields, the technology sector remains highly resilient, gaining 8.83 percent over the last month.",
+      "source_ids": [
+       "XLK"
+      ]
+     },
+     {
+      "text": "Rate-sensitive sectors are suffering under these yields, with property down 6.68 percent and financials dropping 7.23 percent this month.",
+      "source_ids": [
+       "XLRE",
+       "XLF"
+      ]
+     },
+     {
+      "text": "The US Dollar Index has strengthened 2.38 percent over the past month, reflecting tighter financial conditions.",
+      "source_ids": [
+       "US-fx"
+      ]
+     }
+    ],
+    "challenges": [
+     {
+      "to_agent": "BEAR",
+      "text": "Tech remains highly resilient with an 8.83 percent monthly gain, contradicting your bearish stance on the sector."
+     },
+     {
+      "to_agent": "BULL",
+      "text": "Your neutral stance on property ignores the severe 6.68 percent monthly drop driven by surging Treasury yields."
+     }
+    ],
+    "triggers": [
+     {
+      "condition": "The ten-year Treasury yield falls back below 5 percent.",
+      "would_change": "Relieve downward pressure on rate-sensitive sectors like property and financials."
+     },
+     {
+      "condition": "The US Dollar Index reverses its recent 2.38 percent monthly gain.",
+      "would_change": "Ease global financial conditions and potentially boost energy sector performance."
+     }
+    ]
+   }
+  },
+  {
+   "t": 42.31,
+   "event": "message",
+   "data": {
+    "agent": "US-NEWS",
+    "text": "Artificial intelligence development supports the technology sector, though surging treasury yields create significant headwinds for broader equities and rate-sensitive sectors like property and financials.",
+    "source_ids": [
+     "EVENT",
+     "XLK",
+     "US-10y",
+     "US-n1",
+     "US-n5",
+     "US-n4",
+     "US-n6",
+     "XLRE",
+     "XLF"
+    ],
+    "unverified": []
+   }
+  },
+  {
+   "t": 42.31,
+   "event": "message",
+   "data": {
+    "agent": "US-NEWS",
+    "text": "The event highlights interest in artificial intelligence, though we cannot provide personal investment advice on specific stocks.",
+    "source_ids": [
+     "EVENT"
+    ],
+    "unverified": []
+   }
+  },
+  {
+   "t": 42.31,
+   "event": "message",
+   "data": {
+    "agent": "US-NEWS",
+    "text": "The technology sector has gained 8.83 percent over the last month, reflecting strong momentum.",
+    "source_ids": [
+     "XLK"
+    ],
+    "unverified": []
+   }
+  },
+  {
+   "t": 42.31,
+   "event": "message",
+   "data": {
+    "agent": "US-NEWS",
+    "text": "US 10-year Treasury yields have surged 10.03 percent in a month to 5.277, reaching generational highs.",
+    "source_ids": [
+     "US-10y",
+     "US-n1",
+     "US-n5"
+    ],
+    "unverified": []
+   }
+  },
+  {
+   "t": 42.31,
+   "event": "message",
+   "data": {
+    "agent": "US-NEWS",
+    "text": "This global bond market selloff threatens the broader equity market's smooth ride.",
+    "source_ids": [
+     "US-n4",
+     "US-n6"
+    ],
+    "unverified": []
+   }
+  },
+  {
+   "t": 42.31,
+   "event": "message",
+   "data": {
+    "agent": "US-NEWS",
+    "text": "Rising yields have pressured rate-sensitive sectors, with property and financials falling 6.68 percent and 7.23 percent respectively over the past month.",
+    "source_ids": [
+     "XLRE",
+     "XLF"
+    ],
+    "unverified": []
+   }
+  },
+  {
+   "t": 42.31,
+   "event": "message",
+   "data": {
+    "agent": "US-NEWS",
+    "text": "Challenge to US: You are bearish on Energy, but our data shows Energy is down only 3.5 percent, outperforming Financials and Property.",
+    "source_ids": []
+   }
+  },
+  {
+   "t": 42.31,
+   "event": "report",
+   "data": {
+    "agent": "US-NEWS",
+    "impact_summary": "Artificial intelligence development supports the technology sector, though surging treasury yields create significant headwinds for broader equities and rate-sensitive sectors like property and financials.",
+    "claims": [
+     {
+      "text": "The event highlights interest in artificial intelligence, though we cannot provide personal investment advice on specific stocks.",
+      "source_ids": [
+       "EVENT"
+      ]
+     },
+     {
+      "text": "The technology sector has gained 8.83 percent over the last month, reflecting strong momentum.",
+      "source_ids": [
+       "XLK"
+      ]
+     },
+     {
+      "text": "US 10-year Treasury yields have surged 10.03 percent in a month to 5.277, reaching generational highs.",
+      "source_ids": [
+       "US-10y",
+       "US-n1",
+       "US-n5"
+      ]
+     },
+     {
+      "text": "This global bond market selloff threatens the broader equity market's smooth ride.",
+      "source_ids": [
+       "US-n4",
+       "US-n6"
+      ]
+     },
+     {
+      "text": "Rising yields have pressured rate-sensitive sectors, with property and financials falling 6.68 percent and 7.23 percent respectively over the past month.",
+      "source_ids": [
+       "XLRE",
+       "XLF"
+      ]
+     }
+    ],
+    "challenges": [
+     {
+      "to_agent": "US",
+      "text": "You are bearish on Energy, but our data shows Energy is down only 3.5 percent, outperforming Financials and Property."
+     }
+    ],
+    "triggers": [
+     {
+      "condition": "The US 10-year Treasury yield reverses its recent surge and stabilizes.",
+      "would_change": "I would become less bearish on rate-sensitive sectors like Property and Financials."
+     }
+    ]
+   }
+  },
+  {
+   "t": 78.71,
+   "event": "message",
+   "data": {
+    "agent": "BULL",
+    "text": "The council is bearish on Energy, Financials, and Property, but the data shows relative resilience in Energy and potential mean-reversion setups in rate-sensitive sectors if yields stabilize. Tech momentum remains the strongest bull case.",
+    "source_ids": [
+     "XLE",
+     "XLF",
+     "XLRE",
+     "XLK",
+     "US-10y",
+     "US-idx",
+     "US-n3"
+    ],
+    "unverified": []
+   }
+  },
+  {
+   "t": 78.71,
+   "event": "message",
+   "data": {
+    "agent": "BULL",
+    "text": "Energy is down only 3.5% this month, outperforming Financials (-7.23%) and Property (-6.68%), suggesting relative resilience despite bearish consensus.",
+    "source_ids": [
+     "XLE",
+     "XLF",
+     "XLRE"
+    ],
+    "unverified": []
+   }
+  },
+  {
+   "t": 78.71,
+   "event": "message",
+   "data": {
+    "agent": "BULL",
+    "text": "Energy's 20-day volatility of 20.98% is the highest of all sectors, indicating potential for a sharp reversal if conditions shift.",
+    "source_ids": [
+     "XLE"
+    ],
+    "unverified": []
+   }
+  },
+  {
+   "t": 78.71,
+   "event": "message",
+   "data": {
+    "agent": "BULL",
+    "text": "Tech's 8.83% monthly gain demonstrates that AI-driven momentum can persist even as yields surge to 5.277%, showing sector divergence is possible.",
+    "source_ids": [
+     "XLK",
+     "US-10y"
+    ],
+    "unverified": []
+   }
+  },
+  {
+   "t": 78.71,
+   "event": "message",
+   "data": {
+    "agent": "BULL",
+    "text": "The S&P 500 is still up 0.73% over the month, indicating the broader market has not broken down despite yield stress.",
+    "source_ids": [
+     "US-idx"
+    ],
+    "unverified": []
+   }
+  },
+  {
+   "t": 78.71,
+   "event": "message",
+   "data": {
+    "agent": "BULL",
+    "text": "Bessent's statement that rising yields reflect a global trend, not cause for alarm, suggests policy may not tighten further, limiting downside for rate-sensitive sectors.",
+    "source_ids": [
+     "US-n3"
+    ],
+    "unverified": []
+   }
+  },
+  {
+   "t": 78.71,
+   "event": "message",
+   "data": {
+    "agent": "BULL",
+    "text": "Challenge to US-SENTIMENT: Your bearish 0.60 confidence on Energy is not well-supported: Energy is down only 3.5% versus Financials at -7.23% and Property at -6.68%, and its high volatility suggests potential for a snap-back rally rather than continued decline.",
+    "source_ids": []
+   }
+  },
+  {
+   "t": 78.71,
+   "event": "message",
+   "data": {
+    "agent": "BULL",
+    "text": "Challenge to US: Your 0.70 bearish confidence on Energy overstates the case; Energy's 3.5% monthly decline is the mildest among the three bearish sectors, and the US Dollar's 2.38% monthly gain may be nearing exhaustion, which would support commodity-linked energy names.",
+    "source_ids": []
+   }
+  },
+  {
+   "t": 78.71,
+   "event": "report",
+   "data": {
+    "agent": "BULL",
+    "impact_summary": "The council is bearish on Energy, Financials, and Property, but the data shows relative resilience in Energy and potential mean-reversion setups in rate-sensitive sectors if yields stabilize. Tech momentum remains the strongest bull case.",
+    "claims": [
+     {
+      "text": "Energy is down only 3.5% this month, outperforming Financials (-7.23%) and Property (-6.68%), suggesting relative resilience despite bearish consensus.",
+      "source_ids": [
+       "XLE",
+       "XLF",
+       "XLRE"
+      ]
+     },
+     {
+      "text": "Energy's 20-day volatility of 20.98% is the highest of all sectors, indicating potential for a sharp reversal if conditions shift.",
+      "source_ids": [
+       "XLE"
+      ]
+     },
+     {
+      "text": "Tech's 8.83% monthly gain demonstrates that AI-driven momentum can persist even as yields surge to 5.277%, showing sector divergence is possible.",
+      "source_ids": [
+       "XLK",
+       "US-10y"
+      ]
+     },
+     {
+      "text": "The S&P 500 is still up 0.73% over the month, indicating the broader market has not broken down despite yield stress.",
+      "source_ids": [
+       "US-idx"
+      ]
+     },
+     {
+      "text": "Bessent's statement that rising yields reflect a global trend, not cause for alarm, suggests policy may not tighten further, limiting downside for rate-sensitive sectors.",
+      "source_ids": [
+       "US-n3"
+      ]
+     }
+    ],
+    "challenges": [
+     {
+      "to_agent": "US-SENTIMENT",
+      "text": "Your bearish 0.60 confidence on Energy is not well-supported: Energy is down only 3.5% versus Financials at -7.23% and Property at -6.68%, and its high volatility suggests potential for a snap-back rally rather than continued decline."
+     },
+     {
+      "to_agent": "US",
+      "text": "Your 0.70 bearish confidence on Energy overstates the case; Energy's 3.5% monthly decline is the mildest among the three bearish sectors, and the US Dollar's 2.38% monthly gain may be nearing exhaustion, which would support commodity-linked energy names."
+     }
+    ],
+    "triggers": [
+     {
+      "condition": "US 10-year Treasury yield stabilizes below 5.3% or reverses its 10.03% monthly climb.",
+      "would_change": "Upgrade Property and Financials from neutral to bullish, as the primary headwind would be easing."
+     },
+     {
+      "condition": "Energy sector volatility contracts below 15% while price stabilizes or reverses.",
+      "would_change": "Upgrade Energy from neutral to bullish, signaling the selloff is exhausting."
+     },
+     {
+      "condition": "US Dollar Index reverses its 2.38% monthly gain and falls below 101.",
+      "would_change": "Upgrade Energy outlook, as a weaker dollar typically supports commodity prices."
+     }
+    ]
+   }
+  },
+  {
+   "t": 84.13,
+   "event": "message",
+   "data": {
+    "agent": "RISK",
+    "text": "The council is underweighting the tail risk that surging Treasury yields (5.277%, up 10.03% monthly) eventually compress Tech valuations despite current momentum. The strongest consensus (Property bearish at 0.62 confidence) is well-supported, but the Tech bullish consensus ignores that 17.55% volatility combined with a 10% yield spike is a historically fragile combination. Energy's near-split vote reflects genuine uncertainty, not a neutral outcome.",
+    "source_ids": [
+     "XLK",
+     "US-10y",
+     "US-n4",
+     "US-n5",
+     "XLE",
+     "US-fx",
+     "US-n6"
+    ],
+    "unverified": [
+     "0.62 does not match any cited value"
+    ]
+   }
+  },
+  {
+   "t": 84.13,
+   "event": "message",
+   "data": {
+    "agent": "RISK",
+    "text": "Tech 20-day volatility at 17.55% is the highest of any sector, signaling fragility beneath the 8.83% monthly gain.",
+    "source_ids": [
+     "XLK"
+    ],
+    "unverified": []
+   }
+  },
+  {
+   "t": 84.13,
+   "event": "message",
+   "data": {
+    "agent": "RISK",
+    "text": "The 10-year yield rose 10.03% in one month to 5.277%, a rate of change that historically precedes equity repricing.",
+    "source_ids": [
+     "US-10y",
+     "US-n4",
+     "US-n5"
+    ],
+    "unverified": []
+   }
+  },
+  {
+   "t": 84.13,
+   "event": "message",
+   "data": {
+    "agent": "RISK",
+    "text": "Energy's 20.98% volatility is the highest across all sectors, yet consensus confidence is only 0.23—a dangerous mismatch.",
+    "source_ids": [
+     "XLE"
+    ],
+    "unverified": [
+     "0.23 does not match any cited value"
+    ]
+   }
+  },
+  {
+   "t": 84.13,
+   "event": "message",
+   "data": {
+    "agent": "RISK",
+    "text": "The dollar's 2.38% monthly gain tightens global financial conditions, an underweighted transmission channel to all four sectors.",
+    "source_ids": [
+     "US-fx"
+    ],
+    "unverified": []
+   }
+  },
+  {
+   "t": 84.13,
+   "event": "message",
+   "data": {
+    "agent": "RISK",
+    "text": "The council's Tech bullish consensus (0.80–0.90 confidence) leaves no margin for a yield-driven multiple compression event.",
+    "source_ids": [
+     "US-10y",
+     "XLK",
+     "US-n6"
+    ],
+    "unverified": [
+     "0.8 does not match any cited value",
+     "0.9 does not match any cited value"
+    ]
+   }
+  },
+  {
+   "t": 84.13,
+   "event": "message",
+   "data": {
+    "agent": "RISK",
+    "text": "Challenge to US-FUNDAMENTALS: Your 0.80 bullish confidence on Tech ignores that a 10.03% monthly yield spike with 17.55% sector volatility is a tail-risk combination; momentum alone does not price duration risk.",
+    "source_ids": []
+   }
+  },
+  {
+   "t": 84.13,
+   "event": "message",
+   "data": {
+    "agent": "RISK",
+    "text": "Challenge to US-TECHNICAL: You correctly flag volatility as a trigger but assign no probability weight to it; at 17.55% realized vol with yields still rising, the trigger is closer than your neutral stance implies.",
+    "source_ids": []
+   }
+  },
+  {
+   "t": 84.13,
+   "event": "report",
+   "data": {
+    "agent": "RISK",
+    "impact_summary": "The council is underweighting the tail risk that surging Treasury yields (5.277%, up 10.03% monthly) eventually compress Tech valuations despite current momentum. The strongest consensus (Property bearish at 0.62 confidence) is well-supported, but the Tech bullish consensus ignores that 17.55% volatility combined with a 10% yield spike is a historically fragile combination. Energy's near-split vote reflects genuine uncertainty, not a neutral outcome.",
+    "claims": [
+     {
+      "text": "Tech 20-day volatility at 17.55% is the highest of any sector, signaling fragility beneath the 8.83% monthly gain.",
+      "source_ids": [
+       "XLK"
+      ]
+     },
+     {
+      "text": "The 10-year yield rose 10.03% in one month to 5.277%, a rate of change that historically precedes equity repricing.",
+      "source_ids": [
+       "US-10y",
+       "US-n4",
+       "US-n5"
+      ]
+     },
+     {
+      "text": "Energy's 20.98% volatility is the highest across all sectors, yet consensus confidence is only 0.23—a dangerous mismatch.",
+      "source_ids": [
+       "XLE"
+      ]
+     },
+     {
+      "text": "The dollar's 2.38% monthly gain tightens global financial conditions, an underweighted transmission channel to all four sectors.",
+      "source_ids": [
+       "US-fx"
+      ]
+     },
+     {
+      "text": "The council's Tech bullish consensus (0.80–0.90 confidence) leaves no margin for a yield-driven multiple compression event.",
+      "source_ids": [
+       "US-10y",
+       "XLK",
+       "US-n6"
+      ]
+     }
+    ],
+    "challenges": [
+     {
+      "to_agent": "US-FUNDAMENTALS",
+      "text": "Your 0.80 bullish confidence on Tech ignores that a 10.03% monthly yield spike with 17.55% sector volatility is a tail-risk combination; momentum alone does not price duration risk."
+     },
+     {
+      "to_agent": "US-TECHNICAL",
+      "text": "You correctly flag volatility as a trigger but assign no probability weight to it; at 17.55% realized vol with yields still rising, the trigger is closer than your neutral stance implies."
+     }
+    ],
+    "triggers": [
+     {
+      "condition": "US 10-year Treasury yield breaches 5.50% while Tech volatility exceeds 22%.",
+      "would_change": "Downgrade Tech from neutral to bearish; the momentum-yield divergence becomes unsustainable."
+     },
+     {
+      "condition": "Energy sector volatility remains above 20% for two consecutive weeks with no directional resolution.",
+      "would_change": "Upgrade Energy view from bearish to neutral, acknowledging the uncertainty is unresolvable with current data."
+     },
+     {
+      "condition": "The US Dollar Index reverses its 2.38% monthly gain and falls below 101.",
+      "would_change": "Reduce bearish confidence on Financials and Property by 0.10, as global financial conditions ease."
+     }
+    ]
+   }
+  },
+  {
+   "t": 88.75,
+   "event": "message",
+   "data": {
+    "agent": "BEAR",
+    "text": "The council's bearish consensus on Property, Financials, and Energy is well-supported by data, but I challenge the bullish Tech consensus as overstated given rising rate risk and crowded positioning. The AI narrative may be masking vulnerability to the same yield shock hitting other sectors.",
+    "source_ids": [
+     "XLK",
+     "US-10y",
+     "XLRE",
+     "US-n4",
+     "XLF",
+     "US-n6",
+     "XLE"
+    ],
+    "unverified": []
+   }
+  },
+  {
+   "t": 88.75,
+   "event": "message",
+   "data": {
+    "agent": "BEAR",
+    "text": "Tech's 8.83% monthly gain occurred while 10Y yields surged 10.03%, suggesting the AI trade is ignoring a rising cost of capital that has crushed other sectors.",
+    "source_ids": [
+     "XLK",
+     "US-10y"
+    ],
+    "unverified": []
+   }
+  },
+  {
+   "t": 88.75,
+   "event": "message",
+   "data": {
+    "agent": "BEAR",
+    "text": "Tech 20-day volatility at 17.55% is the highest of any sector, signaling fragility beneath the momentum.",
+    "source_ids": [
+     "XLK"
+    ],
+    "unverified": []
+   }
+  },
+  {
+   "t": 88.75,
+   "event": "message",
+   "data": {
+    "agent": "BEAR",
+    "text": "Property's 6.68% monthly decline is directly linked to 10Y yields at 5.277%, a 24-year high per multiple sources.",
+    "source_ids": [
+     "XLRE",
+     "US-10y",
+     "US-n4"
+    ],
+    "unverified": []
+   }
+  },
+  {
+   "t": 88.75,
+   "event": "message",
+   "data": {
+    "agent": "BEAR",
+    "text": "Financials' 7.23% monthly drop is the worst sector performance, consistent with a bond selloff threatening market stability.",
+    "source_ids": [
+     "XLF",
+     "US-n4",
+     "US-n6"
+    ],
+    "unverified": []
+   }
+  },
+  {
+   "t": 88.75,
+   "event": "message",
+   "data": {
+    "agent": "BEAR",
+    "text": "Energy's 3.5% decline is modest, but its 20.98% volatility is the highest of all sectors, indicating unstable positioning.",
+    "source_ids": [
+     "XLE"
+    ],
+    "unverified": []
+   }
+  },
+  {
+   "t": 88.75,
+   "event": "message",
+   "data": {
+    "agent": "BEAR",
+    "text": "Challenge to US-FUNDAMENTALS: Your bullish Tech view ignores that 10Y yields rose 10.03% in the same month Tech gained 8.83%. Historically, sustained yield spikes eventually compress equity multiples. The AI narrative may be delaying, not preventing, repricing. [US-10y, XLK]",
+    "source_ids": []
+   }
+  },
+  {
+   "t": 88.75,
+   "event": "message",
+   "data": {
+    "agent": "BEAR",
+    "text": "Challenge to US-SENTIMENT: You call Tech sentiment 'crowded bullish,' which is itself a bearish signal. Crowded trades unwind violently when the macro backdrop shifts, as it is doing now with yields at generational highs. [XLK, US-n5]",
+    "source_ids": []
+   }
+  },
+  {
+   "t": 88.75,
+   "event": "report",
+   "data": {
+    "agent": "BEAR",
+    "impact_summary": "The council's bearish consensus on Property, Financials, and Energy is well-supported by data, but I challenge the bullish Tech consensus as overstated given rising rate risk and crowded positioning. The AI narrative may be masking vulnerability to the same yield shock hitting other sectors.",
+    "claims": [
+     {
+      "text": "Tech's 8.83% monthly gain occurred while 10Y yields surged 10.03%, suggesting the AI trade is ignoring a rising cost of capital that has crushed other sectors.",
+      "source_ids": [
+       "XLK",
+       "US-10y"
+      ]
+     },
+     {
+      "text": "Tech 20-day volatility at 17.55% is the highest of any sector, signaling fragility beneath the momentum.",
+      "source_ids": [
+       "XLK"
+      ]
+     },
+     {
+      "text": "Property's 6.68% monthly decline is directly linked to 10Y yields at 5.277%, a 24-year high per multiple sources.",
+      "source_ids": [
+       "XLRE",
+       "US-10y",
+       "US-n4"
+      ]
+     },
+     {
+      "text": "Financials' 7.23% monthly drop is the worst sector performance, consistent with a bond selloff threatening market stability.",
+      "source_ids": [
+       "XLF",
+       "US-n4",
+       "US-n6"
+      ]
+     },
+     {
+      "text": "Energy's 3.5% decline is modest, but its 20.98% volatility is the highest of all sectors, indicating unstable positioning.",
+      "source_ids": [
+       "XLE"
+      ]
+     }
+    ],
+    "challenges": [
+     {
+      "to_agent": "US-FUNDAMENTALS",
+      "text": "Your bullish Tech view ignores that 10Y yields rose 10.03% in the same month Tech gained 8.83%. Historically, sustained yield spikes eventually compress equity multiples. The AI narrative may be delaying, not preventing, repricing. [US-10y, XLK]"
+     },
+     {
+      "to_agent": "US-SENTIMENT",
+      "text": "You call Tech sentiment 'crowded bullish,' which is itself a bearish signal. Crowded trades unwind violently when the macro backdrop shifts, as it is doing now with yields at generational highs. [XLK, US-n5]"
+     }
+    ],
+    "triggers": [
+     {
+      "condition": "US 10-year Treasury yield breaks above 5.5% while Tech volatility exceeds 20%.",
+      "would_change": "Would increase confidence in bearish Tech view as rate pressure finally bites into AI momentum."
+     },
+     {
+      "condition": "Tech sector reverses more than 3% in a single week while yields remain elevated.",
+      "would_change": "Would confirm the AI trade is breaking, raising bearish confidence on Tech to 0.75+."
+     },
+     {
+      "condition": "10Y yield falls below 5.0% and Property/Financials stabilize.",
+      "would_change": "Would reduce bearish conviction on Property and Financials, potentially shifting to neutral."
+     }
+    ]
+   }
+  },
+  {
+   "t": 88.75,
+   "event": "stage",
+   "data": {
+    "name": "debate",
+    "status": "done"
+   }
+  },
+  {
+   "t": 88.76,
+   "event": "stage",
+   "data": {
+    "name": "revote",
+    "status": "started"
+   }
+  },
+  {
+   "t": 96.83,
+   "event": "vote",
+   "data": {
+    "agent": "CHAIR",
+    "round": "revote",
+    "cells": [
+     {
+      "country": "US",
+      "sector": "Tech",
+      "view": "neutral",
+      "confidence": 0.5
+     },
+     {
+      "country": "US",
+      "sector": "Financials",
+      "view": "bearish",
+      "confidence": 0.5
+     },
+     {
+      "country": "US",
+      "sector": "Property",
+      "view": "bearish",
+      "confidence": 0.62
+     },
+     {
+      "country": "US",
+      "sector": "Energy",
+      "view": "neutral",
+      "confidence": 0.35
+     }
+    ],
+    "source": "llm"
+   }
+  },
+  {
+   "t": 96.91,
+   "event": "vote",
+   "data": {
+    "agent": "US-TECHNICAL",
+    "round": "revote",
+    "cells": [
+     {
+      "country": "US",
+      "sector": "Tech",
+      "view": "bullish",
+      "confidence": 0.85
+     },
+     {
+      "country": "US",
+      "sector": "Financials",
+      "view": "bearish",
+      "confidence": 0.6,
+      "because": "BEAR convinced me that 7.23% monthly drop warrants a bearish view"
+     },
+     {
+      "country": "US",
+      "sector": "Property",
+      "view": "bearish",
+      "confidence": 0.6
+     },
+     {
+      "country": "US",
+      "sector": "Energy",
+      "view": "neutral",
+      "confidence": 0.5
+     }
+    ],
+    "source": "llm"
+   }
+  },
+  {
+   "t": 97.19,
+   "event": "vote",
+   "data": {
+    "agent": "US",
+    "round": "revote",
+    "cells": [
+     {
+      "country": "US",
+      "sector": "Tech",
+      "view": "neutral",
+      "confidence": 0.7,
+      "because": "RISK convinced me high volatility and 10Y yield spike threaten AI momentum."
+     },
+     {
+      "country": "US",
+      "sector": "Financials",
+      "view": "bearish",
+      "confidence": 0.8
+     },
+     {
+      "country": "US",
+      "sector": "Property",
+      "view": "bearish",
+      "confidence": 0.8
+     },
+     {
+      "country": "US",
+      "sector": "Energy",
+      "view": "neutral",
+      "confidence": 0.6,
+      "because": "BULL convinced me Energy's 3.5% drop shows relative resilience."
+     }
+    ],
+    "source": "llm"
+   }
+  },
+  {
+   "t": 97.78,
+   "event": "vote",
+   "data": {
+    "agent": "US-FUNDAMENTALS",
+    "round": "revote",
+    "cells": [
+     {
+      "country": "US",
+      "sector": "Tech",
+      "view": "bullish",
+      "confidence": 0.8
+     },
+     {
+      "country": "US",
+      "sector": "Financials",
+      "view": "bearish",
+      "confidence": 0.6
+     },
+     {
+      "country": "US",
+      "sector": "Property",
+      "view": "bearish",
+      "confidence": 0.7
+     },
+     {
+      "country": "US",
+      "sector": "Energy",
+      "view": "neutral",
+      "confidence": 0.5
+     }
+    ],
+    "source": "llm"
+   }
+  },
+  {
+   "t": 98.56,
+   "event": "vote",
+   "data": {
+    "agent": "SPILLOVER",
+    "round": "revote",
+    "cells": [
+     {
+      "country": "US",
+      "sector": "Tech",
+      "view": "neutral",
+      "confidence": 0.45
+     },
+     {
+      "country": "US",
+      "sector": "Financials",
+      "view": "bearish",
+      "confidence": 0.55
+     },
+     {
+      "country": "US",
+      "sector": "Property",
+      "view": "bearish",
+      "confidence": 0.6
+     },
+     {
+      "country": "US",
+      "sector": "Energy",
+      "view": "neutral",
+      "confidence": 0.4
+     }
+    ],
+    "source": "llm"
+   }
+  },
+  {
+   "t": 98.75,
+   "event": "vote",
+   "data": {
+    "agent": "US-NEWS",
+    "round": "revote",
+    "cells": [
+     {
+      "country": "US",
+      "sector": "Tech",
+      "view": "neutral",
+      "confidence": 0.6,
+      "because": "RISK highlighted high volatility and yield spike threatening Tech valuations."
+     },
+     {
+      "country": "US",
+      "sector": "Financials",
+      "view": "bearish",
+      "confidence": 0.8
+     },
+     {
+      "country": "US",
+      "sector": "Property",
+      "view": "bearish",
+      "confidence": 0.8
+     },
+     {
+      "country": "US",
+      "sector": "Energy",
+      "view": "neutral",
+      "confidence": 0.5
+     }
+    ],
+    "source": "llm"
+   }
+  },
+  {
+   "t": 99.89,
+   "event": "vote",
+   "data": {
+    "agent": "US-SENTIMENT",
+    "round": "revote",
+    "cells": [
+     {
+      "country": "US",
+      "sector": "Tech",
+      "view": "bullish",
+      "confidence": 0.8
+     },
+     {
+      "country": "US",
+      "sector": "Financials",
+      "view": "bearish",
+      "confidence": 0.7
+     },
+     {
+      "country": "US",
+      "sector": "Property",
+      "view": "bearish",
+      "confidence": 0.7
+     },
+     {
+      "country": "US",
+      "sector": "Energy",
+      "view": "neutral",
+      "confidence": 0.5,
+      "because": "BULL noted relative resilience and high volatility suggesting snap-back."
+     }
+    ],
+    "source": "llm"
+   }
+  },
+  {
+   "t": 121.69,
+   "event": "vote",
+   "data": {
+    "agent": "RISK",
+    "round": "revote",
+    "cells": [
+     {
+      "country": "US",
+      "sector": "Tech",
+      "view": "neutral",
+      "confidence": 0.6,
+      "because": "BEAR's crowded-trade argument strengthens tail-risk case, but momentum data prevents full bearish shift."
+     },
+     {
+      "country": "US",
+      "sector": "Financials",
+      "view": "bearish",
+      "confidence": 0.65
+     },
+     {
+      "country": "US",
+      "sector": "Property",
+      "view": "bearish",
+      "confidence": 0.7
+     },
+     {
+      "country": "US",
+      "sector": "Energy",
+      "view": "bearish",
+      "confidence": 0.45,
+      "because": "BULL's relative-resilience argument (3.5% vs 7.23%) and volatility mismatch reduce bearish conviction."
+     }
+    ],
+    "source": "llm"
+   }
+  },
+  {
+   "t": 124.54,
+   "event": "vote",
+   "data": {
+    "agent": "BEAR",
+    "round": "revote",
+    "cells": [
+     {
+      "country": "US",
+      "sector": "Tech",
+      "view": "bearish",
+      "confidence": 0.55
+     },
+     {
+      "country": "US",
+      "sector": "Financials",
+      "view": "bearish",
+      "confidence": 0.6
+     },
+     {
+      "country": "US",
+      "sector": "Property",
+      "view": "bearish",
+      "confidence": 0.7
+     },
+     {
+      "country": "US",
+      "sector": "Energy",
+      "view": "bearish",
+      "confidence": 0.5
+     }
+    ],
+    "source": "llm"
+   }
+  },
+  {
+   "t": 131.82,
+   "event": "vote",
+   "data": {
+    "agent": "BULL",
+    "round": "revote",
+    "cells": [
+     {
+      "country": "US",
+      "sector": "Tech",
+      "view": "bullish",
+      "confidence": 0.7,
+      "because": "RISK and BEAR correctly note 17.55% vol plus 10.03% yield spike is fragile; reducing from 0.72."
+     },
+     {
+      "country": "US",
+      "sector": "Financials",
+      "view": "neutral",
+      "confidence": 0.45
+     },
+     {
+      "country": "US",
+      "sector": "Property",
+      "view": "neutral",
+      "confidence": 0.4
+     },
+     {
+      "country": "US",
+      "sector": "Energy",
+      "view": "neutral",
+      "confidence": 0.38,
+      "because": "RISK's volatility-mismatch argument on Energy is valid; slight uptick in uncertainty from 0.35."
+     }
+    ],
+    "source": "llm"
+   }
+  },
+  {
+   "t": 131.82,
+   "event": "stage",
+   "data": {
+    "name": "revote",
+    "status": "done"
+   }
+  },
+  {
+   "t": 131.82,
+   "event": "stage",
+   "data": {
+    "name": "spillover",
+    "status": "started"
+   }
+  },
+  {
+   "t": 131.82,
+   "event": "spillover",
+   "data": {
+    "nodes": [
+     {
+      "id": "EVENT",
+      "label": "AI/Nvidia narrative",
+      "country": "US"
+     },
+     {
+      "id": "US-10y",
+      "label": "US 10Y Treasury yield",
+      "country": "US"
+     },
+     {
+      "id": "US-fx",
+      "label": "US Dollar Index",
+      "country": "US"
+     },
+     {
+      "id": "US-ffr",
+      "label": "Effective Fed funds rate",
+      "country": "US"
+     },
+     {
+      "id": "US-idx",
+      "label": "S&P 500",
+      "country": "US"
+     },
+     {
+      "id": "US-Tech",
+      "label": "Tech (XLK)",
+      "country": "US"
+     },
+     {
+      "id": "US-Fin",
+      "label": "Financials (XLF)",
+      "country": "US"
+     },
+     {
+      "id": "US-Prop",
+      "label": "Property (XLRE)",
+      "country": "US"
+     },
+     {
+      "id": "US-Energy",
+      "label": "Energy (XLE)",
+      "country": "US"
+     }
+    ],
+    "edges": [
+     {
+      "from": "EVENT",
+      "to": "US-Tech",
+      "mechanism": "AI demand lifts tech momentum",
+      "sign": "+",
+      "strength": 0.7,
+      "source_ids": [
+       "EVENT",
+       "XLK"
+      ]
+     },
+     {
+      "from": "US-10y",
+      "to": "US-Tech",
+      "mechanism": "Higher discount rate pressures valuations",
+      "sign": "-",
+      "strength": 0.5,
+      "source_ids": [
+       "US-10y",
+       "US-n1",
+       "US-n4"
+      ]
+     },
+     {
+      "from": "US-10y",
+      "to": "US-Fin",
+      "mechanism": "Rate-sensitive financials under pressure",
+      "sign": "-",
+      "strength": 0.6,
+      "source_ids": [
+       "US-10y",
+       "XLF",
+       "US-n4"
+      ]
+     },
+     {
+      "from": "US-10y",
+      "to": "US-Prop",
+      "mechanism": "Higher yields pressure property valuations",
+      "sign": "-",
+      "strength": 0.7,
+      "source_ids": [
+       "US-10y",
+       "XLRE"
+      ]
+     },
+     {
+      "from": "US-10y",
+      "to": "US-idx",
+      "mechanism": "Bond selloff threatens equity stability",
+      "sign": "-",
+      "strength": 0.5,
+      "source_ids": [
+       "US-n4",
+       "US-n6",
+       "US-idx"
+      ]
+     },
+     {
+      "from": "US-fx",
+      "to": "US-Energy",
+      "mechanism": "Stronger dollar weighs on commodities",
+      "sign": "-",
+      "strength": 0.4,
+      "source_ids": [
+       "US-fx",
+       "XLE"
+      ]
+     },
+     {
+      "from": "US-fx",
+      "to": "US-idx",
+      "mechanism": "Tighter global financial conditions",
+      "sign": "-",
+      "strength": 0.3,
+      "source_ids": [
+       "US-fx"
+      ]
+     },
+     {
+      "from": "US-ffr",
+      "to": "US-10y",
+      "mechanism": "Policy rate anchors front end",
+      "sign": "+",
+      "strength": 0.3,
+      "source_ids": [
+       "US-ffr",
+       "US-10y"
+      ]
+     },
+     {
+      "from": "US-10y",
+      "to": "US-fx",
+      "mechanism": "Yield differential supports dollar",
+      "sign": "+",
+      "strength": 0.4,
+      "source_ids": [
+       "US-10y",
+       "US-fx"
+      ]
+     },
+     {
+      "from": "EVENT",
+      "to": "US-idx",
+      "mechanism": "AI optimism supports broad index",
+      "sign": "+",
+      "strength": 0.3,
+      "source_ids": [
+       "EVENT",
+       "US-idx"
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "t": 131.82,
+   "event": "stage",
+   "data": {
+    "name": "spillover",
+    "status": "done"
+   }
+  },
+  {
+   "t": 131.82,
+   "event": "stage",
+   "data": {
+    "name": "brief",
+    "status": "started"
+   }
+  },
+  {
+   "t": 142.33,
+   "event": "brief",
+   "data": {
+    "headline": "The council leans cautiously bullish on US Tech on AI momentum but is deeply split, while surging Treasury yields keep it bearish on Financials and Property and neutral on Energy; this is research, not advice on Nvidia or any stock [EVENT][US-10y][XLK].",
+    "matrix": [
+     {
+      "country": "US",
+      "sector": "Tech",
+      "view": "bullish",
+      "confidence": 0.32,
+      "dissent": 0.64
+     },
+     {
+      "country": "US",
+      "sector": "Financials",
+      "view": "bearish",
+      "confidence": 0.58,
+      "dissent": 0.3
+     },
+     {
+      "country": "US",
+      "sector": "Property",
+      "view": "bearish",
+      "confidence": 0.62,
+      "dissent": 0.3
+     },
+     {
+      "country": "US",
+      "sector": "Energy",
+      "view": "neutral",
+      "confidence": 0.37,
+      "dissent": 0.4
+     }
+    ],
+    "vote_shifts": [
+     {
+      "agent": "US-TECHNICAL",
+      "cell": "US/Financials",
+      "from": "neutral",
+      "to": "bearish",
+      "because": "BEAR convinced me that 7.23% monthly drop warrants a bearish view"
+     },
+     {
+      "agent": "US",
+      "cell": "US/Tech",
+      "from": "bullish",
+      "to": "neutral",
+      "because": "RISK convinced me high volatility and 10Y yield spike threaten AI momentum."
+     },
+     {
+      "agent": "US",
+      "cell": "US/Energy",
+      "from": "bearish",
+      "to": "neutral",
+      "because": "BULL convinced me Energy's 3.5% drop shows relative resilience."
+     },
+     {
+      "agent": "US-NEWS",
+      "cell": "US/Tech",
+      "from": "bullish",
+      "to": "neutral",
+      "because": "RISK highlighted high volatility and yield spike threatening Tech valuations."
+     },
+     {
+      "agent": "US-SENTIMENT",
+      "cell": "US/Energy",
+      "from": "bearish",
+      "to": "neutral",
+      "because": "BULL noted relative resilience and high volatility suggesting snap-back."
+     }
+    ],
+    "key_risks": [
+     "US/Tech is the most split cell (dissent 0.64, confidence 0.32): Tech's 8.83% monthly gain comes with 17.55% volatility while 10Y yields rose 10.03% to 5.277% [XLK][US-10y].",
+     "Yields at reported 24-year highs could keep pressuring rate-sensitive sectors; Financials fell 7.23% and Property 6.68% this month [US-n4][XLF][XLRE].",
+     "A 2.38% monthly dollar gain tightens financial conditions, and Energy's 20.98% volatility leaves its neutral view fragile [US-fx][XLE]."
+    ],
+    "triggers": [
+     {
+      "condition": "US 10Y yield breaks above 5.5% while Tech 20-day volatility exceeds 20-22% [US-10y][XLK]",
+      "would_change": "Tech view would likely shift from bullish toward bearish."
+     },
+     {
+      "condition": "US 10Y yield falls back below 5.0% and Financials/Property stabilize [US-10y][XLF][XLRE]",
+      "would_change": "Bearish views on Financials and Property would likely ease toward neutral."
+     },
+     {
+      "condition": "US Dollar Index reverses its 2.38% monthly gain and falls below 101 [US-fx]",
+      "would_change": "Energy outlook could improve and bearish confidence on rate-sensitive sectors could fall."
+     }
+    ],
+    "questions_for_you": [
+     "What is your time horizon: could you hold through a sharp drop if rising interest rates hit tech stocks in the coming weeks or months?",
+     "How large would any single-stock or single-theme position be relative to your total account, and what loss could you tolerate on it?",
+     "You haven't shared a portfolio: how much AI or large-tech exposure do you already hold through funds or index trackers that overlap with Nvidia?"
+    ],
+    "disclaimer": "Research and decision support only. Not investment advice.",
+    "plain_english": "Technology companies tied to artificial intelligence have risen strongly lately, but interest rates on government borrowing have jumped to their highest levels in many years. The council thinks tech may keep doing somewhat well, but members disagree sharply because higher interest rates and big price swings could quickly reverse those gains. Banks and real estate are expected to do worse because they are most hurt by higher interest rates, while energy is seen as a toss-up. This is research to help you think, not advice to buy or sell any stock, including Nvidia."
+   }
+  },
+  {
+   "t": 142.33,
+   "event": "stage",
+   "data": {
+    "name": "brief",
+    "status": "done"
+   }
+  }
+ ]
+}

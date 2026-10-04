@@ -1,0 +1,165 @@
+{
+  "id": "nvidia-desk",
+  "name": "Nvidia desk",
+  "markets": [
+    "US",
+    "HK"
+  ],
+  "members": [
+    {
+      "id": "US",
+      "name": "United States Macro Strategist",
+      "role": "macro",
+      "market": "US",
+      "instructions": null,
+      "brief": null,
+      "phases": {
+        "vote": true,
+        "debate": true,
+        "revote": true
+      },
+      "model": null
+    },
+    {
+      "id": "BEAR",
+      "name": "Bear Researcher",
+      "role": "bear",
+      "market": null,
+      "instructions": null,
+      "brief": null,
+      "phases": {
+        "vote": true,
+        "debate": true,
+        "revote": true
+      },
+      "model": null
+    },
+    {
+      "id": "SPILLOVER",
+      "name": "Spillover Analyst",
+      "role": "spillover",
+      "market": null,
+      "instructions": null,
+      "brief": null,
+      "phases": {
+        "vote": true,
+        "debate": true,
+        "revote": true
+      },
+      "model": null
+    },
+    {
+      "id": "CHAIR",
+      "name": "Chair",
+      "role": "chair",
+      "market": null,
+      "instructions": null,
+      "brief": null,
+      "phases": {
+        "vote": true,
+        "debate": true,
+        "revote": true
+      },
+      "model": null
+    },
+    {
+      "id": "HK",
+      "name": "Hong Kong Macro Strategist",
+      "role": "macro",
+      "market": "HK",
+      "instructions": null,
+      "brief": null,
+      "phases": {
+        "vote": true,
+        "debate": true,
+        "revote": true
+      },
+      "model": null
+    },
+    {
+      "id": "US-TECHNICAL",
+      "name": "United States Market Analyst",
+      "role": "technical",
+      "market": "US",
+      "instructions": null,
+      "brief": null,
+      "phases": {
+        "vote": true,
+        "debate": true,
+        "revote": true
+      },
+      "model": null
+    },
+    {
+      "id": "US-NEWS",
+      "name": "United States News Analyst",
+      "role": "news",
+      "market": "US",
+      "instructions": null,
+      "brief": null,
+      "phases": {
+        "vote": true,
+        "debate": true,
+        "revote": true
+      },
+      "model": null
+    },
+    {
+      "id": "HK-FUNDAMENTALS",
+      "name": "Hong Kong Fundamentals Analyst",
+      "role": "fundamentals",
+      "market": "HK",
+      "instructions": null,
+      "brief": null,
+      "phases": {
+        "vote": true,
+        "debate": true,
+        "revote": true
+      },
+      "model": null
+    },
+    {
+      "id": "US-SENTIMENT",
+      "name": "United States Sentiment Analyst",
+      "role": "sentiment",
+      "market": "US",
+      "instructions": null,
+      "brief": null,
+      "phases": {
+        "vote": true,
+        "debate": true,
+        "revote": true
+      },
+      "model": null
+    },
+    {
+      "id": "HK-SENTIMENT",
+      "name": "Hong Kong Sentiment Analyst",
+      "role": "sentiment",
+      "market": "HK",
+      "instructions": null,
+      "brief": null,
+      "phases": {
+        "vote": true,
+        "debate": true,
+        "revote": true
+      },
+      "model": null
+    },
+    {
+      "id": "DENIZ-JAFARZADE",
+      "name": "Deniz Jafarzade",
+      "role": "bull",
+      "market": null,
+      "instructions": null,
+      "brief": null,
+      "phases": {
+        "vote": true,
+        "debate": true,
+        "revote": true
+      },
+      "model": null
+    }
+  ],
+  "debate_rounds": 2
+}
