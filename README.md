@@ -49,6 +49,16 @@ Copy `.env.example` to `.env` and add the OpenRouter key. The Vite dev server pr
 
 **Stage 0 behaviour:** `/council/stream/{run_id}` replays `mocks/council_run.json` with a 300 ms delay, so the UI can point at the real endpoint from the start. Stage 1A swaps in real agents behind the same stream.
 
+## Frontend
+
+One dark screen sized for a projector. **Replay mock** plays `mocks/council_run.json` with no backend; **Convene council** POSTs `/council/run` and streams `/council/stream/{run_id}` over `EventSource`.
+
+- `src/lib/council.js`: one reducer for every SSE event (mock, live or recorded), plus the Chair maths mirrored from `council_math.py`
+- `src/hooks/useCouncil.js`: mock replay, live stream, error toasts; the stream closes on `end` instead of auto-reconnecting
+- `src/lib/sources.js`: resolves cited ids (`HK-hibor`, `US-n3`) from `backend/data/cache` (live) or `mocks/datapacks` (mock)
+- Panels: stage bar, `DebateStream`, `Matrix` (blind vs final, opacity = confidence, ↻ = changed, "split" = dissent ≥ 0.5), `SpilloverGraph` (numbered edges plus a mechanism list, ⤢ Expand for full screen), `Brief`, `WhoChanged`
+- Trust UI (3B): hover a source chip for the value or headline (news chips link out), ⚠ unverified when a cited id is missing or the backend flags it, "votes by Jev" when `vote.source == "jev"`
+
 ## LLMs (OpenRouter)
 
 Every LLM call goes through `call_llm(system, user, schema, agent=...)` in [`backend/llm.py`](backend/llm.py). With `LLM_PROVIDER=openrouter` it asks for JSON-schema output, falls through to backup models on API errors within the timeout, and logs tokens and USD cost per agent. Invalid JSON raises `LLMOutputError`, and the orchestrator retries once.
