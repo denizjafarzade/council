@@ -1,0 +1,98 @@
+{
+  "country": "US",
+  "as_of": "2026-10-02T16:00:00-04:00",
+  "series": [
+    {
+      "id": "US-idx",
+      "name": "S&P 500",
+      "last": 6000.0,
+      "chg_1d_pct": 1.2,
+      "chg_1m_pct": 2.5,
+      "vol_20d_pct": 14.0
+    },
+    {
+      "id": "US-fx",
+      "name": "US Dollar Index",
+      "last": 100.0,
+      "chg_1d_pct": -0.6,
+      "chg_1m_pct": -1.8,
+      "vol_20d_pct": 7.0
+    },
+    {
+      "id": "US-10y",
+      "name": "US 10Y Treasury yield",
+      "last": 4.0,
+      "chg_1d_pct": -2.5,
+      "chg_1m_pct": -5.0,
+      "vol_20d_pct": 22.0
+    }
+  ],
+  "sectors": [
+    {
+      "sector": "Tech",
+      "ticker": "XLK",
+      "chg_1m_pct": 3.5,
+      "vol_20d_pct": 20.0
+    },
+    {
+      "sector": "Financials",
+      "ticker": "XLF",
+      "chg_1m_pct": 0.8,
+      "vol_20d_pct": 16.0
+    },
+    {
+      "sector": "Property",
+      "ticker": "XLRE",
+      "chg_1m_pct": 4.0,
+      "vol_20d_pct": 18.0
+    },
+    {
+      "sector": "Energy",
+      "ticker": "XLE",
+      "chg_1m_pct": -2.0,
+      "vol_20d_pct": 22.0
+    }
+  ],
+  "macro": [
+    {
+      "id": "US-ffr",
+      "name": "Fed funds upper bound",
+      "value": 4.5
+    },
+    {
+      "id": "US-cpi",
+      "name": "CPI YoY",
+      "value": 2.9
+    }
+  ],
+  "news": [
+    {
+      "id": "US-n1",
+      "title": "[MOCK] Fed delivers 50bp cut, cites cooling labour market",
+      "source": "Mock Wire",
+      "url": "https://example.com/mock/us-n1",
+      "published": "2026-10-02T16:00:00-04:00"
+    },
+    {
+      "id": "US-n2",
+      "title": "[MOCK] Treasury yields fall across the curve",
+      "source": "Mock Wire",
+      "url": "https://example.com/mock/us-n2",
+      "published": "2026-10-02T16:00:00-04:00"
+    },
+    {
+      "id": "US-n3",
+      "title": "[MOCK] Bank margins in focus as rates drop",
+      "source": "Mock Wire",
+      "url": "https://example.com/mock/us-n3",
+      "published": "2026-10-02T16:00:00-04:00"
+    },
+    {
+      "id": "US-n4",
+      "title": "[MOCK] Mega-cap tech leads index higher",
+      "source": "Mock Wire",
+      "url": "https://example.com/mock/us-n4",
+      "published": "2026-10-02T16:00:00-04:00"
+    }
+  ]
+}

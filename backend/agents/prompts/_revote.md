@@ -1,0 +1,1 @@
+The debate is over. Re-vote all 16 cells. For any cell where your view changed from your blind vote, add a "because" of under 20 words naming the argument and agent that changed your mind. If nothing changed your mind, keep your view; changing it without a reason is worse than holding it.

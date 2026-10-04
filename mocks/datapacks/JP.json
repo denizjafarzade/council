@@ -1,0 +1,90 @@
+{
+  "country": "JP",
+  "as_of": "2026-10-02T15:00:00+09:00",
+  "series": [
+    {
+      "id": "JP-idx",
+      "name": "Nikkei 225",
+      "last": 40000.0,
+      "chg_1d_pct": -0.5,
+      "chg_1m_pct": 1.0,
+      "vol_20d_pct": 19.0
+    },
+    {
+      "id": "JP-fx",
+      "name": "USD/JPY",
+      "last": 145.0,
+      "chg_1d_pct": -1.2,
+      "chg_1m_pct": -3.0,
+      "vol_20d_pct": 10.0
+    }
+  ],
+  "sectors": [
+    {
+      "sector": "Tech",
+      "ticker": "8035.T",
+      "chg_1m_pct": -1.0,
+      "vol_20d_pct": 32.0
+    },
+    {
+      "sector": "Financials",
+      "ticker": "8306.T",
+      "chg_1m_pct": -2.5,
+      "vol_20d_pct": 22.0
+    },
+    {
+      "sector": "Property",
+      "ticker": "8801.T",
+      "chg_1m_pct": 1.5,
+      "vol_20d_pct": 18.0
+    },
+    {
+      "sector": "Energy",
+      "ticker": "5020.T",
+      "chg_1m_pct": -0.5,
+      "vol_20d_pct": 17.0
+    }
+  ],
+  "macro": [
+    {
+      "id": "JP-boj",
+      "name": "BoJ policy rate",
+      "value": 0.5
+    },
+    {
+      "id": "JP-10y",
+      "name": "JGB 10Y yield",
+      "value": 1.2
+    }
+  ],
+  "news": [
+    {
+      "id": "JP-n1",
+      "title": "[MOCK] Yen jumps as US-Japan rate gap narrows",
+      "source": "Mock Wire",
+      "url": "https://example.com/mock/jp-n1",
+      "published": "2026-10-02T15:00:00+09:00"
+    },
+    {
+      "id": "JP-n2",
+      "title": "[MOCK] Exporters slip on stronger yen",
+      "source": "Mock Wire",
+      "url": "https://example.com/mock/jp-n2",
+      "published": "2026-10-02T15:00:00+09:00"
+    },
+    {
+      "id": "JP-n3",
+      "title": "[MOCK] Megabanks fall as yield spread compresses",
+      "source": "Mock Wire",
+      "url": "https://example.com/mock/jp-n3",
+      "published": "2026-10-02T15:00:00+09:00"
+    },
+    {
+      "id": "JP-n4",
+      "title": "[MOCK] BoJ seen holding steady this month",
+      "source": "Mock Wire",
+      "url": "https://example.com/mock/jp-n4",
+      "published": "2026-10-02T15:00:00+09:00"
+    }
+  ]
+}

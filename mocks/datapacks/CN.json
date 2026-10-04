@@ -1,0 +1,90 @@
+{
+  "country": "CN",
+  "as_of": "2026-10-02T15:00:00+08:00",
+  "series": [
+    {
+      "id": "CN-idx",
+      "name": "Shanghai Composite",
+      "last": 3500.0,
+      "chg_1d_pct": 0.4,
+      "chg_1m_pct": 1.5,
+      "vol_20d_pct": 16.0
+    },
+    {
+      "id": "CN-fx",
+      "name": "USD/CNY",
+      "last": 7.1,
+      "chg_1d_pct": -0.2,
+      "chg_1m_pct": -0.6,
+      "vol_20d_pct": 3.0
+    }
+  ],
+  "sectors": [
+    {
+      "sector": "Tech",
+      "ticker": "688981.SS",
+      "chg_1m_pct": 3.0,
+      "vol_20d_pct": 35.0
+    },
+    {
+      "sector": "Financials",
+      "ticker": "601398.SS",
+      "chg_1m_pct": 0.5,
+      "vol_20d_pct": 12.0
+    },
+    {
+      "sector": "Property",
+      "ticker": "000002.SZ",
+      "chg_1m_pct": -4.0,
+      "vol_20d_pct": 40.0
+    },
+    {
+      "sector": "Energy",
+      "ticker": "601857.SS",
+      "chg_1m_pct": -0.5,
+      "vol_20d_pct": 18.0
+    }
+  ],
+  "macro": [
+    {
+      "id": "CN-lpr",
+      "name": "1Y Loan Prime Rate",
+      "value": 3.0
+    },
+    {
+      "id": "CN-rrr",
+      "name": "Reserve requirement ratio",
+      "value": 9.5
+    }
+  ],
+  "news": [
+    {
+      "id": "CN-n1",
+      "title": "[MOCK] PBoC signals room for further easing",
+      "source": "Mock Wire",
+      "url": "https://example.com/mock/cn-n1",
+      "published": "2026-10-02T15:00:00+08:00"
+    },
+    {
+      "id": "CN-n2",
+      "title": "[MOCK] Yuan firms against weaker dollar",
+      "source": "Mock Wire",
+      "url": "https://example.com/mock/cn-n2",
+      "published": "2026-10-02T15:00:00+08:00"
+    },
+    {
+      "id": "CN-n3",
+      "title": "[MOCK] Property sales remain soft in tier-2 cities",
+      "source": "Mock Wire",
+      "url": "https://example.com/mock/cn-n3",
+      "published": "2026-10-02T15:00:00+08:00"
+    },
+    {
+      "id": "CN-n4",
+      "title": "[MOCK] Chip makers gain on policy support hopes",
+      "source": "Mock Wire",
+      "url": "https://example.com/mock/cn-n4",
+      "published": "2026-10-02T15:00:00+08:00"
+    }
+  ]
+}

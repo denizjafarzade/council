@@ -1,0 +1,90 @@
+{
+  "country": "HK",
+  "as_of": "2026-10-02T16:00:00+08:00",
+  "series": [
+    {
+      "id": "HK-idx",
+      "name": "Hang Seng Index",
+      "last": 25000.0,
+      "chg_1d_pct": 0.8,
+      "chg_1m_pct": 3.1,
+      "vol_20d_pct": 18.0
+    },
+    {
+      "id": "HK-fx",
+      "name": "USD/HKD",
+      "last": 7.8,
+      "chg_1d_pct": 0.0,
+      "chg_1m_pct": -0.1,
+      "vol_20d_pct": 0.5
+    }
+  ],
+  "sectors": [
+    {
+      "sector": "Tech",
+      "ticker": "3033.HK",
+      "chg_1m_pct": 4.5,
+      "vol_20d_pct": 28.0
+    },
+    {
+      "sector": "Financials",
+      "ticker": "0005.HK",
+      "chg_1m_pct": 2.0,
+      "vol_20d_pct": 15.0
+    },
+    {
+      "sector": "Property",
+      "ticker": "0016.HK",
+      "chg_1m_pct": 6.0,
+      "vol_20d_pct": 24.0
+    },
+    {
+      "sector": "Energy",
+      "ticker": "0883.HK",
+      "chg_1m_pct": -1.5,
+      "vol_20d_pct": 20.0
+    }
+  ],
+  "macro": [
+    {
+      "id": "HK-hibor",
+      "name": "1M HIBOR",
+      "value": 3.5
+    },
+    {
+      "id": "HK-base",
+      "name": "HKMA base rate",
+      "value": 4.75
+    }
+  ],
+  "news": [
+    {
+      "id": "HK-n1",
+      "title": "[MOCK] HKMA follows Fed with matching base rate cut",
+      "source": "Mock Wire",
+      "url": "https://example.com/mock/hk-n1",
+      "published": "2026-10-02T16:00:00+08:00"
+    },
+    {
+      "id": "HK-n2",
+      "title": "[MOCK] Developers rally as mortgage rates seen easing",
+      "source": "Mock Wire",
+      "url": "https://example.com/mock/hk-n2",
+      "published": "2026-10-02T16:00:00+08:00"
+    },
+    {
+      "id": "HK-n3",
+      "title": "[MOCK] Southbound Stock Connect inflows hit monthly high",
+      "source": "Mock Wire",
+      "url": "https://example.com/mock/hk-n3",
+      "published": "2026-10-02T16:00:00+08:00"
+    },
+    {
+      "id": "HK-n4",
+      "title": "[MOCK] Hang Seng tech names extend gains",
+      "source": "Mock Wire",
+      "url": "https://example.com/mock/hk-n4",
+      "published": "2026-10-02T16:00:00+08:00"
+    }
+  ]
+}
