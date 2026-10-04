@@ -146,7 +146,10 @@ async def run_council(req: RunRequest) -> AsyncIterator[Event]:
 
     yield stage("data", "started")
     packs, problems = await load_data(council.markets)
-    yield "council", council_event(council, seats, packs, run.guard)
+    info = council_event(council, seats, packs, run.guard)
+    for member, seat in zip(info["members"], seats):
+        member["model"] = run.model(seat)  # which AI sits in each seat
+    yield "council", info
     yield "data", {"packs": {c: p.model_dump(mode="json", exclude_none=True) for c, p in packs.items()}}
     import portfolio  # lazily: portfolio imports this module for its data paths
 
@@ -706,7 +709,10 @@ class Run:
         weights = self.evidence_weights()
         matrix = compute_matrix(final_votes, self.markets, self.sectors, weights)
         shifts = compute_vote_shifts(list(blinds.values()), list(revotes.values()))
-        risk_score = risk.compute(packs, matrix, self.markets, self.unverified_share(), self.exposure)
+        final_by_seat = {**{a: v.cells for a, v in blinds.items()}, **{a: v.cells for a, v in revotes.items()}}
+        seat_unverified = {a: (n - ok) / n for a, (ok, n) in self.claim_stats.items() if n}
+        risk_score = risk.compute(packs, matrix, self.markets, self.unverified_share(), self.exposure,
+                                  final_by_seat, seat_unverified)
         split = max(matrix, key=lambda c: c.dissent)
 
         notes = ChairNotes(headline=FALLBACK_HEADLINE, key_risks=[], triggers=[], questions_for_you=[],

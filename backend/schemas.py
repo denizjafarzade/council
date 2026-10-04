@@ -324,6 +324,7 @@ class CouncilMarket(Model):
 
 class CouncilMember(Model):
     id: str
+    model: Optional[str] = None  # the OpenRouter model in this seat for the run
     name: str
     role: str
     role_name: str

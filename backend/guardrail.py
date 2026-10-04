@@ -20,6 +20,16 @@ import llm  # noqa: F401 - loads .env
 log = logging.getLogger("council.guardrail")
 
 TIMEOUT_S = 5.0
+# Bedrock throttles bursts: a run sends 20-40 texts at once, so cap the calls in flight.
+MAX_IN_FLIGHT = 4
+_slots: dict[int, asyncio.Semaphore] = {}  # one per event loop (each asyncio.run gets its own)
+
+
+def _semaphore() -> asyncio.Semaphore:
+    key = id(asyncio.get_running_loop())
+    if key not in _slots:
+        _slots[key] = asyncio.Semaphore(MAX_IN_FLIGHT)
+    return _slots[key]
 
 
 @dataclass
@@ -55,7 +65,9 @@ def _client():
     from botocore.config import Config
 
     return boto3.client("bedrock-runtime", region_name=os.getenv("AWS_REGION", "us-east-1"),
-                        config=Config(connect_timeout=3, read_timeout=TIMEOUT_S, retries={"max_attempts": 1}))
+                        config=Config(connect_timeout=3, read_timeout=TIMEOUT_S,
+                                      retries={"max_attempts": 3, "mode": "adaptive"},  # backs off when throttled
+                                      max_pool_connections=MAX_IN_FLIGHT))
 
 
 def _reasons(response: dict) -> list[str]:
@@ -88,9 +100,10 @@ async def check(text: str) -> Checked:
     if not enabled() or not text.strip():
         return Checked(text)
     try:
-        return await asyncio.wait_for(asyncio.to_thread(_apply, text), TIMEOUT_S + 1)
+        async with _semaphore():
+            return await asyncio.wait_for(asyncio.to_thread(_apply, text), 3 * TIMEOUT_S)
     except Exception as e:  # noqa: BLE001 - fail open: never block the run on the compliance call
-        log.error("guardrail check failed, passing text unchecked: %s", e)
+        log.error("guardrail check failed, passing text unchecked: %s: %s", type(e).__name__, e)
         return Checked(text, error=f"guardrail unavailable ({type(e).__name__})")
 
 

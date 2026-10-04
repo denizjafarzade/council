@@ -1,8 +1,20 @@
-import { useMemo } from 'react'
+import { useMemo, useState } from 'react'
 import { DISCLAIMER } from '../lib/constants'
 import { LEAN_WORDS, SECTOR_NAMES, bearishShareLine, buildCards, exposureLine, plain, when } from '../lib/cards'
+import { plainEnglish } from '../lib/plain'
 import { useAgent } from '../lib/roster'
 import { Flag, Panel, SourceChip } from './bits'
+import Scientific from './Scientific'
+
+const TAB_KEY = 'verdisk-result-tab'
+
+function savedTab() {
+  try {
+    return localStorage.getItem(TAB_KEY) === 'scientific' ? 'scientific' : 'plain'
+  } catch {
+    return 'plain' // storage can be blocked (private window); plain English is the default
+  }
+}
 
 const RISK_STYLE = { low: 'text-ok', moderate: 'text-gold-text', high: 'text-bear' }
 const COMPONENT_LABELS = {
@@ -104,7 +116,29 @@ function WeightName({ id }) {
 }
 
 /** The result first: the Chair's brief, a quantitative risk score, and one card per market. */
+function Tabs({ tab, setTab }) {
+  const choose = (t) => {
+    setTab(t)
+    try {
+      localStorage.setItem(TAB_KEY, t)
+    } catch {
+      // not remembered across reloads; fine
+    }
+  }
+  return (
+    <div role="tablist" aria-label="Result language" className="inline-flex rounded-xl border border-line bg-desk p-[3px]">
+      {[['plain', 'Plain English'], ['scientific', 'Scientific']].map(([id, label]) => (
+        <button key={id} type="button" role="tab" aria-selected={tab === id} onClick={() => choose(id)}
+          className={`min-h-9 rounded-[9px] px-3.5 text-sm font-medium ${tab === id ? 'bg-gold text-gold-ink' : 'text-[#c4cbd5] hover:text-ink'}`}>
+          {label}
+        </button>
+      ))}
+    </div>
+  )
+}
+
 export default function MeaningCards({ state, packs, names, sources }) {
+  const [tab, setTab] = useState(savedTab)
   const sectorNames = useMemo(() => ({ ...SECTOR_NAMES, ...(state.council?.sector_names || {}) }), [state.council])
   const cards = useMemo(() => buildCards(state, packs, names, sectorNames), [state, packs, names, sectorNames])
   const held = cards.filter((c) => c.exposure > 0)
@@ -115,12 +149,18 @@ export default function MeaningCards({ state, packs, names, sources }) {
   const questions = (brief?.questions_for_you || []).map((q) => plain(q, names, sectorNames))
   const keyRisks = (brief?.key_risks || []).map((r) => plain(r, names, sectorNames))
   const started = state.mode !== 'idle'
+  const plainText = useMemo(() => plainEnglish(brief, state.event, names), [brief, state.event, names])
 
   return (
     <Panel title="Result" bodyClassName="px-5 py-4"
-      right={portfolio?.label && <span className="text-xs text-muted">{portfolio.label}</span>}>
+      right={<span className="flex flex-wrap items-center gap-3">
+        {portfolio?.label && <span className="text-xs text-muted">{portfolio.label}</span>}
+        <Tabs tab={tab} setTab={setTab} />
+      </span>}>
       <div className="flex flex-col gap-4">
-        {!started ? (
+        {started && tab === 'scientific' ? (
+          <Scientific state={state} sources={sources} names={names} />
+        ) : !started ? (
           <p className="text-muted">Pick a headline and convene the council. Load your trades first to see your own exposure and risk.</p>
         ) : (
           <>
@@ -148,6 +188,7 @@ export default function MeaningCards({ state, packs, names, sources }) {
                 <p className="w-56 text-[13px] text-muted">Load your trades to get a portfolio risk score. Market scores are on each card.</p>
               )}
             </div>
+            {plainText && <p className="text-[17px] leading-relaxed text-ink">{plainText}</p>}
             {keyRisks.length > 0 && (
               <div className="flex flex-col gap-1.5">
                 <h3 className="text-[13px] font-semibold uppercase tracking-[0.06em] text-muted">Key risks</h3>

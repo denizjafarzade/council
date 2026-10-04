@@ -85,7 +85,13 @@ python scripts/record_presets.py --news US-n4 HK-n1 --portfolio samples/sample_p
 
 **Quantitative risk score** (`backend/risk.py`, code only, 0-100): per market, volatility 30%, 1-month drawdown 20%, council view 30%, disagreement 10%, unverified claims 10%. Missing inputs are left out and the weights renormalised, never guessed. The portfolio score is the exposure-weighted market scores plus up to 10 points for concentration. Every component is shown on screen.
 
-**Result first.** The session screen opens with the Chair's headline, the portfolio risk score, the key risks and one card per market (with its risk score). The debate, matrix and spillover sit below under "How the council got here", and debate messages are folded to one line each.
+**Risk by AI.** `brief.risk.by_seat` scores each seat on its own final votes and its own unverified-claim share (no disagreement term), next to the council's evidence-weighted score (`together`). The council event names the model in each seat.
+
+**Layout.** Trading history is uploaded on the builder's first page, before the council convenes. The session screen has the floor on the left (messages folded to one line, then who changed their mind) and the result on the right, with tabs:
+- **Plain English:** headline, the plain summary, portfolio risk, key risks and one card per market.
+- **Scientific:** the Chair's exact text with source ids, risk by AI vs together, risk components and inputs, evidence weights, data provenance, the stance matrix and the spillover map.
+
+**Guardrail calls** are capped at 4 in flight with adaptive retries, since Bedrock throttles the 20-40 checks a run sends at once.
 
 ## Demo safety (Stage 4)
 

@@ -1,15 +1,10 @@
 import { useEffect, useMemo, useState } from 'react'
 import Builder from './builder/Builder'
 import { Brand } from './builder/ui'
-import { PlainEnglish } from './components/Brief'
 import DebateStream from './components/DebateStream'
 import EventPicker, { StageBar } from './components/EventPicker'
 import GuardrailBadge from './components/GuardrailBadge'
 import MeaningCards from './components/MeaningCards'
-import PortfolioPanel from './components/PortfolioPanel'
-import Matrix from './components/Matrix'
-import SpilloverGraph from './components/SpilloverGraph'
-import WhoChanged from './components/WhoChanged'
 import { useCouncil } from './hooks/useCouncil'
 import { COUNTRY_NAMES, DISCLAIMER } from './lib/constants'
 import { useGuardrailSetting } from './lib/guardrail'
@@ -136,27 +131,13 @@ export default function App() {
             />
           )}
 
-          {/* The result first: brief, risk score and market cards. How the council got there is below. */}
-          <div className="grid grid-cols-1 items-start gap-5 xl:grid-cols-[minmax(0,1fr)_minmax(20rem,24rem)]">
-            <MeaningCards state={state} packs={packs} names={names} sources={sources} />
-            <div className="flex min-w-0 flex-col gap-5">
-              <PortfolioPanel names={names} disabled={running} />
-              <PlainEnglish state={state} />
-            </div>
-          </div>
-
-          <h2 className="pt-2 text-lg font-semibold text-muted">How the council got here</h2>
-          <div className="grid grid-cols-1 items-start gap-5 xl:grid-cols-[minmax(20rem,24rem)_minmax(0,1fr)_minmax(18rem,22rem)]">
-            <div className="h-[70vh] min-h-[28rem]">
+          {/* The floor (debate, then who changed their mind) on the left; the result on the right, in plain
+              English or scientific terms. The matrix and spillover map live in the Scientific tab. */}
+          <div className="grid grid-cols-1 items-start gap-5 xl:grid-cols-[minmax(22rem,27rem)_minmax(0,1fr)]">
+            <div className="h-[70vh] min-h-[28rem] xl:sticky xl:top-5 xl:h-[calc(100vh-2.5rem)]">
               <DebateStream state={state} sources={sources} />
             </div>
-            <div className="flex min-w-0 flex-col gap-5">
-              <Matrix state={state} />
-              <div className="h-[26rem]">
-                <SpilloverGraph state={state} sources={sources} />
-              </div>
-            </div>
-            <WhoChanged state={state} />
+            <MeaningCards state={state} packs={packs} names={names} sources={sources} />
           </div>
           <p className="text-center text-[13px] text-muted">{DISCLAIMER}</p>
         </main>

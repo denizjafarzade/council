@@ -45,7 +45,7 @@ export default function PortfolioPanel({ names, disabled }) {
 
   const name = (code) => names[code] || code
   return (
-    <Panel title="Your trades" bodyClassName="px-5 py-4"
+    <Panel title="Your trading history" bodyClassName="px-5 py-4"
       right={summary && <button type="button" disabled={disabled || busy} onClick={() => act(async () => { await api.clearPortfolio(); return null })}
         className="text-sm text-muted hover:text-ink disabled:opacity-40">Clear</button>}>
       <div className="flex flex-col gap-3">
@@ -59,7 +59,7 @@ export default function PortfolioPanel({ names, disabled }) {
             Use sample portfolio
           </button>
         </div>
-        <p className="text-[13px] text-muted">Columns: date, ticker, side, qty, price. Kept in memory only; only percentages reach the council.</p>
+        <p className="text-[13px] text-muted">Upload it before convening. Columns: date, ticker, side, qty, price. Kept in memory only; only percentages reach the council.</p>
         {error && <p className="text-sm text-bear">{error}</p>}
         {summary && (
           <>

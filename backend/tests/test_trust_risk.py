@@ -86,3 +86,24 @@ def test_portfolio_risk_weights_exposure_and_adds_concentration():
     heavy = risk.portfolio_risk(markets, {"by_market": [{"name": "HK", "pct": 90}, {"name": "US", "pct": 10}]})
     assert heavy["components"]["weighted_markets"] == 74 and heavy["components"]["concentration"] > 5
     assert risk.portfolio_risk(markets, None) is None
+
+
+def test_each_ai_is_scored_on_its_own_votes_and_together(monkeypatch):
+    events = run(monkeypatch, FakeLLM())
+    info = next(d for n, d in events if n == "council")
+    assert all(m["model"] for m in info["members"])  # which AI sits in each seat
+    r = next(d for n, d in events if n == "brief")["risk"]
+    assert set(r["by_seat"]) == {"CHAIR", "HK", "CN", "US", "JP", "BEAR", "SPILLOVER"}
+    assert set(r["by_seat"]["HK"]["markets"]) == {"HK"}  # a market seat covers its own market
+    assert set(r["by_seat"]["BEAR"]["markets"]) == {"HK", "CN", "US", "JP"}
+    assert r["together"]["basis"] == "average of markets" and 0 <= r["together"]["score"] <= 100
+
+
+def test_single_ai_risk_leaves_out_disagreement():
+    from schemas import VoteCell
+
+    cells = [VoteCell(country="HK", sector=s, view="bearish", confidence=1.0) for s in ("Tech", "Energy")]
+    seat = risk.seat_risk(cells, {"HK": _pack(35, -10)}, 0.0, None)
+    assert seat["markets"] == {"HK": round((0.3 * 100 + 0.2 * 100 + 0.3 * 100 + 0.1 * 0) / 0.9)}
+    held = risk.seat_risk(cells, {"HK": _pack(35, -10)}, 0.0, {"by_market": [{"name": "HK", "pct": 100}]})
+    assert held["basis"] == "your exposure"

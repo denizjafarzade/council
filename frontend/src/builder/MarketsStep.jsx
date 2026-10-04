@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import PortfolioPanel from '../components/PortfolioPanel'
 import { api } from '../lib/api'
 import { toggleMarket, toggleSector } from './model'
 import { Button, Card, Icon, StepTitle } from './ui'
@@ -90,6 +91,8 @@ export default function MarketsStep({ lib, council, setCouncil, onNext, onAddMar
         </section>
 
         <aside aria-label="Selected markets" className="flex min-w-0 flex-[1_1_340px] flex-col gap-4">
+          {/* Trading history first: the run reads the portfolio that is loaded when the council convenes. */}
+          <PortfolioPanel names={Object.fromEntries(lib.markets.map((m) => [m.code, m.name]))} />
           <Card className="flex flex-col gap-3">
             <div className="flex items-baseline justify-between">
               <h2 className="text-lg font-semibold">On the council</h2>

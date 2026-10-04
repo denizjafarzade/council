@@ -2,6 +2,8 @@ import { useEffect, useMemo, useRef, useState } from 'react'
 import { useAgent } from '../lib/roster'
 import { Avatar, Panel, SourceChip } from './bits'
 import { ShieldIcon } from './GuardrailBadge'
+import { useShifts } from '../hooks/useShifts'
+import { Shift } from './WhoChanged'
 
 // A claim is unverified if the backend flags it (Stage 3A) or a cited id is not in the data.
 function problemsOf(msg, sources) {
@@ -116,13 +118,15 @@ export default function DebateStream({ state, sources }) {
     end.current?.scrollIntoView({ behavior: 'smooth', block: 'nearest' })
   }, [state.feed.length])
   const items = useMemo(() => group(state.feed), [state.feed])
+  const shifts = useShifts(state)
+  const revoted = Object.keys(state.votes.revote).length > 0
   const messages = state.feed.filter((f) => f.kind === 'message')
   const flagged = messages.filter((m) => problemsOf(m, sources).length).length
 
   return (
     <Panel
       title="The floor"
-      right={<span className="text-sm text-muted">{messages.length} messages{flagged > 0 && ` · ${flagged} unverified`}</span>}
+      right={<span className="text-sm text-muted">{messages.length} messages{flagged > 0 && ` · ${flagged} unverified`}{shifts.length > 0 && ` · ${shifts.length} changed their mind`}</span>}
       className="h-full"
       bodyClassName="px-3.5 py-3"
     >
@@ -147,6 +151,16 @@ export default function DebateStream({ state, sources }) {
             ) : (
               <Skipped key={item.id} item={item} />
             ),
+          )}
+          {revoted && (
+            <>
+              <li className="flex items-center gap-2.5 px-1 pt-1.5 font-mono text-xs uppercase tracking-[0.08em] text-gold">
+                Changed their mind · {shifts.length}
+                <span className="h-px flex-1 bg-line" />
+              </li>
+              {shifts.length ? shifts.map((sh) => <Shift key={`${sh.agent}-${sh.cell}`} s={sh} />)
+                : <li className="px-1.5 text-sm text-muted">Nobody changed their view in the revote.</li>}
+            </>
           )}
           <li ref={end} />
         </ol>
