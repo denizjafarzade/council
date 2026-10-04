@@ -70,6 +70,8 @@ class DataPack(Model):
     news: list[News]
     # full = index, 4 sector proxies, FX, rates, news; partial = index, FX, news only.
     coverage: Optional[Literal["full", "partial", "none"]] = None
+    # When the headlines were last fetched (POST /news/refresh); None = with the prices.
+    news_fetched_at: Optional[str] = None
 
     def source_ids(self) -> set[str]:
         ids = {s.id for s in self.series} | {m.id for m in self.macro} | {n.id for n in self.news}
@@ -189,6 +191,23 @@ class Message(Model):
     unverified: list[str] = Field(default_factory=list)
 
 
+class Exposure(Model):
+    name: str  # market code or sector name
+    pct: float  # share of invested cost, 0-100
+
+
+class PortfolioEvent(Model):
+    """The user's exposure for this run: aggregated percentages only, never trades or tickers."""
+    by_market: list[Exposure]
+    by_sector: list[Exposure]
+    largest: Optional[str] = None  # "US Tech", in words
+    largest_pct: Optional[float] = None
+    not_covered_pct: float = 0  # share of open positions outside the council's coverage
+    not_covered_count: int = 0
+    realised_pct_by_market: list[Exposure] = Field(default_factory=list)  # result on closed trades, % of their cost
+    label: str = ""  # e.g. "Sample portfolio (fictional trades)"
+
+
 class ErrorEvent(Model):
     message: str
     agent: Optional[AgentId] = None
@@ -256,7 +275,7 @@ class Council(Model):
     name: str = Field("Untitled council", min_length=1, max_length=80)
     markets: list[MarketCode] = Field(min_length=1, max_length=16)
     members: list[Member] = Field(min_length=1, max_length=40)
-    debate_rounds: int = Field(2, ge=1, le=2)
+    debate_rounds: int = Field(1, ge=1, le=2)
 
 
 class CouncilMarket(Model):
@@ -294,6 +313,7 @@ EVENT_MODELS: dict[str, type[Model]] = {
     "spillover": Spillover,
     "brief": Brief,
     "error": ErrorEvent,
+    "portfolio": PortfolioEvent,
 }
 
 EventPayload = Union[CouncilEvent, StageEvent, Vote, Message, DelegateReport, Spillover, Brief, ErrorEvent]
@@ -301,6 +321,9 @@ EventPayload = Union[CouncilEvent, StageEvent, Vote, Message, DelegateReport, Sp
 
 class RunRequest(Model):
     event: str = Field(min_length=1, max_length=500)
+    # A cached headline id (e.g. "HK-n5"). When set, the event is that real headline with its source
+    # and publish time, and every seat may cite it as [EVENT].
+    news_id: Optional[str] = Field(None, max_length=40)
     # Pass a council inline (the builder does), or the id of a saved one. Neither = the default council.
     council: Optional[Council] = None
     council_id: Optional[Slug] = None

@@ -1,0 +1,16 @@
+# SAMPLE PORTFOLIO - fictional trades made up for the demo. Not anyone's real account.
+# Columns: date,ticker,side,qty,price (price in the ticker's own currency)
+date,ticker,side,qty,price
+2026-06-02,0005.HK,buy,800,135.00
+2026-06-02,0016.HK,buy,300,112.00
+2026-06-10,XLK,buy,60,185.00
+2026-06-10,XLF,buy,100,50.00
+2026-06-17,8306.T,buy,500,3300
+2026-06-17,8035.T,buy,100,11500
+2026-07-01,601398.SS,buy,3000,7.90
+2026-07-08,XLE,buy,30,66.00
+2026-07-15,AAPL,buy,10,220.00
+2026-08-05,XLK,buy,20,195.00
+2026-08-20,0016.HK,sell,100,104.00
+2026-09-01,XLF,sell,40,54.00
+2026-09-15,8035.T,sell,50,12600

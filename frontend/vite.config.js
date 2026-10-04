@@ -8,6 +8,8 @@ export default defineConfig({
     // Lets the UI import ../mocks/council_run.json.
     fs: { allow: ['..'] },
     // '/council' also covers '/councils'.
-    proxy: { '/council': 'http://localhost:8000', '/library': 'http://localhost:8000', '/health': 'http://localhost:8000' },
+    proxy: Object.fromEntries(
+      ['/council', '/library', '/health', '/news', '/portfolio'].map((path) => [path, 'http://localhost:8000']),
+    ),
   },
 })

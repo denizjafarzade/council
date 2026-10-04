@@ -93,9 +93,9 @@ BASE = {
 # (agent, cell) -> (blind view, revote view, because). Scripted so the demo has visible shifts.
 SCRIPTED_SHIFTS = {
     ("JP", ("JP", "Financials")): ("neutral", "bearish", "US delegate: falling US yields compress the spread megabanks rely on [US-10y]"),
-    ("US", ("HK", "Property")): ("neutral", "bullish", "HK delegate: HKD peg passes the cut straight into HIBOR [HK-hibor]"),
+    ("US", ("US", "Property")): ("neutral", "bullish", "HK delegate: lower US rates feed straight into mortgage costs [US-10y]"),
     ("CN", ("CN", "Property")): ("neutral", "bearish", "Bear: sales data stays weak despite easing [CN-n3]"),
-    ("HK", ("US", "Financials")): ("bullish", "neutral", "US delegate: bank margins pressured as rates drop [US-n3]"),
+    ("HK", ("HK", "Financials")): ("bullish", "neutral", "US delegate: bank margins pressured as rates drop [US-n3]"),
     ("BEAR", ("US", "Tech")): ("bullish", "neutral", "Own view: consensus is crowded; cut already priced [US-idx]"),
     ("SPILLOVER", ("JP", "Tech")): ("neutral", "bearish", "JP delegate: stronger yen hits exporters [JP-fx]"),
 }
@@ -110,7 +110,8 @@ def build_votes(rnd: random.Random) -> tuple[list[Vote], list[Vote]]:
     blind, revote = [], []
     for a in agents:
         bcells, rcells = [], []
-        for c in COUNTRIES:
+        # Market delegates vote on their own market only; cross-market seats vote on all.
+        for c in ([a] if a in COUNTRIES else COUNTRIES):
             for s in SECTORS:
                 bias = -0.35 if a == "BEAR" else 0.0
                 score = BASE[(c, s)] + bias + rnd.uniform(-0.3, 0.3)
@@ -254,7 +255,7 @@ def main() -> None:
     out = ROOT / "mocks"
     (out / "datapacks").mkdir(parents=True, exist_ok=True)
     for c, pack in build_datapacks().items():
-        (out / "datapacks" / f"{c}.json").write_text(json.dumps(pack.model_dump(), indent=2) + "\n", encoding="utf-8")
+        (out / "datapacks" / f"{c}.json").write_text(json.dumps(pack.model_dump(exclude_none=True), indent=2) + "\n", encoding="utf-8")
     run = build_run()
     (out / "council_run.json").write_text(json.dumps(run, indent=2) + "\n", encoding="utf-8")
     counts = {}

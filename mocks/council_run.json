@@ -141,7 +141,7 @@
         {
           "country": "HK",
           "sector": "Financials",
-          "view": "neutral",
+          "view": "bullish",
           "confidence": 0.67
         },
         {
@@ -155,78 +155,6 @@
           "sector": "Energy",
           "view": "neutral",
           "confidence": 0.64
-        },
-        {
-          "country": "CN",
-          "sector": "Tech",
-          "view": "bullish",
-          "confidence": 0.51
-        },
-        {
-          "country": "CN",
-          "sector": "Financials",
-          "view": "neutral",
-          "confidence": 0.56
-        },
-        {
-          "country": "CN",
-          "sector": "Property",
-          "view": "bearish",
-          "confidence": 0.36
-        },
-        {
-          "country": "CN",
-          "sector": "Energy",
-          "view": "neutral",
-          "confidence": 0.4
-        },
-        {
-          "country": "US",
-          "sector": "Tech",
-          "view": "bullish",
-          "confidence": 0.43
-        },
-        {
-          "country": "US",
-          "sector": "Financials",
-          "view": "bullish",
-          "confidence": 0.58
-        },
-        {
-          "country": "US",
-          "sector": "Property",
-          "view": "bullish",
-          "confidence": 0.41
-        },
-        {
-          "country": "US",
-          "sector": "Energy",
-          "view": "bearish",
-          "confidence": 0.5
-        },
-        {
-          "country": "JP",
-          "sector": "Tech",
-          "view": "bearish",
-          "confidence": 0.4
-        },
-        {
-          "country": "JP",
-          "sector": "Financials",
-          "view": "bearish",
-          "confidence": 0.37
-        },
-        {
-          "country": "JP",
-          "sector": "Property",
-          "view": "neutral",
-          "confidence": 0.51
-        },
-        {
-          "country": "JP",
-          "sector": "Energy",
-          "view": "neutral",
-          "confidence": 0.37
         }
       ],
       "source": "llm"
@@ -239,6 +167,108 @@
       "round": "blind",
       "cells": [
         {
+          "country": "CN",
+          "sector": "Tech",
+          "view": "bullish",
+          "confidence": 0.76
+        },
+        {
+          "country": "CN",
+          "sector": "Financials",
+          "view": "neutral",
+          "confidence": 0.81
+        },
+        {
+          "country": "CN",
+          "sector": "Property",
+          "view": "neutral",
+          "confidence": 0.61
+        },
+        {
+          "country": "CN",
+          "sector": "Energy",
+          "view": "neutral",
+          "confidence": 0.65
+        }
+      ],
+      "source": "llm"
+    }
+  },
+  {
+    "event": "vote",
+    "data": {
+      "agent": "US",
+      "round": "blind",
+      "cells": [
+        {
+          "country": "US",
+          "sector": "Tech",
+          "view": "bullish",
+          "confidence": 0.68
+        },
+        {
+          "country": "US",
+          "sector": "Financials",
+          "view": "bearish",
+          "confidence": 0.83
+        },
+        {
+          "country": "US",
+          "sector": "Property",
+          "view": "neutral",
+          "confidence": 0.66
+        },
+        {
+          "country": "US",
+          "sector": "Energy",
+          "view": "bearish",
+          "confidence": 0.75
+        }
+      ],
+      "source": "llm"
+    }
+  },
+  {
+    "event": "vote",
+    "data": {
+      "agent": "JP",
+      "round": "blind",
+      "cells": [
+        {
+          "country": "JP",
+          "sector": "Tech",
+          "view": "bearish",
+          "confidence": 0.65
+        },
+        {
+          "country": "JP",
+          "sector": "Financials",
+          "view": "neutral",
+          "confidence": 0.62
+        },
+        {
+          "country": "JP",
+          "sector": "Property",
+          "view": "neutral",
+          "confidence": 0.76
+        },
+        {
+          "country": "JP",
+          "sector": "Energy",
+          "view": "neutral",
+          "confidence": 0.62
+        }
+      ],
+      "source": "llm"
+    }
+  },
+  {
+    "event": "vote",
+    "data": {
+      "agent": "BEAR",
+      "round": "blind",
+      "cells": [
+        {
           "country": "HK",
           "sector": "Tech",
           "view": "bullish",
@@ -247,7 +277,7 @@
         {
           "country": "HK",
           "sector": "Financials",
-          "view": "bullish",
+          "view": "neutral",
           "confidence": 0.35
         },
         {
@@ -259,32 +289,32 @@
         {
           "country": "HK",
           "sector": "Energy",
-          "view": "neutral",
+          "view": "bearish",
           "confidence": 0.38
         },
         {
           "country": "CN",
           "sector": "Tech",
-          "view": "bullish",
-          "confidence": 0.84
+          "view": "neutral",
+          "confidence": 0.59
         },
         {
           "country": "CN",
           "sector": "Financials",
-          "view": "neutral",
-          "confidence": 0.73
+          "view": "bearish",
+          "confidence": 0.48
         },
         {
           "country": "CN",
           "sector": "Property",
-          "view": "neutral",
-          "confidence": 0.82
+          "view": "bearish",
+          "confidence": 0.57
         },
         {
           "country": "CN",
           "sector": "Energy",
-          "view": "neutral",
-          "confidence": 0.75
+          "view": "bearish",
+          "confidence": 0.5
         },
         {
           "country": "US",
@@ -295,25 +325,25 @@
         {
           "country": "US",
           "sector": "Financials",
-          "view": "neutral",
+          "view": "bearish",
           "confidence": 0.35
         },
         {
           "country": "US",
           "sector": "Property",
-          "view": "bullish",
+          "view": "neutral",
           "confidence": 0.58
         },
         {
           "country": "US",
           "sector": "Energy",
-          "view": "neutral",
+          "view": "bearish",
           "confidence": 0.43
         },
         {
           "country": "JP",
           "sector": "Tech",
-          "view": "neutral",
+          "view": "bearish",
           "confidence": 0.59
         },
         {
@@ -325,13 +355,13 @@
         {
           "country": "JP",
           "sector": "Property",
-          "view": "bullish",
+          "view": "neutral",
           "confidence": 0.38
         },
         {
           "country": "JP",
           "sector": "Energy",
-          "view": "neutral",
+          "view": "bearish",
           "confidence": 0.42
         }
       ],
@@ -341,7 +371,7 @@
   {
     "event": "vote",
     "data": {
-      "agent": "US",
+      "agent": "SPILLOVER",
       "round": "blind",
       "cells": [
         {
@@ -359,7 +389,7 @@
         {
           "country": "HK",
           "sector": "Property",
-          "view": "neutral",
+          "view": "bullish",
           "confidence": 0.51
         },
         {
@@ -396,30 +426,30 @@
           "country": "US",
           "sector": "Tech",
           "view": "bullish",
-          "confidence": 0.63
+          "confidence": 0.38
         },
         {
           "country": "US",
           "sector": "Financials",
           "view": "neutral",
-          "confidence": 0.72
+          "confidence": 0.47
         },
         {
           "country": "US",
           "sector": "Property",
           "view": "bullish",
-          "confidence": 0.65
+          "confidence": 0.4
         },
         {
           "country": "US",
           "sector": "Energy",
           "view": "bearish",
-          "confidence": 0.71
+          "confidence": 0.46
         },
         {
           "country": "JP",
           "sector": "Tech",
-          "view": "bearish",
+          "view": "neutral",
           "confidence": 0.52
         },
         {
@@ -445,324 +475,6 @@
     }
   },
   {
-    "event": "vote",
-    "data": {
-      "agent": "JP",
-      "round": "blind",
-      "cells": [
-        {
-          "country": "HK",
-          "sector": "Tech",
-          "view": "bullish",
-          "confidence": 0.58
-        },
-        {
-          "country": "HK",
-          "sector": "Financials",
-          "view": "bullish",
-          "confidence": 0.49
-        },
-        {
-          "country": "HK",
-          "sector": "Property",
-          "view": "bullish",
-          "confidence": 0.56
-        },
-        {
-          "country": "HK",
-          "sector": "Energy",
-          "view": "neutral",
-          "confidence": 0.56
-        },
-        {
-          "country": "CN",
-          "sector": "Tech",
-          "view": "bullish",
-          "confidence": 0.4
-        },
-        {
-          "country": "CN",
-          "sector": "Financials",
-          "view": "neutral",
-          "confidence": 0.44
-        },
-        {
-          "country": "CN",
-          "sector": "Property",
-          "view": "bearish",
-          "confidence": 0.55
-        },
-        {
-          "country": "CN",
-          "sector": "Energy",
-          "view": "neutral",
-          "confidence": 0.59
-        },
-        {
-          "country": "US",
-          "sector": "Tech",
-          "view": "bullish",
-          "confidence": 0.53
-        },
-        {
-          "country": "US",
-          "sector": "Financials",
-          "view": "bearish",
-          "confidence": 0.59
-        },
-        {
-          "country": "US",
-          "sector": "Property",
-          "view": "bullish",
-          "confidence": 0.54
-        },
-        {
-          "country": "US",
-          "sector": "Energy",
-          "view": "neutral",
-          "confidence": 0.48
-        },
-        {
-          "country": "JP",
-          "sector": "Tech",
-          "view": "bearish",
-          "confidence": 0.84
-        },
-        {
-          "country": "JP",
-          "sector": "Financials",
-          "view": "neutral",
-          "confidence": 0.75
-        },
-        {
-          "country": "JP",
-          "sector": "Property",
-          "view": "neutral",
-          "confidence": 0.63
-        },
-        {
-          "country": "JP",
-          "sector": "Energy",
-          "view": "neutral",
-          "confidence": 0.75
-        }
-      ],
-      "source": "llm"
-    }
-  },
-  {
-    "event": "vote",
-    "data": {
-      "agent": "BEAR",
-      "round": "blind",
-      "cells": [
-        {
-          "country": "HK",
-          "sector": "Tech",
-          "view": "neutral",
-          "confidence": 0.5
-        },
-        {
-          "country": "HK",
-          "sector": "Financials",
-          "view": "neutral",
-          "confidence": 0.4
-        },
-        {
-          "country": "HK",
-          "sector": "Property",
-          "view": "neutral",
-          "confidence": 0.45
-        },
-        {
-          "country": "HK",
-          "sector": "Energy",
-          "view": "bearish",
-          "confidence": 0.43
-        },
-        {
-          "country": "CN",
-          "sector": "Tech",
-          "view": "neutral",
-          "confidence": 0.46
-        },
-        {
-          "country": "CN",
-          "sector": "Financials",
-          "view": "neutral",
-          "confidence": 0.37
-        },
-        {
-          "country": "CN",
-          "sector": "Property",
-          "view": "bearish",
-          "confidence": 0.58
-        },
-        {
-          "country": "CN",
-          "sector": "Energy",
-          "view": "neutral",
-          "confidence": 0.44
-        },
-        {
-          "country": "US",
-          "sector": "Tech",
-          "view": "bullish",
-          "confidence": 0.53
-        },
-        {
-          "country": "US",
-          "sector": "Financials",
-          "view": "bearish",
-          "confidence": 0.51
-        },
-        {
-          "country": "US",
-          "sector": "Property",
-          "view": "bullish",
-          "confidence": 0.42
-        },
-        {
-          "country": "US",
-          "sector": "Energy",
-          "view": "bearish",
-          "confidence": 0.38
-        },
-        {
-          "country": "JP",
-          "sector": "Tech",
-          "view": "bearish",
-          "confidence": 0.49
-        },
-        {
-          "country": "JP",
-          "sector": "Financials",
-          "view": "bearish",
-          "confidence": 0.53
-        },
-        {
-          "country": "JP",
-          "sector": "Property",
-          "view": "neutral",
-          "confidence": 0.42
-        },
-        {
-          "country": "JP",
-          "sector": "Energy",
-          "view": "neutral",
-          "confidence": 0.56
-        }
-      ],
-      "source": "llm"
-    }
-  },
-  {
-    "event": "vote",
-    "data": {
-      "agent": "SPILLOVER",
-      "round": "blind",
-      "cells": [
-        {
-          "country": "HK",
-          "sector": "Tech",
-          "view": "bullish",
-          "confidence": 0.42
-        },
-        {
-          "country": "HK",
-          "sector": "Financials",
-          "view": "bullish",
-          "confidence": 0.51
-        },
-        {
-          "country": "HK",
-          "sector": "Property",
-          "view": "bullish",
-          "confidence": 0.49
-        },
-        {
-          "country": "HK",
-          "sector": "Energy",
-          "view": "bearish",
-          "confidence": 0.37
-        },
-        {
-          "country": "CN",
-          "sector": "Tech",
-          "view": "bullish",
-          "confidence": 0.49
-        },
-        {
-          "country": "CN",
-          "sector": "Financials",
-          "view": "neutral",
-          "confidence": 0.39
-        },
-        {
-          "country": "CN",
-          "sector": "Property",
-          "view": "bearish",
-          "confidence": 0.57
-        },
-        {
-          "country": "CN",
-          "sector": "Energy",
-          "view": "neutral",
-          "confidence": 0.57
-        },
-        {
-          "country": "US",
-          "sector": "Tech",
-          "view": "bullish",
-          "confidence": 0.38
-        },
-        {
-          "country": "US",
-          "sector": "Financials",
-          "view": "neutral",
-          "confidence": 0.45
-        },
-        {
-          "country": "US",
-          "sector": "Property",
-          "view": "bullish",
-          "confidence": 0.58
-        },
-        {
-          "country": "US",
-          "sector": "Energy",
-          "view": "neutral",
-          "confidence": 0.55
-        },
-        {
-          "country": "JP",
-          "sector": "Tech",
-          "view": "neutral",
-          "confidence": 0.53
-        },
-        {
-          "country": "JP",
-          "sector": "Financials",
-          "view": "bearish",
-          "confidence": 0.55
-        },
-        {
-          "country": "JP",
-          "sector": "Property",
-          "view": "bullish",
-          "confidence": 0.42
-        },
-        {
-          "country": "JP",
-          "sector": "Energy",
-          "view": "neutral",
-          "confidence": 0.57
-        }
-      ],
-      "source": "llm"
-    }
-  },
-  {
     "event": "stage",
     "data": {
       "name": "blind_vote",
@@ -781,7 +493,8 @@
     "data": {
       "agent": "CHAIR",
       "text": "Council convened on: Fed cuts 50bp. Blind votes are in; delegates, make your case.",
-      "source_ids": []
+      "source_ids": [],
+      "unverified": []
     }
   },
   {
@@ -792,7 +505,8 @@
       "source_ids": [
         "HK-hibor",
         "HK-fx"
-      ]
+      ],
+      "unverified": []
     }
   },
   {
@@ -838,7 +552,8 @@
         "CN-fx",
         "CN-n1",
         "CN-n3"
-      ]
+      ],
+      "unverified": []
     }
   },
   {
@@ -883,7 +598,8 @@
       "source_ids": [
         "US-10y",
         "US-n3"
-      ]
+      ],
+      "unverified": []
     }
   },
   {
@@ -927,7 +643,8 @@
       "source_ids": [
         "JP-fx",
         "JP-n2"
-      ]
+      ],
+      "unverified": []
     }
   },
   {
@@ -970,7 +687,8 @@
       "text": "Challenge to US: HK banks are not US banks. HIBOR falling with a stable spread is neutral for HSBC, not negative.",
       "source_ids": [
         "HK-hibor"
-      ]
+      ],
+      "unverified": []
     }
   },
   {
@@ -981,7 +699,8 @@
       "source_ids": [
         "CN-n3",
         "HK-n3"
-      ]
+      ],
+      "unverified": []
     }
   },
   {
@@ -992,7 +711,8 @@
       "source_ids": [
         "HK-hibor",
         "US-10y"
-      ]
+      ],
+      "unverified": []
     }
   },
   {
@@ -1003,7 +723,8 @@
       "source_ids": [
         "JP-n3",
         "JP-boj"
-      ]
+      ],
+      "unverified": []
     }
   },
   {
@@ -1014,7 +735,8 @@
       "source_ids": [
         "US-idx",
         "HK-hibor"
-      ]
+      ],
+      "unverified": []
     }
   },
   {
@@ -1186,7 +908,8 @@
           "country": "HK",
           "sector": "Financials",
           "view": "neutral",
-          "confidence": 0.76
+          "confidence": 0.76,
+          "because": "US delegate: bank margins pressured as rates drop [US-n3]"
         },
         {
           "country": "HK",
@@ -1199,79 +922,6 @@
           "sector": "Energy",
           "view": "neutral",
           "confidence": 0.68
-        },
-        {
-          "country": "CN",
-          "sector": "Tech",
-          "view": "bullish",
-          "confidence": 0.57
-        },
-        {
-          "country": "CN",
-          "sector": "Financials",
-          "view": "neutral",
-          "confidence": 0.64
-        },
-        {
-          "country": "CN",
-          "sector": "Property",
-          "view": "bearish",
-          "confidence": 0.39
-        },
-        {
-          "country": "CN",
-          "sector": "Energy",
-          "view": "neutral",
-          "confidence": 0.49
-        },
-        {
-          "country": "US",
-          "sector": "Tech",
-          "view": "bullish",
-          "confidence": 0.5
-        },
-        {
-          "country": "US",
-          "sector": "Financials",
-          "view": "neutral",
-          "confidence": 0.63,
-          "because": "US delegate: bank margins pressured as rates drop [US-n3]"
-        },
-        {
-          "country": "US",
-          "sector": "Property",
-          "view": "bullish",
-          "confidence": 0.47
-        },
-        {
-          "country": "US",
-          "sector": "Energy",
-          "view": "bearish",
-          "confidence": 0.59
-        },
-        {
-          "country": "JP",
-          "sector": "Tech",
-          "view": "bearish",
-          "confidence": 0.5
-        },
-        {
-          "country": "JP",
-          "sector": "Financials",
-          "view": "bearish",
-          "confidence": 0.37
-        },
-        {
-          "country": "JP",
-          "sector": "Property",
-          "view": "neutral",
-          "confidence": 0.59
-        },
-        {
-          "country": "JP",
-          "sector": "Energy",
-          "view": "neutral",
-          "confidence": 0.41
         }
       ],
       "source": "llm"
@@ -1284,101 +934,29 @@
       "round": "revote",
       "cells": [
         {
-          "country": "HK",
-          "sector": "Tech",
-          "view": "bullish",
-          "confidence": 0.58
-        },
-        {
-          "country": "HK",
-          "sector": "Financials",
-          "view": "bullish",
-          "confidence": 0.42
-        },
-        {
-          "country": "HK",
-          "sector": "Property",
-          "view": "bullish",
-          "confidence": 0.51
-        },
-        {
-          "country": "HK",
-          "sector": "Energy",
-          "view": "neutral",
-          "confidence": 0.42
-        },
-        {
           "country": "CN",
           "sector": "Tech",
           "view": "bullish",
-          "confidence": 0.93
+          "confidence": 0.82
         },
         {
           "country": "CN",
           "sector": "Financials",
           "view": "neutral",
-          "confidence": 0.75
+          "confidence": 0.89
         },
         {
           "country": "CN",
           "sector": "Property",
           "view": "bearish",
-          "confidence": 0.85,
+          "confidence": 0.64,
           "because": "Bear: sales data stays weak despite easing [CN-n3]"
         },
         {
           "country": "CN",
           "sector": "Energy",
           "view": "neutral",
-          "confidence": 0.77
-        },
-        {
-          "country": "US",
-          "sector": "Tech",
-          "view": "bullish",
-          "confidence": 0.56
-        },
-        {
-          "country": "US",
-          "sector": "Financials",
-          "view": "neutral",
-          "confidence": 0.38
-        },
-        {
-          "country": "US",
-          "sector": "Property",
-          "view": "bullish",
-          "confidence": 0.67
-        },
-        {
-          "country": "US",
-          "sector": "Energy",
-          "view": "neutral",
-          "confidence": 0.44
-        },
-        {
-          "country": "JP",
-          "sector": "Tech",
-          "view": "neutral",
-          "confidence": 0.6
-        },
-        {
-          "country": "JP",
-          "sector": "Financials",
-          "view": "bearish",
-          "confidence": 0.45
-        },
-        {
-          "country": "JP",
-          "sector": "Property",
-          "view": "bullish",
-          "confidence": 0.43
-        },
-        {
-          "country": "JP",
-          "sector": "Energy",
-          "view": "neutral",
-          "confidence": 0.51
+          "confidence": 0.74
         }
       ],
       "source": "llm"
@@ -1391,101 +969,29 @@
       "round": "revote",
       "cells": [
         {
-          "country": "HK",
-          "sector": "Tech",
-          "view": "bullish",
-          "confidence": 0.45
-        },
-        {
-          "country": "HK",
-          "sector": "Financials",
-          "view": "bullish",
-          "confidence": 0.43
-        },
-        {
-          "country": "HK",
-          "sector": "Property",
-          "view": "bullish",
-          "confidence": 0.55,
-          "because": "HK delegate: HKD peg passes the cut straight into HIBOR [HK-hibor]"
-        },
-        {
-          "country": "HK",
-          "sector": "Energy",
-          "view": "neutral",
-          "confidence": 0.4
-        },
-        {
-          "country": "CN",
-          "sector": "Tech",
-          "view": "bullish",
-          "confidence": 0.52
-        },
-        {
-          "country": "CN",
-          "sector": "Financials",
-          "view": "neutral",
-          "confidence": 0.43
-        },
-        {
-          "country": "CN",
-          "sector": "Property",
-          "view": "bearish",
-          "confidence": 0.67
-        },
-        {
-          "country": "CN",
-          "sector": "Energy",
-          "view": "bearish",
-          "confidence": 0.48
-        },
-        {
           "country": "US",
           "sector": "Tech",
           "view": "bullish",
-          "confidence": 0.72
+          "confidence": 0.75
         },
         {
           "country": "US",
           "sector": "Financials",
-          "view": "neutral",
-          "confidence": 0.8
+          "view": "bearish",
+          "confidence": 0.88
         },
         {
           "country": "US",
           "sector": "Property",
           "view": "bullish",
-          "confidence": 0.66
+          "confidence": 0.72,
+          "because": "HK delegate: lower US rates feed straight into mortgage costs [US-10y]"
         },
         {
           "country": "US",
           "sector": "Energy",
           "view": "bearish",
-          "confidence": 0.76
-        },
-        {
-          "country": "JP",
-          "sector": "Tech",
-          "view": "bearish",
-          "confidence": 0.62
-        },
-        {
-          "country": "JP",
-          "sector": "Financials",
-          "view": "bearish",
-          "confidence": 0.48
-        },
-        {
-          "country": "JP",
-          "sector": "Property",
-          "view": "bullish",
-          "confidence": 0.43
-        },
-        {
-          "country": "JP",
-          "sector": "Energy",
-          "view": "neutral",
-          "confidence": 0.49
+          "confidence": 0.84
         }
       ],
       "source": "llm"
@@ -1498,101 +1004,29 @@
       "round": "revote",
       "cells": [
         {
-          "country": "HK",
-          "sector": "Tech",
-          "view": "bullish",
-          "confidence": 0.62
-        },
-        {
-          "country": "HK",
-          "sector": "Financials",
-          "view": "bullish",
-          "confidence": 0.5
-        },
-        {
-          "country": "HK",
-          "sector": "Property",
-          "view": "bullish",
-          "confidence": 0.66
-        },
-        {
-          "country": "HK",
-          "sector": "Energy",
-          "view": "neutral",
-          "confidence": 0.58
-        },
-        {
-          "country": "CN",
-          "sector": "Tech",
-          "view": "bullish",
-          "confidence": 0.44
-        },
-        {
-          "country": "CN",
-          "sector": "Financials",
-          "view": "neutral",
-          "confidence": 0.54
-        },
-        {
-          "country": "CN",
-          "sector": "Property",
-          "view": "bearish",
-          "confidence": 0.6
-        },
-        {
-          "country": "CN",
-          "sector": "Energy",
-          "view": "neutral",
-          "confidence": 0.69
-        },
-        {
-          "country": "US",
-          "sector": "Tech",
-          "view": "bullish",
-          "confidence": 0.55
-        },
-        {
-          "country": "US",
-          "sector": "Financials",
-          "view": "bearish",
-          "confidence": 0.65
-        },
-        {
-          "country": "US",
-          "sector": "Property",
-          "view": "bullish",
-          "confidence": 0.55
-        },
-        {
-          "country": "US",
-          "sector": "Energy",
-          "view": "neutral",
-          "confidence": 0.57
-        },
-        {
           "country": "JP",
           "sector": "Tech",
           "view": "bearish",
-          "confidence": 0.85
+          "confidence": 0.75
         },
         {
           "country": "JP",
           "sector": "Financials",
           "view": "bearish",
-          "confidence": 0.82,
+          "confidence": 0.62,
           "because": "US delegate: falling US yields compress the spread megabanks rely on [US-10y]"
         },
         {
           "country": "JP",
           "sector": "Property",
           "view": "neutral",
-          "confidence": 0.72
+          "confidence": 0.84
         },
         {
           "country": "JP",
           "sector": "Energy",
           "view": "neutral",
-          "confidence": 0.81
+          "confidence": 0.66
         }
       ],
       "source": "llm"
@@ -1607,99 +1041,99 @@
         {
           "country": "HK",
           "sector": "Tech",
-          "view": "neutral",
-          "confidence": 0.55
+          "view": "bullish",
+          "confidence": 0.58
         },
         {
           "country": "HK",
           "sector": "Financials",
           "view": "neutral",
-          "confidence": 0.47
+          "confidence": 0.42
         },
         {
           "country": "HK",
           "sector": "Property",
-          "view": "neutral",
-          "confidence": 0.52
+          "view": "bullish",
+          "confidence": 0.51
         },
         {
           "country": "HK",
           "sector": "Energy",
           "view": "bearish",
-          "confidence": 0.51
+          "confidence": 0.42
         },
         {
           "country": "CN",
           "sector": "Tech",
           "view": "neutral",
-          "confidence": 0.56
+          "confidence": 0.68
         },
         {
           "country": "CN",
           "sector": "Financials",
-          "view": "neutral",
-          "confidence": 0.39
+          "view": "bearish",
+          "confidence": 0.5
         },
         {
           "country": "CN",
           "sector": "Property",
           "view": "bearish",
-          "confidence": 0.67
+          "confidence": 0.6
         },
         {
           "country": "CN",
           "sector": "Energy",
-          "view": "neutral",
-          "confidence": 0.46
+          "view": "bearish",
+          "confidence": 0.52
         },
         {
           "country": "US",
           "sector": "Tech",
           "view": "neutral",
-          "confidence": 0.59,
+          "confidence": 0.56,
           "because": "Own view: consensus is crowded; cut already priced [US-idx]"
         },
         {
           "country": "US",
           "sector": "Financials",
           "view": "bearish",
-          "confidence": 0.51
+          "confidence": 0.38
         },
         {
           "country": "US",
           "sector": "Property",
-          "view": "bullish",
-          "confidence": 0.49
+          "view": "neutral",
+          "confidence": 0.67
         },
         {
           "country": "US",
           "sector": "Energy",
           "view": "bearish",
-          "confidence": 0.39
+          "confidence": 0.44
         },
         {
           "country": "JP",
           "sector": "Tech",
           "view": "bearish",
-          "confidence": 0.52
+          "confidence": 0.6
         },
         {
           "country": "JP",
           "sector": "Financials",
           "view": "bearish",
-          "confidence": 0.55
+          "confidence": 0.45
         },
         {
           "country": "JP",
           "sector": "Property",
           "view": "neutral",
-          "confidence": 0.47
+          "confidence": 0.43
         },
         {
           "country": "JP",
           "sector": "Energy",
-          "view": "neutral",
-          "confidence": 0.57
+          "view": "bearish",
+          "confidence": 0.51
         }
       ],
       "source": "llm"
@@ -1715,98 +1149,98 @@
           "country": "HK",
           "sector": "Tech",
           "view": "bullish",
-          "confidence": 0.42
+          "confidence": 0.45
         },
         {
           "country": "HK",
           "sector": "Financials",
           "view": "bullish",
-          "confidence": 0.54
+          "confidence": 0.43
         },
         {
           "country": "HK",
           "sector": "Property",
           "view": "bullish",
-          "confidence": 0.53
+          "confidence": 0.55
         },
         {
           "country": "HK",
           "sector": "Energy",
-          "view": "bearish",
-          "confidence": 0.46
-        },
-        {
-          "country": "CN",
-          "sector": "Tech",
-          "view": "bullish",
-          "confidence": 0.57
-        },
-        {
-          "country": "CN",
-          "sector": "Financials",
           "view": "neutral",
           "confidence": 0.4
         },
         {
           "country": "CN",
+          "sector": "Tech",
+          "view": "bullish",
+          "confidence": 0.52
+        },
+        {
+          "country": "CN",
+          "sector": "Financials",
+          "view": "neutral",
+          "confidence": 0.43
+        },
+        {
+          "country": "CN",
           "sector": "Property",
           "view": "bearish",
-          "confidence": 0.65
+          "confidence": 0.67
         },
         {
           "country": "CN",
           "sector": "Energy",
-          "view": "neutral",
-          "confidence": 0.59
+          "view": "bearish",
+          "confidence": 0.48
         },
         {
           "country": "US",
           "sector": "Tech",
           "view": "bullish",
-          "confidence": 0.46
+          "confidence": 0.47
         },
         {
           "country": "US",
           "sector": "Financials",
           "view": "neutral",
-          "confidence": 0.51
+          "confidence": 0.55
         },
         {
           "country": "US",
           "sector": "Property",
           "view": "bullish",
-          "confidence": 0.67
+          "confidence": 0.41
         },
         {
           "country": "US",
           "sector": "Energy",
-          "view": "neutral",
-          "confidence": 0.64
+          "view": "bearish",
+          "confidence": 0.51
         },
         {
           "country": "JP",
           "sector": "Tech",
           "view": "bearish",
-          "confidence": 0.56,
+          "confidence": 0.62,
           "because": "JP delegate: stronger yen hits exporters [JP-fx]"
         },
         {
           "country": "JP",
           "sector": "Financials",
           "view": "bearish",
-          "confidence": 0.64
+          "confidence": 0.48
         },
         {
           "country": "JP",
           "sector": "Property",
           "view": "bullish",
-          "confidence": 0.5
+          "confidence": 0.43
         },
         {
           "country": "JP",
           "sector": "Energy",
           "view": "neutral",
-          "confidence": 0.66
+          "confidence": 0.49
         }
       ],
       "source": "llm"
@@ -1994,125 +1428,125 @@
   {
     "event": "brief",
     "data": {
-      "headline": "[MOCK] Council sees the Fed cut lifting HK Property and US Tech, hurting JP banks; most split on HK Financials.",
+      "headline": "[MOCK] Council sees the Fed cut lifting HK Property and US Tech, hurting JP banks; most split on HK Energy.",
       "matrix": [
         {
           "country": "HK",
           "sector": "Tech",
           "view": "bullish",
-          "confidence": 0.46,
-          "dissent": 0.35
+          "confidence": 0.54,
+          "dissent": 0.0
         },
         {
           "country": "HK",
           "sector": "Financials",
-          "view": "bullish",
-          "confidence": 0.27,
-          "dissent": 0.49
+          "view": "neutral",
+          "confidence": 0.45,
+          "dissent": 0.43
         },
         {
           "country": "HK",
           "sector": "Property",
           "view": "bullish",
-          "confidence": 0.49,
-          "dissent": 0.35
+          "confidence": 0.56,
+          "dissent": 0.0
         },
         {
           "country": "HK",
           "sector": "Energy",
           "view": "bearish",
-          "confidence": 0.2,
-          "dissent": 0.49
+          "confidence": 0.22,
+          "dissent": 0.5
         },
         {
           "country": "CN",
           "sector": "Tech",
           "view": "bullish",
-          "confidence": 0.43,
-          "dissent": 0.45
+          "confidence": 0.33,
+          "dissent": 0.5
         },
         {
           "country": "CN",
           "sector": "Financials",
           "view": "neutral",
-          "confidence": 0.52,
-          "dissent": 0.0
+          "confidence": 0.45,
+          "dissent": 0.43
         },
         {
           "country": "CN",
           "sector": "Property",
           "view": "bearish",
-          "confidence": 0.61,
-          "dissent": 0.0
-        },
-        {
-          "country": "CN",
-          "sector": "Energy",
-          "view": "neutral",
-          "confidence": 0.49,
-          "dissent": 0.35
-        },
-        {
-          "country": "US",
-          "sector": "Tech",
-          "view": "bullish",
-          "confidence": 0.46,
-          "dissent": 0.35
-        },
-        {
-          "country": "US",
-          "sector": "Financials",
-          "view": "bearish",
-          "confidence": 0.25,
-          "dissent": 0.49
-        },
-        {
-          "country": "US",
-          "sector": "Property",
-          "view": "bullish",
           "confidence": 0.58,
           "dissent": 0.0
         },
         {
-          "country": "US",
+          "country": "CN",
           "sector": "Energy",
           "view": "bearish",
           "confidence": 0.25,
-          "dissent": 0.49
+          "dissent": 0.5
+        },
+        {
+          "country": "US",
+          "sector": "Tech",
+          "view": "bullish",
+          "confidence": 0.41,
+          "dissent": 0.43
+        },
+        {
+          "country": "US",
+          "sector": "Financials",
+          "view": "bearish",
+          "confidence": 0.47,
+          "dissent": 0.43
+        },
+        {
+          "country": "US",
+          "sector": "Property",
+          "view": "bullish",
+          "confidence": 0.43,
+          "dissent": 0.43
+        },
+        {
+          "country": "US",
+          "sector": "Energy",
+          "view": "bearish",
+          "confidence": 0.45,
+          "dissent": 0.43
         },
         {
           "country": "JP",
           "sector": "Tech",
           "view": "bearish",
-          "confidence": 0.44,
-          "dissent": 0.45
+          "confidence": 0.49,
+          "dissent": 0.43
         },
         {
           "country": "JP",
           "sector": "Financials",
           "view": "bearish",
-          "confidence": 0.55,
+          "confidence": 0.52,
           "dissent": 0.0
         },
         {
           "country": "JP",
           "sector": "Property",
-          "view": "bullish",
-          "confidence": 0.19,
-          "dissent": 0.49
+          "view": "neutral",
+          "confidence": 0.42,
+          "dissent": 0.43
         },
         {
           "country": "JP",
           "sector": "Energy",
           "view": "neutral",
-          "confidence": 0.55,
-          "dissent": 0.0
+          "confidence": 0.39,
+          "dissent": 0.43
         }
       ],
       "vote_shifts": [
         {
           "agent": "HK",
-          "cell": "US/Financials",
+          "cell": "HK/Financials",
           "from": "bullish",
           "to": "neutral",
           "because": "US delegate: bank margins pressured as rates drop [US-n3]"
@@ -2126,10 +1560,10 @@
         },
         {
           "agent": "US",
-          "cell": "HK/Property",
+          "cell": "US/Property",
           "from": "neutral",
           "to": "bullish",
-          "because": "HK delegate: HKD peg passes the cut straight into HIBOR [HK-hibor]"
+          "because": "HK delegate: lower US rates feed straight into mortgage costs [US-10y]"
         },
         {
           "agent": "JP",
@@ -2177,7 +1611,8 @@
         "How large would a position be relative to your account?",
         "How much do you already hold in rate-sensitive sectors?"
       ],
-      "disclaimer": "Research and decision support only. Not investment advice."
+      "disclaimer": "Research and decision support only. Not investment advice.",
+      "plain_english": ""
     }
   },
   {

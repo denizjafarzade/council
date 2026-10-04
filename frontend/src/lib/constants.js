@@ -23,8 +23,6 @@ export const STAGES = [
   { id: 'brief', label: 'Brief' },
 ]
 
-export const PRESETS = ['Fed cuts 50bp', 'China announces major stimulus', 'BoJ hikes rates', 'Oil spikes 15%']
-
 // Blue/orange rather than green/red so colour-blind viewers can tell them apart; arrows are a second cue.
 export const VIEW_STYLE = {
   bullish: { rgb: '90, 162, 240', arrow: '▲', label: 'Bullish', text: 'text-bull', hex: '#8cc2f7' },

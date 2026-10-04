@@ -63,31 +63,31 @@
   "news": [
     {
       "id": "US-n1",
+      "title": "Treasury Yields Push To Fresh Highs",
+      "source": "WSJ",
+      "url": "https://news.google.com/rss/articles/CBMipAFBVV95cUxPT05aOHdJS2k3TXNtTkY4MGUxRFFBZjV6bGNHM21EbjRCaHhSR0dYbjVqTmx2azdNVXRoRkh5b3RxbS1pVXNUYmJ0R25UWkxvTV8zUHhfSEQtMTdpUHZWTFVtZHJESDdqb0FkRWRoWDRTTWlPTm5mbmc3UWpzbVJpSDBOMmtDWmZGb1FfVkJjek1wVWdnVDhmXzB6MEhPdFJlMFVSRA?oc=5",
+      "published": "2026-10-04T04:40+00:00"
+    },
+    {
+      "id": "US-n2",
       "title": "History Says Coca-Cola Stock Holds Up When the S&P 500 Falls",
       "source": "The Motley Fool",
       "url": "https://news.google.com/rss/articles/CBMiqwFBVV95cUxOc3RkUi1rZFpYcjNtWlVzaGlGT0JETU9HWUs4TFVlTWlPcklZb0l6WGVYakVYRnV4VzAwNjR1a1liTGZQNGRKN1d2S0kzTkphdkhVSUlPei0zVXRvZUQ2MGxranFFRjIxd0p4QmJBdUJpdVgtcnJjWUs5OXpjQ1NXdWdnTHZXRm5xakJqMmc2dmVjRDVReV8zNEdwME9DUkxSbzlsVC1aMkJVb0U?oc=5",
       "published": "2026-10-03T22:23+00:00"
     },
     {
-      "id": "US-n2",
+      "id": "US-n3",
       "title": "Bessent says rising Treasury yields reflect global trend, not cause for alarm",
       "source": "Yahoo Finance",
       "url": "https://news.google.com/rss/articles/CBMiogFBVV95cUxNSTAtU1NhTVU3VTRyQWIyQW9TcEdlcklkbk50Vjd0RW93Z1ZqOEZfLUpSYXZVaVJXYmp4bE82QUdoMlVTQm4tN3ZLMlIwUi01bWo3WVVYQXRwZjk1b2x3X1R1U0hGcGdmUmhRS25RdlJ5VkYzSEI3X185MEFMa0NTVUZWbWVMU2VvZUlCMVgyZWFaUV84azBILXB4QXM4VHpTY3c?oc=5",
       "published": "2026-10-03T17:19+00:00"
     },
     {
-      "id": "US-n3",
+      "id": "US-n4",
       "title": "Global Bond Selloff Pushes U.S. Treasury Yields to 24-Year Highs",
       "source": "Yahoo Finance",
       "url": "https://news.google.com/rss/articles/CBMijwFBVV95cUxQMUNTU1B2WHNZSy1CRU8yVDBqT0RWaEZHNjVQZ1FQM0g3T0JTbGlzM1YzWHhNeExfd0hlc1BuWU5QeXlzV0UzOFJRWWd5dGxheHdGcUNVZDhmYVRuS2F4Nm0tbHBoeEgxX1VzRVJ0dkpxMHVhb0ZRRXVTTjl6cDMyUWpaek4xWXZWYUViUEF0aw?oc=5",
       "published": "2026-10-03T13:22+00:00"
-    },
-    {
-      "id": "US-n4",
-      "title": "3 Brokerage Stocks Tied To Higher Treasury Yields",
-      "source": "Yahoo Finance",
-      "url": "https://news.google.com/rss/articles/CBMimwFBVV95cUxQWm5ULWRnRUMtUDkwRTNCYVdPNUxfRUtfeEZNUW1nNmlHVktKRUdRZlFsSDIzVHBqN01UWkJrUWJmRnpWeTZzSDI0NXB1SXd2dkpCR2M0SHloMjA2cnNmX3RiWk9KX2RybXF6MTVlcE5sa1pGek43NWNicldfSzRpSEpJTTctdDZYX3FfVGRJMjlTdTRjVlgxNzJodw?oc=5",
-      "published": "2026-10-03T12:09+00:00"
     },
     {
       "id": "US-n5",
@@ -117,5 +117,6 @@
       "url": "https://news.google.com/rss/articles/CBMisAFBVV95cUxNRmtob2RJVlpmTGxNWUpDMkZsYVdoQ29iX1JvY0huZGRwM1NfUkVZbWFPYjdUelktRGNUcW9GLTNSLXlTTFJXWG1aSjBEZjlfUUpaRmZiMVk1aTI2Nzhqa29UUkkyRkkzN2RrRTc5SEplM0tOR1ZVZU5yMXBIc3BhNTlscDA2d0ZCTnkzV05rMzJBZDhRd1I4RG56TWF5eUV6aTRZSjdkMlpSeVphaUFUaA?oc=5",
       "published": "2026-10-03T01:33+00:00"
     }
-  ]
+  ],
+  "news_fetched_at": "2026-10-04T07:31:21+00:00"
 }

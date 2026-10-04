@@ -1,10 +1,11 @@
-// Backend calls for the council builder: role/market library and saved councils.
+// Backend calls: role/market library, saved councils, headlines and the user's portfolio.
 
-async function call(method, url, body) {
+async function call(method, url, body, contentType = 'application/json') {
+  const raw = typeof body === 'string'
   const r = await fetch(url, {
     method,
-    headers: body ? { 'Content-Type': 'application/json' } : undefined,
-    body: body ? JSON.stringify(body) : undefined,
+    headers: body ? { 'Content-Type': raw ? contentType : 'application/json' } : undefined,
+    body: body ? (raw ? body : JSON.stringify(body)) : undefined,
   })
   if (r.status === 204) return null
   const data = await r.json().catch(() => ({}))
@@ -25,4 +26,10 @@ export const api = {
   councils: () => call('GET', '/councils'),
   saveCouncil: (council) => call('PUT', '/councils', council),
   deleteCouncil: (id) => call('DELETE', `/councils/${id}`),
+  topNews: (markets) => call('GET', `/news/top${markets?.length ? `?markets=${markets.join(',')}` : ''}`),
+  refreshNews: (markets) => call('POST', '/news/refresh', { markets }),
+  portfolio: () => call('GET', '/portfolio'),
+  uploadPortfolio: (csvText, label) => call('POST', `/portfolio?label=${encodeURIComponent(label)}`, csvText, 'text/csv'),
+  samplePortfolio: () => call('POST', '/portfolio/sample'),
+  clearPortfolio: () => call('DELETE', '/portfolio'),
 }

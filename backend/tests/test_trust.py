@@ -132,7 +132,8 @@ def test_jev_is_off_without_a_key(monkeypatch):
 # --- in a full run ---------------------------------------------------------------------------
 
 def llm_vote(agent):
-    cells = [{"country": c, "sector": s, "view": "neutral", "confidence": 0.5} for c in COUNTRIES for s in SECTORS]
+    markets = [agent] if agent in COUNTRIES else COUNTRIES  # market seats vote their own market only
+    cells = [{"country": c, "sector": s, "view": "neutral", "confidence": 0.5} for c in markets for s in SECTORS]
     return Vote(agent=agent, round="blind", cells=cells)
 
 

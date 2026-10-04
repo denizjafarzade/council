@@ -1,7 +1,8 @@
 import { useEffect, useState } from 'react'
-import { PRESETS, STAGES } from '../lib/constants'
+import { STAGES } from '../lib/constants'
 import { slugify } from '../lib/council'
 import { votersOf } from '../lib/roster'
+import NewsPicker from './NewsPicker'
 
 /** Recordings bundled with the frontend, plus any the backend has saved since. */
 function useRecordings(bundled, status) {
@@ -17,28 +18,34 @@ function useRecordings(bundled, status) {
 
 const button = 'inline-flex min-h-12 items-center justify-center gap-2 rounded-xl px-4 disabled:cursor-not-allowed disabled:opacity-40'
 
-/** Pick an event and start it: live, from a recording, or from the mock. */
-export default function EventPicker({ state, onRun, onReplay, recordings: bundled = [], onReplayRecorded }) {
-  const [text, setText] = useState(state.event || PRESETS[0])
+/** Pick a real headline (or type an event) and start it: live, from a recording, or from the mock. */
+export default function EventPicker({ state, markets, onRun, onReplay, recordings: bundled = [], onReplayRecorded }) {
+  const [text, setText] = useState(state.event || '')
+  const [newsId, setNewsId] = useState(null)
+  const [recordingSlug, setRecordingSlug] = useState(null)
   const running = state.status === 'running'
   const recordings = useRecordings(bundled, state.status)
-  const recorded = recordings[slugify(text)]
+  // A typed event matches its recording by slug; a headline run's recording starts with the quoted headline.
+  const recorded = recordings[recordingSlug] || recordings[slugify(text)]
+    || Object.values(recordings).find((r) => text && r.event?.startsWith(`"${text}"`))
   const [speed, setSpeed] = useState(1)
 
   function submit(e) {
     e.preventDefault()
-    if (text.trim() && !running) onRun(text.trim())
+    if (text.trim() && !running) onRun(text.trim(), newsId)
   }
 
   return (
     <form onSubmit={submit} className="flex flex-col gap-3 rounded-2xl border border-line bg-panel px-5 py-4">
+      <NewsPicker markets={markets} selectedId={newsId} disabled={running}
+        onPick={(n) => { setText(n.title); setNewsId(n.id); setRecordingSlug(null) }} />
       <div className="flex flex-wrap items-end gap-2.5">
         <label className="flex min-w-64 flex-1 flex-col gap-1.5 text-sm font-medium text-muted">
-          What should the council debate?
+          Or type your own event
           <input
             value={text}
-            onChange={(e) => setText(e.target.value)}
-            placeholder="Describe a market event…"
+            onChange={(e) => { setText(e.target.value); setNewsId(null); setRecordingSlug(null) }}
+            placeholder="Pick a headline above, or describe an event…"
             className="min-h-12 rounded-xl border border-line-strong bg-desk px-3.5 text-lg text-ink outline-none focus:border-gold"
           />
         </label>
@@ -75,30 +82,34 @@ export default function EventPicker({ state, onRun, onReplay, recordings: bundle
         <button
           type="button"
           disabled={running}
-          onClick={() => onReplay(text.trim() || PRESETS[0])}
+          onClick={() => onReplay(text.trim() || 'Mock event')}
           className={`${button} border border-dashed border-line-strong text-muted hover:bg-raised hover:text-ink`}
           title="Replay mocks/council_run.json (no backend needed)"
         >
           Mock run
         </button>
       </div>
-      <div className="flex flex-wrap gap-2">
-        {PRESETS.map((p) => (
-          <button
-            key={p}
-            type="button"
-            disabled={running}
-            onClick={() => setText(p)}
-            aria-pressed={text === p}
-            className={`min-h-10 rounded-full border px-3.5 text-sm disabled:opacity-40 ${
-              text === p ? 'border-gold bg-gold-soft text-gold-text' : 'border-line-strong text-ink hover:bg-raised'
-            }`}
-          >
-            {recordings[slugify(p)] && <span className="mr-1.5 inline-block size-2 rounded-full bg-ok align-middle" title="Recorded run available" />}
-            {p}
-          </button>
-        ))}
-      </div>
+      {Object.keys(recordings).length > 0 && (
+        <div className="flex flex-wrap items-center gap-2">
+          <span className="text-sm text-muted">Recorded runs:</span>
+          {Object.values(recordings).map((r) => (
+            <button
+              key={r.slug}
+              type="button"
+              disabled={running}
+              onClick={() => { setRecordingSlug(r.slug); setText(r.event || r.slug); setNewsId(null) }}
+              aria-pressed={recorded?.slug === r.slug}
+              title={r.event || r.slug}
+              className={`min-h-9 max-w-[22rem] truncate rounded-full border px-3 text-sm disabled:opacity-40 ${
+                recorded?.slug === r.slug ? 'border-gold bg-gold-soft text-gold-text' : 'border-line-strong text-ink hover:bg-raised'
+              }`}
+            >
+              <span className="mr-1.5 inline-block size-2 rounded-full bg-ok align-middle" />
+              {(r.event || r.slug).replace(/ \([^)]*published[^)]*\)$/, '')}
+            </button>
+          ))}
+        </div>
+      )}
     </form>
   )
 }

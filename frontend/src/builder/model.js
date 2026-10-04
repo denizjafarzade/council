@@ -4,8 +4,6 @@
 
 const CROSS_IDS = { bear: 'BEAR', spillover: 'SPILLOVER', chair: 'CHAIR', bull: 'BULL', risk: 'RISK' }
 
-export const PRESETS = ['Fed cuts 50bp', 'China announces major stimulus', 'BoJ hikes rates', 'Oil spikes 15%']
-
 /** A market seat's id: the market code for its Macro Strategist, else MARKET-ROLE. */
 export function seatId(roleId, market) {
   return roleId === 'macro' ? market : `${market}-${roleId.toUpperCase()}`.slice(0, 40)
@@ -39,7 +37,7 @@ export function defaultCouncil() {
       { id: 'SPILLOVER', name: 'Spillover Analyst', role: 'spillover', market: null },
       { id: 'CHAIR', name: 'Chair', role: 'chair', market: null },
     ],
-    debate_rounds: 2,
+    debate_rounds: 1,
   }
 }
 
