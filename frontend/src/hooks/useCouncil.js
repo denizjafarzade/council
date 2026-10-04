@@ -2,7 +2,7 @@ import { useCallback, useEffect, useReducer, useRef } from 'react'
 import mockRun from '../../../mocks/council_run.json'
 import { councilReducer, initialState } from '../lib/council'
 
-const SSE_EVENTS = ['council', 'replay', 'stage', 'vote', 'message', 'report', 'spillover', 'brief', 'error']
+const SSE_EVENTS = ['council', 'portfolio', 'replay', 'stage', 'vote', 'message', 'report', 'spillover', 'brief', 'error']
 const MOCK_DELAY_MS = 300
 // Recorded runs ship with the frontend too (loaded on demand), so a replay works even if the backend is down.
 const LOCAL_RUNS = Object.fromEntries(
@@ -68,9 +68,10 @@ export function useCouncil() {
     [stop],
   )
 
-  /** Start a real council run and stream it over SSE. `council` is the builder's config (optional). */
+  /** Start a real council run and stream it over SSE. `council` is the builder's config, `newsId` a cached
+   * headline the event is about (both optional). */
   const runLive = useCallback(
-    async (event, council, guardrail) => {
+    async (event, council, newsId, guardrail) => {
       stop()
       dispatch({ type: 'reset', mode: 'live', event })
       let runId
@@ -78,7 +79,12 @@ export function useCouncil() {
         const r = await fetch('/council/run', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ event, ...(council && { council }), ...(typeof guardrail === 'boolean' && { guardrail }) }),
+          body: JSON.stringify({
+            event,
+            ...(council && { council }),
+            ...(newsId && { news_id: newsId }),
+            ...(typeof guardrail === 'boolean' && { guardrail }),
+          }),
         })
         if (r.status === 422) {
           const detail = (await r.json().catch(() => ({}))).detail

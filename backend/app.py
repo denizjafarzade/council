@@ -5,20 +5,26 @@ import asyncio
 import json
 import logging
 import uuid
+from pathlib import Path
 from typing import AsyncIterator
 
-from fastapi import FastAPI, HTTPException, Response
+from fastapi import FastAPI, HTTPException, Request, Response
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import StreamingResponse
+from pydantic import BaseModel
 
 import guardrail
 import library
+import news
 import orchestrator
+import portfolio
 import recorder
 from library import CouncilError
 from models import all_models, profile
 from orchestrator import run_council
 from schemas import SECTORS, Council, DataPack, MarketDef, RoleDef, RunRequest, RunResponse
+
+SAMPLE_PORTFOLIO = Path(__file__).resolve().parent.parent / "samples" / "sample_portfolio_FICTIONAL.csv"
 
 # Per-agent token usage and skipped agents show up in the uvicorn console.
 logging.basicConfig(level=logging.INFO, format="%(asctime)s %(name)s %(levelname)s %(message)s")
@@ -44,6 +50,11 @@ def start_run(req: RunRequest) -> RunResponse:
         raise HTTPException(404, f"unknown council {req.council_id}")
     except CouncilError as e:
         raise HTTPException(422, str(e))
+    if req.news_id:
+        item = news.find(req.news_id)
+        if item is None:
+            raise HTTPException(404, f"unknown headline {req.news_id}; refresh the news list")
+        req = req.model_copy(update={"event": news.event_text(item)})
     run_id = uuid.uuid4().hex[:12]
     RUNS[run_id] = req
     return RunResponse(run_id=run_id)
@@ -90,6 +101,67 @@ async def stream(run_id: str) -> StreamingResponse:
     if req is None:
         raise HTTPException(404, f"unknown run_id {run_id}")
     return _sse_response(_stream(req))
+
+
+# --- news: real headlines are the event ---------------------------------------------------
+
+def _markets(param: str | None) -> list[str]:
+    return [c.strip().upper() for c in param.split(",") if c.strip()] if param else library.default_council().markets
+
+
+@app.get("/news/top")
+def news_top(markets: str | None = None, limit: int = 24) -> list[dict]:
+    """Cached headlines for these markets (comma-separated codes), newest first. No network."""
+    return news.top(_markets(markets), limit)
+
+
+class RefreshRequest(BaseModel):
+    markets: list[str] | None = None
+
+
+@app.post("/news/refresh")
+async def news_refresh(body: RefreshRequest | None = None) -> dict:
+    """Re-fetch only the headlines for these markets and update the cache. Never used during a run."""
+    if recorder.offline_mode():
+        raise HTTPException(409, "offline mode: headlines are not refreshed")
+    codes = (body.markets if body and body.markets else None) or library.default_council().markets
+    return await asyncio.to_thread(news.refresh, [c.upper() for c in codes])
+
+
+# --- portfolio: the user's trading history, in memory only ---------------------------------------
+
+def _portfolio_view(summary: portfolio.Summary | None) -> dict | None:
+    return None if summary is None else {**summary.__dict__, "event": summary.event_payload()}
+
+
+@app.get("/portfolio")
+def get_portfolio() -> dict | None:
+    return _portfolio_view(portfolio.current())
+
+
+@app.post("/portfolio")
+async def post_portfolio(request: Request, label: str = "Your portfolio") -> dict:
+    """Body: the CSV text (date,ticker,side,qty,price). Kept in memory only, never written to disk."""
+    text = (await request.body()).decode("utf-8-sig", errors="replace")
+    try:
+        summary = portfolio.summarise(text, label[:60])
+    except portfolio.PortfolioError as e:
+        raise HTTPException(422, str(e))
+    portfolio.set_current(summary)
+    return _portfolio_view(summary)
+
+
+@app.post("/portfolio/sample")
+def load_sample_portfolio() -> dict:
+    summary = portfolio.summarise(SAMPLE_PORTFOLIO.read_text(encoding="utf-8"), "Sample portfolio (fictional trades)")
+    portfolio.set_current(summary)
+    return _portfolio_view(summary)
+
+
+@app.delete("/portfolio", status_code=204)
+def clear_portfolio() -> Response:
+    portfolio.set_current(None)
+    return Response(status_code=204)
 
 
 # --- recorded runs (Stage 4) -----------------------------------------------------------

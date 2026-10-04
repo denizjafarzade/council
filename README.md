@@ -49,6 +49,22 @@ Copy `.env.example` to `.env` and add the OpenRouter key. The Vite dev server pr
 
 **Stage 0 behaviour:** `/council/stream/{run_id}` replays `mocks/council_run.json` with a 300 ms delay, so the UI can point at the real endpoint from the start. Stage 1A swaps in real agents behind the same stream.
 
+## Real news and your trades
+
+The council discusses **real, current headlines** and relates them to **your own trading history**.
+
+- `GET /news/top?markets=HK,CN` lists cached headlines, newest first, with market, source and publish time. `POST /news/refresh` re-runs only `fetch_news` for those markets, updates the cache and stamps `news_fetched_at`. It is never called during a run, and is refused in offline mode.
+- `POST /council/run` takes an optional `news_id` (e.g. `HK-n5`). The event becomes the headline with its source and publish time, and every seat may cite it as `[EVENT]`.
+- `POST /portfolio` takes a CSV (`date,ticker,side,qty,price`; `#` lines are comments). `backend/portfolio.py` makes no model calls. It computes holdings at average cost, exposure by market and sector (costs converted to USD at the cached FX rates), the largest position and realised results per market. Tickers map only through the tickers we already fetch; anything else is listed as "not covered", never guessed.
+- **Privacy:** uploads stay in memory only (never written to disk, and `uploads/` is gitignored, because this repo is public). Only aggregated percentages reach the model (the Chair) and recordings, never trades or tickers.
+- `samples/sample_portfolio_FICTIONAL.csv` is a clearly labelled, made-up portfolio for the demo. `POST /portfolio/sample` loads it.
+- Market seats vote only on their own market's four sectors; cross-market seats vote on all. Debate defaults to 1 round.
+- The UI's **What this means for you** cards (one per market, sorted by your exposure) are worded in code from the portfolio, the index moves and each market seat's own report, plus the Chair's questions about your largest exposures.
+
+```bash
+python scripts/record_presets.py --news US-n4 HK-n1 --portfolio samples/sample_portfolio_FICTIONAL.csv
+```
+
 ## Demo safety (Stage 4)
 
 ```bash

@@ -44,7 +44,8 @@ export function sourcesFor(mode) {
   return (mode === 'live' || mode === 'replay') && Object.keys(SOURCES.live).length ? SOURCES.live : SOURCES.mock
 }
 
-export function asOfFor(mode) {
+/** Market code -> the DataPack this run's mode reads (for prices dates and the index move). */
+export function packsFor(mode) {
   const packs = Object.values((mode === 'live' || mode === 'replay') && Object.keys(cachePacks).length ? cachePacks : mockPacks)
-  return Object.fromEntries(packs.map((p) => [p.country, p.as_of]))
+  return Object.fromEntries(packs.map((p) => [p.country, p]))
 }

@@ -2,6 +2,7 @@
 
 1. Citations: every claim must cite source ids, and every id must exist in the data
    that member can see (its own market's DataPack, or all of them for cross-market seats).
+   [EVENT], the run's news item, is valid for every seat.
 2. Numbers: every number in a claim must match a value in the series it cites,
    allowing for rounding ("down 5%" matches a 1-month change of -5.29).
 
@@ -28,6 +29,8 @@ def _values_by_id(pack: DataPack) -> dict[str, list[float]]:
         out[s.id] = [s.last, s.chg_1d_pct, s.chg_1m_pct, s.vol_20d_pct]
     for s in pack.sectors:
         out[f"{pack.country}-{s.sector}"] = [s.chg_1m_pct, s.vol_20d_pct]
+        if s.ticker:  # members often cite the proxy's ticker (XLK, 0016.HK); it is in the data too
+            out[s.ticker] = [s.chg_1m_pct, s.vol_20d_pct]
     for m in pack.macro:
         out[m.id] = [m.value]
     for n in pack.news:
@@ -66,6 +69,8 @@ def check_claim(text: str, source_ids: list[str], packs: list[DataPack], event: 
     known = {}
     for p in packs:
         known.update(_values_by_id(p))
+    # Every seat may cite the news item the run is about; its numbers are the headline's.
+    known["EVENT"] = [v for v, _ in _numbers(event)]
     problems = []
     if not source_ids:
         problems.append("cites no source")

@@ -20,9 +20,11 @@ from schemas import (  # noqa: E402
 STAGES = ["data", "blind_vote", "debate", "revote", "spillover", "brief"]
 
 
-def full_vote(agent: str, cells: int = 16, view: str = "neutral") -> Vote:
-    grid = [{"country": c, "sector": s, "view": view, "confidence": 0.5} for c in COUNTRIES for s in SECTORS]
-    return Vote(agent=agent, round="blind", cells=grid[:cells])
+def full_vote(agent: str, cells: int | None = None, view: str = "neutral") -> Vote:
+    """A vote in the seat's scope: market seats vote their own market, cross-market seats every market."""
+    markets = [agent] if agent in COUNTRIES else COUNTRIES
+    grid = [{"country": c, "sector": s, "view": view, "confidence": 0.5} for c in markets for s in SECTORS]
+    return Vote(agent=agent, round="blind", cells=grid if cells is None else grid[:cells])
 
 
 def report(agent: str) -> DelegateReport:
@@ -57,7 +59,8 @@ class FakeLLM:
         if schema is Vote:
             vote = full_vote(agent)
             if agent == "JP" and "revote" in user:
-                vote.cells[13] = vote.cells[13].model_copy(update={"view": "bearish", "because": "US: yen firms"})
+                i = next(k for k, c in enumerate(vote.cells) if (c.country, c.sector) == ("JP", "Financials"))
+                vote.cells[i] = vote.cells[i].model_copy(update={"view": "bearish", "because": "US: yen firms"})
             return vote, Usage(1, 1, 0)
         if schema is DelegateReport:
             return report(agent), Usage(1, 1, 0)
@@ -68,11 +71,12 @@ class FakeLLM:
                       plain_english="Rates fall, so home prices in Hong Kong may rise."), Usage(1, 1, 0)
 
 
-def run(monkeypatch, fake: FakeLLM, event: str = "Fed cuts 50bp") -> list[tuple[str, dict]]:
+def run(monkeypatch, fake: FakeLLM, event: str = "Fed cuts 50bp", rounds: int | None = None) -> list[tuple[str, dict]]:
     monkeypatch.setattr(orchestrator, "call_llm", fake)
+    council = library.default_council().model_copy(update={"debate_rounds": rounds}) if rounds else None
 
     async def collect():
-        return [e async for e in orchestrator.run_council(RunRequest(event=event))]
+        return [e async for e in orchestrator.run_council(RunRequest(event=event, council=council))]
     return asyncio.run(collect())
 
 
@@ -92,9 +96,9 @@ def test_full_run_emits_every_stage_and_valid_contracts(monkeypatch):
     assert sorted((v["agent"], v["round"]) for v in votes) == sorted(
         [(a, "blind") for a in AGENTS] + [(a, "revote") for a in AGENTS])
 
-    # 2 debate rounds x 4 delegates + the Bear; every report is pinned to its author.
+    # 1 debate round (the default) x 4 delegates + the Bear; every report is pinned to its author.
     reports = [d for n, d in events if n == "report"]
-    assert len(reports) == 2 * 4 + 1
+    assert len(reports) == 1 * 4 + 1
     assert [r["agent"] for r in reports][-1] == "BEAR"
     assert {r["agent"] for r in reports} == set(COUNTRIES) | {"BEAR"}
 
@@ -115,7 +119,7 @@ def test_full_run_emits_every_stage_and_valid_contracts(monkeypatch):
 
 def test_agents_see_the_right_data_and_context(monkeypatch):
     fake = FakeLLM()
-    run(monkeypatch, fake)
+    run(monkeypatch, fake, rounds=2)
     systems = {}
     for agent, schema, system in fake.calls:
         systems.setdefault((agent, schema), []).append(system)

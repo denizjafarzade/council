@@ -1,18 +1,20 @@
 import { useEffect, useMemo, useState } from 'react'
 import Builder from './builder/Builder'
 import { Brand } from './builder/ui'
-import Brief, { PlainEnglish } from './components/Brief'
+import { PlainEnglish } from './components/Brief'
 import DebateStream from './components/DebateStream'
 import EventPicker, { StageBar } from './components/EventPicker'
 import GuardrailBadge from './components/GuardrailBadge'
+import MeaningCards from './components/MeaningCards'
+import PortfolioPanel from './components/PortfolioPanel'
 import Matrix from './components/Matrix'
 import SpilloverGraph from './components/SpilloverGraph'
 import WhoChanged from './components/WhoChanged'
 import { useCouncil } from './hooks/useCouncil'
-import { DISCLAIMER } from './lib/constants'
+import { COUNTRY_NAMES, DISCLAIMER } from './lib/constants'
 import { useGuardrailSetting } from './lib/guardrail'
 import { RosterContext, buildRoster, marketsOf } from './lib/roster'
-import { asOfFor, sourcesFor } from './lib/sources'
+import { packsFor, sourcesFor } from './lib/sources'
 
 function Toasts({ toasts, dismiss }) {
   useEffect(() => {
@@ -56,23 +58,28 @@ function RunStatus({ state }) {
 
 export default function App() {
   const { state, replayMock, runLive, replayRecorded, recordings, dismiss } = useCouncil()
-  const sources = useMemo(() => sourcesFor(state.mode), [state.mode])
+  // [EVENT] is the headline the run is about; every seat may cite it.
+  const sources = useMemo(
+    () => ({ ...sourcesFor(state.mode), EVENT: { kind: 'news', label: state.event, value: 'The news item this run is about' } }),
+    [state.mode, state.event],
+  )
   const roster = useMemo(() => buildRoster(state.council), [state.council])
-  const asOf = useMemo(() => {
-    const markets = marketsOf(state)
-    return Object.fromEntries(Object.entries(asOfFor(state.mode)).filter(([c]) => markets.includes(c)))
-  }, [state])
+  const packs = useMemo(() => packsFor(state.mode), [state.mode])
+  const names = useMemo(
+    () => ({ ...COUNTRY_NAMES, ...Object.fromEntries((state.council?.markets || []).map((m) => [m.code, m.name])) }),
+    [state.council],
+  )
   // Build the council first; the session screen runs it.
   const [view, setView] = useState('build')
   const [council, setCouncil] = useState(null)
   const [controlsOpen, setControlsOpen] = useState(false)
   const guard = useGuardrailSetting()
 
-  function convene(event, config) {
+  function convene(event, config, newsId) {
     setCouncil(config)
     setView('session')
     setControlsOpen(false)
-    runLive(event, config, guard.on)
+    runLive(event, config, newsId, guard.on)
   }
 
   if (view === 'build') {
@@ -117,7 +124,8 @@ export default function App() {
           {showControls && (
             <EventPicker
               state={state}
-              onRun={start((event) => runLive(event, council, guard.on))}
+              markets={council?.markets || state.council?.markets.map((m) => m.code)}
+              onRun={start((event, newsId) => runLive(event, council, newsId, guard.on))}
               guard={guard}
               onReplay={start(replayMock)}
               recordings={recordings}
@@ -136,8 +144,9 @@ export default function App() {
               </div>
             </div>
             <div className="flex min-w-0 flex-col gap-5">
+              <MeaningCards state={state} packs={packs} names={names} sources={sources} />
+              <PortfolioPanel names={names} disabled={running} />
               <PlainEnglish state={state} />
-              <Brief state={state} asOf={asOf} />
               <WhoChanged state={state} />
             </div>
           </div>

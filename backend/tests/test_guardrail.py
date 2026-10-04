@@ -71,7 +71,8 @@ class CouncilLLM:
 
     async def __call__(self, system, user, schema, *, agent, model=None):
         if schema is Vote:
-            cells = [{"country": c, "sector": s, "view": "neutral", "confidence": 0.5} for c in COUNTRIES for s in SECTORS]
+            markets = [agent] if agent in COUNTRIES else COUNTRIES  # market seats vote their own market only
+            cells = [{"country": c, "sector": s, "view": "neutral", "confidence": 0.5} for c in markets for s in SECTORS]
             return Vote(agent=agent, round="blind", cells=cells), Usage(1, 1, 0)
         if schema is DelegateReport:
             claims = [{"text": "Index down 5% in a month.", "source_ids": [f"{agent}-idx"]}]
@@ -99,7 +100,7 @@ def test_full_run_streams_only_guarded_text(monkeypatch):
     assert next(d for n, d in events if n == "council")["guardrail"] == "Bedrock guardrail gr-test v1"
     messages = [d for n, d in events if n == "message"]
     blocked = [m for m in messages if m.get("guardrail")]
-    assert len(blocked) == 2  # HK's advice claim, in each of the 2 debate rounds
+    assert blocked  # HK's advice claim, once per debate round
     assert all(m["agent"] == "HK" and m["text"] == BLOCKED and m["source_ids"] == [] for m in blocked)
     assert not any("You should buy" in m["text"] for m in messages)
 

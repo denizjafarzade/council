@@ -51,14 +51,16 @@ STAGE_MODEL_KEY = {"rebuttal": "BEAR", "spillover": "SPILLOVER", "chair": "CHAIR
 
 BLIND_TASK = (
     "Blind vote. You have not seen any other member's view. Give a view (bearish, neutral, bullish) and a "
-    "confidence (0 to 1) for each of the {n} cells: every market in {markets} crossed with every sector in "
+    "confidence (0 to 1) for each of the {n} cells: {scope} crossed with every sector in "
     "Tech, Financials, Property, Energy, each exactly once. Set agent to \"{agent}\", round to \"blind\", "
     "and leave because and source empty."
 )
 DEBATE_TASK = (
     "Debate round {n} of {total}. Using the blind votes and the debate so far (under OTHER MEMBERS SO FAR), "
-    "write a DelegateReport from your focus: impact_summary in one or two sentences, up to 5 claims each citing "
-    "source ids from your DATA, at most 2 challenges to other members whose claims conflict with your data, "
+    "write a DelegateReport from your focus: impact_summary is ONE plain sentence under 25 words saying what the "
+    "EVENT means from here for your focus, with market and sector names written out and no source ids, numbers "
+    "or jargon; then up to 5 claims each citing source ids from your DATA (or [EVENT] for the news item itself), "
+    "at most 2 challenges to other members whose claims conflict with your data, "
     "and 1 to 3 triggers. Set agent to \"{agent}\"."
 )
 REBUTTAL_TASK = (
@@ -77,11 +79,21 @@ SPILLOVER_TASK = (
     "node the market code it sits in), and edges whose from and to are node ids. Cite only source ids that "
     "appear in DATA."
 )
+QUESTIONS_WITH_PORTFOLIO = (
+    "Each of the 3 questions_for_you must name one of the user's largest exposures in words (for example "
+    "\"your Hong Kong banks\" or \"your US technology holdings\") and ask how this news changes the case for it. "
+    "Do not restate any percentage or number from USER EXPOSURE."
+)
+QUESTIONS_NO_PORTFOLIO = (
+    "questions_for_you cover time horizon, position size relative to the user's account, and overlap with what "
+    "they already hold."
+)
 CHAIR_TASK = (
     "Computed in code from the revotes (do not recompute or contradict):\n"
     "FINAL MATRIX:\n{matrix}\nMOST SPLIT CELL: {split}\nVOTE SHIFTS:\n{shifts}\n"
+    "USER EXPOSURE (aggregated; use it only for questions_for_you):\n{exposure}\n"
     "Write headline (one sentence), exactly 3 key_risks, 3 triggers and 3 questions_for_you. Name the most "
-    "split cell in a key risk.\n"
+    "split cell in a key risk. {questions_rule}\n"
     "Also write plain_english: the council's view retold for someone with no finance background, in 3 to 5 "
     "short sentences. No jargon, tickers, source ids, percentages or abbreviations (say \"interest rates\", "
     "not \"bp\" or \"HIBOR\"; \"likely to rise\", not \"bullish\"). Say what happened, which markets "
@@ -133,6 +145,12 @@ async def run_council(req: RunRequest) -> AsyncIterator[Event]:
     yield stage("data", "started")
     packs, problems = await load_data(council.markets)
     yield "council", council_event(council, seats, packs, run.guard)
+    import portfolio  # lazily: portfolio imports this module for its data paths
+
+    held = portfolio.current()
+    run.exposure = held.event_payload() if held else None
+    if run.exposure:
+        yield "portfolio", run.exposure
     for message in problems:
         yield "error", {"message": message}
     yield stage("data", "done")
@@ -437,6 +455,11 @@ class Run:
         self.markets = council.markets
         self.seats = seats
         self.chair = next(s for s in seats if s.stage == "chair")
+        self.exposure: dict | None = None  # aggregated portfolio percentages, for the Chair only
+
+    def vote_markets(self, seat: Seat) -> list[str]:
+        """Market seats vote on their own market's four cells; cross-market seats on every market."""
+        return self.markets if seat.sees_all else [seat.market.code]
 
     def visible(self, seat: Seat, packs: dict[str, DataPack]) -> list[DataPack]:
         return list(packs.values()) if seat.sees_all else [packs[seat.market.code]]
@@ -493,20 +516,22 @@ class Run:
             try:
                 vote = await jev.vote_with_jev(
                     self.agent_context(seat, event, packs, list(reports), transcript),
-                    [(c, s) for c in self.markets for s in SECTORS], agent=seat.id, rnd=rnd,
-                    market_names={c: library.markets()[c].name for c in self.markets},
+                    [(c, s) for c in self.vote_markets(seat) for s in SECTORS], agent=seat.id, rnd=rnd,
+                    market_names={c: library.markets()[c].name for c in self.vote_markets(seat)},
                     previous=blinds.get(seat.id),
                     reason=" ".join(own[-1].impact_summary.split()[:20]) if own else "")
-                return check_vote(vote, seat.id, rnd, self.markets, source="jev")
+                return check_vote(vote, seat.id, rnd, self.vote_markets(seat), source="jev")
             except (jev.JevError, LLMOutputError) as e:
                 log.warning("%s: Jev %s vote failed, using the LLM: %s", seat.id, rnd, e)
         return await self.llm_vote(seat, rnd, event, packs, blinds, transcript)
 
     def llm_vote(self, seat: Seat, rnd: str, event: str, packs: dict[str, DataPack],
                  blinds: dict[str, Vote], transcript: str | None) -> Awaitable[Vote]:
+        markets = self.vote_markets(seat)
         if rnd == "blind":
-            task = BLIND_TASK.format(n=len(self.markets) * len(SECTORS), markets=", ".join(self.markets),
-                                     agent=seat.id)
+            scope = (f"every market in {', '.join(markets)}" if seat.sees_all
+                     else f"your own market {markets[0]} only (other markets are voted by their own specialists)")
+            task = BLIND_TASK.format(n=len(markets) * len(SECTORS), scope=scope, agent=seat.id)
             user = "Return your blind vote as JSON."
         else:
             rules = (PROMPTS / "_revote.md").read_text(encoding="utf-8").strip()
@@ -516,7 +541,7 @@ class Run:
             task = REVOTE_TASK.format(revote=rules, blind=blind, agent=seat.id)
             user = "Return your revote as JSON."
         return self.ask(seat, Vote, task, event, packs, transcript, user,
-                        check=lambda v: check_vote(v, seat.id, rnd, self.markets))
+                        check=lambda v: check_vote(v, seat.id, rnd, markets))
 
     async def votes(self, rnd: str, event: str, packs: dict[str, DataPack], blinds: dict[str, Vote],
                     transcript: str | None, reports: list[DelegateReport] = ()) -> AsyncIterator[Event]:
@@ -599,6 +624,8 @@ class Run:
                 split=f"{split.country}/{split.sector} (dissent {split.dissent})",
                 shifts="\n".join(f"{s.agent} {s.cell}: {s.from_} -> {s.to} because {s.because}"
                                  for s in shifts) or "None.",
+                exposure=portfolio_brief(self.exposure),
+                questions_rule=QUESTIONS_WITH_PORTFOLIO if self.exposure else QUESTIONS_NO_PORTFOLIO,
             )
             try:
                 notes = await self.ask(self.chair, ChairNotes, task, event, packs, transcript,
@@ -607,6 +634,12 @@ class Run:
                 err = e
         brief = Brief(**notes.model_dump(), matrix=matrix, vote_shifts=shifts, disclaimer=DISCLAIMER)
         return await guard_brief(brief, self.guard), err
+
+
+def portfolio_brief(exposure: dict | None) -> str:
+    import portfolio
+
+    return portfolio.chair_brief(exposure or {}, {c: m.name for c, m in library.markets().items()})
 
 
 def data_lines(pack: DataPack) -> list[str]:

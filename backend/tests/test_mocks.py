@@ -32,12 +32,13 @@ def test_event_counts():
     assert count("brief") == 1
 
 
-def test_each_round_has_all_agents_voting_all_16_cells():
+def test_market_seats_vote_own_market_and_cross_seats_vote_all():
     for rnd in ("blind", "revote"):
         votes = [e["data"] for e in RUN if e["event"] == "vote" and e["data"]["round"] == rnd]
         assert sorted(v["agent"] for v in votes) == sorted(AGENTS)
         for v in votes:
-            assert {(c["country"], c["sector"]) for c in v["cells"]} == {(c, s) for c in COUNTRIES for s in SECTORS}
+            markets = [v["agent"]] if v["agent"] in COUNTRIES else COUNTRIES
+            assert {(c["country"], c["sector"]) for c in v["cells"]} == {(c, s) for c in markets for s in SECTORS}
 
 
 def test_cited_source_ids_exist_in_datapacks():

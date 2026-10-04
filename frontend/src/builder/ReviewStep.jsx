@@ -1,7 +1,8 @@
 import { useState } from 'react'
 import { GuardrailToggle } from '../components/GuardrailBadge'
 import { marketColor } from '../lib/roster'
-import { PRESETS, estimateCalls, seatId } from './model'
+import NewsPicker from '../components/NewsPicker'
+import { estimateCalls, seatId } from './model'
 import { Button, Card, Icon, Pill, StepTitle } from './ui'
 import { field } from './styles'
 
@@ -35,7 +36,8 @@ function Chamber({ seats }) {
 }
 
 export default function ReviewStep({ lib, council, setCouncil, councils, onBack, onGoto, onConvene, onSave, onLoad, onDeleteSaved, guard }) {
-  const [event, setEvent] = useState(PRESETS[0])
+  const [event, setEvent] = useState('')
+  const [newsId, setNewsId] = useState(null)
   const [saveName, setSaveName] = useState(council.name === 'My council' ? '' : council.name)
   const [saveState, setSaveState] = useState('')
   const roles = Object.fromEntries(lib.roles.map((r) => [r.id, r]))
@@ -108,18 +110,12 @@ export default function ReviewStep({ lib, council, setCouncil, councils, onBack,
 
         <aside aria-label="Convene" className="flex min-w-0 flex-[1_1_380px] flex-col gap-4">
           <Card className="flex flex-col gap-3.5">
-            <label className="flex flex-col gap-2 text-lg font-semibold">What should the council debate?
-              <textarea rows={3} className={`${field} py-3 text-[17px] font-normal leading-snug`} value={event} maxLength={500}
-                onChange={(e) => setEvent(e.target.value)} />
+            <span className="text-lg font-semibold">What should the council discuss?</span>
+            <NewsPicker markets={council.markets} selectedId={newsId} onPick={(n) => { setEvent(n.title); setNewsId(n.id) }} limit={6} />
+            <label className="flex flex-col gap-2 text-sm font-medium text-muted">Or type your own event
+              <textarea rows={2} className={`${field} py-3 text-[17px] font-normal leading-snug`} value={event} maxLength={500}
+                onChange={(e) => { setEvent(e.target.value); setNewsId(null) }} />
             </label>
-            <div className="flex flex-wrap gap-2">
-              {PRESETS.map((p) => (
-                <button key={p} type="button" aria-pressed={event === p} onClick={() => setEvent(p)}
-                  className={`min-h-10 rounded-full border px-3.5 text-sm ${event === p ? 'border-gold bg-gold-soft text-gold-text' : 'border-line-strong text-ink hover:bg-raised'}`}>
-                  {p}
-                </button>
-              ))}
-            </div>
           </Card>
 
           <Card className="flex flex-col gap-4">
@@ -142,7 +138,7 @@ export default function ReviewStep({ lib, council, setCouncil, councils, onBack,
 
           {problems.map((p) => <p key={p} role="alert" className="text-sm text-gold-text">{p}</p>)}
           <Button variant="primary" className="min-h-14 text-lg" disabled={!event.trim() || problems.length > 0}
-            onClick={() => onConvene(event.trim())}>
+            onClick={() => onConvene(event.trim(), newsId)}>
             Convene the council<Icon name="arrow" size={18} stroke={2.2} />
           </Button>
 

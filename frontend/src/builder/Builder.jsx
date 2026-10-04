@@ -130,7 +130,7 @@ export default function Builder({ onConvene, onBackToSession, guard }) {
         {step === 2 && (
           <ReviewStep lib={lib} council={council} setCouncil={setCouncil} councils={councils} guard={guard}
             onBack={() => setStep(1)} onGoto={setStep}
-            onConvene={(event) => onConvene(event, normalise(council, lib))}
+            onConvene={(event, newsId) => onConvene(event, normalise(council, lib), newsId)}
             onSave={saveCouncil} onDeleteSaved={deleteSaved}
             onLoad={(c) => setCouncil(reconcile({ ...c, id: c.id === 'default' ? null : c.id }, lib))} />
         )}

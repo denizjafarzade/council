@@ -8,6 +8,7 @@ export const initialState = {
   status: 'idle', // idle | running | done | error
   event: '',
   council: null, // the backend's "council" event: markets and seats for this run
+  portfolio: null, // the user's exposure the Chair saw (percentages only)
   stages: Object.fromEntries(STAGES.map((s) => [s.id, 'pending'])),
   votes: { blind: {}, revote: {} },
   feed: [], // messages, vote arrivals and errors, in arrival order
@@ -48,6 +49,8 @@ function applyEvent(state, event, data) {
   switch (event) {
     case 'council':
       return { ...state, council: data }
+    case 'portfolio':
+      return { ...state, portfolio: data }
     case 'replay':
       return { ...state, recording: data }
     case 'stage': {
