@@ -3191,12 +3191,12 @@
     "risk": {
      "markets": {
       "HK": {
-       "score": 48,
+       "score": 52,
        "label": "moderate",
        "components": {
-        "volatility": 27,
-        "drawdown": 53,
-        "council_view": 72,
+        "volatility": 43,
+        "drawdown": 88,
+        "council_view": 44,
         "disagreement": 22,
         "uncertainty": 60
        },
@@ -3206,12 +3206,12 @@
        }
       },
       "CN": {
-       "score": 28,
+       "score": 21,
        "label": "low",
        "components": {
-        "volatility": 12,
-        "drawdown": 36,
-        "council_view": 57,
+        "volatility": 19,
+        "drawdown": 60,
+        "council_view": 13,
         "disagreement": 0,
         "uncertainty": 0
        },
@@ -3221,12 +3221,12 @@
        }
       },
       "US": {
-       "score": 23,
+       "score": 15,
        "label": "low",
        "components": {
-        "volatility": 9,
+        "volatility": 14,
         "drawdown": 0,
-        "council_view": 60,
+        "council_view": 25,
         "disagreement": 23,
         "uncertainty": 0
        },
@@ -3236,12 +3236,12 @@
        }
       },
       "JP": {
-       "score": 39,
+       "score": 35,
        "label": "moderate",
        "components": {
-        "volatility": 58,
+        "volatility": 92,
         "drawdown": 0,
-        "council_view": 63,
+        "council_view": 25,
         "disagreement": 32,
         "uncertainty": 0
        },
@@ -3252,19 +3252,19 @@
       }
      },
      "portfolio": {
-      "score": 36,
+      "score": 33,
       "label": "moderate",
       "components": {
-       "weighted_markets": 35,
+       "weighted_markets": 32,
        "concentration": 0.7
       },
       "covered_pct": 99.9
      },
      "together": {
-      "score": 36,
+      "score": 33,
       "label": "moderate",
       "components": {
-       "weighted_markets": 35,
+       "weighted_markets": 32,
        "concentration": 0.7
       },
       "covered_pct": 99.9,
@@ -3272,107 +3272,107 @@
      },
      "by_seat": {
       "HK": {
-       "score": 50,
+       "score": 52,
        "label": "moderate",
        "components": {
-        "weighted_markets": 49,
+        "weighted_markets": 51,
         "concentration": 0.7
        },
        "covered_pct": 30.6,
        "basis": "your exposure",
        "markets": {
-        "HK": 49
+        "HK": 51
        }
       },
       "CN": {
-       "score": 32,
+       "score": 26,
        "label": "low",
        "components": {
-        "weighted_markets": 31,
+        "weighted_markets": 25,
         "concentration": 0.7
        },
        "covered_pct": 6.5,
        "basis": "your exposure",
        "markets": {
-        "CN": 31
+        "CN": 25
        }
       },
       "CHAIR": {
-       "score": 39,
+       "score": 34,
        "label": "moderate",
        "components": {
-        "weighted_markets": 39,
+        "weighted_markets": 33,
         "concentration": 0.7
        },
        "covered_pct": 99.9,
        "basis": "your exposure",
        "markets": {
-        "HK": 51,
-        "CN": 34,
-        "US": 25,
-        "JP": 45
+        "HK": 55,
+        "CN": 26,
+        "US": 12,
+        "JP": 40
        }
       },
       "SPILLOVER": {
-       "score": 38,
+       "score": 33,
        "label": "moderate",
        "components": {
-        "weighted_markets": 37,
+        "weighted_markets": 32,
         "concentration": 0.7
        },
        "covered_pct": 99.9,
        "basis": "your exposure",
        "markets": {
-        "US": 25,
-        "HK": 50,
-        "CN": 34,
-        "JP": 41
+        "US": 14,
+        "HK": 55,
+        "CN": 26,
+        "JP": 32
        }
       },
       "US": {
-       "score": 24,
+       "score": 17,
        "label": "low",
        "components": {
-        "weighted_markets": 23,
+        "weighted_markets": 16,
         "concentration": 0.7
        },
        "covered_pct": 36.8,
        "basis": "your exposure",
        "markets": {
-        "US": 23
+        "US": 16
        }
       },
       "JP": {
-       "score": 43,
+       "score": 40,
        "label": "moderate",
        "components": {
-        "weighted_markets": 42,
+        "weighted_markets": 39,
         "concentration": 0.7
        },
        "covered_pct": 26.0,
        "basis": "your exposure",
        "markets": {
-        "JP": 42
+        "JP": 39
        }
       },
       "BEAR": {
-       "score": 50,
+       "score": 51,
        "label": "moderate",
        "components": {
-        "weighted_markets": 50,
+        "weighted_markets": 51,
         "concentration": 0.7
        },
        "covered_pct": 99.9,
        "basis": "your exposure",
        "markets": {
-        "HK": 62,
-        "CN": 43,
-        "US": 37,
-        "JP": 55
+        "HK": 73,
+        "CN": 37,
+        "US": 31,
+        "JP": 56
        }
       }
      },
-     "method": "volatility 30%, 1-month drawdown 20%, council view 30%, disagreement 10%, unverified claims 10%; portfolio adds up to 10 points for market concentration"
+     "method": "council view 35% (negative views only), volatility 25% (8-25%), 1-month drawdown 20% (0 to -6%), disagreement 10%, unverified claims 10%; portfolio adds up to 10 points for market concentration"
     },
     "guardrail": [
      {

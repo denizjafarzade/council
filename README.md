@@ -83,7 +83,9 @@ python scripts/record_presets.py --news US-n4 HK-n1 --portfolio samples/sample_p
 - **Evidence-weighted matrix:** each seat's votes count `0.25 + 0.75 x` its share of verified claims. The weights ship in `brief.evidence_weights` and are shown on screen.
 - **Jev:** a failed Jev vote is retried once; only then does the LLM vote, and that vote carries `fallback: "Jev unavailable (...)"`, shown in the UI.
 
-**Quantitative risk score** (`backend/risk.py`, code only, 0-100): per market, volatility 30%, 1-month drawdown 20%, council view 30%, disagreement 10%, unverified claims 10%. Missing inputs are left out and the weights renormalised, never guessed. The portfolio score is the exposure-weighted market scores plus up to 10 points for concentration. Every component is shown on screen.
+**Quantitative risk score** (`backend/risk.py`, code only, 0-100): per market, council view 35% (only negative views add risk; neutral adds none, positive views take off half), volatility 25% (8% to 25% annualised), 1-month drawdown 20% (0 to -6%), disagreement 10% and unverified claims 10%. Missing inputs are left out and the weights renormalised, never guessed. Ranges match where major indices actually trade, so markets spread out (e.g. Hong Kong about 50 vs the US about 15 on the same news). The portfolio score is the exposure-weighted market scores plus up to 10 points for concentration: a diversified portfolio lands in the middle by design. Labels: low < 30, moderate < 55, high otherwise. `scripts/rescore_recordings.py` re-scores saved runs from their own recorded data after a calibration change.
+
+**Bottom line** (Plain English tab): an outlook for the user's money (cautious, mixed or positive, exposure-weighted from the council's final views), the risk level and one sentence why, worded in code. It never says buy, sell or hold.
 
 **Risk by AI.** `brief.risk.by_seat` scores each seat on its own final votes and its own unverified-claim share (no disagreement term), next to the council's evidence-weighted score (`together`). The council event names the model in each seat.
 

@@ -3364,7 +3364,157 @@
      "What is your position size relative to total account, and does it exceed 10% in any single cell where council confidence is below 0.40 (e.g., US/Financials at 0.24, SG/Financials at 0.14)?",
      "Do you already hold US energy (XLE) or CN energy (601857.SS) exposure that overlaps with the council's bullish energy view, creating concentrated risk if the oil spike proves temporary?"
     ],
-    "disclaimer": "Research and decision support only. Not investment advice."
+    "disclaimer": "Research and decision support only. Not investment advice.",
+    "risk": {
+     "markets": {
+      "HK": {
+       "score": 44,
+       "label": "moderate",
+       "components": {
+        "volatility": 43,
+        "drawdown": 88,
+        "council_view": 28,
+        "disagreement": 38,
+        "uncertainty": 20
+       },
+       "inputs": {
+        "vol_20d_pct": 15.27,
+        "chg_1m_pct": -5.29
+       }
+      },
+      "CN": {
+       "score": 32,
+       "label": "moderate",
+       "components": {
+        "volatility": 19,
+        "drawdown": 60,
+        "council_view": 12,
+        "disagreement": 51,
+        "uncertainty": 60
+       },
+       "inputs": {
+        "vol_20d_pct": 11.2,
+        "chg_1m_pct": -3.61
+       }
+      },
+      "US": {
+       "score": 18,
+       "label": "low",
+       "components": {
+        "volatility": 14,
+        "drawdown": 0,
+        "council_view": 11,
+        "disagreement": 43,
+        "uncertainty": 60
+       },
+       "inputs": {
+        "vol_20d_pct": 10.35,
+        "chg_1m_pct": 0.73
+       }
+      },
+      "SG": {
+       "score": 13,
+       "label": "low",
+       "components": {
+        "volatility": 2,
+        "drawdown": 33,
+        "council_view": 9,
+        "disagreement": 32,
+        "uncertainty": 0
+       },
+       "inputs": {
+        "vol_20d_pct": 8.42,
+        "chg_1m_pct": -1.96
+       }
+      }
+     },
+     "portfolio": null,
+     "together": {
+      "score": 27,
+      "label": "low",
+      "basis": "average of markets"
+     },
+     "by_seat": {
+      "SPILLOVER": {
+       "score": 24,
+       "label": "low",
+       "basis": "average of markets",
+       "markets": {
+        "HK": 52,
+        "CN": 27,
+        "US": 6,
+        "SG": 9
+       }
+      },
+      "BULL": {
+       "score": 24,
+       "label": "low",
+       "basis": "average of markets",
+       "markets": {
+        "HK": 47,
+        "CN": 24,
+        "US": 16,
+        "SG": 10
+       }
+      },
+      "US": {
+       "score": 29,
+       "label": "low",
+       "basis": "average of markets",
+       "markets": {
+        "US": 14,
+        "HK": 45,
+        "CN": 34,
+        "SG": 24
+       }
+      },
+      "SG": {
+       "score": 22,
+       "label": "low",
+       "basis": "average of markets",
+       "markets": {
+        "HK": 37,
+        "CN": 22,
+        "US": 9,
+        "SG": 21
+       }
+      },
+      "CN": {
+       "score": 27,
+       "label": "low",
+       "basis": "average of markets",
+       "markets": {
+        "CN": 35,
+        "HK": 48,
+        "US": 11,
+        "SG": 15
+       }
+      },
+      "HK": {
+       "score": 24,
+       "label": "low",
+       "basis": "average of markets",
+       "markets": {
+        "HK": 48,
+        "CN": 23,
+        "US": 8,
+        "SG": 15
+       }
+      },
+      "CHAIR": {
+       "score": 28,
+       "label": "low",
+       "basis": "average of markets",
+       "markets": {
+        "HK": 53,
+        "CN": 30,
+        "US": 20,
+        "SG": 9
+       }
+      }
+     },
+     "method": "council view 35% (negative views only), volatility 25% (8-25%), 1-month drawdown 20% (0 to -6%), disagreement 10%, unverified claims 10%; portfolio adds up to 10 points for market concentration"
+    }
    }
   },
   {

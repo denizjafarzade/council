@@ -30,9 +30,9 @@ function Withheld({ msg }) {
   )
 }
 
-/** One line per message (who spoke, trust check); the text opens on click: the result matters most. */
+/** A message, open by default; its header folds it away (who spoke and the trust check stay visible). */
 function Message({ msg, sources }) {
-  const [open, setOpen] = useState(false)
+  const [open, setOpen] = useState(true)
   const a = useAgent(msg.agent)
   const challenge = msg.text.match(/^Challenge to ([^:]+):\s*(.*)$/s)
   const target = useAgent(challenge?.[1])

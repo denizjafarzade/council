@@ -3839,7 +3839,165 @@
      "What percentage of your account would a Nvidia position represent, given US Tech volatility of 17.55% [XLK]?",
      "Do you already hold US Tech or rate-sensitive assets that would overlap with a Nvidia position?"
     ],
-    "disclaimer": "Research and decision support only. Not investment advice."
+    "disclaimer": "Research and decision support only. Not investment advice.",
+    "risk": {
+     "markets": {
+      "CN": {
+       "score": 32,
+       "label": "moderate",
+       "components": {
+        "volatility": 19,
+        "drawdown": 60,
+        "council_view": 17,
+        "disagreement": 56,
+        "uncertainty": 40
+       },
+       "inputs": {
+        "vol_20d_pct": 11.2,
+        "chg_1m_pct": -3.61
+       }
+      },
+      "US": {
+       "score": 25,
+       "label": "low",
+       "components": {
+        "volatility": 14,
+        "drawdown": 0,
+        "council_view": 28,
+        "disagreement": 54,
+        "uncertainty": 60
+       },
+       "inputs": {
+        "vol_20d_pct": 10.35,
+        "chg_1m_pct": 0.73
+       }
+      },
+      "SG": {
+       "score": 11,
+       "label": "low",
+       "components": {
+        "volatility": 2,
+        "drawdown": 33,
+        "council_view": 3,
+        "disagreement": 33,
+        "uncertainty": 0
+       },
+       "inputs": {
+        "vol_20d_pct": 8.42,
+        "chg_1m_pct": -1.96
+       }
+      }
+     },
+     "portfolio": null,
+     "together": {
+      "score": 23,
+      "label": "low",
+      "basis": "average of markets"
+     },
+     "by_seat": {
+      "SPILLOVER": {
+       "score": 22,
+       "label": "low",
+       "basis": "average of markets",
+       "markets": {
+        "CN": 32,
+        "US": 26,
+        "SG": 9
+       }
+      },
+      "US-TECHNICAL": {
+       "score": 26,
+       "label": "low",
+       "basis": "average of markets",
+       "markets": {
+        "US": 26,
+        "CN": 28,
+        "SG": 23
+       }
+      },
+      "CHAIR": {
+       "score": 23,
+       "label": "low",
+       "basis": "average of markets",
+       "markets": {
+        "CN": 40,
+        "US": 20,
+        "SG": 9
+       }
+      },
+      "SG": {
+       "score": 10,
+       "label": "low",
+       "basis": "average of markets",
+       "markets": {
+        "SG": 8,
+        "CN": 19,
+        "US": 4
+       }
+      },
+      "US": {
+       "score": 25,
+       "label": "low",
+       "basis": "average of markets",
+       "markets": {
+        "CN": 29,
+        "US": 25,
+        "SG": 21
+       }
+      },
+      "US-NEWS": {
+       "score": 24,
+       "label": "low",
+       "basis": "average of markets",
+       "markets": {
+        "US": 24,
+        "CN": 29,
+        "SG": 18
+       }
+      },
+      "CN-TECHNICAL": {
+       "score": 26,
+       "label": "low",
+       "basis": "average of markets",
+       "markets": {
+        "CN": 43,
+        "US": 17,
+        "SG": 17
+       }
+      },
+      "CN": {
+       "score": 16,
+       "label": "low",
+       "basis": "average of markets",
+       "markets": {
+        "CN": 29,
+        "US": 8,
+        "SG": 12
+       }
+      },
+      "BEAR": {
+       "score": 35,
+       "label": "moderate",
+       "basis": "average of markets",
+       "markets": {
+        "US": 38,
+        "CN": 46,
+        "SG": 22
+       }
+      },
+      "BULL": {
+       "score": 20,
+       "label": "low",
+       "basis": "average of markets",
+       "markets": {
+        "CN": 30,
+        "US": 14,
+        "SG": 15
+       }
+      }
+     },
+     "method": "council view 35% (negative views only), volatility 25% (8-25%), 1-month drawdown 20% (0 to -6%), disagreement 10%, unverified claims 10%; portfolio adds up to 10 points for market concentration"
+    }
    }
   },
   {

@@ -3773,7 +3773,157 @@
      "How large would any position be relative to your total account, given volatility as high as 69.0% in CN Property and 47.24% in JP Tech [000002.SZ, 8035.T]?",
      "How much do you already hold in rate-sensitive Financials and Property, or in US Tech, so that any new exposure would overlap with existing positions?"
     ],
-    "disclaimer": "Research and decision support only. Not investment advice."
+    "disclaimer": "Research and decision support only. Not investment advice.",
+    "risk": {
+     "markets": {
+      "HK": {
+       "score": 46,
+       "label": "moderate",
+       "components": {
+        "volatility": 43,
+        "drawdown": 88,
+        "council_view": 36,
+        "disagreement": 45,
+        "uncertainty": 0
+       },
+       "inputs": {
+        "vol_20d_pct": 15.27,
+        "chg_1m_pct": -5.29
+       }
+      },
+      "CN": {
+       "score": 25,
+       "label": "low",
+       "components": {
+        "volatility": 19,
+        "drawdown": 60,
+        "council_view": 19,
+        "disagreement": 21,
+        "uncertainty": 0
+       },
+       "inputs": {
+        "vol_20d_pct": 11.2,
+        "chg_1m_pct": -3.61
+       }
+      },
+      "US": {
+       "score": 14,
+       "label": "low",
+       "components": {
+        "volatility": 14,
+        "drawdown": 0,
+        "council_view": 22,
+        "disagreement": 25,
+        "uncertainty": 0
+       },
+       "inputs": {
+        "vol_20d_pct": 10.35,
+        "chg_1m_pct": 0.73
+       }
+      },
+      "JP": {
+       "score": 35,
+       "label": "moderate",
+       "components": {
+        "volatility": 92,
+        "drawdown": 0,
+        "council_view": 26,
+        "disagreement": 26,
+        "uncertainty": 0
+       },
+       "inputs": {
+        "vol_20d_pct": 23.67,
+        "chg_1m_pct": 3.01
+       }
+      }
+     },
+     "portfolio": null,
+     "together": {
+      "score": 30,
+      "label": "moderate",
+      "basis": "average of markets"
+     },
+     "by_seat": {
+      "HK": {
+       "score": 24,
+       "label": "low",
+       "basis": "average of markets",
+       "markets": {
+        "HK": 31,
+        "CN": 22,
+        "US": 10,
+        "JP": 33
+       }
+      },
+      "CHAIR": {
+       "score": 28,
+       "label": "low",
+       "basis": "average of markets",
+       "markets": {
+        "HK": 35,
+        "CN": 25,
+        "US": 12,
+        "JP": 38
+       }
+      },
+      "US": {
+       "score": 32,
+       "label": "moderate",
+       "basis": "average of markets",
+       "markets": {
+        "HK": 47,
+        "CN": 26,
+        "US": 22,
+        "JP": 31
+       }
+      },
+      "CN": {
+       "score": 32,
+       "label": "moderate",
+       "basis": "average of markets",
+       "markets": {
+        "CN": 30,
+        "HK": 51,
+        "US": 12,
+        "JP": 33
+       }
+      },
+      "SPILLOVER": {
+       "score": 34,
+       "label": "moderate",
+       "basis": "average of markets",
+       "markets": {
+        "HK": 58,
+        "CN": 27,
+        "US": 12,
+        "JP": 37
+       }
+      },
+      "JP": {
+       "score": 31,
+       "label": "moderate",
+       "basis": "average of markets",
+       "markets": {
+        "HK": 46,
+        "CN": 25,
+        "US": 10,
+        "JP": 44
+       }
+      },
+      "BEAR": {
+       "score": 42,
+       "label": "moderate",
+       "basis": "average of markets",
+       "markets": {
+        "HK": 60,
+        "CN": 37,
+        "US": 24,
+        "JP": 45
+       }
+      }
+     },
+     "method": "council view 35% (negative views only), volatility 25% (8-25%), 1-month drawdown 20% (0 to -6%), disagreement 10%, unverified claims 10%; portfolio adds up to 10 points for market concentration"
+    }
    }
   },
   {
