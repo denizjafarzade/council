@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { GuardrailToggle } from '../components/GuardrailBadge'
 import { marketColor } from '../lib/roster'
 import NewsPicker from '../components/NewsPicker'
 import { estimateCalls, seatId } from './model'
@@ -34,7 +35,7 @@ function Chamber({ seats }) {
   )
 }
 
-export default function ReviewStep({ lib, council, setCouncil, councils, onBack, onGoto, onConvene, onSave, onLoad, onDeleteSaved }) {
+export default function ReviewStep({ lib, council, setCouncil, councils, onBack, onGoto, onConvene, onSave, onLoad, onDeleteSaved, guard }) {
   const [event, setEvent] = useState('')
   const [newsId, setNewsId] = useState(null)
   const [saveName, setSaveName] = useState(council.name === 'My council' ? '' : council.name)
@@ -128,6 +129,7 @@ export default function ReviewStep({ lib, council, setCouncil, councils, onBack,
                 ))}
               </div>
             </fieldset>
+            {guard && <div className="border-t border-line pt-4"><GuardrailToggle guard={guard} /></div>}
             <dl className="grid grid-cols-[1fr_auto] gap-x-3 gap-y-2 text-[15px]">
               <dt className="text-muted">Model calls</dt><dd className="font-mono">≈ {estimateCalls(council, lib)}</dd>
               {!!asOf.length && (<><dt className="text-muted">Data as of</dt><dd className="font-mono">{asOf[asOf.length - 1].slice(0, 10)}</dd></>)}

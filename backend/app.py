@@ -13,6 +13,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import StreamingResponse
 from pydantic import BaseModel
 
+import guardrail
 import library
 import news
 import orchestrator
@@ -37,7 +38,8 @@ RUNS: dict[str, RunRequest] = {}
 
 @app.get("/health")
 def health() -> dict:
-    return {"ok": True}
+    # guardrail: its label when it is set up (the UI then offers the on/off toggle), else null.
+    return {"ok": True, "guardrail": guardrail.label()}
 
 
 @app.post("/council/run", response_model=RunResponse)

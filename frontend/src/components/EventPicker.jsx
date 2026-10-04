@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import { STAGES } from '../lib/constants'
 import { slugify } from '../lib/council'
 import { votersOf } from '../lib/roster'
+import { GuardrailToggle } from './GuardrailBadge'
 import NewsPicker from './NewsPicker'
 
 /** Recordings bundled with the frontend, plus any the backend has saved since. */
@@ -19,7 +20,7 @@ function useRecordings(bundled, status) {
 const button = 'inline-flex min-h-12 items-center justify-center gap-2 rounded-xl px-4 disabled:cursor-not-allowed disabled:opacity-40'
 
 /** Pick a real headline (or type an event) and start it: live, from a recording, or from the mock. */
-export default function EventPicker({ state, markets, onRun, onReplay, recordings: bundled = [], onReplayRecorded }) {
+export default function EventPicker({ state, markets, onRun, onReplay, recordings: bundled = [], onReplayRecorded, guard }) {
   const [text, setText] = useState(state.event || '')
   const [newsId, setNewsId] = useState(null)
   const [recordingSlug, setRecordingSlug] = useState(null)
@@ -110,6 +111,7 @@ export default function EventPicker({ state, markets, onRun, onReplay, recording
           ))}
         </div>
       )}
+      {guard && <GuardrailToggle guard={guard} compact />}
     </form>
   )
 }

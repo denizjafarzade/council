@@ -169,6 +169,13 @@ class VoteShift(Model):
     because: str
 
 
+class GuardrailNote(Model):
+    """What the compliance guardrail did to a piece of text (only present when it acted)."""
+    action: Literal["blocked", "unchecked"]  # unchecked = the guardrail call failed; text shown as written
+    reasons: list[str]
+    field: Optional[str] = None  # brief only: which line, e.g. "key_risks[1]"
+
+
 class Brief(Model):
     headline: str
     matrix: list[MatrixCell]
@@ -184,6 +191,7 @@ class Brief(Model):
     evidence_weights: dict[str, float] = Field(default_factory=dict)
     # Quantitative risk score computed in code (risk.py): per market, portfolio, and the method.
     risk: Optional[dict] = None
+    guardrail: list[GuardrailNote] = Field(default_factory=list)  # lines the guardrail withheld
 
 
 # SSE events the frontend listens for
@@ -193,6 +201,7 @@ class StageEvent(Model):
     status: Literal["started", "done", "failed", "skipped"]  # skipped: no seat for this stage
 
 
+
 class Message(Model):
     agent: AgentId
     text: str
@@ -200,6 +209,7 @@ class Message(Model):
     # Stage 3A trust checks: why this message is unverified (unknown ids, numbers that don't
     # match the cited data, no source). Empty = verified, or nothing to check.
     unverified: list[str] = Field(default_factory=list)
+    guardrail: Optional[GuardrailNote] = None
 
 
 class Exposure(Model):
@@ -330,6 +340,7 @@ class CouncilEvent(Model):
     sector_names: dict[str, str] = Field(default_factory=dict)  # id -> "Health Care"
     members: list[CouncilMember]
     debate_rounds: int
+    guardrail: Optional[str] = None  # set when the Bedrock compliance guardrail is on
 
 
 EVENT_MODELS: dict[str, type[Model]] = {
@@ -358,6 +369,8 @@ class RunRequest(Model):
     council_id: Optional[Slug] = None
     countries: list[Country] = Field(default_factory=lambda: list(COUNTRIES))  # default council's markets
     sectors: list[Sector] = Field(default_factory=lambda: list(SECTORS))
+    # Compliance guardrail for this run: True/False from the UI toggle; None = on whenever it is set up.
+    guardrail: Optional[bool] = None
 
 
 class RunResponse(Model):

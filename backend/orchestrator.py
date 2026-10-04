@@ -23,6 +23,7 @@ from typing import TypeVar
 
 from pydantic import BaseModel
 
+import guardrail
 import jev
 import library
 import risk
@@ -141,11 +142,11 @@ async def run_council(req: RunRequest) -> AsyncIterator[Event]:
     event = req.event
     council = council_for(req)
     seats = library.resolve(council)  # app.py already rejected invalid councils with a 422
-    run = Run(council, seats)
+    run = Run(council, seats, guard=guardrail.enabled() and req.guardrail is not False)
 
     yield stage("data", "started")
     packs, problems = await load_data(council.markets)
-    yield "council", council_event(council, seats, packs)
+    yield "council", council_event(council, seats, packs, run.guard)
     yield "data", {"packs": {c: p.model_dump(mode="json", exclude_none=True) for c, p in packs.items()}}
     import portfolio  # lazily: portfolio imports this module for its data paths
 
@@ -234,7 +235,7 @@ def skipped(agent: str, stage_name: str, err: Exception) -> Event:
     return "error", {"message": f"{agent} skipped in {stage_name}: {err}", "agent": agent}
 
 
-def council_event(council: Council, seats: list[Seat], packs: dict[str, DataPack]) -> dict:
+def council_event(council: Council, seats: list[Seat], packs: dict[str, DataPack], guard: bool = False) -> dict:
     lib = library.markets()
     lib_sectors = library.sectors()
     return {
@@ -248,6 +249,7 @@ def council_event(council: Council, seats: list[Seat], packs: dict[str, DataPack
                      "stage": s.stage, "market": s.market.code if s.market else None,
                      "phases": s.member.phases.model_dump()} for s in seats],
         "debate_rounds": council.debate_rounds,
+        "guardrail": guardrail.label() if guard else None,
     }
 
 
@@ -415,6 +417,44 @@ def report_events(report: DelegateReport, visible: list[DataPack], all_packs: li
     return events
 
 
+async def guard_messages(events: list[Event], on: bool = True) -> list[Event]:
+    """Run every message through the compliance guardrail before it is streamed."""
+    if not (on and guardrail.enabled()):
+        return events
+    messages = [d for name, d in events if name == "message"]
+    for data, checked in zip(messages, await guardrail.check_all([d["text"] for d in messages])):
+        note = checked.note()
+        if note is None:
+            continue
+        data["guardrail"] = note
+        if checked.blocked:
+            # The replacement text cites nothing, so its sources and checks no longer apply.
+            data.update(text=checked.text, source_ids=[], unverified=[])
+    return events
+
+
+async def guard_brief(brief: Brief, on: bool = True) -> Brief:
+    """Run every line of the Chair's brief through the guardrail; blocked lines are replaced."""
+    if not (on and guardrail.enabled()):
+        return brief
+    d = brief.model_dump(mode="json", by_alias=True)
+    lines: list[tuple[str, list | dict, int | str]] = [("headline", d, "headline"), ("plain_english", d, "plain_english")]
+    lines += [(f"key_risks[{i}]", d["key_risks"], i) for i in range(len(d["key_risks"]))]
+    lines += [(f"questions_for_you[{i}]", d["questions_for_you"], i) for i in range(len(d["questions_for_you"]))]
+    for i, t in enumerate(d["triggers"]):
+        lines += [(f"triggers[{i}].condition", t, "condition"), (f"triggers[{i}].would_change", t, "would_change")]
+    lines += [(f"vote_shifts[{i}].because", s, "because") for i, s in enumerate(d["vote_shifts"])]
+    checked = await guardrail.check_all([holder[key] for _, holder, key in lines])
+    notes = []
+    for (path, holder, key), c in zip(lines, checked):
+        note = c.note()
+        if note:
+            holder[key] = c.text
+            notes.append({**note, "field": path})
+    d["guardrail"] = notes
+    return Brief.model_validate(d)
+
+
 def check_vote(vote: Vote, agent: str, rnd: str, markets: list[str], source: str = "llm",
                sectors: list[str] = SECTORS) -> Vote:
     """Pin identity fields and require each cell exactly once."""
@@ -462,7 +502,8 @@ FALLBACK_HEADLINE = "Council matrix computed; the Chair's summary is unavailable
 class Run:
     """One council run: the seats plus every stage that calls them."""
 
-    def __init__(self, council: Council, seats: list[Seat]):
+    def __init__(self, council: Council, seats: list[Seat], guard: bool = False):
+        self.guard = guard  # run messages and the brief through the compliance guardrail
         self.council = council
         self.markets = council.markets
         self.seats = seats
@@ -497,7 +538,7 @@ class Run:
     def visible(self, seat: Seat, packs: dict[str, DataPack]) -> list[DataPack]:
         return list(packs.values()) if seat.sees_all else [packs[seat.market.code]]
 
-    def report_events(self, report: DelegateReport, packs: dict[str, DataPack], event: str) -> list[Event]:
+    async def report_events(self, report: DelegateReport, packs: dict[str, DataPack], event: str) -> list[Event]:
         seat = next(s for s in self.seats if s.id == report.agent)
         events = report_events(report, self.visible(seat, packs), list(packs.values()), event)
         # events = summary, one message per claim, challenges...: record each claim's check result.
@@ -508,7 +549,7 @@ class Run:
                 self.flagged[(report.agent, claim.text)] = msg["unverified"]
             else:
                 stats[0] += 1
-        return events
+        return await guard_messages(events, self.guard)
 
     def agent_context(self, seat: Seat, event: str, packs: dict[str, DataPack], reports: list[DelegateReport],
                       transcript: str | None) -> dict:
@@ -622,7 +663,7 @@ class Run:
                 yield skipped(agent, f"debate round {n}", result)
                 continue
             new.append(result)
-            for e in self.report_events(result, packs, event):
+            for e in await self.report_events(result, packs, event):
                 yield e
         # Later rounds see this round's reports only once the whole round is in.
         reports.extend(new)
@@ -646,7 +687,7 @@ class Run:
                 yield skipped(agent, "debate", result)
                 continue
             new.append(result)
-            for e in self.report_events(result, packs, event):
+            for e in await self.report_events(result, packs, event):
                 yield e
         reports.extend(new)
 
@@ -685,8 +726,9 @@ class Run:
                                        "Return the Chair's notes as JSON.")
             except LLMError as e:
                 err = e
-        return Brief(**notes.model_dump(), matrix=matrix, vote_shifts=shifts, disclaimer=DISCLAIMER,
-                     evidence_weights=weights, risk=risk_score), err
+        brief = Brief(**notes.model_dump(), matrix=matrix, vote_shifts=shifts, disclaimer=DISCLAIMER,
+                      evidence_weights=weights, risk=risk_score)
+        return await guard_brief(brief, self.guard), err
 
 
 def portfolio_brief(exposure: dict | None) -> str:

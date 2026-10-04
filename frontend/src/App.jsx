@@ -4,6 +4,7 @@ import { Brand } from './builder/ui'
 import { PlainEnglish } from './components/Brief'
 import DebateStream from './components/DebateStream'
 import EventPicker, { StageBar } from './components/EventPicker'
+import GuardrailBadge from './components/GuardrailBadge'
 import MeaningCards from './components/MeaningCards'
 import PortfolioPanel from './components/PortfolioPanel'
 import Matrix from './components/Matrix'
@@ -11,6 +12,7 @@ import SpilloverGraph from './components/SpilloverGraph'
 import WhoChanged from './components/WhoChanged'
 import { useCouncil } from './hooks/useCouncil'
 import { COUNTRY_NAMES, DISCLAIMER } from './lib/constants'
+import { useGuardrailSetting } from './lib/guardrail'
 import { RosterContext, buildRoster, marketsOf } from './lib/roster'
 import { indexPacks, packsFor, sourcesFor } from './lib/sources'
 
@@ -74,16 +76,17 @@ export default function App() {
   const [view, setView] = useState('build')
   const [council, setCouncil] = useState(null)
   const [controlsOpen, setControlsOpen] = useState(false)
+  const guard = useGuardrailSetting()
 
   function convene(event, config, newsId) {
     setCouncil(config)
     setView('session')
     setControlsOpen(false)
-    runLive(event, config, newsId)
+    runLive(event, config, newsId, guard.on)
   }
 
   if (view === 'build') {
-    return <Builder onConvene={convene} onBackToSession={state.mode === 'idle' ? null : () => setView('session')} />
+    return <Builder onConvene={convene} guard={guard} onBackToSession={state.mode === 'idle' ? null : () => setView('session')} />
   }
 
   const running = state.status === 'running'
@@ -104,6 +107,7 @@ export default function App() {
             </span>
             <h1 className="text-[30px] font-semibold leading-tight">{state.event || 'Council ready'}</h1>
           </div>
+          <GuardrailBadge state={state} available={guard.available} />
           <RunStatus state={state} />
           <button type="button" disabled={running} onClick={() => setControlsOpen((o) => !o)}
             className="min-h-11 rounded-xl border border-line-strong px-4 font-medium hover:bg-raised disabled:cursor-not-allowed disabled:opacity-40">
@@ -124,7 +128,8 @@ export default function App() {
             <EventPicker
               state={state}
               markets={council?.markets || state.council?.markets.map((m) => m.code)}
-              onRun={start((event, newsId) => runLive(event, council, newsId))}
+              onRun={start((event, newsId) => runLive(event, council, newsId, guard.on))}
+              guard={guard}
               onReplay={start(replayMock)}
               recordings={recordings}
               onReplayRecorded={start(replayRecorded)}

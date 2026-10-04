@@ -71,7 +71,7 @@ export function useCouncil() {
   /** Start a real council run and stream it over SSE. `council` is the builder's config, `newsId` a cached
    * headline the event is about (both optional). */
   const runLive = useCallback(
-    async (event, council, newsId) => {
+    async (event, council, newsId, guardrail) => {
       stop()
       dispatch({ type: 'reset', mode: 'live', event })
       let runId
@@ -79,7 +79,12 @@ export function useCouncil() {
         const r = await fetch('/council/run', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ event, ...(council && { council }), ...(newsId && { news_id: newsId }) }),
+          body: JSON.stringify({
+            event,
+            ...(council && { council }),
+            ...(newsId && { news_id: newsId }),
+            ...(typeof guardrail === 'boolean' && { guardrail }),
+          }),
         })
         if (r.status === 422) {
           const detail = (await r.json().catch(() => ({}))).detail

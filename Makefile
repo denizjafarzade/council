@@ -4,7 +4,7 @@ else
 VENV_PY := .venv/bin/python
 endif
 
-.PHONY: install mocks test keys backend frontend demo record
+.PHONY: install mocks test keys guardrail backend frontend demo record
 
 install:
 	python -m venv .venv
@@ -13,6 +13,9 @@ install:
 
 mocks:
 	$(VENV_PY) mocks/generate_mock.py
+
+guardrail:
+	$(VENV_PY) scripts/create_guardrail.py
 
 keys:
 	$(VENV_PY) backend/check_keys.py

@@ -1,8 +1,8 @@
-"""Keep tests offline: no real Jev calls even when .env has a TypeSafe key, and no real
-market-data fetches (a stale cache would otherwise trigger a refresh from Yahoo).
+"""Keep tests offline: no real Jev or Bedrock guardrail calls, and no real market-data fetches
+(a stale cache would otherwise trigger a refresh from Yahoo), whatever .env holds.
 
-Tests that exercise Jev set TYPESAFE_API_KEY themselves against a mock transport; tests that
-exercise data refresh patch orchestrator._fetch_pack / _refresh_pack themselves.
+Tests that exercise Jev or the guardrail set TYPESAFE_API_KEY / GUARDRAIL_ID themselves against
+fakes; tests that exercise data refresh patch orchestrator._fetch_pack / _refresh_pack themselves.
 """
 
 import sys
@@ -14,6 +14,7 @@ import pytest
 @pytest.fixture(autouse=True)
 def no_real_jev(monkeypatch):
     monkeypatch.delenv("TYPESAFE_API_KEY", raising=False)
+    monkeypatch.delenv("GUARDRAIL_ID", raising=False)
 
 
 @pytest.fixture(autouse=True)
