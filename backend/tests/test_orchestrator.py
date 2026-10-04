@@ -64,7 +64,8 @@ class FakeLLM:
         if schema is Spillover:
             return SPILL, Usage(1, 1, 0)
         return schema(headline="Council view", key_risks=["r"] * 3,
-                      triggers=[{"condition": "c", "would_change": "w"}] * 3, questions_for_you=["q"] * 3), Usage(1, 1, 0)
+                      triggers=[{"condition": "c", "would_change": "w"}] * 3, questions_for_you=["q"] * 3,
+                      plain_english="Rates fall, so home prices in Hong Kong may rise."), Usage(1, 1, 0)
 
 
 def run(monkeypatch, fake: FakeLLM, event: str = "Fed cuts 50bp") -> list[tuple[str, dict]]:
@@ -104,6 +105,7 @@ def test_full_run_emits_every_stage_and_valid_contracts(monkeypatch):
 
     brief = next(d for n, d in events if n == "brief")
     assert brief["headline"] == "Council view"
+    assert brief["plain_english"] == "Rates fall, so home prices in Hong Kong may rise."
     assert len(brief["matrix"]) == 16
     assert brief["vote_shifts"] == [{"agent": "JP", "cell": "JP/Financials", "from": "neutral", "to": "bearish",
                                      "because": "US: yen firms"}]

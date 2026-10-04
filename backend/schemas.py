@@ -168,6 +168,9 @@ class Brief(Model):
     triggers: list[Trigger]
     questions_for_you: list[str]
     disclaimer: str = DISCLAIMER
+    # The same view for someone with no finance background: no jargon, no tickers. Empty in
+    # runs recorded before it existed; the UI then words one from the matrix.
+    plain_english: str = ""
 
 
 # SSE events the frontend listens for

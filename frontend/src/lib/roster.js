@@ -12,6 +12,16 @@ const CROSS_STYLE = {
   BULL: { color: '#34d399', icon: '🐂' }, RISK: { color: '#fbbf24', icon: '🛡️' },
 }
 
+const DEFAULT_ROLES = { BEAR: 'Bear Researcher', SPILLOVER: 'Spillover Analyst', CHAIR: 'Chair' }
+
+/** The original seven seats, used before the council event arrives and in mock replays. */
+export const DEFAULT_ROSTER = Object.fromEntries(
+  Object.entries(AGENTS).map(([id, a]) => [
+    id,
+    { ...a, market: COUNTRIES.includes(id) ? id : null, role: DEFAULT_ROLES[id] || 'Macro Strategist' },
+  ]),
+)
+
 export function marketColor(code, markets = COUNTRIES) {
   if (ORIGINAL_MARKET_COLOR[code]) return ORIGINAL_MARKET_COLOR[code]
   const i = markets.indexOf(code)
@@ -20,7 +30,7 @@ export function marketColor(code, markets = COUNTRIES) {
 
 /** id -> {label, color, flag?, icon?, market, role} for every seat. */
 export function buildRoster(council) {
-  if (!council) return AGENTS
+  if (!council) return DEFAULT_ROSTER
   const codes = council.markets.map((m) => m.code)
   const roster = {}
   for (const m of council.members) {
@@ -42,7 +52,7 @@ export function buildRoster(council) {
   return roster
 }
 
-export const RosterContext = createContext(AGENTS)
+export const RosterContext = createContext(DEFAULT_ROSTER)
 
 export function useRoster() {
   return useContext(RosterContext)

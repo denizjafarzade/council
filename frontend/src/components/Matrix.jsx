@@ -1,64 +1,38 @@
-import { useMemo } from 'react'
+import { useMemo, useState } from 'react'
 import { SECTORS, VIEW_STYLE } from '../lib/constants'
 import { briefMatrix, computeMatrix } from '../lib/council'
-import { marketsOf, votersOf } from '../lib/roster'
-import { Flag, Panel } from './bits'
+import { marketColor, marketsOf, votersOf } from '../lib/roster'
+import { Panel } from './bits'
 
-const SHORT = { Tech: 'Tech', Financials: 'Fin', Property: 'Prop', Energy: 'Energy' }
+const MODES = [
+  ['blind', 'Blind vote'],
+  ['final', 'Final'],
+  ['changed', 'What changed'],
+]
+const SPLIT = 0.5 // dissent at or above this marks the council as split on a cell
 
-function Cell({ cell, changed, from, final }) {
-  if (!cell) return <div className="h-12 rounded-md bg-slate-800/40" />
+function Cell({ cell, before, mode }) {
+  if (!cell) return <div className="h-16 rounded-xl bg-raised/60" aria-label="No votes yet" />
+  const changed = !!(before && before.view !== cell.view)
   const v = VIEW_STYLE[cell.view]
-  const alpha = 0.18 + 0.72 * cell.confidence // opacity = confidence
-  const split = final && cell.dissent >= 0.5 // blind votes are naturally split; flag it after the debate
+  const dim = mode === 'changed' && !changed
+  const alpha = dim ? 0.08 : 0.22 + 0.7 * cell.confidence // stronger colour = higher confidence
+  const sub = mode === 'changed'
+    ? changed ? `was ${before.view}` : 'no change'
+    : `${Math.round(cell.confidence * 100)}%`
   return (
     <div
-      className={`relative flex h-12 flex-col items-center justify-center rounded-md transition-all duration-700 ${
-        changed ? 'ring-2 ring-amber-300' : ''
-      }`}
-      style={{ backgroundColor: `rgba(${v.rgb}, ${alpha})` }}
-      title={`${cell.view}, confidence ${Math.round(cell.confidence * 100)}%, dissent ${Math.round(cell.dissent * 100)}%${
-        changed ? ` (was ${from})` : ''
-      }`}
+      className="relative flex h-16 flex-col items-center justify-center gap-0.5 rounded-xl transition-all duration-700"
+      style={{ backgroundColor: `rgba(${v.rgb}, ${alpha})`, boxShadow: mode !== 'blind' && changed ? 'inset 0 0 0 2px #e8b04a' : 'none' }}
+      title={`${v.label}, confidence ${Math.round(cell.confidence * 100)}%, dissent ${Math.round(cell.dissent * 100)}%${changed ? ` (was ${before.view})` : ''}`}
     >
-      <span className="text-lg font-bold leading-none text-white">{v.arrow}</span>
-      <span className="text-xs text-white/85">{Math.round(cell.confidence * 100)}%</span>
-      {split && (
-        <span className="absolute right-1 top-1 rounded bg-slate-950/70 px-1 text-[10px] font-semibold text-amber-300" title="Council is split">
-          split
+      <span className={`text-[15px] font-semibold ${dim ? 'text-muted' : 'text-white'}`}>{v.arrow} {v.label}</span>
+      <span className={`font-mono text-[13px] ${dim ? 'text-muted' : 'text-white/85'}`}>{sub}</span>
+      {mode !== 'blind' && cell.dissent >= SPLIT && (
+        <span className="absolute right-1.5 top-1 rounded bg-desk/75 px-1 text-[10px] font-bold tracking-wide text-gold-text" title="The council is split on this cell">
+          SPLIT
         </span>
       )}
-      {changed && <span className="absolute left-1 top-0.5 text-xs text-amber-300">↻</span>}
-    </div>
-  )
-}
-
-function Grid({ title, matrix, compare, markets }) {
-  return (
-    <div className="min-w-0 flex-1">
-      <h3 className="mb-2 text-sm font-semibold text-slate-300">{title}</h3>
-      <div className="grid grid-cols-[2.25rem_repeat(4,minmax(0,1fr))] gap-1">
-        <span />
-        {SECTORS.map((s) => (
-          <span key={s} className="text-center text-xs text-slate-400" title={s}>
-            {SHORT[s]}
-          </span>
-        ))}
-        {markets.map((c) => (
-          <div key={c} className="contents">
-            <span className="flex items-center gap-1 text-xs font-semibold text-slate-300">
-              <Flag code={c} className="h-3 w-[18px]" />
-            </span>
-            {SECTORS.map((s) => {
-              const key = `${c}/${s}`
-              const cell = matrix[key]
-              const before = compare?.[key]
-              const changed = !!(cell && before && before.view !== cell.view)
-              return <Cell key={key} cell={cell} changed={changed} from={before?.view} final={!!compare} />
-            })}
-          </div>
-        ))}
-      </div>
     </div>
   )
 }
@@ -74,27 +48,62 @@ export default function Matrix({ state }) {
   )
   const nBlind = Object.keys(state.votes.blind).length
   const nRevote = Object.keys(state.votes.revote).length
+  const allVotes = [...Object.values(state.votes.blind), ...Object.values(state.votes.revote)]
+  const jev = allVotes.filter((v) => v.source === 'jev').length
+
+  // Follow the run (blind until revotes land) unless the viewer picked a view for this run.
+  const runKey = `${state.mode}|${state.event}`
+  const [picked, setPicked] = useState(null)
+  const auto = nRevote || state.brief ? 'final' : 'blind'
+  const mode = picked?.runKey === runKey ? picked.mode : auto
+  const shown = mode === 'blind' ? blind : final
+  const names = Object.fromEntries((state.council?.markets || []).map((m) => [m.code, m.name]))
 
   return (
     <Panel
       title="Stance matrix"
       right={
-        <span className="flex items-center gap-3 text-xs text-slate-400">
-          <span className="text-emerald-300">▲ bullish</span>
-          <span>● neutral</span>
-          <span className="text-rose-300">▼ bearish</span>
-          <span>opacity = confidence</span>
-        </span>
+        <div role="group" aria-label="Matrix view" className="inline-flex rounded-xl border border-line bg-desk p-[3px]">
+          {MODES.map(([id, label]) => (
+            <button key={id} type="button" aria-pressed={mode === id} onClick={() => setPicked({ runKey, mode: id })}
+              disabled={id !== 'blind' && !nRevote && !state.brief}
+              className={`min-h-10 rounded-[9px] px-3.5 text-sm font-medium disabled:cursor-not-allowed disabled:opacity-40 ${
+                mode === id ? 'bg-gold text-gold-ink' : 'text-[#c4cbd5] hover:text-ink'
+              }`}>
+              {label}
+            </button>
+          ))}
+        </div>
       }
+      bodyClassName="px-5 py-4"
     >
-      <div className="flex gap-4">
-        <Grid title={`Blind vote${nBlind ? ` (${nBlind}/${blindVoters})` : ''}`} matrix={blind} markets={markets} />
-        <Grid
-          title={state.brief ? 'Final (Chair)' : `After debate${nRevote ? ` (${nRevote}/${revoters})` : ''}`}
-          matrix={final}
-          compare={blind}
-          markets={markets}
-        />
+      <div className="grid gap-1.5" style={{ gridTemplateColumns: '9.5rem repeat(4, minmax(0, 1fr))' }}>
+        <span />
+        {SECTORS.map((s) => <span key={s} className="text-center text-[13px] font-medium text-muted">{s}</span>)}
+        {markets.map((c) => (
+          <div key={c} className="contents">
+            <span className="flex min-w-0 items-center gap-2">
+              <span className="size-2.5 shrink-0 rounded-full" style={{ background: marketColor(c, markets) }} />
+              <span className="font-mono text-[15px] font-semibold">{c}</span>
+              <span className="truncate text-[13px] text-muted">{names[c] || ''}</span>
+            </span>
+            {SECTORS.map((s) => (
+              <Cell key={s} cell={shown[`${c}/${s}`]} before={mode === 'blind' ? null : blind[`${c}/${s}`]} mode={mode} />
+            ))}
+          </div>
+        ))}
+      </div>
+      <div className="mt-3.5 flex flex-wrap items-center justify-between gap-3 text-[13px] text-muted">
+        <span className="flex flex-wrap gap-4">
+          <span className="font-semibold text-bull">▲ Bullish</span>
+          <span className="font-semibold text-[#c4cbd5]">● Neutral</span>
+          <span className="font-semibold text-bear">▼ Bearish</span>
+          <span>Stronger colour = higher confidence{mode !== 'blind' && ' · gold ring = changed after the debate'}</span>
+        </span>
+        <span>
+          {mode === 'blind' ? `${nBlind} of ${blindVoters} voted blind` : `${nRevote} of ${revoters} revoted`}
+          {jev > 0 && ` · ${jev} votes by Jev`}
+        </span>
       </div>
     </Panel>
   )

@@ -24,6 +24,8 @@ export function slugify(text) {
 
 let seq = 0
 
+const FEED_SECTIONS = { blind_vote: 'Blind vote', debate: 'Debate', revote: 'Revote' }
+
 export function councilReducer(state, action) {
   switch (action.type) {
     case 'reset':
@@ -48,8 +50,12 @@ function applyEvent(state, event, data) {
       return { ...state, council: data }
     case 'replay':
       return { ...state, recording: data }
-    case 'stage':
-      return { ...state, stages: { ...state.stages, [data.name]: data.status } }
+    case 'stage': {
+      const stages = { ...state.stages, [data.name]: data.status }
+      // Each voting or debating stage opens a section of the feed.
+      const divider = data.status === 'started' && FEED_SECTIONS[data.name]
+      return divider ? { ...state, stages, feed: [...state.feed, { id, kind: 'divider', stage: data.name, label: divider }] } : { ...state, stages }
+    }
     case 'vote':
       return {
         ...state,

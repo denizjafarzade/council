@@ -25,10 +25,11 @@ export const STAGES = [
 
 export const PRESETS = ['Fed cuts 50bp', 'China announces major stimulus', 'BoJ hikes rates', 'Oil spikes 15%']
 
+// Blue/orange rather than green/red so colour-blind viewers can tell them apart; arrows are a second cue.
 export const VIEW_STYLE = {
-  bullish: { rgb: '16, 185, 129', arrow: '▲', text: 'text-emerald-300' },
-  neutral: { rgb: '100, 116, 139', arrow: '●', text: 'text-slate-300' },
-  bearish: { rgb: '244, 63, 94', arrow: '▼', text: 'text-rose-300' },
+  bullish: { rgb: '90, 162, 240', arrow: '▲', label: 'Bullish', text: 'text-bull', hex: '#8cc2f7' },
+  neutral: { rgb: '141, 151, 165', arrow: '●', label: 'Neutral', text: 'text-[#c4cbd5]', hex: '#c4cbd5' },
+  bearish: { rgb: '240, 138, 75', arrow: '▼', label: 'Bearish', text: 'text-bear', hex: '#f7b37e' },
 }
 
 export const DISCLAIMER = 'Research and decision support only. Not investment advice.'

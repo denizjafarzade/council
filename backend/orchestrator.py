@@ -80,7 +80,12 @@ CHAIR_TASK = (
     "Computed in code from the revotes (do not recompute or contradict):\n"
     "FINAL MATRIX:\n{matrix}\nMOST SPLIT CELL: {split}\nVOTE SHIFTS:\n{shifts}\n"
     "Write headline (one sentence), exactly 3 key_risks, 3 triggers and 3 questions_for_you. Name the most "
-    "split cell in a key risk."
+    "split cell in a key risk.\n"
+    "Also write plain_english: the council's view retold for someone with no finance background, in 3 to 5 "
+    "short sentences. No jargon, tickers, source ids, percentages or abbreviations (say \"interest rates\", "
+    "not \"bp\" or \"HIBOR\"; \"likely to rise\", not \"bullish\"). Say what happened, which markets "
+    "and industries the council expects to do better or worse and why in everyday terms, where it disagrees, "
+    "and that this is research, not advice to buy or sell."
 )
 COVERAGE_NOTE = (
     "\nDATA COVERAGE: your market's DATA has the index, FX and headlines but no sector proxies. Judge its "
@@ -98,6 +103,7 @@ class ChairNotes(BaseModel):
     key_risks: list[str]
     triggers: list[Trigger]
     questions_for_you: list[str]
+    plain_english: str = ""  # asked for in CHAIR_TASK; a model that omits it still yields a brief
 
 
 def mock_mode() -> bool:
@@ -542,7 +548,8 @@ class Run:
         shifts = compute_vote_shifts(list(blinds.values()), list(revotes.values()))
         split = max(matrix, key=lambda c: c.dissent)
 
-        notes = ChairNotes(headline=FALLBACK_HEADLINE, key_risks=[], triggers=[], questions_for_you=[])
+        notes = ChairNotes(headline=FALLBACK_HEADLINE, key_risks=[], triggers=[], questions_for_you=[],
+                           plain_english="")
         err = None
         if self.chair.member.phases.debate:
             task = CHAIR_TASK.format(

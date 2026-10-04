@@ -9,8 +9,9 @@ const COL_GAP = 46
 const H = 300
 const NODE_W = 112
 const NODE_H = 40
-const POS = '#34d399'
-const NEG = '#fb7185'
+// Same blue/orange as the matrix: blue pushes up, orange pushes down.
+const POS = '#5aa2f0'
+const NEG = '#f08a4b'
 
 const MAX_PER_COL = 5 // taller columns split into staggered sub-columns
 
@@ -121,18 +122,18 @@ function Graph({ spill, graph, label, sources, hover, setHover, big, markets }) 
         })}
         {spill.nodes.map((n) => {
           const p = graph.pos[n.id]
-          const color = n.country ? marketColor(n.country, markets) : '#fbbf24'
+          const color = n.country ? marketColor(n.country, markets) : '#e8b04a'
           const lines = wrap(n.label)
           const tx = n.country ? 26 : NODE_W / 2
           return (
             <g key={n.id} transform={`translate(${p.x},${p.y})`}>
-              <rect width={NODE_W} height={NODE_H} rx="8" fill="#1e293b" stroke={color} strokeWidth="1.5" />
+              <rect width={NODE_W} height={NODE_H} rx="9" fill="#1b222b" stroke={color} strokeWidth="1.5" />
               {n.country && (
                 <text x="6" y={NODE_H / 2 + 4} fontSize="10.5" fontWeight="700" fill={color}>
                   {n.country}
                 </text>
               )}
-              <text fontSize="12.5" fill="#f8fafc" textAnchor={n.country ? 'start' : 'middle'}>
+              <text fontSize="12.5" fill="#eceff3" textAnchor={n.country ? 'start' : 'middle'}>
                 {lines.map((l, k) => (
                   <tspan key={k} x={tx} y={NODE_H / 2 + 4.5 + (k - (lines.length - 1) / 2) * 14}>
                     {l}
@@ -147,8 +148,8 @@ function Graph({ spill, graph, label, sources, hover, setHover, big, markets }) 
           const p = graph.paths[i]
           return (
             <g key={`b${i}`} onMouseEnter={() => setHover(i)} onMouseLeave={() => setHover(null)} opacity={hover === null || hover === i ? 1 : 0.15}>
-              <circle cx={p.bx} cy={p.by} r="8.5" fill="#0f172a" stroke={e.sign === '+' ? POS : NEG} strokeWidth="1.5" />
-              <text x={p.bx} y={p.by + 4} textAnchor="middle" fontSize="11" fontWeight="700" fill="#f8fafc">
+              <circle cx={p.bx} cy={p.by} r="8.5" fill="#0d1015" stroke={e.sign === '+' ? POS : NEG} strokeWidth="1.5" />
+              <text x={p.bx} y={p.by + 4} textAnchor="middle" fontSize="11" fontWeight="700" fill="#eceff3">
                 {i + 1}
               </text>
             </g>
@@ -161,7 +162,7 @@ function Graph({ spill, graph, label, sources, hover, setHover, big, markets }) 
             key={i}
             onMouseEnter={() => setHover(i)}
             onMouseLeave={() => setHover(null)}
-            className={`flex gap-2 rounded-md px-1.5 py-1 ${hover === i ? 'bg-slate-800' : ''}`}
+            className={`flex gap-2 rounded-lg px-1.5 py-1 ${hover === i ? 'bg-raised' : ''}`}
           >
             <span
               className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full border text-xs font-bold"
@@ -170,10 +171,10 @@ function Graph({ spill, graph, label, sources, hover, setHover, big, markets }) 
               {i + 1}
             </span>
             <span className="min-w-0">
-              <span className="text-slate-400">
+              <span className="text-muted">
                 {label[e.from]} → {label[e.to]}
               </span>
-              <span className="block leading-snug text-slate-100">{e.mechanism}</span>
+              <span className="block leading-snug text-ink">{e.mechanism}</span>
               {!!e.source_ids?.length && (
                 <span className="mt-0.5 flex flex-wrap gap-1">
                   {e.source_ids.map((id) => (
@@ -190,9 +191,9 @@ function Graph({ spill, graph, label, sources, hover, setHover, big, markets }) 
 }
 
 const LEGEND = (
-  <span className="flex gap-3 text-xs text-slate-400">
-    <span style={{ color: POS }}>— raises</span>
-    <span style={{ color: NEG }}>— lowers</span>
+  <span className="flex gap-3 text-[13px] text-muted">
+    <span style={{ color: POS }}>— pushes up</span>
+    <span style={{ color: NEG }}>— pushes down</span>
     <span>thickness = strength</span>
   </span>
 )
@@ -217,12 +218,12 @@ export default function SpilloverGraph({ state, sources }) {
     <>
       <Panel
         className="h-full"
-        title="Spillover map"
+        title="How it spreads"
         right={
           <span className="flex items-center gap-3">
             {LEGEND}
             {graph && (
-              <button onClick={() => setExpanded(true)} className="rounded border border-slate-600 px-2 py-0.5 text-xs text-slate-200 hover:bg-slate-800">
+              <button type="button" onClick={() => setExpanded(true)} className="min-h-9 rounded-lg border border-line-strong px-2.5 text-sm text-ink hover:bg-raised">
                 ⤢ Expand
               </button>
             )}
@@ -230,19 +231,19 @@ export default function SpilloverGraph({ state, sources }) {
         }
       >
         {!graph ? (
-          <p className="text-slate-500">Shows how the event transmits across markets, after the debate.</p>
+          <p className="text-muted">After the debate, the Spillover Analyst maps how the event travels between markets.</p>
         ) : (
           <Graph {...props} />
         )}
       </Panel>
       {expanded && graph && (
-        <div className="fixed inset-0 z-40 flex bg-slate-950/85 p-6 backdrop-blur-sm" onClick={() => setExpanded(false)}>
-          <div className="flex min-h-0 flex-1 flex-col rounded-xl border border-slate-700 bg-slate-900 p-5" onClick={(e) => e.stopPropagation()}>
+        <div className="fixed inset-0 z-40 flex bg-black/80 p-6 backdrop-blur-sm" onClick={() => setExpanded(false)}>
+          <div className="flex min-h-0 flex-1 flex-col rounded-2xl border border-line bg-panel p-5" onClick={(e) => e.stopPropagation()}>
             <div className="mb-3 flex items-center justify-between">
-              <h2 className="text-xl font-semibold">Spillover map · {state.event}</h2>
+              <h2 className="text-xl font-semibold">How it spreads · {state.event}</h2>
               <span className="flex items-center gap-4">
                 {LEGEND}
-                <button onClick={() => setExpanded(false)} className="rounded border border-slate-600 px-3 py-1 text-sm hover:bg-slate-800">
+                <button type="button" onClick={() => setExpanded(false)} className="min-h-10 rounded-lg border border-line-strong px-3 text-sm hover:bg-raised">
                   Close (Esc)
                 </button>
               </span>

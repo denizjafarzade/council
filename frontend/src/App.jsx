@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState } from 'react'
 import Builder from './builder/Builder'
-import Brief from './components/Brief'
+import { Logo } from './builder/ui'
+import Brief, { PlainEnglish } from './components/Brief'
 import DebateStream from './components/DebateStream'
 import EventPicker, { StageBar } from './components/EventPicker'
 import Matrix from './components/Matrix'
@@ -8,7 +9,7 @@ import SpilloverGraph from './components/SpilloverGraph'
 import WhoChanged from './components/WhoChanged'
 import { useCouncil } from './hooks/useCouncil'
 import { DISCLAIMER } from './lib/constants'
-import { RosterContext, buildRoster } from './lib/roster'
+import { RosterContext, buildRoster, marketsOf } from './lib/roster'
 import { asOfFor, sourcesFor } from './lib/sources'
 
 function Toasts({ toasts, dismiss }) {
@@ -17,32 +18,57 @@ function Toasts({ toasts, dismiss }) {
     return () => timers.forEach(clearTimeout)
   }, [toasts, dismiss])
   return (
-    <div className="fixed bottom-4 right-4 z-50 flex w-96 flex-col gap-2">
+    <div className="fixed bottom-4 right-4 z-50 flex w-96 max-w-[calc(100vw-2rem)] flex-col gap-2" role="status">
       {toasts.map((t) => (
-        <div key={t.id} className="flex items-start gap-2 rounded-lg border border-rose-500/50 bg-rose-950/95 px-3 py-2 text-sm text-rose-100 shadow-xl">
-          <span>⚠</span>
+        <div key={t.id} className="flex items-start gap-2.5 rounded-xl border border-[#5a3a22] bg-[#24180f] px-3.5 py-2.5 text-sm text-[#f7d2b5] shadow-xl">
+          <span aria-hidden="true">⚠</span>
           <span className="flex-1">{t.text}</span>
-          <button onClick={() => dismiss(t.id)} className="text-rose-300 hover:text-white" aria-label="Dismiss">
-            ✕
-          </button>
+          <button type="button" onClick={() => dismiss(t.id)} className="-m-1 p-1 text-bear hover:text-ink" aria-label="Dismiss">✕</button>
         </div>
       ))}
     </div>
   )
 }
 
+/** Live, recorded, mock: always say which, so nobody mistakes a replay for a live run. */
+function RunStatus({ state }) {
+  if (state.mode === 'idle') return null
+  const base = 'inline-flex items-center gap-2 rounded-full px-3 py-1.5 text-sm font-medium'
+  if (state.recording) {
+    const at = state.recording.recorded_at
+    return (
+      <span className={`${base} bg-gold-soft text-gold-text`} title="A saved run played back at its real pace">
+        ▶ Replay of a recorded run{at && ` · ${new Date(at).toLocaleString([], { dateStyle: 'medium', timeStyle: 'short' })}`}
+      </span>
+    )
+  }
+  if (state.mode === 'mock') return <span className={`${base} bg-raised text-muted`}>Mock run · made-up data</span>
+  const live = state.status === 'running'
+  return (
+    <span className={`${base} ${state.status === 'error' ? 'bg-[#24180f] text-bear' : 'bg-[#10271f] text-[#8ee3b8]'}`}>
+      <span className={`size-2 rounded-full ${state.status === 'error' ? 'bg-bear' : 'bg-[#3dd68c]'} ${live ? 'animate-pulse' : ''}`} />
+      {state.status === 'error' ? 'Run stopped' : live ? 'Live' : 'Live run · finished'}
+    </span>
+  )
+}
+
 export default function App() {
   const { state, replayMock, runLive, replayRecorded, recordings, dismiss } = useCouncil()
   const sources = useMemo(() => sourcesFor(state.mode), [state.mode])
-  const asOf = useMemo(() => asOfFor(state.mode), [state.mode])
   const roster = useMemo(() => buildRoster(state.council), [state.council])
+  const asOf = useMemo(() => {
+    const markets = marketsOf(state)
+    return Object.fromEntries(Object.entries(asOfFor(state.mode)).filter(([c]) => markets.includes(c)))
+  }, [state])
   // Build the council first; the session screen runs it.
   const [view, setView] = useState('build')
   const [council, setCouncil] = useState(null)
+  const [controlsOpen, setControlsOpen] = useState(false)
 
   function convene(event, config) {
     setCouncil(config)
     setView('session')
+    setControlsOpen(false)
     runLive(event, config)
   }
 
@@ -50,75 +76,70 @@ export default function App() {
     return <Builder onConvene={convene} onBackToSession={state.mode === 'idle' ? null : () => setView('session')} />
   }
 
+  const running = state.status === 'running'
+  const showControls = !running && (controlsOpen || state.mode === 'idle')
+  const start = (fn) => (...args) => { setControlsOpen(false); fn(...args) }
+  const seats = state.council?.members.length ?? 7
+  const marketCount = marketsOf(state).length
+
   return (
     <RosterContext.Provider value={roster}>
-    <div className="flex min-h-full flex-col gap-3 p-4 lg:h-full">
-      <header className="flex flex-wrap items-center justify-between gap-3">
-        <div>
-          <h1 className="text-2xl font-bold tracking-tight">AI Trading Council</h1>
-          <p className="text-sm text-slate-400">
-            {state.event ? (
-              <>
-                Event: <span className="text-slate-200">{state.event}</span>
-                {state.mode === 'mock' && <span className="ml-2 rounded bg-slate-700 px-1.5 text-xs">mock replay</span>}
-                {state.mode === 'live' && !state.recording && (
-                  <span className="ml-2 rounded bg-emerald-600/30 px-1.5 text-xs text-emerald-300">live</span>
-                )}
-                {state.recording && (
-                  <span className="ml-2 rounded bg-amber-500/20 px-1.5 text-xs text-amber-200" title="Stage 4 demo safety: a saved run played at real speed">
-                    Replay of recorded run
-                    {state.recording.recorded_at && ` · recorded ${new Date(state.recording.recorded_at).toLocaleString([], { dateStyle: 'medium', timeStyle: 'short' })}`}
-                  </span>
-                )}
-              </>
-            ) : (
-              DISCLAIMER
-            )}
-          </p>
-        </div>
-        <div className="flex flex-wrap items-center gap-3">
-          <StageBar stages={state.stages} />
-          <button
-            type="button"
-            onClick={() => setView('build')}
-            disabled={state.status === 'running'}
-            className="rounded-lg border border-slate-600 px-3 py-1.5 text-sm text-slate-200 hover:bg-slate-800 disabled:opacity-40"
-          >
-            {state.council ? `Edit council (${state.council.members.length} seats)` : 'Build a council'}
+      <div className="min-h-full bg-desk font-sans text-base text-ink">
+        <header className="flex flex-wrap items-center gap-x-6 gap-y-3 border-b border-line px-7 py-4">
+          <Logo />
+          <div className="flex min-w-64 flex-1 flex-col">
+            <span className="font-mono text-xs uppercase tracking-[0.08em] text-muted">
+              {state.council?.name || council?.name || 'Default council'} · {seats} seats · {marketCount} markets
+            </span>
+            <h1 className="text-[30px] font-semibold leading-tight">{state.event || 'Council ready'}</h1>
+          </div>
+          <RunStatus state={state} />
+          <button type="button" disabled={running} onClick={() => setControlsOpen((o) => !o)}
+            className="min-h-11 rounded-xl border border-line-strong px-4 font-medium hover:bg-raised disabled:cursor-not-allowed disabled:opacity-40">
+            {showControls && state.mode !== 'idle' ? 'Hide' : 'New event'}
           </button>
-        </div>
-      </header>
+          <button type="button" disabled={running} onClick={() => setView('build')}
+            className="min-h-11 rounded-xl border border-line-strong px-4 font-medium hover:bg-raised disabled:cursor-not-allowed disabled:opacity-40">
+            Edit council
+          </button>
+        </header>
 
-      <EventPicker
-        state={state}
-        onRun={(event) => runLive(event, council)}
-        onReplay={replayMock}
-        recordings={recordings}
-        onReplayRecorded={replayRecorded}
-      />
+        <div className="border-b border-line px-7 py-3.5">
+          <StageBar state={state} />
+        </div>
 
-      <main className="grid min-h-0 flex-1 grid-cols-1 gap-3 lg:grid-cols-12">
-        <div className="min-h-[24rem] lg:col-span-3 lg:min-h-0">
-          <DebateStream state={state} sources={sources} />
-        </div>
-        <div className="flex min-h-0 flex-col gap-3 lg:col-span-5">
-          <Matrix state={state} />
-          <div className="min-h-[18rem] flex-1">
-            <SpilloverGraph state={state} sources={sources} />
-          </div>
-        </div>
-        <div className="flex min-h-0 flex-col gap-3 lg:col-span-4">
-          <div className="min-h-0 flex-[3]">
-            <Brief state={state} asOf={asOf} />
-          </div>
-          <div className="min-h-0 flex-[2]">
-            <WhoChanged state={state} />
-          </div>
-        </div>
-      </main>
+        <main className="flex flex-col gap-5 px-7 pb-7 pt-5">
+          {showControls && (
+            <EventPicker
+              state={state}
+              onRun={start((event) => runLive(event, council))}
+              onReplay={start(replayMock)}
+              recordings={recordings}
+              onReplayRecorded={start(replayRecorded)}
+            />
+          )}
 
-      <Toasts toasts={state.toasts} dismiss={dismiss} />
-    </div>
+          <div className="grid grid-cols-1 items-start gap-5 xl:grid-cols-[minmax(22rem,27rem)_minmax(0,1fr)_minmax(20rem,26rem)]">
+            <div className="h-[70vh] min-h-[28rem] xl:sticky xl:top-5 xl:h-[calc(100vh-2.5rem)]">
+              <DebateStream state={state} sources={sources} />
+            </div>
+            <div className="flex min-w-0 flex-col gap-5">
+              <Matrix state={state} />
+              <div className="h-[26rem]">
+                <SpilloverGraph state={state} sources={sources} />
+              </div>
+            </div>
+            <div className="flex min-w-0 flex-col gap-5">
+              <PlainEnglish state={state} />
+              <Brief state={state} asOf={asOf} />
+              <WhoChanged state={state} />
+            </div>
+          </div>
+          <p className="text-center text-[13px] text-muted">{DISCLAIMER}</p>
+        </main>
+
+        <Toasts toasts={state.toasts} dismiss={dismiss} />
+      </div>
     </RosterContext.Provider>
   )
 }

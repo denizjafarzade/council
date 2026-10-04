@@ -16,6 +16,9 @@
   --color-gold-soft: #2a2414;
   --color-gold-ink: #1a1408;
   --color-gold-text: #f3d08a;
+  --color-bull: #8cc2f7;
+  --color-bear: #f7b37e;
+  --color-ok: #8ee3b8;
 }
 
 html,
@@ -25,6 +28,6 @@ body,
 }
 
 body {
-  @apply bg-slate-950 text-slate-100 antialiased;
+  @apply bg-desk text-ink antialiased;
   font-size: 18px; /* readable from the back of a lecture hall */
 }
