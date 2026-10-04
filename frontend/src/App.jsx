@@ -12,7 +12,7 @@ import WhoChanged from './components/WhoChanged'
 import { useCouncil } from './hooks/useCouncil'
 import { COUNTRY_NAMES, DISCLAIMER } from './lib/constants'
 import { RosterContext, buildRoster, marketsOf } from './lib/roster'
-import { packsFor, sourcesFor } from './lib/sources'
+import { indexPacks, packsFor, sourcesFor } from './lib/sources'
 
 function Toasts({ toasts, dismiss }) {
   useEffect(() => {
@@ -58,11 +58,14 @@ export default function App() {
   const { state, replayMock, runLive, replayRecorded, recordings, dismiss } = useCouncil()
   // [EVENT] is the headline the run is about; every seat may cite it.
   const sources = useMemo(
-    () => ({ ...sourcesFor(state.mode), EVENT: { kind: 'news', label: state.event, value: 'The news item this run is about' } }),
-    [state.mode, state.event],
+    () => ({
+      ...(state.packs ? indexPacks(state.packs) : sourcesFor(state.mode)),
+      EVENT: { kind: 'news', label: state.event, value: 'The news item this run is about' },
+    }),
+    [state.mode, state.event, state.packs],
   )
   const roster = useMemo(() => buildRoster(state.council), [state.council])
-  const packs = useMemo(() => packsFor(state.mode), [state.mode])
+  const packs = useMemo(() => state.packs || packsFor(state.mode), [state.packs, state.mode])
   const names = useMemo(
     () => ({ ...COUNTRY_NAMES, ...Object.fromEntries((state.council?.markets || []).map((m) => [m.code, m.name])) }),
     [state.council],
@@ -128,8 +131,18 @@ export default function App() {
             />
           )}
 
-          <div className="grid grid-cols-1 items-start gap-5 xl:grid-cols-[minmax(22rem,27rem)_minmax(0,1fr)_minmax(20rem,26rem)]">
-            <div className="h-[70vh] min-h-[28rem] xl:sticky xl:top-5 xl:h-[calc(100vh-2.5rem)]">
+          {/* The result first: brief, risk score and market cards. How the council got there is below. */}
+          <div className="grid grid-cols-1 items-start gap-5 xl:grid-cols-[minmax(0,1fr)_minmax(20rem,24rem)]">
+            <MeaningCards state={state} packs={packs} names={names} sources={sources} />
+            <div className="flex min-w-0 flex-col gap-5">
+              <PortfolioPanel names={names} disabled={running} />
+              <PlainEnglish state={state} />
+            </div>
+          </div>
+
+          <h2 className="pt-2 text-lg font-semibold text-muted">How the council got here</h2>
+          <div className="grid grid-cols-1 items-start gap-5 xl:grid-cols-[minmax(20rem,24rem)_minmax(0,1fr)_minmax(18rem,22rem)]">
+            <div className="h-[70vh] min-h-[28rem]">
               <DebateStream state={state} sources={sources} />
             </div>
             <div className="flex min-w-0 flex-col gap-5">
@@ -138,12 +151,7 @@ export default function App() {
                 <SpilloverGraph state={state} sources={sources} />
               </div>
             </div>
-            <div className="flex min-w-0 flex-col gap-5">
-              <MeaningCards state={state} packs={packs} names={names} sources={sources} />
-              <PortfolioPanel names={names} disabled={running} />
-              <PlainEnglish state={state} />
-              <WhoChanged state={state} />
-            </div>
+            <WhoChanged state={state} />
           </div>
           <p className="text-center text-[13px] text-muted">{DISCLAIMER}</p>
         </main>

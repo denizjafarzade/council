@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import { useAgent } from '../lib/roster'
 import { Avatar, Panel, SourceChip } from './bits'
 
@@ -9,34 +9,42 @@ function problemsOf(msg, sources) {
   return [...flagged, ...missing.filter((m) => !flagged.some((f) => f.startsWith(m.split(' ')[0])))]
 }
 
+/** One line per message (who spoke, trust check); the text opens on click: the result matters most. */
 function Message({ msg, sources }) {
+  const [open, setOpen] = useState(false)
   const a = useAgent(msg.agent)
   const challenge = msg.text.match(/^Challenge to ([^:]+):\s*(.*)$/s)
   const target = useAgent(challenge?.[1])
   const problems = problemsOf(msg, sources)
   const cited = (msg.source_ids || []).length > 0
   return (
-    <li className="flex flex-col gap-2 rounded-xl bg-raised px-3.5 py-3">
-      <div className="flex items-center gap-2.5">
-        <Avatar agent={msg.agent} />
-        <span className="flex min-w-0 flex-1 flex-col leading-tight">
-          <span className="truncate font-semibold">{a.label}</span>
-          {a.role && <span className="truncate text-[13px] text-muted">{a.role}</span>}
+    <li className="rounded-xl bg-raised">
+      <button type="button" onClick={() => setOpen((o) => !o)} aria-expanded={open}
+        className="flex w-full items-center gap-2.5 px-3 py-2 text-left">
+        <Avatar agent={msg.agent} size={28} />
+        <span className="min-w-0 flex-1 truncate text-sm">
+          <span className="font-semibold">{a.label}</span>
+          <span className="text-muted"> · {challenge ? `challenges ${target.label}` : 'message'}</span>
         </span>
-        {challenge && (
-          <span className="shrink-0 rounded-full bg-gold-soft px-2 py-0.5 text-xs font-semibold text-gold-text">
-            Challenges {target.label}
-          </span>
-        )}
-      </div>
-      <p className="text-base leading-snug text-[#e3e7ec]">{challenge ? challenge[2] : msg.text}</p>
-      {(cited || problems.length > 0) && (
-        <div className="flex flex-wrap items-center gap-1.5">
-          {(msg.source_ids || []).map((id) => <SourceChip key={id} id={id} sources={sources} />)}
-          {problems.length ? (
-            <span className="text-xs font-semibold text-bear" title={problems.join('; ')}>⚠ {problems[0]}{problems.length > 1 && ` (+${problems.length - 1})`}</span>
-          ) : (
-            <span className="text-xs text-ok">✓ checked against the data</span>
+        {problems.length > 0 ? (
+          <span className="shrink-0 text-xs font-semibold text-bear" title={problems.join('; ')}>⚠ unverified</span>
+        ) : cited ? (
+          <span className="shrink-0 text-xs text-ok" title="Checked against the data">✓</span>
+        ) : null}
+        <span className="shrink-0 text-muted" aria-hidden="true">{open ? '▴' : '▾'}</span>
+      </button>
+      {open && (
+        <div className="flex flex-col gap-2 px-3.5 pb-3">
+          <p className="text-base leading-snug text-[#e3e7ec]">{challenge ? challenge[2] : msg.text}</p>
+          {(cited || problems.length > 0) && (
+            <div className="flex flex-wrap items-center gap-1.5">
+              {(msg.source_ids || []).map((id) => <SourceChip key={id} id={id} sources={sources} />)}
+              {problems.length ? (
+                <span className="text-xs font-semibold text-bear">⚠ {problems.join('; ')}</span>
+              ) : (
+                <span className="text-xs text-ok">✓ checked against the data</span>
+              )}
+            </div>
           )}
         </div>
       )}
@@ -46,12 +54,18 @@ function Message({ msg, sources }) {
 
 function Ballots({ items }) {
   const jev = items.filter((v) => v.source === 'jev').length
+  const fallback = items.filter((v) => v.fallback)
   return (
     <li className="flex flex-wrap items-center gap-1.5 px-1">
       {items.map((v) => <Avatar key={v.id} agent={v.agent} size={26} />)}
       <span className="ml-1 text-sm text-muted">
         {items.length === 1 ? 'voted' : `${items.length} votes in`}{jev > 0 && ` · ${jev} by Jev`}
       </span>
+      {fallback.length > 0 && (
+        <span className="text-xs font-semibold text-bear" title={fallback.map((v) => `${v.agent}: ${v.fallback}`).join('\n')}>
+          · {fallback.length} LLM fallback{fallback.length > 1 ? 's' : ''} (Jev failed)
+        </span>
+      )}
     </li>
   )
 }

@@ -1,6 +1,6 @@
 import { useMemo, useState } from 'react'
-import { SECTORS, VIEW_STYLE } from '../lib/constants'
-import { briefMatrix, computeMatrix } from '../lib/council'
+import { VIEW_STYLE } from '../lib/constants'
+import { briefMatrix, computeMatrix, sectorsOf } from '../lib/council'
 import { marketColor, marketsOf, votersOf } from '../lib/roster'
 import { Panel } from './bits'
 
@@ -41,10 +41,12 @@ export default function Matrix({ state }) {
   const markets = useMemo(() => marketsOf(state), [state])
   const blindVoters = votersOf(state, 'blind')
   const revoters = votersOf(state, 'revote')
-  const blind = useMemo(() => computeMatrix(state.votes.blind, markets), [state.votes.blind, markets])
+  const sectors = useMemo(() => sectorsOf(state), [state])
+  const ids = useMemo(() => sectors.map((x) => x.id), [sectors])
+  const blind = useMemo(() => computeMatrix(state.votes.blind, markets, ids), [state.votes.blind, markets, ids])
   const final = useMemo(
-    () => (state.brief ? briefMatrix(state.brief, revoters) : computeMatrix(state.votes.revote, markets)),
-    [state.brief, state.votes.revote, markets, revoters],
+    () => (state.brief ? briefMatrix(state.brief, revoters) : computeMatrix(state.votes.revote, markets, ids)),
+    [state.brief, state.votes.revote, markets, revoters, ids],
   )
   const nBlind = Object.keys(state.votes.blind).length
   const nRevote = Object.keys(state.votes.revote).length
@@ -77,9 +79,10 @@ export default function Matrix({ state }) {
       }
       bodyClassName="px-5 py-4"
     >
-      <div className="grid gap-1.5" style={{ gridTemplateColumns: '9.5rem repeat(4, minmax(0, 1fr))' }}>
+      <div className="overflow-x-auto">
+      <div className="grid gap-1.5" style={{ gridTemplateColumns: `9.5rem repeat(${sectors.length}, minmax(4.5rem, 1fr))` }}>
         <span />
-        {SECTORS.map((s) => <span key={s} className="text-center text-[13px] font-medium text-muted">{s}</span>)}
+        {sectors.map((s) => <span key={s.id} className="truncate text-center text-[13px] font-medium text-muted" title={s.name}>{s.name}</span>)}
         {markets.map((c) => (
           <div key={c} className="contents">
             <span className="flex min-w-0 items-center gap-2">
@@ -87,11 +90,12 @@ export default function Matrix({ state }) {
               <span className="font-mono text-[15px] font-semibold">{c}</span>
               <span className="truncate text-[13px] text-muted">{names[c] || ''}</span>
             </span>
-            {SECTORS.map((s) => (
+            {ids.map((s) => (
               <Cell key={s} cell={shown[`${c}/${s}`]} before={mode === 'blind' ? null : blind[`${c}/${s}`]} mode={mode} />
             ))}
           </div>
         ))}
+      </div>
       </div>
       <div className="mt-3.5 flex flex-wrap items-center justify-between gap-3 text-[13px] text-muted">
         <span className="flex flex-wrap gap-4">

@@ -192,7 +192,10 @@ export default function MemberEditor({ lib, council, member, defaults, onSave, o
               <dt className="text-muted">Sees</dt>
               <dd>{market ? `Only the ${market} data and the transcript` : 'All market data and the transcript'}</dd>
               <dt className="text-muted">Votes on</dt>
-              <dd>{phases.vote || phases.revote ? `All ${council.markets.length * lib.sectors.length} matrix cells` : 'Does not vote'}</dd>
+              <dd>{phases.vote || phases.revote
+                ? (market ? `Its own market's ${(council.sectors || lib.default_sectors).length} sectors`
+                  : `All ${council.markets.length * (council.sectors || lib.default_sectors).length} matrix cells`)
+                : 'Does not vote'}</dd>
               <dt className="text-muted">Adds</dt>
               <dd className="font-mono">≈ {extraCalls} calls / run</dd>
             </dl>

@@ -4,6 +4,8 @@
 
 const CROSS_IDS = { bear: 'BEAR', spillover: 'SPILLOVER', chair: 'CHAIR', bull: 'BULL', risk: 'RISK' }
 
+export const DEFAULT_SECTORS = ['Tech', 'Financials', 'Property', 'Energy']
+
 /** A market seat's id: the market code for its Macro Strategist, else MARKET-ROLE. */
 export function seatId(roleId, market) {
   return roleId === 'macro' ? market : `${market}-${roleId.toUpperCase()}`.slice(0, 40)
@@ -37,6 +39,7 @@ export function defaultCouncil() {
       { id: 'SPILLOVER', name: 'Spillover Analyst', role: 'spillover', market: null },
       { id: 'CHAIR', name: 'Chair', role: 'chair', market: null },
     ],
+    sectors: [...DEFAULT_SECTORS],
     debate_rounds: 1,
   }
 }
@@ -47,12 +50,20 @@ export function normalise(council, lib) {
   const roleName = (id) => lib.roles.find((r) => r.id === id)?.name || id
   return {
     ...council,
+    sectors: council.sectors?.length ? council.sectors : lib.default_sectors || DEFAULT_SECTORS,
     members: council.members.map((m) => ({
       ...m,
       name: m.name || (m.market ? `${marketName(m.market)} ${roleName(m.role)}` : roleName(m.role)),
       phases: m.phases || { vote: true, debate: true, revote: true },
     })),
   }
+}
+
+/** Add or remove a sector; a council always keeps at least one. */
+export function toggleSector(council, id) {
+  const current = council.sectors?.length ? council.sectors : DEFAULT_SECTORS
+  if (current.includes(id)) return current.length > 1 ? { ...council, sectors: current.filter((s) => s !== id) } : council
+  return { ...council, sectors: [...current, id] }
 }
 
 export function toggleMarket(council, code) {

@@ -43,6 +43,48 @@
       "ticker": "5020.T",
       "chg_1m_pct": 1.87,
       "vol_20d_pct": 38.67
+    },
+    {
+      "sector": "Health",
+      "ticker": "4502.T",
+      "chg_1m_pct": -2.12,
+      "vol_20d_pct": 23.7
+    },
+    {
+      "sector": "Industrials",
+      "ticker": "6301.T",
+      "chg_1m_pct": 0.83,
+      "vol_20d_pct": 34.48
+    },
+    {
+      "sector": "ConsumerDisc",
+      "ticker": "7203.T",
+      "chg_1m_pct": -9.49,
+      "vol_20d_pct": 25.45
+    },
+    {
+      "sector": "Staples",
+      "ticker": "2914.T",
+      "chg_1m_pct": -1.51,
+      "vol_20d_pct": 17.81
+    },
+    {
+      "sector": "Utilities",
+      "ticker": "9501.T",
+      "chg_1m_pct": -2.62,
+      "vol_20d_pct": 38.45
+    },
+    {
+      "sector": "Materials",
+      "ticker": "5401.T",
+      "chg_1m_pct": -4.08,
+      "vol_20d_pct": 28.05
+    },
+    {
+      "sector": "Communication",
+      "ticker": "9432.T",
+      "chg_1m_pct": -1.51,
+      "vol_20d_pct": 19.06
     }
   ],
   "macro": [
@@ -56,8 +98,8 @@
     {
       "id": "JP-n1",
       "title": "Does Nikkei 225 Inclusion Change The Bull Case For Capcom Stock (TSE:9697)?",
-      "source": "Simply Wall Street",
-      "url": "https://news.google.com/rss/articles/CBMiygFBVV95cUxQcDRFQzF2dFI5YWRoUU9ndklRcWdlZk9ZMnhNLTNkZnVhVHNWVnZFVnpjeEllb2d1eFBBUjRha0dUSjBvSkdRTExJczBhNkpmUG4zc2JGVWdyWVUtVllqdzU5YmJINGx1VzJGZ2NFdWdWSnM5WG1IU0Y2V21fekZhUlZBRGxWaGcxbFczVEVzWHhCcEJ5YjBuRTNjRURjelNzRmd2SzBTd2trWXF5MlpfUlV0WnNCOXd3ZnF2X0k0RDA3cFF4dTBSVWtR0gHKAUFVX3lxTFBwNEVDMXZ0UjlhZGhRT2d2SVFxZ2VmT1kyeE0tM2RmdWFUc1ZWdkVWemN4SWVvZ3V4UEFSNGFrR1RKMG9KR1FMTElzMGE2SmZQbjNzYkZVZ3JZVS1WWWp3NTliYkg0bHVXMkZnY0V1Z1ZKczlYbUhTRjZXbV96RmFSVkFEbFZoZzFsVzNURXNYeEJwQnliMG5FM2NFRGN6U3NGZ3ZLMFN3a2tZcXkyWl9SVXRac0I5d3dmcXZfSTREMDdwUXh1MFJVa1E?oc=5",
+      "source": "simplywall.st",
+      "url": "https://news.google.com/rss/articles/CBMixAFBVV95cUxNeDdVcHJuOEx4SVRnbjB5YnZ6SVZFc3FjODZSdHdrSXVyZ1R4TThHMTdkdXVuVHpPejJrbnhUS1JkQUJ3eVZ4SDQxNVBuSTQ2TWJaRGcyaFFIS3Z5MEJ2bWZDNVByU2tod3FWb0ZaWXhOcm1kX2UzUVprazB2LXhRRG9xODN2b2ktLTZaNTRPNUR2TVVMQl85emt4V1Z5czRSbG4zT2lqTkFCT2RjQkt1aVhBcEprOVNEZEZadUl0amNvSE5x0gHKAUFVX3lxTFBwNEVDMXZ0UjlhZGhRT2d2SVFxZ2VmT1kyeE0tM2RmdWFUc1ZWdkVWemN4SWVvZ3V4UEFSNGFrR1RKMG9KR1FMTElzMGE2SmZQbjNzYkZVZ3JZVS1WWWp3NTliYkg0bHVXMkZnY0V1Z1ZKczlYbUhTRjZXbV96RmFSVkFEbFZoZzFsVzNURXNYeEJwQnliMG5FM2NFRGN6U3NGZ3ZLMFN3a2tZcXkyWl9SVXRac0I5d3dmcXZfSTREMDdwUXh1MFJVa1E?oc=5",
       "published": "2026-10-04T06:29+00:00"
     },
     {
@@ -110,5 +152,7 @@
       "published": "2026-10-02T07:11+00:00"
     }
   ],
-  "news_fetched_at": "2026-10-04T07:31:21+00:00"
+  "coverage": "full",
+  "news_fetched_at": "2026-10-04T08:22:58+00:00",
+  "prices_fetched_at": "2026-10-04T08:22:58+00:00"
 }

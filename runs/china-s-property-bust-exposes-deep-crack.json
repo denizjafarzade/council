@@ -1,13 +1,13 @@
 {
- "event": "\"Global Bond Selloff Pushes U.S. Treasury Yields to 24-Year Highs\" (Yahoo Finance, published 03 Oct 2026 13:22 UTC)",
- "slug": "global-bond-selloff-pushes-u-s-treasury-",
- "recorded_at": "2026-10-04T07:42:21+00:00",
- "duration_s": 166.53,
+ "event": "\"China’s property bust exposes deep cracks in local government finances: Report\" (IANS LIVE, published 04 Oct 2026 07:23 UTC)",
+ "slug": "china-s-property-bust-exposes-deep-crack",
+ "recorded_at": "2026-10-04T08:34:43+00:00",
+ "duration_s": 179.16,
  "profile": "premium",
  "council": null,
  "events": [
   {
-   "t": 0.0,
+   "t": 0.01,
    "event": "stage",
    "data": {
     "name": "data",
@@ -15,7 +15,7 @@
    }
   },
   {
-   "t": 0.0,
+   "t": 0.02,
    "event": "council",
    "data": {
     "name": "Default council",
@@ -51,6 +51,12 @@
      "Property",
      "Energy"
     ],
+    "sector_names": {
+     "Tech": "Technology",
+     "Financials": "Financials",
+     "Property": "Property",
+     "Energy": "Energy"
+    },
     "members": [
      {
       "id": "HK",
@@ -148,7 +154,7 @@
    }
   },
   {
-   "t": 0.0,
+   "t": 0.02,
    "event": "data",
    "data": {
     "packs": {
@@ -197,14 +203,67 @@
         "ticker": "0883.HK",
         "chg_1m_pct": -6.0,
         "vol_20d_pct": 27.66
+       },
+       {
+        "sector": "Health",
+        "ticker": "2269.HK",
+        "chg_1m_pct": 10.78,
+        "vol_20d_pct": 38.13
+       },
+       {
+        "sector": "Industrials",
+        "ticker": "0066.HK",
+        "chg_1m_pct": -1.12,
+        "vol_20d_pct": 19.66
+       },
+       {
+        "sector": "ConsumerDisc",
+        "ticker": "9988.HK",
+        "chg_1m_pct": -5.0,
+        "vol_20d_pct": 31.65
+       },
+       {
+        "sector": "Staples",
+        "ticker": "0322.HK",
+        "chg_1m_pct": -8.05,
+        "vol_20d_pct": 17.5
+       },
+       {
+        "sector": "Utilities",
+        "ticker": "0002.HK",
+        "chg_1m_pct": -1.11,
+        "vol_20d_pct": 14.71
+       },
+       {
+        "sector": "Materials",
+        "ticker": "2600.HK",
+        "chg_1m_pct": -10.56,
+        "vol_20d_pct": 27.25
+       },
+       {
+        "sector": "Communication",
+        "ticker": "0700.HK",
+        "chg_1m_pct": -3.88,
+        "vol_20d_pct": 30.17
        }
       ],
-      "macro": [],
+      "macro": [
+       {
+        "id": "HK-hibor",
+        "name": "1M HIBOR (as of 2026-10-02)",
+        "value": 2.968
+       },
+       {
+        "id": "HK-base",
+        "name": "HKMA base rate (as of 2026-10-02)",
+        "value": 4.25
+       }
+      ],
       "news": [
        {
         "id": "HK-n1",
         "title": "Financial, Tech Heavyweights Rout Sends Hang Seng Down 2.2% For The Week",
-        "source": "businesstoday.com.my",
+        "source": "BusinessToday Malaysia",
         "url": "https://news.google.com/rss/articles/CBMitgFBVV95cUxPTmpqSDJSLTE0eEJHNWMtUXBsaUFWM2tsQnIxUHl2NWVoVklXNml5VGRNUFV3NDNTNUkya0RnM0JTU0g4TzRvMGl2cnFUSUxhOVh1YkVlYnlNdGdMaUdLLTV6aVh0LWI5X3VxejF1ZFJrS0pzN0JNNkMtVF9wcFNLXzQ1V21xelV0SnlCc05yc01UOFBFU0VKOXdGaUpqWE4tRnkzczdUcnBNc1ZhdjRRYnR6NWlvdw?oc=5",
         "published": "2026-10-04T00:51+00:00"
        },
@@ -225,7 +284,7 @@
        {
         "id": "HK-n4",
         "title": "Hang Seng Sinks Nearly 641 Points As Banks, Tech Stocks Slide",
-        "source": "businesstoday.com.my",
+        "source": "BusinessToday Malaysia",
         "url": "https://news.google.com/rss/articles/CBMiqAFBVV95cUxQVEtHTFl6Nk13ck5wVl9sakVLNnFuRXNxcElTRDdOc2pSREZEZXJrd182NHBPN3FFaTU5Ykh0R21pekJBZDI3S2d0c3JUUGtMRExqanNlOFZyQ0hjd1JEbEFBRGFfSHJrdHBTamFrdTlucWpieXBJV2JiandlbndXYWhBZ0FrUFAwMzZNaFR6TVNoZkZrdkFtM21wbjNZUTN2Z0hPSGZzT2w?oc=5",
         "published": "2026-10-03T01:52+00:00"
        },
@@ -258,7 +317,9 @@
         "published": "2026-10-02T12:03+00:00"
        }
       ],
-      "news_fetched_at": "2026-10-04T07:31:21+00:00"
+      "coverage": "full",
+      "news_fetched_at": "2026-10-04T08:22:34+00:00",
+      "prices_fetched_at": "2026-10-04T08:22:34+00:00"
      },
      "CN": {
       "country": "CN",
@@ -305,6 +366,48 @@
         "ticker": "601857.SS",
         "chg_1m_pct": -1.84,
         "vol_20d_pct": 22.74
+       },
+       {
+        "sector": "Health",
+        "ticker": "600276.SS",
+        "chg_1m_pct": 2.45,
+        "vol_20d_pct": 31.79
+       },
+       {
+        "sector": "Industrials",
+        "ticker": "601766.SS",
+        "chg_1m_pct": -0.48,
+        "vol_20d_pct": 18.17
+       },
+       {
+        "sector": "ConsumerDisc",
+        "ticker": "002594.SZ",
+        "chg_1m_pct": -5.54,
+        "vol_20d_pct": 21.08
+       },
+       {
+        "sector": "Staples",
+        "ticker": "600519.SS",
+        "chg_1m_pct": -3.15,
+        "vol_20d_pct": 15.37
+       },
+       {
+        "sector": "Utilities",
+        "ticker": "600900.SS",
+        "chg_1m_pct": 1.6,
+        "vol_20d_pct": 12.61
+       },
+       {
+        "sector": "Materials",
+        "ticker": "601899.SS",
+        "chg_1m_pct": -11.52,
+        "vol_20d_pct": 35.0
+       },
+       {
+        "sector": "Communication",
+        "ticker": "600941.SS",
+        "chg_1m_pct": -3.28,
+        "vol_20d_pct": 11.59
        }
       ],
       "macro": [],
@@ -366,7 +469,9 @@
         "published": "2026-10-02T04:33+00:00"
        }
       ],
-      "news_fetched_at": "2026-10-04T07:31:21+00:00"
+      "coverage": "full",
+      "news_fetched_at": "2026-10-04T08:22:41+00:00",
+      "prices_fetched_at": "2026-10-04T08:22:41+00:00"
      },
      "US": {
       "country": "US",
@@ -421,6 +526,48 @@
         "ticker": "XLE",
         "chg_1m_pct": -3.5,
         "vol_20d_pct": 20.98
+       },
+       {
+        "sector": "Health",
+        "ticker": "XLV",
+        "chg_1m_pct": -3.91,
+        "vol_20d_pct": 14.02
+       },
+       {
+        "sector": "Industrials",
+        "ticker": "XLI",
+        "chg_1m_pct": -1.64,
+        "vol_20d_pct": 12.79
+       },
+       {
+        "sector": "ConsumerDisc",
+        "ticker": "XLY",
+        "chg_1m_pct": -4.2,
+        "vol_20d_pct": 14.26
+       },
+       {
+        "sector": "Staples",
+        "ticker": "XLP",
+        "chg_1m_pct": -5.85,
+        "vol_20d_pct": 11.62
+       },
+       {
+        "sector": "Utilities",
+        "ticker": "XLU",
+        "chg_1m_pct": -6.66,
+        "vol_20d_pct": 14.17
+       },
+       {
+        "sector": "Materials",
+        "ticker": "XLB",
+        "chg_1m_pct": -7.72,
+        "vol_20d_pct": 12.69
+       },
+       {
+        "sector": "Communication",
+        "ticker": "XLC",
+        "chg_1m_pct": -1.87,
+        "vol_20d_pct": 20.71
        }
       ],
       "macro": [
@@ -488,7 +635,9 @@
         "published": "2026-10-03T01:33+00:00"
        }
       ],
-      "news_fetched_at": "2026-10-04T07:31:21+00:00"
+      "coverage": "full",
+      "news_fetched_at": "2026-10-04T08:22:50+00:00",
+      "prices_fetched_at": "2026-10-04T08:22:50+00:00"
      },
      "JP": {
       "country": "JP",
@@ -535,6 +684,48 @@
         "ticker": "5020.T",
         "chg_1m_pct": 1.87,
         "vol_20d_pct": 38.67
+       },
+       {
+        "sector": "Health",
+        "ticker": "4502.T",
+        "chg_1m_pct": -2.12,
+        "vol_20d_pct": 23.7
+       },
+       {
+        "sector": "Industrials",
+        "ticker": "6301.T",
+        "chg_1m_pct": 0.83,
+        "vol_20d_pct": 34.48
+       },
+       {
+        "sector": "ConsumerDisc",
+        "ticker": "7203.T",
+        "chg_1m_pct": -9.49,
+        "vol_20d_pct": 25.45
+       },
+       {
+        "sector": "Staples",
+        "ticker": "2914.T",
+        "chg_1m_pct": -1.51,
+        "vol_20d_pct": 17.81
+       },
+       {
+        "sector": "Utilities",
+        "ticker": "9501.T",
+        "chg_1m_pct": -2.62,
+        "vol_20d_pct": 38.45
+       },
+       {
+        "sector": "Materials",
+        "ticker": "5401.T",
+        "chg_1m_pct": -4.08,
+        "vol_20d_pct": 28.05
+       },
+       {
+        "sector": "Communication",
+        "ticker": "9432.T",
+        "chg_1m_pct": -1.51,
+        "vol_20d_pct": 19.06
        }
       ],
       "macro": [
@@ -548,8 +739,8 @@
        {
         "id": "JP-n1",
         "title": "Does Nikkei 225 Inclusion Change The Bull Case For Capcom Stock (TSE:9697)?",
-        "source": "Simply Wall Street",
-        "url": "https://news.google.com/rss/articles/CBMiygFBVV95cUxQcDRFQzF2dFI5YWRoUU9ndklRcWdlZk9ZMnhNLTNkZnVhVHNWVnZFVnpjeEllb2d1eFBBUjRha0dUSjBvSkdRTExJczBhNkpmUG4zc2JGVWdyWVUtVllqdzU5YmJINGx1VzJGZ2NFdWdWSnM5WG1IU0Y2V21fekZhUlZBRGxWaGcxbFczVEVzWHhCcEJ5YjBuRTNjRURjelNzRmd2SzBTd2trWXF5MlpfUlV0WnNCOXd3ZnF2X0k0RDA3cFF4dTBSVWtR0gHKAUFVX3lxTFBwNEVDMXZ0UjlhZGhRT2d2SVFxZ2VmT1kyeE0tM2RmdWFUc1ZWdkVWemN4SWVvZ3V4UEFSNGFrR1RKMG9KR1FMTElzMGE2SmZQbjNzYkZVZ3JZVS1WWWp3NTliYkg0bHVXMkZnY0V1Z1ZKczlYbUhTRjZXbV96RmFSVkFEbFZoZzFsVzNURXNYeEJwQnliMG5FM2NFRGN6U3NGZ3ZLMFN3a2tZcXkyWl9SVXRac0I5d3dmcXZfSTREMDdwUXh1MFJVa1E?oc=5",
+        "source": "simplywall.st",
+        "url": "https://news.google.com/rss/articles/CBMixAFBVV95cUxNeDdVcHJuOEx4SVRnbjB5YnZ6SVZFc3FjODZSdHdrSXVyZ1R4TThHMTdkdXVuVHpPejJrbnhUS1JkQUJ3eVZ4SDQxNVBuSTQ2TWJaRGcyaFFIS3Z5MEJ2bWZDNVByU2tod3FWb0ZaWXhOcm1kX2UzUVprazB2LXhRRG9xODN2b2ktLTZaNTRPNUR2TVVMQl85emt4V1Z5czRSbG4zT2lqTkFCT2RjQkt1aVhBcEprOVNEZEZadUl0amNvSE5x0gHKAUFVX3lxTFBwNEVDMXZ0UjlhZGhRT2d2SVFxZ2VmT1kyeE0tM2RmdWFUc1ZWdkVWemN4SWVvZ3V4UEFSNGFrR1RKMG9KR1FMTElzMGE2SmZQbjNzYkZVZ3JZVS1WWWp3NTliYkg0bHVXMkZnY0V1Z1ZKczlYbUhTRjZXbV96RmFSVkFEbFZoZzFsVzNURXNYeEJwQnliMG5FM2NFRGN6U3NGZ3ZLMFN3a2tZcXkyWl9SVXRac0I5d3dmcXZfSTREMDdwUXh1MFJVa1E?oc=5",
         "published": "2026-10-04T06:29+00:00"
        },
        {
@@ -602,13 +793,15 @@
         "published": "2026-10-02T07:11+00:00"
        }
       ],
-      "news_fetched_at": "2026-10-04T07:31:21+00:00"
+      "coverage": "full",
+      "news_fetched_at": "2026-10-04T08:22:58+00:00",
+      "prices_fetched_at": "2026-10-04T08:22:58+00:00"
      }
     }
    }
   },
   {
-   "t": 0.0,
+   "t": 0.02,
    "event": "portfolio",
    "data": {
     "by_market": [
@@ -669,7 +862,7 @@
    }
   },
   {
-   "t": 0.0,
+   "t": 0.02,
    "event": "stage",
    "data": {
     "name": "data",
@@ -677,7 +870,7 @@
    }
   },
   {
-   "t": 0.0,
+   "t": 0.02,
    "event": "stage",
    "data": {
     "name": "blind_vote",
@@ -685,7 +878,7 @@
    }
   },
   {
-   "t": 5.01,
+   "t": 7.87,
    "event": "vote",
    "data": {
     "agent": "HK",
@@ -695,7 +888,7 @@
       "country": "HK",
       "sector": "Tech",
       "view": "bearish",
-      "confidence": 0.6
+      "confidence": 0.5
      },
      {
       "country": "HK",
@@ -707,20 +900,20 @@
       "country": "HK",
       "sector": "Property",
       "view": "bearish",
-      "confidence": 0.7
+      "confidence": 0.65
      },
      {
       "country": "HK",
       "sector": "Energy",
       "view": "neutral",
-      "confidence": 0.45
+      "confidence": 0.4
      }
     ],
     "source": "llm"
    }
   },
   {
-   "t": 6.44,
+   "t": 8.07,
    "event": "vote",
    "data": {
     "agent": "US",
@@ -755,7 +948,42 @@
    }
   },
   {
-   "t": 7.47,
+   "t": 9.53,
+   "event": "vote",
+   "data": {
+    "agent": "CN",
+    "round": "blind",
+    "cells": [
+     {
+      "country": "CN",
+      "sector": "Tech",
+      "view": "bearish",
+      "confidence": 0.55
+     },
+     {
+      "country": "CN",
+      "sector": "Financials",
+      "view": "neutral",
+      "confidence": 0.4
+     },
+     {
+      "country": "CN",
+      "sector": "Property",
+      "view": "bearish",
+      "confidence": 0.45
+     },
+     {
+      "country": "CN",
+      "sector": "Energy",
+      "view": "neutral",
+      "confidence": 0.4
+     }
+    ],
+    "source": "llm"
+   }
+  },
+  {
+   "t": 10.42,
    "event": "vote",
    "data": {
     "agent": "CHAIR",
@@ -765,69 +993,69 @@
       "country": "HK",
       "sector": "Tech",
       "view": "bearish",
-      "confidence": 0.6
+      "confidence": 0.55
      },
      {
       "country": "HK",
       "sector": "Financials",
+      "view": "bearish",
+      "confidence": 0.6
+     },
+     {
+      "country": "HK",
+      "sector": "Property",
+      "view": "bearish",
+      "confidence": 0.65
+     },
+     {
+      "country": "HK",
+      "sector": "Energy",
+      "view": "neutral",
+      "confidence": 0.45
+     },
+     {
+      "country": "CN",
+      "sector": "Tech",
+      "view": "neutral",
+      "confidence": 0.4
+     },
+     {
+      "country": "CN",
+      "sector": "Financials",
+      "view": "bearish",
+      "confidence": 0.6
+     },
+     {
+      "country": "CN",
+      "sector": "Property",
+      "view": "bearish",
+      "confidence": 0.6
+     },
+     {
+      "country": "CN",
+      "sector": "Energy",
+      "view": "neutral",
+      "confidence": 0.45
+     },
+     {
+      "country": "US",
+      "sector": "Tech",
+      "view": "neutral",
+      "confidence": 0.45
+     },
+     {
+      "country": "US",
+      "sector": "Financials",
+      "view": "neutral",
+      "confidence": 0.4
+     },
+     {
+      "country": "US",
+      "sector": "Property",
       "view": "bearish",
       "confidence": 0.5
      },
      {
-      "country": "HK",
-      "sector": "Property",
-      "view": "bearish",
-      "confidence": 0.7
-     },
-     {
-      "country": "HK",
-      "sector": "Energy",
-      "view": "neutral",
-      "confidence": 0.4
-     },
-     {
-      "country": "CN",
-      "sector": "Tech",
-      "view": "bearish",
-      "confidence": 0.45
-     },
-     {
-      "country": "CN",
-      "sector": "Financials",
-      "view": "neutral",
-      "confidence": 0.45
-     },
-     {
-      "country": "CN",
-      "sector": "Property",
-      "view": "neutral",
-      "confidence": 0.3
-     },
-     {
-      "country": "CN",
-      "sector": "Energy",
-      "view": "neutral",
-      "confidence": 0.4
-     },
-     {
-      "country": "US",
-      "sector": "Tech",
-      "view": "bearish",
-      "confidence": 0.45
-     },
-     {
-      "country": "US",
-      "sector": "Financials",
-      "view": "neutral",
-      "confidence": 0.35
-     },
-     {
-      "country": "US",
-      "sector": "Property",
-      "view": "bearish",
-      "confidence": 0.7
-     },
-     {
       "country": "US",
       "sector": "Energy",
       "view": "neutral",
@@ -836,7 +1064,7 @@
      {
       "country": "JP",
       "sector": "Tech",
-      "view": "bearish",
+      "view": "neutral",
       "confidence": 0.4
      },
      {
@@ -849,7 +1077,7 @@
       "country": "JP",
       "sector": "Property",
       "view": "bearish",
-      "confidence": 0.6
+      "confidence": 0.45
      },
      {
       "country": "JP",
@@ -862,7 +1090,42 @@
    }
   },
   {
-   "t": 9.22,
+   "t": 12.68,
+   "event": "vote",
+   "data": {
+    "agent": "JP",
+    "round": "blind",
+    "cells": [
+     {
+      "country": "JP",
+      "sector": "Tech",
+      "view": "neutral",
+      "confidence": 0.42
+     },
+     {
+      "country": "JP",
+      "sector": "Financials",
+      "view": "bearish",
+      "confidence": 0.58
+     },
+     {
+      "country": "JP",
+      "sector": "Property",
+      "view": "bearish",
+      "confidence": 0.64
+     },
+     {
+      "country": "JP",
+      "sector": "Energy",
+      "view": "neutral",
+      "confidence": 0.4
+     }
+    ],
+    "source": "llm"
+   }
+  },
+  {
+   "t": 19.3,
    "event": "vote",
    "data": {
     "agent": "SPILLOVER",
@@ -872,7 +1135,7 @@
       "country": "HK",
       "sector": "Tech",
       "view": "bearish",
-      "confidence": 0.7
+      "confidence": 0.6
      },
      {
       "country": "HK",
@@ -890,139 +1153,21 @@
       "country": "HK",
       "sector": "Energy",
       "view": "bearish",
-      "confidence": 0.5
-     },
-     {
-      "country": "CN",
-      "sector": "Tech",
-      "view": "bearish",
-      "confidence": 0.6
-     },
-     {
-      "country": "CN",
-      "sector": "Financials",
-      "view": "neutral",
       "confidence": 0.4
      },
      {
       "country": "CN",
-      "sector": "Property",
-      "view": "neutral",
-      "confidence": 0.35
-     },
-     {
-      "country": "CN",
-      "sector": "Energy",
-      "view": "neutral",
-      "confidence": 0.4
-     },
-     {
-      "country": "US",
       "sector": "Tech",
       "view": "bearish",
       "confidence": 0.5
      },
      {
-      "country": "US",
+      "country": "CN",
       "sector": "Financials",
-      "view": "neutral",
-      "confidence": 0.4
-     },
-     {
-      "country": "US",
-      "sector": "Property",
-      "view": "bearish",
-      "confidence": 0.65
-     },
-     {
-      "country": "US",
-      "sector": "Energy",
-      "view": "neutral",
-      "confidence": 0.4
-     },
-     {
-      "country": "JP",
-      "sector": "Tech",
-      "view": "neutral",
-      "confidence": 0.4
-     },
-     {
-      "country": "JP",
-      "sector": "Financials",
-      "view": "neutral",
-      "confidence": 0.4
-     },
-     {
-      "country": "JP",
-      "sector": "Property",
       "view": "bearish",
       "confidence": 0.55
      },
      {
-      "country": "JP",
-      "sector": "Energy",
-      "view": "neutral",
-      "confidence": 0.4
-     }
-    ],
-    "source": "llm"
-   }
-  },
-  {
-   "t": 10.04,
-   "event": "vote",
-   "data": {
-    "agent": "JP",
-    "round": "blind",
-    "cells": [
-     {
-      "country": "JP",
-      "sector": "Tech",
-      "view": "neutral",
-      "confidence": 0.52
-     },
-     {
-      "country": "JP",
-      "sector": "Financials",
-      "view": "bearish",
-      "confidence": 0.64
-     },
-     {
-      "country": "JP",
-      "sector": "Property",
-      "view": "bearish",
-      "confidence": 0.74
-     },
-     {
-      "country": "JP",
-      "sector": "Energy",
-      "view": "neutral",
-      "confidence": 0.48
-     }
-    ],
-    "source": "llm"
-   }
-  },
-  {
-   "t": 10.55,
-   "event": "vote",
-   "data": {
-    "agent": "CN",
-    "round": "blind",
-    "cells": [
-     {
-      "country": "CN",
-      "sector": "Tech",
-      "view": "bearish",
-      "confidence": 0.65
-     },
-     {
-      "country": "CN",
-      "sector": "Financials",
-      "view": "neutral",
-      "confidence": 0.45
-     },
-     {
       "country": "CN",
       "sector": "Property",
       "view": "bearish",
@@ -1033,13 +1178,61 @@
       "sector": "Energy",
       "view": "neutral",
       "confidence": 0.4
+     },
+     {
+      "country": "US",
+      "sector": "Tech",
+      "view": "neutral",
+      "confidence": 0.45
+     },
+     {
+      "country": "US",
+      "sector": "Financials",
+      "view": "neutral",
+      "confidence": 0.4
+     },
+     {
+      "country": "US",
+      "sector": "Property",
+      "view": "bearish",
+      "confidence": 0.5
+     },
+     {
+      "country": "US",
+      "sector": "Energy",
+      "view": "neutral",
+      "confidence": 0.4
+     },
+     {
+      "country": "JP",
+      "sector": "Tech",
+      "view": "bullish",
+      "confidence": 0.5
+     },
+     {
+      "country": "JP",
+      "sector": "Financials",
+      "view": "bearish",
+      "confidence": 0.5
+     },
+     {
+      "country": "JP",
+      "sector": "Property",
+      "view": "bearish",
+      "confidence": 0.5
+     },
+     {
+      "country": "JP",
+      "sector": "Energy",
+      "view": "neutral",
+      "confidence": 0.4
      }
     ],
     "source": "llm"
    }
   },
   {
-   "t": 31.68,
+   "t": 41.2,
    "event": "vote",
    "data": {
     "agent": "BEAR",
@@ -1049,31 +1242,31 @@
       "country": "HK",
       "sector": "Tech",
       "view": "bearish",
-      "confidence": 0.82
+      "confidence": 0.85
      },
      {
       "country": "HK",
       "sector": "Financials",
       "view": "bearish",
-      "confidence": 0.78
+      "confidence": 0.85
      },
      {
       "country": "HK",
       "sector": "Property",
       "view": "bearish",
-      "confidence": 0.85
+      "confidence": 0.9
      },
      {
       "country": "HK",
       "sector": "Energy",
       "view": "bearish",
-      "confidence": 0.65
+      "confidence": 0.7
      },
      {
       "country": "CN",
       "sector": "Tech",
       "view": "bearish",
-      "confidence": 0.75
+      "confidence": 0.8
      },
      {
       "country": "CN",
@@ -1085,7 +1278,7 @@
       "country": "CN",
       "sector": "Property",
       "view": "bearish",
-      "confidence": 0.7
+      "confidence": 0.75
      },
      {
       "country": "CN",
@@ -1097,7 +1290,7 @@
       "country": "US",
       "sector": "Tech",
       "view": "bearish",
-      "confidence": 0.72
+      "confidence": 0.6
      },
      {
       "country": "US",
@@ -1109,19 +1302,19 @@
       "country": "US",
       "sector": "Property",
       "view": "bearish",
-      "confidence": 0.85
+      "confidence": 0.75
      },
      {
       "country": "US",
       "sector": "Energy",
-      "view": "bearish",
-      "confidence": 0.6
+      "view": "neutral",
+      "confidence": 0.5
      },
      {
       "country": "JP",
       "sector": "Tech",
       "view": "bearish",
-      "confidence": 0.6
+      "confidence": 0.55
      },
      {
       "country": "JP",
@@ -1133,20 +1326,20 @@
       "country": "JP",
       "sector": "Property",
       "view": "bearish",
-      "confidence": 0.78
+      "confidence": 0.7
      },
      {
       "country": "JP",
       "sector": "Energy",
       "view": "neutral",
-      "confidence": 0.5
+      "confidence": 0.45
      }
     ],
     "source": "llm"
    }
   },
   {
-   "t": 31.68,
+   "t": 41.2,
    "event": "stage",
    "data": {
     "name": "blind_vote",
@@ -1154,7 +1347,7 @@
    }
   },
   {
-   "t": 31.68,
+   "t": 41.2,
    "event": "stage",
    "data": {
     "name": "debate",
@@ -1162,51 +1355,230 @@
    }
   },
   {
-   "t": 31.68,
+   "t": 41.2,
    "event": "message",
    "data": {
     "agent": "CHAIR",
-    "text": "Council convened on: \"Global Bond Selloff Pushes U.S. Treasury Yields to 24-Year Highs\" (Yahoo Finance, published 03 Oct 2026 13:22 UTC). Blind votes are in; members, make your case.",
+    "text": "Council convened on: \"China’s property bust exposes deep cracks in local government finances: Report\" (IANS LIVE, published 04 Oct 2026 07:23 UTC). Blind votes are in; members, make your case.",
     "source_ids": []
    }
   },
   {
-   "t": 40.63,
+   "t": 48.47,
+   "event": "message",
+   "data": {
+    "agent": "US",
+    "text": "Surging United States Treasury yields dominate local market dynamics, pressuring the property and financial sectors while technology remains resilient.",
+    "source_ids": [
+     "US-10y",
+     "US-n1",
+     "US-n4",
+     "US-n5",
+     "US-Property",
+     "US-Financials",
+     "US-Tech"
+    ],
+    "unverified": []
+   }
+  },
+  {
+   "t": 48.47,
+   "event": "message",
+   "data": {
+    "agent": "US",
+    "text": "US 10-year Treasury yields have surged 10.03% over the past month to 5.277%.",
+    "source_ids": [
+     "US-10y"
+    ],
+    "unverified": []
+   }
+  },
+  {
+   "t": 48.47,
+   "event": "message",
+   "data": {
+    "agent": "US",
+    "text": "Global bond selloffs have pushed US Treasury yields to fresh, generational highs.",
+    "source_ids": [
+     "US-n1",
+     "US-n4",
+     "US-n5"
+    ],
+    "unverified": []
+   }
+  },
+  {
+   "t": 48.47,
+   "event": "message",
+   "data": {
+    "agent": "US",
+    "text": "The US property sector is down 6.68% over the past month, reflecting the pressure of higher rates.",
+    "source_ids": [
+     "US-Property"
+    ],
+    "unverified": []
+   }
+  },
+  {
+   "t": 48.47,
+   "event": "message",
+   "data": {
+    "agent": "US",
+    "text": "Financials have also struggled, dropping 7.23% in the last month.",
+    "source_ids": [
+     "US-Financials"
+    ],
+    "unverified": []
+   }
+  },
+  {
+   "t": 48.47,
+   "event": "message",
+   "data": {
+    "agent": "US",
+    "text": "Despite rising yields, the US technology sector has gained 8.83% over the past month.",
+    "source_ids": [
+     "US-Tech"
+    ],
+    "unverified": []
+   }
+  },
+  {
+   "t": 48.47,
+   "event": "message",
+   "data": {
+    "agent": "US",
+    "text": "Challenge to BEAR: Your bearish view on US Tech conflicts with our data showing the sector is up 8.83% over the past month.",
+    "source_ids": []
+   }
+  },
+  {
+   "t": 48.47,
+   "event": "report",
+   "data": {
+    "agent": "US",
+    "impact_summary": "Surging United States Treasury yields dominate local market dynamics, pressuring the property and financial sectors while technology remains resilient.",
+    "claims": [
+     {
+      "text": "US 10-year Treasury yields have surged 10.03% over the past month to 5.277%.",
+      "source_ids": [
+       "US-10y"
+      ]
+     },
+     {
+      "text": "Global bond selloffs have pushed US Treasury yields to fresh, generational highs.",
+      "source_ids": [
+       "US-n1",
+       "US-n4",
+       "US-n5"
+      ]
+     },
+     {
+      "text": "The US property sector is down 6.68% over the past month, reflecting the pressure of higher rates.",
+      "source_ids": [
+       "US-Property"
+      ]
+     },
+     {
+      "text": "Financials have also struggled, dropping 7.23% in the last month.",
+      "source_ids": [
+       "US-Financials"
+      ]
+     },
+     {
+      "text": "Despite rising yields, the US technology sector has gained 8.83% over the past month.",
+      "source_ids": [
+       "US-Tech"
+      ]
+     }
+    ],
+    "challenges": [
+     {
+      "to_agent": "BEAR",
+      "text": "Your bearish view on US Tech conflicts with our data showing the sector is up 8.83% over the past month."
+     }
+    ],
+    "triggers": [
+     {
+      "condition": "US 10-year Treasury yields stabilize or reverse their recent surge.",
+      "would_change": "Could relieve pressure on US Property and Financials, shifting my view to neutral or bullish."
+     },
+     {
+      "condition": "The S&P 500 experiences a sharp downturn driven by bond market volatility.",
+      "would_change": "Would turn my bullish view on US Tech to neutral or bearish."
+     }
+    ]
+   }
+  },
+  {
+   "t": 51.57,
    "event": "message",
    "data": {
     "agent": "HK",
-    "text": "Higher US yields tighten Hong Kong's rate-linked conditions through the currency peg, adding pressure on already weak Hong Kong banks, tech and property, while energy looks less affected.",
+    "text": "Fresh evidence of strain from China's property downturn adds to pressure on Hong Kong shares, with property, banks and tech most exposed, while the pegged currency stays stable.",
     "source_ids": [
      "HK-idx",
      "HK-n5",
-     "HK-fx",
-     "HK-n7",
+     "EVENT",
      "HK-n4",
-     "HK-n6",
-     "HK-n8"
+     "HK-fx",
+     "HK-hibor",
+     "HK-base"
     ],
     "unverified": []
    }
   },
   {
-   "t": 40.63,
+   "t": 51.57,
    "event": "message",
    "data": {
     "agent": "HK",
-    "text": "Hang Seng fell 2.6% in one day to 23,972.29 and is down 5.29% over one month, so much of the shock is already priced.",
+    "text": "The Hang Seng fell 2.6% in one day to 23,972.29 and is down 5.29% over a month; the event adds to existing weakness.",
     "source_ids": [
      "HK-idx",
-     "HK-n5"
+     "HK-n5",
+     "EVENT"
     ],
     "unverified": []
    }
   },
   {
-   "t": 40.63,
+   "t": 51.57,
    "event": "message",
    "data": {
     "agent": "HK",
-    "text": "USD/HKD is 7.8463, unchanged on the day and up 0.08% in a month; the peg is holding, so local rates should track US yields. HIBOR not in our data.",
+    "text": "Hong Kong property proxy 0016.HK is down 7.67% over a month with 34.61% volatility, the highest among sectors, so mainland property stress is a direct risk.",
+    "source_ids": [
+     "HK-idx",
+     "EVENT"
+    ],
+    "unverified": [
+     "7.67 does not match any cited value",
+     "34.61 does not match any cited value"
+    ]
+   }
+  },
+  {
+   "t": 51.57,
+   "event": "message",
+   "data": {
+    "agent": "HK",
+    "text": "Financials proxy 0005.HK is down 8.06% over a month, and news cites banks sliding. Mainland local-government credit worries could weigh further on bank sentiment.",
+    "source_ids": [
+     "HK-n4",
+     "EVENT"
+    ],
+    "unverified": [
+     "8.06 does not match any cited value"
+    ]
+   }
+  },
+  {
+   "t": 51.57,
+   "event": "message",
+   "data": {
+    "agent": "HK",
+    "text": "The peg is stable: USD/HKD at 7.8463, 0.0% daily change, so the shock is showing up in equities, not the currency.",
     "source_ids": [
      "HK-fx"
     ],
@@ -1214,154 +1586,125 @@
    }
   },
   {
-   "t": 40.63,
+   "t": 51.57,
    "event": "message",
    "data": {
     "agent": "HK",
-    "text": "Property is the most rate-sensitive cell: the property proxy is down 7.67% in a month with 34.61% volatility, the highest among sectors.",
+    "text": "1M HIBOR is 2.968 versus the HKMA base rate of 4.25. Rates give no clear relief; local funding conditions are not the main stress channel in our data.",
     "source_ids": [
-     "HK-n7"
+     "HK-hibor",
+     "HK-base"
     ],
-    "unverified": [
-     "7.67 does not match any cited value",
-     "34.61 does not match any cited value"
-    ]
+    "unverified": []
    }
   },
   {
-   "t": 40.63,
+   "t": 51.57,
    "event": "message",
    "data": {
     "agent": "HK",
-    "text": "Tech and Financials proxies fell 8.26% and 8.06% in a month; news cites banks and tech leading the slide, including HSBC, Alibaba and Tencent.",
-    "source_ids": [
-     "HK-n4",
-     "HK-n6"
-    ],
-    "unverified": [
-     "8.26 does not match any cited value",
-     "8.06 does not match any cited value"
-    ]
-   }
-  },
-  {
-   "t": 40.63,
-   "event": "message",
-   "data": {
-    "agent": "HK",
-    "text": "Energy proxy is down 6.0% in a month, the smallest decline, so Energy is less rate-exposed; I hold neutral, lower confidence.",
-    "source_ids": [
-     "HK-n8"
-    ],
-    "unverified": [
-     "6 does not match any cited value"
-    ]
-   }
-  },
-  {
-   "t": 40.63,
-   "event": "message",
-   "data": {
-    "agent": "HK",
-    "text": "Challenge to US: Your bullish US Tech call at 0.80 ignores that higher yields hit long-duration tech; our data shows Hong Kong tech already down 8.26% in a month.",
+    "text": "Challenge to CN: CN Financials neutral conflicts with Hong Kong data: HK bank proxy is down 8.06% over a month and banks led the slide, signaling the market prices credit risk.",
     "source_ids": []
    }
   },
   {
-   "t": 40.63,
+   "t": 51.57,
    "event": "message",
    "data": {
     "agent": "HK",
-    "text": "Challenge to BEAR: Bearish 0.65 on Hong Kong Energy overstates the case: Energy fell least among sectors at 6.0% in a month and has no direct rate channel in our data.",
+    "text": "Challenge to BEAR: Bearish 0.70 on HK Energy is too strong: Energy proxy 0883.HK is down 6.0%, the mildest sector fall, and the event link is indirect.",
     "source_ids": []
    }
   },
   {
-   "t": 40.63,
+   "t": 51.57,
    "event": "report",
    "data": {
     "agent": "HK",
-    "impact_summary": "Higher US yields tighten Hong Kong's rate-linked conditions through the currency peg, adding pressure on already weak Hong Kong banks, tech and property, while energy looks less affected.",
+    "impact_summary": "Fresh evidence of strain from China's property downturn adds to pressure on Hong Kong shares, with property, banks and tech most exposed, while the pegged currency stays stable.",
     "claims": [
      {
-      "text": "Hang Seng fell 2.6% in one day to 23,972.29 and is down 5.29% over one month, so much of the shock is already priced.",
+      "text": "The Hang Seng fell 2.6% in one day to 23,972.29 and is down 5.29% over a month; the event adds to existing weakness.",
       "source_ids": [
        "HK-idx",
-       "HK-n5"
+       "HK-n5",
+       "EVENT"
       ]
      },
      {
-      "text": "USD/HKD is 7.8463, unchanged on the day and up 0.08% in a month; the peg is holding, so local rates should track US yields. HIBOR not in our data.",
+      "text": "Hong Kong property proxy 0016.HK is down 7.67% over a month with 34.61% volatility, the highest among sectors, so mainland property stress is a direct risk.",
+      "source_ids": [
+       "HK-idx",
+       "EVENT"
+      ]
+     },
+     {
+      "text": "Financials proxy 0005.HK is down 8.06% over a month, and news cites banks sliding. Mainland local-government credit worries could weigh further on bank sentiment.",
+      "source_ids": [
+       "HK-n4",
+       "EVENT"
+      ]
+     },
+     {
+      "text": "The peg is stable: USD/HKD at 7.8463, 0.0% daily change, so the shock is showing up in equities, not the currency.",
       "source_ids": [
        "HK-fx"
       ]
      },
      {
-      "text": "Property is the most rate-sensitive cell: the property proxy is down 7.67% in a month with 34.61% volatility, the highest among sectors.",
+      "text": "1M HIBOR is 2.968 versus the HKMA base rate of 4.25. Rates give no clear relief; local funding conditions are not the main stress channel in our data.",
       "source_ids": [
-       "HK-n7"
-      ]
-     },
-     {
-      "text": "Tech and Financials proxies fell 8.26% and 8.06% in a month; news cites banks and tech leading the slide, including HSBC, Alibaba and Tencent.",
-      "source_ids": [
-       "HK-n4",
-       "HK-n6"
-      ]
-     },
-     {
-      "text": "Energy proxy is down 6.0% in a month, the smallest decline, so Energy is less rate-exposed; I hold neutral, lower confidence.",
-      "source_ids": [
-       "HK-n8"
+       "HK-hibor",
+       "HK-base"
       ]
      }
     ],
     "challenges": [
      {
-      "to_agent": "US",
-      "text": "Your bullish US Tech call at 0.80 ignores that higher yields hit long-duration tech; our data shows Hong Kong tech already down 8.26% in a month."
+      "to_agent": "CN",
+      "text": "CN Financials neutral conflicts with Hong Kong data: HK bank proxy is down 8.06% over a month and banks led the slide, signaling the market prices credit risk."
      },
      {
       "to_agent": "BEAR",
-      "text": "Bearish 0.65 on Hong Kong Energy overstates the case: Energy fell least among sectors at 6.0% in a month and has no direct rate channel in our data."
+      "text": "Bearish 0.70 on HK Energy is too strong: Energy proxy 0883.HK is down 6.0%, the mildest sector fall, and the event link is indirect."
      }
     ],
     "triggers": [
      {
-      "condition": "USD/HKD moves sharply away from 7.8463 toward the weak edge of its band, signalling outflow stress",
-      "would_change": "Turn more bearish on Hong Kong Financials and Property"
+      "condition": "Hang Seng recovers above 24,000 after mainland markets reopen from the holiday with stable bank and property proxies",
+      "would_change": "Reduce bearishness on HK Financials and Property toward neutral"
      },
      {
-      "condition": "US Treasury yields retreat from the 24-year highs and the Hang Seng recovers above 24,000",
-      "would_change": "Move Tech and Property toward neutral"
+      "condition": "1M HIBOR rises sharply or USD/HKD moves away from the current 7.8463 level",
+      "would_change": "Shifts the view to funding stress, deepening bearishness on banks and property"
      },
      {
-      "condition": "Mainland markets reopen after the holiday with strong Stock Connect inflows",
-      "would_change": "Reduce bearishness on Tech and Financials"
+      "condition": "Further detail on local-government debt stress reaches mainland banks or developers",
+      "would_change": "Raises confidence in bearish HK Financials and Property views"
      }
     ]
    }
   },
   {
-   "t": 44.88,
+   "t": 54.84,
    "event": "message",
    "data": {
     "agent": "CN",
-    "text": "Higher global borrowing costs threaten Mainland China Technology and Property, but currency pressure and domestic policy responses remain unconfirmed.",
+    "text": "The report adds downside risk to Mainland China Property, while Financials depend on policy support and evidence of credit stress.",
     "source_ids": [
      "EVENT",
-     "CN-fx",
-     "CN-idx"
+     "CN-idx",
+     "CN-fx"
     ],
     "unverified": []
    }
   },
   {
-   "t": 44.88,
+   "t": 54.84,
    "event": "message",
    "data": {
     "agent": "CN",
-    "text": "The bond selloff creates potential external financing pressure; a corresponding increase in Mainland China interest rates is not in our data. [EVENT]",
+    "text": "Local government financing concerns increase Property downside risk, but quantified bank exposures and fiscal shortfalls are not in our data. [EVENT]",
     "source_ids": [
      "EVENT"
     ],
@@ -1369,195 +1712,205 @@
    }
   },
   {
-   "t": 44.88,
+   "t": 54.84,
    "event": "message",
    "data": {
     "agent": "CN",
-    "text": "USD/CNY fell 0.21% over the preceding month, showing yuan strength rather than depreciation before the event; subsequent currency pressure is unconfirmed. [CN-fx]",
-    "source_ids": [
-     "CN-fx"
-    ],
-    "unverified": []
-   }
-  },
-  {
-   "t": 44.88,
-   "event": "message",
-   "data": {
-    "agent": "CN",
-    "text": "Shanghai Composite declined 3.61% over the preceding month; this weakness predates the event and cannot establish its market impact. [CN-idx]",
-    "source_ids": [
-     "CN-idx"
-    ],
-    "unverified": []
-   }
-  },
-  {
-   "t": 44.88,
-   "event": "message",
-   "data": {
-    "agent": "CN",
-    "text": "Central bank responses, domestic bond yields and capital flows are not in our data; stronger claims about monetary transmission remain unsupported. [EVENT] [CN-fx]",
-    "source_ids": [
-     "EVENT",
-     "CN-fx"
-    ],
-    "unverified": []
-   }
-  },
-  {
-   "t": 44.88,
-   "event": "message",
-   "data": {
-    "agent": "CN",
-    "text": "Post-event Mainland China trading is not in our data; the index and currency observations precede the news. [CN-idx] [CN-fx] [EVENT]",
+    "text": "Property's proxy gained 35.67% monthly with 69.0% volatility; this suggests reversal vulnerability, not an already-realized response to the report. [CN-idx] [EVENT]",
     "source_ids": [
      "CN-idx",
-     "CN-fx",
+     "EVENT"
+    ],
+    "unverified": [
+     "35.67 does not match any cited value",
+     "69 does not match any cited value"
+    ]
+   }
+  },
+  {
+   "t": 54.84,
+   "event": "message",
+   "data": {
+    "agent": "CN",
+    "text": "Financials' proxy gained 2.6% monthly despite Shanghai's 3.61% decline; local prices support caution rather than confirmed broad banking stress. [CN-idx]",
+    "source_ids": [
+     "CN-idx"
+    ],
+    "unverified": [
+     "2.6 does not match any cited value"
+    ]
+   }
+  },
+  {
+   "t": 54.84,
+   "event": "message",
+   "data": {
+    "agent": "CN",
+    "text": "USD/CNY fell 0.21% monthly; currency prices do not corroborate depreciation pressure, while capital-flow evidence is not in our data. [CN-fx]",
+    "source_ids": [
+     "CN-fx"
+    ],
+    "unverified": []
+   }
+  },
+  {
+   "t": 54.84,
+   "event": "message",
+   "data": {
+    "agent": "CN",
+    "text": "Prices predate the report; an event-driven central bank response, interest-rate repricing and credit tightening are not in our data. [CN-idx] [EVENT]",
+    "source_ids": [
+     "CN-idx",
      "EVENT"
     ],
     "unverified": []
    }
   },
   {
-   "t": 44.88,
+   "t": 54.84,
+   "event": "message",
+   "data": {
+    "agent": "CN",
+    "text": "Challenge to CHAIR: Your bearish Mainland China Financials view needs credit evidence: the local proxy rose 2.6% monthly, and quantified banking exposures are not in our data. [CN-idx] [EVENT]",
+    "source_ids": []
+   }
+  },
+  {
+   "t": 54.84,
    "event": "report",
    "data": {
     "agent": "CN",
-    "impact_summary": "Higher global borrowing costs threaten Mainland China Technology and Property, but currency pressure and domestic policy responses remain unconfirmed.",
+    "impact_summary": "The report adds downside risk to Mainland China Property, while Financials depend on policy support and evidence of credit stress.",
     "claims": [
      {
-      "text": "The bond selloff creates potential external financing pressure; a corresponding increase in Mainland China interest rates is not in our data. [EVENT]",
+      "text": "Local government financing concerns increase Property downside risk, but quantified bank exposures and fiscal shortfalls are not in our data. [EVENT]",
       "source_ids": [
        "EVENT"
       ]
      },
      {
-      "text": "USD/CNY fell 0.21% over the preceding month, showing yuan strength rather than depreciation before the event; subsequent currency pressure is unconfirmed. [CN-fx]",
+      "text": "Property's proxy gained 35.67% monthly with 69.0% volatility; this suggests reversal vulnerability, not an already-realized response to the report. [CN-idx] [EVENT]",
       "source_ids": [
-       "CN-fx"
+       "CN-idx",
+       "EVENT"
       ]
      },
      {
-      "text": "Shanghai Composite declined 3.61% over the preceding month; this weakness predates the event and cannot establish its market impact. [CN-idx]",
+      "text": "Financials' proxy gained 2.6% monthly despite Shanghai's 3.61% decline; local prices support caution rather than confirmed broad banking stress. [CN-idx]",
       "source_ids": [
        "CN-idx"
       ]
      },
      {
-      "text": "Central bank responses, domestic bond yields and capital flows are not in our data; stronger claims about monetary transmission remain unsupported. [EVENT] [CN-fx]",
+      "text": "USD/CNY fell 0.21% monthly; currency prices do not corroborate depreciation pressure, while capital-flow evidence is not in our data. [CN-fx]",
       "source_ids": [
-       "EVENT",
        "CN-fx"
       ]
      },
      {
-      "text": "Post-event Mainland China trading is not in our data; the index and currency observations precede the news. [CN-idx] [CN-fx] [EVENT]",
+      "text": "Prices predate the report; an event-driven central bank response, interest-rate repricing and credit tightening are not in our data. [CN-idx] [EVENT]",
       "source_ids": [
        "CN-idx",
-       "CN-fx",
        "EVENT"
       ]
      }
     ],
-    "challenges": [],
+    "challenges": [
+     {
+      "to_agent": "CHAIR",
+      "text": "Your bearish Mainland China Financials view needs credit evidence: the local proxy rose 2.6% monthly, and quantified banking exposures are not in our data. [CN-idx] [EVENT]"
+     }
+    ],
     "triggers": [
      {
-      "condition": "Subsequent USD/CNY observations show sustained yuan depreciation rather than the earlier strengthening. [CN-fx]",
-      "would_change": "Increase concern about currency transmission and external financing pressure."
+      "condition": "Verified central bank easing or fiscal support directly addresses the financing concerns described in the report. [EVENT]",
+      "would_change": "Reduce the bearish Property assessment and strengthen the Financials outlook."
      },
      {
-      "condition": "New data confirms domestic interest rates rising alongside the global bond selloff. [EVENT]",
-      "would_change": "Strengthen the bearish assessment for Technology and Property."
+      "condition": "New credit disclosures establish bank losses linked to the report's local government financing concerns. [EVENT]",
+      "would_change": "Shift Financials from neutral toward bearish."
      },
      {
-      "condition": "New policy and credit data confirms easing that offsets external financing pressure. [EVENT]",
-      "would_change": "Reduce downside concerns for Mainland China markets, particularly Property."
+      "condition": "Updated currency and flow data show sustained yuan depreciation alongside capital outflows; current flows are not in our data. [CN-fx]",
+      "would_change": "Increase concern about financing conditions across Mainland China sectors."
      }
     ]
    }
   },
   {
-   "t": 46.04,
+   "t": 63.9,
    "event": "message",
    "data": {
     "agent": "JP",
-    "text": "The global bond selloff leaves Japan property and banks under pressure while technology stays relatively resilient and the yen little changed.",
+    "text": "China property and local-finance strain is a limited drag on Japan property and financials, not a broad market shock.",
     "source_ids": [
      "JP-idx",
-     "JP-n6",
-     "EVENT",
      "JP-fx",
-     "JP-n4",
      "JP-n7",
+     "8801.T",
+     "8306.T",
+     "JP-n6",
      "JP-10y"
     ],
     "unverified": []
    }
   },
   {
-   "t": 46.04,
+   "t": 63.9,
    "event": "message",
    "data": {
     "agent": "JP",
-    "text": "Japan equities already fell into the selloff, with the Nikkei 225 down 0.94 percent on the day even as it remains up 3.01 percent over one month.",
+    "text": "Nikkei 225 fell 0.94% on the day but remains up 3.01% over one month, so Japan is not in broad risk-off.",
     "source_ids": [
-     "JP-idx",
-     "JP-n6",
-     "EVENT"
+     "JP-idx"
     ],
     "unverified": []
    }
   },
   {
-   "t": 46.04,
+   "t": 63.9,
    "event": "message",
    "data": {
     "agent": "JP",
-    "text": "USD/JPY was nearly unchanged at 157.83, down 0.06 percent on the day, so the yen has not delivered a clear safe-haven bid.",
+    "text": "USD/JPY at 157.83 is up 1.39% over one month, and yen haven status is already being questioned.",
     "source_ids": [
      "JP-fx",
-     "JP-n4",
      "JP-n7"
     ],
     "unverified": []
    }
   },
   {
-   "t": 46.04,
+   "t": 63.9,
    "event": "message",
    "data": {
     "agent": "JP",
-    "text": "Property is the weakest local sector, down 6.34 percent over one month, consistent with higher borrowing costs from the bond selloff.",
+    "text": "The Japan property proxy is down 6.34% over one month, the weakest sector in this pack.",
     "source_ids": [
-     "JP-n6",
-     "EVENT"
+     "8801.T"
     ],
-    "unverified": [
-     "6.34 does not match any cited value"
-    ]
+    "unverified": []
    }
   },
   {
-   "t": 46.04,
+   "t": 63.9,
    "event": "message",
    "data": {
     "agent": "JP",
-    "text": "Financials are down 3.7 percent over one month, so banks have not benefited locally despite rate sensitivity.",
+    "text": "Financials are down 3.7% over one month as stocks fell with a global bond sell-off and higher borrowing costs.",
     "source_ids": [
+     "8306.T",
      "JP-n6"
     ],
-    "unverified": [
-     "3.7 has no cited data"
-    ]
+    "unverified": []
    }
   },
   {
-   "t": 46.04,
+   "t": 63.9,
    "event": "message",
    "data": {
     "agent": "JP",
-    "text": "The latest Japan 10-year yield in our data is 2.94 percent as of August 2026, so the post-event yield move is not in our data.",
+    "text": "The 10-year yield print is 2.94 but dated August 2026, so any post-event rate move is not in our data.",
     "source_ids": [
      "JP-10y"
     ],
@@ -1565,61 +1918,58 @@
    }
   },
   {
-   "t": 46.04,
+   "t": 63.9,
    "event": "message",
    "data": {
     "agent": "JP",
-    "text": "Challenge to BEAR: A clearly bearish Japan technology view conflicts with the sector still up 7.19 percent over one month and the Nikkei up 3.01 percent.",
+    "text": "Challenge to SPILLOVER: A bullish Japan technology view is not supported: the event is China property finance, and no local technology shock is in this pack.",
     "source_ids": []
    }
   },
   {
-   "t": 46.04,
+   "t": 63.9,
    "event": "message",
    "data": {
     "agent": "JP",
-    "text": "Challenge to CHAIR: A neutral Japan financials view conflicts with the sector down 3.7 percent over one month as the bond selloff lifts borrowing costs.",
+    "text": "Challenge to BEAR: Marking Japan technology bearish conflicts with the proxy up 7.19% over one month and no technology-specific local news.",
     "source_ids": []
    }
   },
   {
-   "t": 46.04,
+   "t": 63.9,
    "event": "report",
    "data": {
     "agent": "JP",
-    "impact_summary": "The global bond selloff leaves Japan property and banks under pressure while technology stays relatively resilient and the yen little changed.",
+    "impact_summary": "China property and local-finance strain is a limited drag on Japan property and financials, not a broad market shock.",
     "claims": [
      {
-      "text": "Japan equities already fell into the selloff, with the Nikkei 225 down 0.94 percent on the day even as it remains up 3.01 percent over one month.",
+      "text": "Nikkei 225 fell 0.94% on the day but remains up 3.01% over one month, so Japan is not in broad risk-off.",
       "source_ids": [
-       "JP-idx",
-       "JP-n6",
-       "EVENT"
+       "JP-idx"
       ]
      },
      {
-      "text": "USD/JPY was nearly unchanged at 157.83, down 0.06 percent on the day, so the yen has not delivered a clear safe-haven bid.",
+      "text": "USD/JPY at 157.83 is up 1.39% over one month, and yen haven status is already being questioned.",
       "source_ids": [
        "JP-fx",
-       "JP-n4",
        "JP-n7"
       ]
      },
      {
-      "text": "Property is the weakest local sector, down 6.34 percent over one month, consistent with higher borrowing costs from the bond selloff.",
+      "text": "The Japan property proxy is down 6.34% over one month, the weakest sector in this pack.",
       "source_ids": [
-       "JP-n6",
-       "EVENT"
+       "8801.T"
       ]
      },
      {
-      "text": "Financials are down 3.7 percent over one month, so banks have not benefited locally despite rate sensitivity.",
+      "text": "Financials are down 3.7% over one month as stocks fell with a global bond sell-off and higher borrowing costs.",
       "source_ids": [
+       "8306.T",
        "JP-n6"
       ]
      },
      {
-      "text": "The latest Japan 10-year yield in our data is 2.94 percent as of August 2026, so the post-event yield move is not in our data.",
+      "text": "The 10-year yield print is 2.94 but dated August 2026, so any post-event rate move is not in our data.",
       "source_ids": [
        "JP-10y"
       ]
@@ -1627,229 +1977,56 @@
     ],
     "challenges": [
      {
-      "to_agent": "BEAR",
-      "text": "A clearly bearish Japan technology view conflicts with the sector still up 7.19 percent over one month and the Nikkei up 3.01 percent."
+      "to_agent": "SPILLOVER",
+      "text": "A bullish Japan technology view is not supported: the event is China property finance, and no local technology shock is in this pack."
      },
      {
-      "to_agent": "CHAIR",
-      "text": "A neutral Japan financials view conflicts with the sector down 3.7 percent over one month as the bond selloff lifts borrowing costs."
+      "to_agent": "BEAR",
+      "text": "Marking Japan technology bearish conflicts with the proxy up 7.19% over one month and no technology-specific local news."
      }
     ],
     "triggers": [
      {
-      "condition": "USD/JPY falls sharply below the latest 157.83 print on a sustained yen bid.",
-      "would_change": "Shift technology from neutral toward bearish on exporter pressure."
+      "condition": "USD/JPY falls sharply and yen haven demand returns after the China report.",
+      "would_change": "Shift financials and exporters more bearish on currency and funding stress."
      },
      {
-      "condition": "A fresh Japan 10-year yield print shows a clear decline from the August 2.94 percent level.",
-      "would_change": "Ease the bearish property and financials views."
+      "condition": "A post-August JGB yield jump is confirmed above the 2.94 August print.",
+      "would_change": "Deepen the bearish financials view on domestic borrowing costs."
      },
      {
-      "condition": "Property and financials reverse their one-month declines of 6.34 percent and 3.7 percent.",
-      "would_change": "Move both sectors toward neutral."
+      "condition": "The Japan property proxy stabilizes after its 6.34% one-month drop.",
+      "would_change": "Ease the bearish property view toward neutral."
      }
     ]
    }
   },
   {
-   "t": 50.65,
-   "event": "message",
-   "data": {
-    "agent": "US",
-    "text": "Surging Treasury yields pressure rate-sensitive sectors like property and financials, while the technology sector remains highly resilient despite the global bond selloff.",
-    "source_ids": [
-     "US-10y",
-     "EVENT",
-     "US-idx",
-     "US-fx"
-    ],
-    "unverified": []
-   }
-  },
-  {
-   "t": 50.65,
-   "event": "message",
-   "data": {
-    "agent": "US",
-    "text": "The US 10-Year Treasury yield has surged to 5.277%, rising 10.03% over the past month amid a global bond selloff.",
-    "source_ids": [
-     "US-10y",
-     "EVENT"
-    ],
-    "unverified": []
-   }
-  },
-  {
-   "t": 50.65,
-   "event": "message",
-   "data": {
-    "agent": "US",
-    "text": "Despite rising yields, the S&P 500 is up 0.73% over the past month, driven by Tech which gained 8.83%.",
-    "source_ids": [
-     "US-idx"
-    ],
-    "unverified": [
-     "8.83 does not match any cited value"
-    ]
-   }
-  },
-  {
-   "t": 50.65,
-   "event": "message",
-   "data": {
-    "agent": "US",
-    "text": "Higher yields are severely impacting rate-sensitive areas, pushing Property and Financials down 6.68% and 7.23% respectively over the last month.",
-    "source_ids": [
-     "US-10y"
-    ],
-    "unverified": [
-     "6.68 does not match any cited value",
-     "7.23 does not match any cited value"
-    ]
-   }
-  },
-  {
-   "t": 50.65,
-   "event": "message",
-   "data": {
-    "agent": "US",
-    "text": "The US Dollar Index has strengthened by 2.38% over the past month, reflecting capital inflows attracted by higher US rates.",
-    "source_ids": [
-     "US-fx"
-    ],
-    "unverified": []
-   }
-  },
-  {
-   "t": 50.65,
-   "event": "message",
-   "data": {
-    "agent": "US",
-    "text": "Challenge to CHAIR: You voted bearish on US Tech, but our data shows the Tech sector is up 8.83% in the past month, showing strong resilience to rising yields.",
-    "source_ids": []
-   }
-  },
-  {
-   "t": 50.65,
-   "event": "message",
-   "data": {
-    "agent": "US",
-    "text": "Challenge to BEAR: Your bearish stance on US Tech conflicts with the sector's robust 8.83% monthly gain, which continues to drive the broader S&P 500 higher.",
-    "source_ids": []
-   }
-  },
-  {
-   "t": 50.65,
-   "event": "report",
-   "data": {
-    "agent": "US",
-    "impact_summary": "Surging Treasury yields pressure rate-sensitive sectors like property and financials, while the technology sector remains highly resilient despite the global bond selloff.",
-    "claims": [
-     {
-      "text": "The US 10-Year Treasury yield has surged to 5.277%, rising 10.03% over the past month amid a global bond selloff.",
-      "source_ids": [
-       "US-10y",
-       "EVENT"
-      ]
-     },
-     {
-      "text": "Despite rising yields, the S&P 500 is up 0.73% over the past month, driven by Tech which gained 8.83%.",
-      "source_ids": [
-       "US-idx"
-      ]
-     },
-     {
-      "text": "Higher yields are severely impacting rate-sensitive areas, pushing Property and Financials down 6.68% and 7.23% respectively over the last month.",
-      "source_ids": [
-       "US-10y"
-      ]
-     },
-     {
-      "text": "The US Dollar Index has strengthened by 2.38% over the past month, reflecting capital inflows attracted by higher US rates.",
-      "source_ids": [
-       "US-fx"
-      ]
-     }
-    ],
-    "challenges": [
-     {
-      "to_agent": "CHAIR",
-      "text": "You voted bearish on US Tech, but our data shows the Tech sector is up 8.83% in the past month, showing strong resilience to rising yields."
-     },
-     {
-      "to_agent": "BEAR",
-      "text": "Your bearish stance on US Tech conflicts with the sector's robust 8.83% monthly gain, which continues to drive the broader S&P 500 higher."
-     }
-    ],
-    "triggers": [
-     {
-      "condition": "The 10-year Treasury yield drops back below 5%",
-      "would_change": "Relieve pressure on Financials and Property, shifting my view to neutral or bullish on those sectors."
-     },
-     {
-      "condition": "The US Dollar Index reverses its recent gains and trends downward",
-      "would_change": "Indicate a shift in capital flows, potentially weakening the relative outperformance of US large-cap equities."
-     }
-    ]
-   }
-  },
-  {
-   "t": 115.33,
+   "t": 122.89,
    "event": "message",
    "data": {
     "agent": "BEAR",
-    "text": "The council's strongest consensuses on US/Property and HK/Property are well-supported by data, but I challenge the US/Tech split and the HK/Energy bearish view. US Tech's 8.83% monthly gain masks duration risk at 5.277% yields; the consensus bearish view on US/Tech is too weak. HK/Energy bearishness at 0.29 confidence is the weakest cell and lacks a clear rate channel.",
+    "text": "I challenge the three strongest consensus cells. HK/Property and HK/Financials bearish views are well-supported by data but may already be crowded; US/Property bearish is supported by yield data but the consensus may underestimate the speed of repricing already embedded in prices. The split cells (HK/Energy, CN/Financials, US/Financials) reveal genuine uncertainty where the bear case is weaker than the consensus implies.",
     "source_ids": [
-     "US-10y",
-     "EVENT",
-     "US-idx",
      "HK-idx",
-     "CN-idx"
+     "EVENT",
+     "US-10y",
+     "US-idx",
+     "CN-idx",
+     "US-n1"
     ],
-    "unverified": [
-     "8.83 does not match any cited value",
-     "0.29 does not match any cited value"
-    ]
+    "unverified": []
    }
   },
   {
-   "t": 115.33,
+   "t": 122.89,
    "event": "message",
    "data": {
     "agent": "BEAR",
-    "text": "US 10Y yield at 5.277% with 10.03% monthly rise creates severe duration risk for tech that the 8.83% gain masks.",
+    "text": "HK Property proxy down 7.67% monthly with 34.61% volatility; the bearish consensus may already be priced in, limiting further downside from this event alone.",
     "source_ids": [
-     "US-10y",
+     "HK-idx",
      "EVENT"
-    ],
-    "unverified": [
-     "8.83 does not match any cited value"
-    ]
-   }
-  },
-  {
-   "t": 115.33,
-   "event": "message",
-   "data": {
-    "agent": "BEAR",
-    "text": "US Tech XLK up 8.83% in a month while yields rose 10.03%—this divergence is unsustainable, not resilience.",
-    "source_ids": [
-     "US-10y",
-     "US-idx"
-    ],
-    "unverified": [
-     "8.83 does not match any cited value"
-    ]
-   }
-  },
-  {
-   "t": 115.33,
-   "event": "message",
-   "data": {
-    "agent": "BEAR",
-    "text": "HK Property down 7.67% with 34.61% volatility confirms the bearish consensus is well-founded.",
-    "source_ids": [
-     "HK-idx"
     ],
     "unverified": [
      "7.67 does not match any cited value",
@@ -1858,120 +2035,155 @@
    }
   },
   {
-   "t": 115.33,
+   "t": 122.89,
    "event": "message",
    "data": {
     "agent": "BEAR",
-    "text": "HK Energy down only 6.0% with no direct rate channel in our data; bearish view at 0.29 confidence is overstated.",
+    "text": "US 10Y yield rose 10.03% in one month to 5.277%; XLRE already fell 6.68%, suggesting much of the rate shock is already reflected in property prices.",
     "source_ids": [
-     "HK-idx"
+     "US-10y",
+     "US-idx"
+    ],
+    "unverified": [
+     "6.68 does not match any cited value"
+    ]
+   }
+  },
+  {
+   "t": 122.89,
+   "event": "message",
+   "data": {
+    "agent": "BEAR",
+    "text": "CN Financials proxy rose 2.6% monthly while Shanghai fell 3.61%; the bearish consensus on CN/Financials lacks confirmed credit-stress evidence in our data.",
+    "source_ids": [
+     "CN-idx",
+     "EVENT"
+    ],
+    "unverified": [
+     "2.6 does not match any cited value"
+    ]
+   }
+  },
+  {
+   "t": 122.89,
+   "event": "message",
+   "data": {
+    "agent": "BEAR",
+    "text": "HK Energy proxy fell only 6.0% monthly, the mildest sector decline; the 0.5 dissent on HK/Energy is justified given weak event linkage.",
+    "source_ids": [
+     "HK-idx",
+     "EVENT"
     ],
     "unverified": [
      "6 does not match any cited value",
-     "0.29 does not match any cited value"
+     "0.5 does not match any cited value"
     ]
    }
   },
   {
-   "t": 115.33,
+   "t": 122.89,
    "event": "message",
    "data": {
     "agent": "BEAR",
-    "text": "CN Property up 35.67% in a month contradicts bearish consensus; stimulus-driven rally may be fragile but data shows strength.",
+    "text": "US Financials fell 7.23% monthly but the S&P 500 rose 0.73% the same day; a broad risk-off has not materialized, weakening the bear case for further declines.",
     "source_ids": [
-     "CN-idx"
+     "US-idx",
+     "US-n1"
     ],
     "unverified": [
-     "35.67 does not match any cited value"
+     "7.23 does not match any cited value"
     ]
    }
   },
   {
-   "t": 115.33,
+   "t": 122.89,
    "event": "message",
    "data": {
     "agent": "BEAR",
-    "text": "Challenge to US: Your bullish US Tech call at 0.80 ignores that 5.277% yields with 10.03% monthly rise create extreme duration risk. The 8.83% gain is backward-looking; forward repricing at these yields is the real threat. [US-10y, EVENT]",
+    "text": "Challenge to HK: Your bearish 0.65 on HK/Property with zero dissent risks being a crowded trade. The property proxy already fell 7.67% in a month with 34.61% volatility [HK-idx]. If mainland markets reopen post-holiday without new credit disclosures, mean-reversion pressure could be significant. What breaks your view: a policy response that directly addresses local-government financing gaps.",
     "source_ids": []
    }
   },
   {
-   "t": 115.33,
+   "t": 122.89,
    "event": "message",
    "data": {
     "agent": "BEAR",
-    "text": "Challenge to CN: Your bearish CN/Property at 0.50 conflicts with the sector being up 35.67% in a month. The data shows strength, not weakness. The bearish case requires evidence of reversal, not just external headwinds. [CN-idx]",
+    "text": "Challenge to US: Your bearish 0.90 on US/Property is the highest-confidence vote in the council, but XLRE already dropped 6.68% while yields rose 10.03% [US-10y, US-idx]. The marginal impact of additional yield increases may be diminishing if the market has already front-loaded repricing. What would break it: a sharp reversal in Treasury yields below 5.0%.",
     "source_ids": []
    }
   },
   {
-   "t": 115.33,
+   "t": 122.89,
    "event": "report",
    "data": {
     "agent": "BEAR",
-    "impact_summary": "The council's strongest consensuses on US/Property and HK/Property are well-supported by data, but I challenge the US/Tech split and the HK/Energy bearish view. US Tech's 8.83% monthly gain masks duration risk at 5.277% yields; the consensus bearish view on US/Tech is too weak. HK/Energy bearishness at 0.29 confidence is the weakest cell and lacks a clear rate channel.",
+    "impact_summary": "I challenge the three strongest consensus cells. HK/Property and HK/Financials bearish views are well-supported by data but may already be crowded; US/Property bearish is supported by yield data but the consensus may underestimate the speed of repricing already embedded in prices. The split cells (HK/Energy, CN/Financials, US/Financials) reveal genuine uncertainty where the bear case is weaker than the consensus implies.",
     "claims": [
      {
-      "text": "US 10Y yield at 5.277% with 10.03% monthly rise creates severe duration risk for tech that the 8.83% gain masks.",
+      "text": "HK Property proxy down 7.67% monthly with 34.61% volatility; the bearish consensus may already be priced in, limiting further downside from this event alone.",
       "source_ids": [
-       "US-10y",
+       "HK-idx",
        "EVENT"
       ]
      },
      {
-      "text": "US Tech XLK up 8.83% in a month while yields rose 10.03%—this divergence is unsustainable, not resilience.",
+      "text": "US 10Y yield rose 10.03% in one month to 5.277%; XLRE already fell 6.68%, suggesting much of the rate shock is already reflected in property prices.",
       "source_ids": [
        "US-10y",
        "US-idx"
       ]
      },
      {
-      "text": "HK Property down 7.67% with 34.61% volatility confirms the bearish consensus is well-founded.",
+      "text": "CN Financials proxy rose 2.6% monthly while Shanghai fell 3.61%; the bearish consensus on CN/Financials lacks confirmed credit-stress evidence in our data.",
       "source_ids": [
-       "HK-idx"
+       "CN-idx",
+       "EVENT"
       ]
      },
      {
-      "text": "HK Energy down only 6.0% with no direct rate channel in our data; bearish view at 0.29 confidence is overstated.",
+      "text": "HK Energy proxy fell only 6.0% monthly, the mildest sector decline; the 0.5 dissent on HK/Energy is justified given weak event linkage.",
       "source_ids": [
-       "HK-idx"
+       "HK-idx",
+       "EVENT"
       ]
      },
      {
-      "text": "CN Property up 35.67% in a month contradicts bearish consensus; stimulus-driven rally may be fragile but data shows strength.",
+      "text": "US Financials fell 7.23% monthly but the S&P 500 rose 0.73% the same day; a broad risk-off has not materialized, weakening the bear case for further declines.",
       "source_ids": [
-       "CN-idx"
+       "US-idx",
+       "US-n1"
       ]
      }
     ],
     "challenges": [
      {
-      "to_agent": "US",
-      "text": "Your bullish US Tech call at 0.80 ignores that 5.277% yields with 10.03% monthly rise create extreme duration risk. The 8.83% gain is backward-looking; forward repricing at these yields is the real threat. [US-10y, EVENT]"
+      "to_agent": "HK",
+      "text": "Your bearish 0.65 on HK/Property with zero dissent risks being a crowded trade. The property proxy already fell 7.67% in a month with 34.61% volatility [HK-idx]. If mainland markets reopen post-holiday without new credit disclosures, mean-reversion pressure could be significant. What breaks your view: a policy response that directly addresses local-government financing gaps."
      },
      {
-      "to_agent": "CN",
-      "text": "Your bearish CN/Property at 0.50 conflicts with the sector being up 35.67% in a month. The data shows strength, not weakness. The bearish case requires evidence of reversal, not just external headwinds. [CN-idx]"
+      "to_agent": "US",
+      "text": "Your bearish 0.90 on US/Property is the highest-confidence vote in the council, but XLRE already dropped 6.68% while yields rose 10.03% [US-10y, US-idx]. The marginal impact of additional yield increases may be diminishing if the market has already front-loaded repricing. What would break it: a sharp reversal in Treasury yields below 5.0%."
      }
     ],
     "triggers": [
      {
-      "condition": "US 10Y yield breaks above 5.5% with XLK showing its first weekly decline",
-      "would_change": "Increase US/Tech bearish confidence from 0.72 to 0.85"
+      "condition": "Mainland markets reopen post-holiday and CN Financials proxy extends its positive monthly performance above 2.6% with no new credit-stress disclosures.",
+      "would_change": "Reduce bearish confidence on CN/Financials from 0.55 toward neutral; reconsider HK/Financials bearish intensity."
      },
      {
-      "condition": "CN Property proxy reverses from +35.67% monthly gain to negative territory",
-      "would_change": "Increase CN/Property bearish confidence from 0.70 to 0.80"
+      "condition": "US 10Y Treasury yield reverses below 5.0% within one week, confirmed by a second data point.",
+      "would_change": "Shift US/Property from bearish 0.75 toward neutral; reduce US/Financials bearish confidence."
      },
      {
-      "condition": "HK Energy proxy stabilizes or outperforms the Hang Seng over the next two weeks",
-      "would_change": "Shift HK/Energy from bearish 0.65 to neutral 0.50"
+      "condition": "HK property proxy 0016.HK stabilizes or rebounds above its current level after mainland markets reopen, with HIBOR remaining below 3.0%.",
+      "would_change": "Reduce HK/Property bearish confidence from 0.90 toward 0.70; consider that the event is already fully priced."
      }
     ]
    }
   },
   {
-   "t": 115.33,
+   "t": 122.89,
    "event": "stage",
    "data": {
     "name": "debate",
@@ -1979,7 +2191,7 @@
    }
   },
   {
-   "t": 115.33,
+   "t": 122.89,
    "event": "stage",
    "data": {
     "name": "revote",
@@ -1987,7 +2199,7 @@
    }
   },
   {
-   "t": 120.85,
+   "t": 130.26,
    "event": "vote",
    "data": {
     "agent": "HK",
@@ -1997,7 +2209,7 @@
       "country": "HK",
       "sector": "Tech",
       "view": "bearish",
-      "confidence": 0.6
+      "confidence": 0.5
      },
      {
       "country": "HK",
@@ -2009,20 +2221,55 @@
       "country": "HK",
       "sector": "Property",
       "view": "bearish",
-      "confidence": 0.7
+      "confidence": 0.65
      },
      {
       "country": "HK",
       "sector": "Energy",
       "view": "neutral",
-      "confidence": 0.45
+      "confidence": 0.4
      }
     ],
     "source": "llm"
    }
   },
   {
-   "t": 122.47,
+   "t": 132.65,
+   "event": "vote",
+   "data": {
+    "agent": "JP",
+    "round": "revote",
+    "cells": [
+     {
+      "country": "JP",
+      "sector": "Tech",
+      "view": "neutral",
+      "confidence": 0.42
+     },
+     {
+      "country": "JP",
+      "sector": "Financials",
+      "view": "bearish",
+      "confidence": 0.58
+     },
+     {
+      "country": "JP",
+      "sector": "Property",
+      "view": "bearish",
+      "confidence": 0.64
+     },
+     {
+      "country": "JP",
+      "sector": "Energy",
+      "view": "neutral",
+      "confidence": 0.4
+     }
+    ],
+    "source": "llm"
+   }
+  },
+  {
+   "t": 133.23,
    "event": "vote",
    "data": {
     "agent": "CN",
@@ -2032,20 +2279,19 @@
       "country": "CN",
       "sector": "Tech",
       "view": "bearish",
-      "confidence": 0.6
+      "confidence": 0.55
      },
      {
       "country": "CN",
       "sector": "Financials",
       "view": "neutral",
-      "confidence": 0.45
+      "confidence": 0.4
      },
      {
       "country": "CN",
       "sector": "Property",
-      "view": "neutral",
-      "confidence": 0.45,
-      "because": "BEAR: +35.67% monthly gain contradicts bearish; rally is stimulus-driven, not rate-linked."
+      "view": "bearish",
+      "confidence": 0.45
      },
      {
       "country": "CN",
@@ -2058,42 +2304,7 @@
    }
   },
   {
-   "t": 123.06,
-   "event": "vote",
-   "data": {
-    "agent": "JP",
-    "round": "revote",
-    "cells": [
-     {
-      "country": "JP",
-      "sector": "Tech",
-      "view": "neutral",
-      "confidence": 0.52
-     },
-     {
-      "country": "JP",
-      "sector": "Financials",
-      "view": "bearish",
-      "confidence": 0.64
-     },
-     {
-      "country": "JP",
-      "sector": "Property",
-      "view": "bearish",
-      "confidence": 0.74
-     },
-     {
-      "country": "JP",
-      "sector": "Energy",
-      "view": "neutral",
-      "confidence": 0.48
-     }
-    ],
-    "source": "llm"
-   }
-  },
-  {
-   "t": 123.52,
+   "t": 133.45,
    "event": "vote",
    "data": {
     "agent": "US",
@@ -2102,9 +2313,8 @@
      {
       "country": "US",
       "sector": "Tech",
-      "view": "neutral",
-      "confidence": 0.6,
-      "because": "BEAR correctly noted duration risk from 5.277% yields outweighs recent gains."
+      "view": "bullish",
+      "confidence": 0.8
      },
      {
       "country": "US",
@@ -2116,7 +2326,8 @@
       "country": "US",
       "sector": "Property",
       "view": "bearish",
-      "confidence": 0.9
+      "confidence": 0.85,
+      "because": "BEAR noted 6.68% drop already prices in rate shock"
      },
      {
       "country": "US",
@@ -2129,118 +2340,7 @@
    }
   },
   {
-   "t": 123.64,
-   "event": "vote",
-   "data": {
-    "agent": "SPILLOVER",
-    "round": "revote",
-    "cells": [
-     {
-      "country": "HK",
-      "sector": "Tech",
-      "view": "bearish",
-      "confidence": 0.7
-     },
-     {
-      "country": "HK",
-      "sector": "Financials",
-      "view": "bearish",
-      "confidence": 0.65
-     },
-     {
-      "country": "HK",
-      "sector": "Property",
-      "view": "bearish",
-      "confidence": 0.6
-     },
-     {
-      "country": "HK",
-      "sector": "Energy",
-      "view": "neutral",
-      "confidence": 0.45,
-      "because": "BEAR and HK showed Energy fell least at -6.0% with no rate channel in data."
-     },
-     {
-      "country": "CN",
-      "sector": "Tech",
-      "view": "bearish",
-      "confidence": 0.6
-     },
-     {
-      "country": "CN",
-      "sector": "Financials",
-      "view": "neutral",
-      "confidence": 0.4
-     },
-     {
-      "country": "CN",
-      "sector": "Property",
-      "view": "neutral",
-      "confidence": 0.45,
-      "because": "BEAR noted CN Property +35.67% in a month, offsetting external rate pressure."
-     },
-     {
-      "country": "CN",
-      "sector": "Energy",
-      "view": "neutral",
-      "confidence": 0.4
-     },
-     {
-      "country": "US",
-      "sector": "Tech",
-      "view": "bearish",
-      "confidence": 0.5
-     },
-     {
-      "country": "US",
-      "sector": "Financials",
-      "view": "bearish",
-      "confidence": 0.5,
-      "because": "US member's data: XLF -7.23% in a month as 10Y yield rose 10.03%."
-     },
-     {
-      "country": "US",
-      "sector": "Property",
-      "view": "bearish",
-      "confidence": 0.65
-     },
-     {
-      "country": "US",
-      "sector": "Energy",
-      "view": "neutral",
-      "confidence": 0.4
-     },
-     {
-      "country": "JP",
-      "sector": "Tech",
-      "view": "neutral",
-      "confidence": 0.4
-     },
-     {
-      "country": "JP",
-      "sector": "Financials",
-      "view": "bearish",
-      "confidence": 0.45,
-      "because": "JP member's data: Financials -3.7% in a month despite rate sensitivity."
-     },
-     {
-      "country": "JP",
-      "sector": "Property",
-      "view": "bearish",
-      "confidence": 0.55
-     },
-     {
-      "country": "JP",
-      "sector": "Energy",
-      "view": "neutral",
-      "confidence": 0.4
-     }
-    ],
-    "source": "llm"
-   }
-  },
-  {
-   "t": 124.37,
+   "t": 133.83,
    "event": "vote",
    "data": {
     "agent": "CHAIR",
@@ -2250,95 +2350,92 @@
       "country": "HK",
       "sector": "Tech",
       "view": "bearish",
-      "confidence": 0.6
-     },
-     {
-      "country": "HK",
-      "sector": "Financials",
-      "view": "bearish",
       "confidence": 0.55
      },
      {
       "country": "HK",
+      "sector": "Financials",
+      "view": "bearish",
+      "confidence": 0.6
+     },
+     {
+      "country": "HK",
       "sector": "Property",
       "view": "bearish",
-      "confidence": 0.7
+      "confidence": 0.65
      },
      {
       "country": "HK",
       "sector": "Energy",
       "view": "neutral",
-      "confidence": 0.4
+      "confidence": 0.45
      },
      {
       "country": "CN",
       "sector": "Tech",
-      "view": "bearish",
-      "confidence": 0.45
+      "view": "neutral",
+      "confidence": 0.4
      },
      {
       "country": "CN",
       "sector": "Financials",
       "view": "neutral",
-      "confidence": 0.45
-     },
-     {
-      "country": "CN",
-      "sector": "Property",
-      "view": "neutral",
-      "confidence": 0.3
-     },
-     {
-      "country": "CN",
-      "sector": "Energy",
-      "view": "neutral",
-      "confidence": 0.4
-     },
-     {
-      "country": "US",
-      "sector": "Tech",
-      "view": "neutral",
-      "confidence": 0.35,
-      "because": "US agent: XLK up 8.83% in a month despite yields; BEAR's duration risk keeps confidence low."
-     },
-     {
-      "country": "US",
-      "sector": "Financials",
-      "view": "bearish",
       "confidence": 0.45,
-      "because": "US agent: XLF down 7.23% in a month as 10Y hit 5.277%."
+      "because": "CN and BEAR noted the proxy rose 2.6% monthly with no credit-stress evidence in our data."
      },
      {
-      "country": "US",
-      "sector": "Property",
-      "view": "bearish",
-      "confidence": 0.7
-     },
-     {
-      "country": "US",
-      "sector": "Energy",
-      "view": "neutral",
-      "confidence": 0.4
-     },
-     {
-      "country": "JP",
-      "sector": "Tech",
-      "view": "neutral",
-      "confidence": 0.35,
-      "because": "JP agent: sector up 7.19% and Nikkei up 3.01% over the month."
-     },
-     {
-      "country": "JP",
-      "sector": "Financials",
-      "view": "bearish",
-      "confidence": 0.4,
-      "because": "JP agent: banks down 3.7% in a month, not benefiting from higher yields."
-     },
-     {
-      "country": "JP",
+      "country": "CN",
       "sector": "Property",
       "view": "bearish",
       "confidence": 0.6
+     },
+     {
+      "country": "CN",
+      "sector": "Energy",
+      "view": "neutral",
+      "confidence": 0.45
+     },
+     {
+      "country": "US",
+      "sector": "Tech",
+      "view": "neutral",
+      "confidence": 0.45
+     },
+     {
+      "country": "US",
+      "sector": "Financials",
+      "view": "neutral",
+      "confidence": 0.4
+     },
+     {
+      "country": "US",
+      "sector": "Property",
+      "view": "bearish",
+      "confidence": 0.5
+     },
+     {
+      "country": "US",
+      "sector": "Energy",
+      "view": "neutral",
+      "confidence": 0.4
+     },
+     {
+      "country": "JP",
+      "sector": "Tech",
+      "view": "neutral",
+      "confidence": 0.4
+     },
+     {
+      "country": "JP",
+      "sector": "Financials",
+      "view": "neutral",
+      "confidence": 0.4
+     },
+     {
+      "country": "JP",
+      "sector": "Property",
+      "view": "bearish",
+      "confidence": 0.45
      },
      {
       "country": "JP",
@@ -2351,7 +2448,115 @@
    }
   },
   {
-   "t": 154.89,
+   "t": 145.81,
+   "event": "vote",
+   "data": {
+    "agent": "SPILLOVER",
+    "round": "revote",
+    "cells": [
+     {
+      "country": "HK",
+      "sector": "Tech",
+      "view": "bearish",
+      "confidence": 0.6
+     },
+     {
+      "country": "HK",
+      "sector": "Financials",
+      "view": "bearish",
+      "confidence": 0.65
+     },
+     {
+      "country": "HK",
+      "sector": "Property",
+      "view": "bearish",
+      "confidence": 0.6
+     },
+     {
+      "country": "HK",
+      "sector": "Energy",
+      "view": "bearish",
+      "confidence": 0.4
+     },
+     {
+      "country": "CN",
+      "sector": "Tech",
+      "view": "bearish",
+      "confidence": 0.5
+     },
+     {
+      "country": "CN",
+      "sector": "Financials",
+      "view": "neutral",
+      "confidence": 0.45,
+      "because": "CN member: local bank proxy +2.6% monthly, no credit-stress evidence in data."
+     },
+     {
+      "country": "CN",
+      "sector": "Property",
+      "view": "bearish",
+      "confidence": 0.5
+     },
+     {
+      "country": "CN",
+      "sector": "Energy",
+      "view": "neutral",
+      "confidence": 0.4
+     },
+     {
+      "country": "US",
+      "sector": "Tech",
+      "view": "neutral",
+      "confidence": 0.45
+     },
+     {
+      "country": "US",
+      "sector": "Financials",
+      "view": "neutral",
+      "confidence": 0.4
+     },
+     {
+      "country": "US",
+      "sector": "Property",
+      "view": "bearish",
+      "confidence": 0.5
+     },
+     {
+      "country": "US",
+      "sector": "Energy",
+      "view": "neutral",
+      "confidence": 0.4
+     },
+     {
+      "country": "JP",
+      "sector": "Tech",
+      "view": "bullish",
+      "confidence": 0.5
+     },
+     {
+      "country": "JP",
+      "sector": "Financials",
+      "view": "bearish",
+      "confidence": 0.5
+     },
+     {
+      "country": "JP",
+      "sector": "Property",
+      "view": "bearish",
+      "confidence": 0.5
+     },
+     {
+      "country": "JP",
+      "sector": "Energy",
+      "view": "neutral",
+      "confidence": 0.4
+     }
+    ],
+    "source": "llm"
+   }
+  },
+  {
+   "t": 166.21,
    "event": "vote",
    "data": {
     "agent": "BEAR",
@@ -2361,32 +2566,33 @@
       "country": "HK",
       "sector": "Tech",
       "view": "bearish",
-      "confidence": 0.82
+      "confidence": 0.85
      },
      {
       "country": "HK",
       "sector": "Financials",
       "view": "bearish",
-      "confidence": 0.78
+      "confidence": 0.85
      },
      {
       "country": "HK",
       "sector": "Property",
       "view": "bearish",
-      "confidence": 0.85
+      "confidence": 0.85,
+      "because": "HK agent's trigger on post-holiday stabilization and my own crowding argument reduce conviction from 0.90."
      },
      {
       "country": "HK",
       "sector": "Energy",
-      "view": "neutral",
-      "confidence": 0.5,
-      "because": "HK specialist argued Energy fell least (6.0%) with no direct rate channel; data supports neutral over bearish."
+      "view": "bearish",
+      "confidence": 0.65,
+      "because": "HK agent's challenge that 6.0% is mildest decline and event linkage is indirect supports lower confidence."
      },
      {
       "country": "CN",
       "sector": "Tech",
       "view": "bearish",
-      "confidence": 0.75
+      "confidence": 0.8
      },
      {
       "country": "CN",
@@ -2397,9 +2603,8 @@
      {
       "country": "CN",
       "sector": "Property",
-      "view": "neutral",
-      "confidence": 0.5,
-      "because": "CN specialist noted +35.67% monthly gain and no confirmed post-event data; bearish case lacks reversal evidence."
+      "view": "bearish",
+      "confidence": 0.75
      },
      {
       "country": "CN",
@@ -2411,7 +2616,8 @@
       "country": "US",
       "sector": "Tech",
       "view": "bearish",
-      "confidence": 0.72
+      "confidence": 0.55,
+      "because": "US agent's 8.83% monthly gain and no direct event linkage weaken bear case slightly."
      },
      {
       "country": "US",
@@ -2423,20 +2629,21 @@
       "country": "US",
       "sector": "Property",
       "view": "bearish",
-      "confidence": 0.85
+      "confidence": 0.7,
+      "because": "My own crowding argument: 6.68% drop already front-loads much of the yield shock."
      },
      {
       "country": "US",
       "sector": "Energy",
-      "view": "bearish",
-      "confidence": 0.6
+      "view": "neutral",
+      "confidence": 0.5
      },
      {
       "country": "JP",
       "sector": "Tech",
       "view": "neutral",
       "confidence": 0.5,
-      "because": "JP specialist showed Tech up 7.19% monthly and Nikkei up 3.01%; bearish 0.60 was too aggressive without reversal signal."
+      "because": "JP agent's challenge: proxy up 7.19% monthly with no tech-specific local news weakens bear case."
      },
      {
       "country": "JP",
@@ -2448,20 +2655,20 @@
       "country": "JP",
       "sector": "Property",
       "view": "bearish",
-      "confidence": 0.78
+      "confidence": 0.7
      },
      {
       "country": "JP",
       "sector": "Energy",
       "view": "neutral",
-      "confidence": 0.5
+      "confidence": 0.45
      }
     ],
     "source": "llm"
    }
   },
   {
-   "t": 154.89,
+   "t": 166.21,
    "event": "stage",
    "data": {
     "name": "revote",
@@ -2469,7 +2676,7 @@
    }
   },
   {
-   "t": 154.89,
+   "t": 166.21,
    "event": "stage",
    "data": {
     "name": "spillover",
@@ -2477,189 +2684,209 @@
    }
   },
   {
-   "t": 154.89,
+   "t": 166.21,
    "event": "spillover",
    "data": {
     "nodes": [
      {
-      "id": "EVT",
-      "label": "Global bond selloff / US Treasury yields at 24-year highs",
-      "country": null
-     },
-     {
-      "id": "US-10y",
-      "label": "US 10Y Treasury yield 5.277%",
-      "country": "US"
-     },
-     {
-      "id": "US-fx",
-      "label": "US Dollar Index 101.93",
-      "country": "US"
-     },
-     {
-      "id": "US-eq",
-      "label": "S&P 500 / US Tech",
-      "country": "US"
-     },
-     {
-      "id": "HK-fx",
-      "label": "USD/HKD peg 7.8463",
-      "country": "HK"
-     },
-     {
-      "id": "HK-eq",
-      "label": "Hang Seng Index 23,972.29",
-      "country": "HK"
-     },
-     {
-      "id": "HK-prop",
-      "label": "HK Property proxy",
-      "country": "HK"
-     },
-     {
-      "id": "CN-eq",
-      "label": "Shanghai Composite 3,842.2",
+      "id": "EVENT",
+      "label": "China property bust / local government finance cracks",
       "country": "CN"
      },
      {
-      "id": "JP-eq",
-      "label": "Nikkei 225 68,309.46",
+      "id": "CN-Property",
+      "label": "CN Property sector (000002.SZ)",
+      "country": "CN"
+     },
+     {
+      "id": "CN-Financials",
+      "label": "CN Financials sector (601398.SS)",
+      "country": "CN"
+     },
+     {
+      "id": "HK-Property",
+      "label": "HK Property sector (0016.HK)",
+      "country": "HK"
+     },
+     {
+      "id": "HK-Financials",
+      "label": "HK Financials sector (0005.HK)",
+      "country": "HK"
+     },
+     {
+      "id": "HK-Equity",
+      "label": "Hang Seng Index",
+      "country": "HK"
+     },
+     {
+      "id": "HK-FX",
+      "label": "USD/HKD peg and HIBOR funding",
+      "country": "HK"
+     },
+     {
+      "id": "US-10Y",
+      "label": "US 10Y Treasury yield",
+      "country": "US"
+     },
+     {
+      "id": "US-Property",
+      "label": "US Property sector (XLRE)",
+      "country": "US"
+     },
+     {
+      "id": "US-Financials",
+      "label": "US Financials sector (XLF)",
+      "country": "US"
+     },
+     {
+      "id": "JP-Property",
+      "label": "JP Property sector (8801.T)",
       "country": "JP"
      },
      {
-      "id": "JP-fx",
-      "label": "USD/JPY 157.83",
+      "id": "JP-Financials",
+      "label": "JP Financials sector (8306.T)",
       "country": "JP"
      }
     ],
     "edges": [
      {
-      "from": "EVT",
-      "to": "US-10y",
-      "mechanism": "Global selloff lifts Treasury yields",
-      "sign": "+",
-      "strength": 0.9,
+      "from": "EVENT",
+      "to": "CN-Property",
+      "mechanism": "fiscal cracks weaken developer demand",
+      "sign": "-",
+      "strength": 0.6,
       "source_ids": [
        "EVENT",
-       "US-n4",
-       "US-10y"
+       "CN-n1",
+       "CN-n2"
       ]
      },
      {
-      "from": "US-10y",
-      "to": "US-fx",
-      "mechanism": "Higher yields attract capital to dollar",
-      "sign": "+",
-      "strength": 0.6,
-      "source_ids": [
-       "US-10y",
-       "US-fx"
-      ]
-     },
-     {
-      "from": "US-10y",
-      "to": "HK-fx",
-      "mechanism": "Peg forces HK rates to track US",
-      "sign": "+",
-      "strength": 0.7,
-      "source_ids": [
-       "HK-fx",
-       "US-10y"
-      ]
-     },
-     {
-      "from": "HK-fx",
-      "to": "HK-eq",
-      "mechanism": "Tighter local conditions pressure equities",
+      "from": "EVENT",
+      "to": "CN-Financials",
+      "mechanism": "local-government credit risk to banks",
       "sign": "-",
-      "strength": 0.7,
-      "source_ids": [
-       "HK-idx",
-       "HK-n7"
-      ]
-     },
-     {
-      "from": "US-10y",
-      "to": "HK-eq",
-      "mechanism": "Duration and rate pressure on HK",
-      "sign": "-",
-      "strength": 0.6,
-      "source_ids": [
-       "HK-idx",
-       "HK-n7"
-      ]
-     },
-     {
-      "from": "US-10y",
-      "to": "HK-prop",
-      "mechanism": "Rate-sensitive property hit hardest",
-      "sign": "-",
-      "strength": 0.7,
-      "source_ids": [
-       "HK-idx",
-       "HK-n7"
-      ]
-     },
-     {
-      "from": "US-10y",
-      "to": "JP-eq",
-      "mechanism": "Rising borrowing costs drag Japan stocks",
-      "sign": "-",
-      "strength": 0.5,
-      "source_ids": [
-       "JP-n6",
-       "JP-idx"
-      ]
-     },
-     {
-      "from": "US-10y",
-      "to": "US-eq",
-      "mechanism": "Rate-sensitive US sectors pressured",
-      "sign": "-",
-      "strength": 0.5,
-      "source_ids": [
-       "US-10y",
-       "US-idx"
-      ]
-     },
-     {
-      "from": "US-fx",
-      "to": "JP-fx",
-      "mechanism": "Dollar strength keeps yen weak",
-      "sign": "+",
       "strength": 0.4,
       "source_ids": [
-       "US-fx",
-       "JP-fx"
+       "EVENT",
+       "CN-n2"
       ]
      },
      {
-      "from": "US-10y",
-      "to": "CN-eq",
-      "mechanism": "External financing cost pressure on China",
+      "from": "CN-Property",
+      "to": "HK-Property",
+      "mechanism": "mainland developer stress spills over",
       "sign": "-",
-      "strength": 0.3,
+      "strength": 0.6,
       "source_ids": [
-       "CN-idx",
+       "HK-idx",
        "EVENT"
       ]
      },
      {
-      "from": "HK-eq",
-      "to": "CN-eq",
-      "mechanism": "HK weakness spills to mainland sentiment",
+      "from": "CN-Financials",
+      "to": "HK-Financials",
+      "mechanism": "bank credit-risk sentiment spillover",
       "sign": "-",
-      "strength": 0.3,
+      "strength": 0.5,
       "source_ids": [
-       "HK-n8",
-       "HK-n2"
+       "HK-n4",
+       "EVENT"
+      ]
+     },
+     {
+      "from": "HK-Financials",
+      "to": "HK-Equity",
+      "mechanism": "banks lead index slide",
+      "sign": "-",
+      "strength": 0.6,
+      "source_ids": [
+       "HK-idx",
+       "HK-n4"
+      ]
+     },
+     {
+      "from": "HK-Property",
+      "to": "HK-Equity",
+      "mechanism": "property drags index lower",
+      "sign": "-",
+      "strength": 0.5,
+      "source_ids": [
+       "HK-idx"
+      ]
+     },
+     {
+      "from": "US-10Y",
+      "to": "US-Property",
+      "mechanism": "higher yields pressure REIT valuations",
+      "sign": "-",
+      "strength": 0.7,
+      "source_ids": [
+       "US-10y",
+       "US-Property"
+      ]
+     },
+     {
+      "from": "US-10Y",
+      "to": "US-Financials",
+      "mechanism": "funding-cost pressure on financials",
+      "sign": "-",
+      "strength": 0.5,
+      "source_ids": [
+       "US-10y",
+       "US-Financials"
+      ]
+     },
+     {
+      "from": "US-10Y",
+      "to": "HK-Equity",
+      "mechanism": "global rate volatility hits HK stocks",
+      "sign": "-",
+      "strength": 0.4,
+      "source_ids": [
+       "HK-n7",
+       "US-10y"
+      ]
+     },
+     {
+      "from": "US-10Y",
+      "to": "JP-Financials",
+      "mechanism": "global bond selloff lifts borrowing costs",
+      "sign": "-",
+      "strength": 0.4,
+      "source_ids": [
+       "JP-n6",
+       "US-n4"
+      ]
+     },
+     {
+      "from": "EVENT",
+      "to": "JP-Property",
+      "mechanism": "indirect China exposure drag",
+      "sign": "-",
+      "strength": 0.25,
+      "source_ids": [
+       "JP-idx",
+       "8801.T"
+      ]
+     },
+     {
+      "from": "HK-FX",
+      "to": "HK-Equity",
+      "mechanism": "stable peg contains funding stress",
+      "sign": "+",
+      "strength": 0.2,
+      "source_ids": [
+       "HK-fx",
+       "HK-hibor"
       ]
      }
     ]
    }
   },
   {
-   "t": 154.89,
+   "t": 166.21,
    "event": "stage",
    "data": {
     "name": "spillover",
@@ -2667,7 +2894,7 @@
    }
   },
   {
-   "t": 154.89,
+   "t": 166.21,
    "event": "stage",
    "data": {
     "name": "brief",
@@ -2675,16 +2902,16 @@
    }
   },
   {
-   "t": 166.53,
+   "t": 179.16,
    "event": "brief",
    "data": {
-    "headline": "The council sees the bond selloff pressuring rate-sensitive property and financials across the US, Hong Kong and Japan, with Mainland China mostly neutral and US Tech the most contested cell [EVENT][US-10y].",
+    "headline": "The council sees the report deepening pressure on Hong Kong property, banks and tech and on property across all four markets, while mainland banks and energy stay neutral and US tech is the most contested call [EVENT].",
     "matrix": [
      {
       "country": "HK",
       "sector": "Tech",
       "view": "bearish",
-      "confidence": 0.68,
+      "confidence": 0.58,
       "dissent": 0.0
      },
      {
@@ -2698,35 +2925,35 @@
       "country": "HK",
       "sector": "Property",
       "view": "bearish",
-      "confidence": 0.71,
+      "confidence": 0.65,
       "dissent": 0.0
      },
      {
       "country": "HK",
       "sector": "Energy",
+      "view": "bearish",
+      "confidence": 0.19,
+      "dissent": 0.5
+     },
+     {
+      "country": "CN",
+      "sector": "Tech",
+      "view": "bearish",
+      "confidence": 0.37,
+      "dissent": 0.43
+     },
+     {
+      "country": "CN",
+      "sector": "Financials",
       "view": "neutral",
       "confidence": 0.45,
       "dissent": 0.0
      },
      {
       "country": "CN",
-      "sector": "Tech",
-      "view": "bearish",
-      "confidence": 0.6,
-      "dissent": 0.0
-     },
-     {
-      "country": "CN",
-      "sector": "Financials",
-      "view": "neutral",
-      "confidence": 0.46,
-      "dissent": 0.0
-     },
-     {
-      "country": "CN",
       "sector": "Property",
-      "view": "neutral",
-      "confidence": 0.42,
+      "view": "bearish",
+      "confidence": 0.54,
       "dissent": 0.0
      },
      {
@@ -2739,176 +2966,194 @@
      {
       "country": "US",
       "sector": "Tech",
+      "view": "bullish",
+      "confidence": 0.25,
+      "dissent": 0.71
+     },
+     {
+      "country": "US",
+      "sector": "Financials",
       "view": "bearish",
       "confidence": 0.3,
       "dissent": 0.5
      },
      {
       "country": "US",
-      "sector": "Financials",
-      "view": "bearish",
-      "confidence": 0.61,
-      "dissent": 0.0
-     },
-     {
-      "country": "US",
       "sector": "Property",
       "view": "bearish",
-      "confidence": 0.78,
+      "confidence": 0.62,
       "dissent": 0.0
      },
      {
       "country": "US",
       "sector": "Energy",
       "view": "bearish",
-      "confidence": 0.32,
-      "dissent": 0.5
+      "confidence": 0.22,
+      "dissent": 0.43
      },
      {
       "country": "JP",
       "sector": "Tech",
-      "view": "neutral",
-      "confidence": 0.44,
-      "dissent": 0.0
+      "view": "bullish",
+      "confidence": 0.15,
+      "dissent": 0.43
      },
      {
       "country": "JP",
       "sector": "Financials",
+      "view": "bearish",
+      "confidence": 0.38,
+      "dissent": 0.43
+     },
+     {
+      "country": "JP",
+      "sector": "Property",
       "view": "bearish",
       "confidence": 0.54,
       "dissent": 0.0
      },
      {
       "country": "JP",
-      "sector": "Property",
-      "view": "bearish",
-      "confidence": 0.67,
-      "dissent": 0.0
-     },
-     {
-      "country": "JP",
       "sector": "Energy",
       "view": "neutral",
-      "confidence": 0.45,
+      "confidence": 0.4,
       "dissent": 0.0
      }
     ],
     "vote_shifts": [
      {
-      "agent": "CN",
-      "cell": "CN/Property",
+      "agent": "CHAIR",
+      "cell": "CN/Financials",
       "from": "bearish",
       "to": "neutral",
-      "because": "BEAR: +35.67% monthly gain contradicts bearish; rally is stimulus-driven, not rate-linked."
-     },
-     {
-      "agent": "US",
-      "cell": "US/Tech",
-      "from": "bullish",
-      "to": "neutral",
-      "because": "BEAR correctly noted duration risk from 5.277% yields outweighs recent gains."
+      "because": "CN and BEAR noted the proxy rose 2.6% monthly with no credit-stress evidence in our data."
      },
      {
       "agent": "SPILLOVER",
-      "cell": "HK/Energy",
+      "cell": "CN/Financials",
       "from": "bearish",
       "to": "neutral",
-      "because": "BEAR and HK showed Energy fell least at -6.0% with no rate channel in data."
-     },
-     {
-      "agent": "SPILLOVER",
-      "cell": "US/Financials",
-      "from": "neutral",
-      "to": "bearish",
-      "because": "US member's data: XLF -7.23% in a month as 10Y yield rose 10.03%."
-     },
-     {
-      "agent": "SPILLOVER",
-      "cell": "JP/Financials",
-      "from": "neutral",
-      "to": "bearish",
-      "because": "JP member's data: Financials -3.7% in a month despite rate sensitivity."
-     },
-     {
-      "agent": "CHAIR",
-      "cell": "US/Tech",
-      "from": "bearish",
-      "to": "neutral",
-      "because": "US agent: XLK up 8.83% in a month despite yields; BEAR's duration risk keeps confidence low."
-     },
-     {
-      "agent": "CHAIR",
-      "cell": "US/Financials",
-      "from": "neutral",
-      "to": "bearish",
-      "because": "US agent: XLF down 7.23% in a month as 10Y hit 5.277%."
-     },
-     {
-      "agent": "CHAIR",
-      "cell": "JP/Tech",
-      "from": "bearish",
-      "to": "neutral",
-      "because": "JP agent: sector up 7.19% and Nikkei up 3.01% over the month."
-     },
-     {
-      "agent": "CHAIR",
-      "cell": "JP/Financials",
-      "from": "neutral",
-      "to": "bearish",
-      "because": "JP agent: banks down 3.7% in a month, not benefiting from higher yields."
-     },
-     {
-      "agent": "BEAR",
-      "cell": "HK/Energy",
-      "from": "bearish",
-      "to": "neutral",
-      "because": "HK specialist argued Energy fell least (6.0%) with no direct rate channel; data supports neutral over bearish."
-     },
-     {
-      "agent": "BEAR",
-      "cell": "CN/Property",
-      "from": "bearish",
-      "to": "neutral",
-      "because": "CN specialist noted +35.67% monthly gain and no confirmed post-event data; bearish case lacks reversal evidence."
+      "because": "CN member: local bank proxy +2.6% monthly, no credit-stress evidence in data."
      },
      {
       "agent": "BEAR",
       "cell": "JP/Tech",
       "from": "bearish",
       "to": "neutral",
-      "because": "JP specialist showed Tech up 7.19% monthly and Nikkei up 3.01%; bearish 0.60 was too aggressive without reversal signal."
+      "because": "JP agent's challenge: proxy up 7.19% monthly with no tech-specific local news weakens bear case."
      }
     ],
     "key_risks": [
-     "Most split cell is US/Tech (dissent 0.5): XLK is up 8.83% in a month while the 10Y yield rose 10.03% to 5.277%; a repricing could be abrupt [US-10y][EVENT].",
-     "Hong Kong's peg (USD/HKD 7.8463) transmits US rates locally; property proxy is down 7.67% with 34.61% volatility, the highest among HK sectors [HK-fx][HK-n7].",
-     "Mainland post-holiday trading and domestic yields are not in our data; the CN Property proxy's 35.67% monthly gain with 69.0% volatility could reverse sharply [CN-idx][CN-n4]."
+     "US/Tech is the most split cell (dissent 0.71): the bullish view rests on XLK up 8.83% monthly while the 10Y yield sits at 5.277% [US-Tech, US-10y].",
+     "Hong Kong bearish views may be crowded: the Hang Seng already fell 2.6% in a day and 5.29% monthly before the report [HK-idx, HK-n5].",
+     "Mainland markets were closed for the holiday, so prices predate the report and the reaction on reopening is not in our data [CN-idx, HK-n2, EVENT]."
     ],
     "triggers": [
      {
-      "condition": "US 10Y yield falls back below 5% from 5.277% [US-10y]",
-      "would_change": "Ease bearish views on US, HK and JP Property and Financials toward neutral."
+      "condition": "Mainland markets reopen and bank and property proxies hold steady with no new credit-stress disclosures [CN-idx, EVENT].",
+      "would_change": "Would soften bearish views on Hong Kong and mainland property and financials toward neutral."
      },
      {
-      "condition": "US 10Y yield breaks above 5.5% and XLK posts a weekly decline [US-10y]",
-      "would_change": "Raise confidence in the bearish US/Tech view and resolve the council's split."
+      "condition": "The US 10Y yield reverses below 5.0%, from 5.277% now [US-10y].",
+      "would_change": "Would ease bearish US property and financials views; a bond-driven equity selloff would instead weaken the US tech bullish view."
      },
      {
-      "condition": "Mainland markets reopen with strong inflows or confirmed policy easing [HK-n2][CN-n8]",
-      "would_change": "Reduce bearishness on HK Tech and Financials and support neutral-to-better CN views."
+      "condition": "Verified policy support directly addresses local-government financing gaps described in the report [EVENT].",
+      "would_change": "Would reduce bearishness on mainland and Hong Kong property and strengthen the financials outlook."
      }
     ],
     "questions_for_you": [
-     "Your US technology holdings are your largest position and the council's most divided cell; over what time horizon does this yield shock change your case for them?",
-     "Your Hong Kong banks and other financials sit where the council is bearish; how large are they relative to your account if rates stay high?",
-     "Your Japan financial holdings may overlap with similar rate risk in your US and Hong Kong banks; does this news change how concentrated that combined bet feels?"
+     "Your Hong Kong and US bank holdings make up much of what you own; does this report on mainland local finances change why you hold them, and over what time horizon?",
+     "Your US technology holdings are your largest single position and the council's most split cell; how large is that position relative to your account if the yield rise turns against it?",
+     "Your Japan holdings overlap with the same global bond selloff; how much do they duplicate risk you already carry in Hong Kong and US financials?"
     ],
     "disclaimer": "Research and decision support only. Not investment advice.",
-    "plain_english": "Borrowing costs around the world jumped sharply, with US government bond rates reaching their highest level in about 24 years. The council expects businesses that depend on cheap loans, like real estate and banks in the US, Hong Kong and Japan, to struggle more from here. Mainland China looks more mixed because its markets were closed for a holiday and local policy support is unclear. The council is most divided on big US technology companies, which have kept rising despite higher rates but could be hurt if rates keep climbing. This is research to help you think, not advice to buy or sell anything."
+    "plain_english": "A new report says China's long housing slump is straining the budgets of its local governments. The council expects Hong Kong shares, especially property companies, banks and tech firms, to keep struggling, and property companies in all four markets to stay under pressure, partly because borrowing costs are rising worldwide. Mainland Chinese banks and energy firms look more stable for now, because their share prices have not shown signs of stress. The council is most divided on American technology companies, which have been rising even as borrowing costs climb. This is research to help you think, not advice to buy or sell anything.",
+    "evidence_weights": {
+     "US": 1.0,
+     "HK": 0.7,
+     "CN": 0.7,
+     "JP": 1.0,
+     "BEAR": 0.25
+    },
+    "risk": {
+     "markets": {
+      "HK": {
+       "score": 47,
+       "label": "moderate",
+       "components": {
+        "volatility": 27,
+        "drawdown": 53,
+        "council_view": 76,
+        "disagreement": 12,
+        "uncertainty": 40
+       },
+       "inputs": {
+        "vol_20d_pct": 15.27,
+        "chg_1m_pct": -5.29
+       }
+      },
+      "CN": {
+       "score": 34,
+       "label": "low",
+       "components": {
+        "volatility": 12,
+        "drawdown": 36,
+        "council_view": 61,
+        "disagreement": 11,
+        "uncertainty": 40
+       },
+       "inputs": {
+        "vol_20d_pct": 11.2,
+        "chg_1m_pct": -3.61
+       }
+      },
+      "US": {
+       "score": 25,
+       "label": "low",
+       "components": {
+        "volatility": 9,
+        "drawdown": 0,
+        "council_view": 61,
+        "disagreement": 41,
+        "uncertainty": 0
+       },
+       "inputs": {
+        "vol_20d_pct": 10.35,
+        "chg_1m_pct": 0.73
+       }
+      },
+      "JP": {
+       "score": 37,
+       "label": "moderate",
+       "components": {
+        "volatility": 58,
+        "drawdown": 0,
+        "council_view": 60,
+        "disagreement": 22,
+        "uncertainty": 0
+       },
+       "inputs": {
+        "vol_20d_pct": 23.67,
+        "chg_1m_pct": 3.01
+       }
+      }
+     },
+     "portfolio": {
+      "score": 36,
+      "label": "moderate",
+      "components": {
+       "weighted_markets": 35,
+       "concentration": 0.7
+      },
+      "covered_pct": 99.9
+     },
+     "method": "volatility 30%, 1-month drawdown 20%, council view 30%, disagreement 10%, unverified claims 10%; portfolio adds up to 10 points for market concentration"
+    }
    }
   },
   {
-   "t": 166.53,
+   "t": 179.16,
    "event": "stage",
    "data": {
     "name": "brief",

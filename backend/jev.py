@@ -39,11 +39,12 @@ def qid(market: str, sector: str) -> str:
     return f"{market}_{sector}"
 
 
-def questions(market_names: dict[str, str]) -> dict:
+def questions(market_names: dict[str, str], sectors: dict[str, str] | None = None) -> dict:
+    """One choice question per market x sector. `sectors`: id -> display name (default: the original four)."""
     out = {}
     for code, name in market_names.items():
-        for sector in SECTORS:
-            where = f"{name} ({code}) {sector}"
+        for sector, sector_name in (sectors or {x: x for x in SECTORS}).items():
+            where = f"{name} ({code}) {sector_name}"
             out[qid(code, sector)] = {
                 "type": "choice",
                 "instructions": (
@@ -62,7 +63,7 @@ def questions(market_names: dict[str, str]) -> dict:
 
 async def vote_with_jev(agent_context: dict, cells: list[tuple[str, str]], *, agent: str, rnd: str,
                         market_names: dict[str, str], previous: Vote | None = None,
-                        reason: str = "") -> Vote:
+                        reason: str = "", sectors: dict[str, str] | None = None) -> Vote:
     """Ask Jev for one seat's vote on every cell. Raises JevError on any problem.
 
     `previous` (the seat's blind vote) and `reason` fill `because` on cells whose view
@@ -71,7 +72,7 @@ async def vote_with_jev(agent_context: dict, cells: list[tuple[str, str]], *, ag
     key = os.getenv("TYPESAFE_API_KEY")
     if not key or not enabled():
         raise JevError("Jev is off (no TYPESAFE_API_KEY)")
-    body = {"model": MODEL, "state": agent_context, "questions": questions(market_names)}
+    body = {"model": MODEL, "state": agent_context, "questions": questions(market_names, sectors)}
     start = time.monotonic()
     try:
         async with httpx.AsyncClient(timeout=TIMEOUT_S) as client:

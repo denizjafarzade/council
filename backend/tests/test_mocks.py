@@ -72,6 +72,6 @@ def test_cached_datapacks_are_valid_and_citable():
             continue  # cache is optional; orchestrator falls back to mocks
         pack = DataPack.model_validate_json(path.read_text(encoding="utf-8"))
         assert pack.country == c
-        assert {s.sector for s in pack.sectors} == set(SECTORS)
+        assert {s.sector for s in pack.sectors} >= set(SECTORS)  # library sectors may add more
         assert f"{c}-idx" in pack.source_ids() and f"{c}-fx" in pack.source_ids()
         assert len({n.id for n in pack.news}) == len(pack.news)

@@ -51,6 +51,48 @@
       "ticker": "XLE",
       "chg_1m_pct": -3.5,
       "vol_20d_pct": 20.98
+    },
+    {
+      "sector": "Health",
+      "ticker": "XLV",
+      "chg_1m_pct": -3.91,
+      "vol_20d_pct": 14.02
+    },
+    {
+      "sector": "Industrials",
+      "ticker": "XLI",
+      "chg_1m_pct": -1.64,
+      "vol_20d_pct": 12.79
+    },
+    {
+      "sector": "ConsumerDisc",
+      "ticker": "XLY",
+      "chg_1m_pct": -4.2,
+      "vol_20d_pct": 14.26
+    },
+    {
+      "sector": "Staples",
+      "ticker": "XLP",
+      "chg_1m_pct": -5.85,
+      "vol_20d_pct": 11.62
+    },
+    {
+      "sector": "Utilities",
+      "ticker": "XLU",
+      "chg_1m_pct": -6.66,
+      "vol_20d_pct": 14.17
+    },
+    {
+      "sector": "Materials",
+      "ticker": "XLB",
+      "chg_1m_pct": -7.72,
+      "vol_20d_pct": 12.69
+    },
+    {
+      "sector": "Communication",
+      "ticker": "XLC",
+      "chg_1m_pct": -1.87,
+      "vol_20d_pct": 20.71
     }
   ],
   "macro": [
@@ -118,5 +160,7 @@
       "published": "2026-10-03T01:33+00:00"
     }
   ],
-  "news_fetched_at": "2026-10-04T07:31:21+00:00"
+  "coverage": "full",
+  "news_fetched_at": "2026-10-04T08:22:50+00:00",
+  "prices_fetched_at": "2026-10-04T08:22:50+00:00"
 }

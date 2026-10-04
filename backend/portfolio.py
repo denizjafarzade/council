@@ -3,7 +3,7 @@
 Input: CSV with columns date,ticker,side,qty,price (side = buy or sell; lines starting with # are
 comments). Trades are replayed in
 date order with average cost. Tickers map to a market and sector only through the tickers we
-already fetch (data/fetch.py TICKERS and the market library); anything else is "not covered",
+already fetch (each market's index and the sector library's proxies); anything else is "not covered",
 never guessed. Costs are converted to USD at the cached FX rate of each market, because a
 portfolio mixing HKD, JPY and USD prices cannot be added up otherwise.
 
@@ -15,12 +15,12 @@ import io
 from dataclasses import dataclass, field
 from datetime import date
 
-from schemas import SECTORS, DataPack
+from schemas import DataPack
 
-import orchestrator  # CACHE_DIR / MOCK_PACKS, patched in tests
+import orchestrator  # CACHE_DIR, patched in tests
 
-# Instruments a user can hold. FX and yield series map to a market but are not holdings.
-HOLDABLE_ROLES = set(SECTORS) | {"idx"}
+# Instruments a user can hold: sector proxies and the index. FX and yield series map to a market
+# but are not holdings.
 ROLE_LABEL = {"idx": "Broad index"}
 # US-listed proxies for other markets trade in dollars.
 USD_LISTED = {"KSA"}
@@ -67,16 +67,19 @@ class Summary:
 
 
 def ticker_map() -> dict[str, tuple[str, str]]:
-    """ticker -> (market code, sector or "Broad index"), from the tickers we already fetch."""
+    """ticker -> (market code, sector id or "Broad index"), from the tickers we already fetch."""
     import library
     from data import fetch
 
+    holdable = library.sector_ids() | {"idx"}
     out: dict[str, tuple[str, str]] = {}
-    tables = {code: {k: tuple(v) for k, v in m.tickers.items()} for code, m in library.markets().items()}
-    tables.update(fetch.TICKERS)
-    for code, roles in tables.items():
+    for code in library.markets():
+        try:
+            roles = fetch.tickers_for(code)
+        except KeyError:  # a custom market without tickers
+            continue
         for role, (ticker, _name) in roles.items():
-            if role in HOLDABLE_ROLES:
+            if role in holdable:
                 out[ticker.upper()] = (code, ROLE_LABEL.get(role, role))
     return out
 
@@ -84,7 +87,7 @@ def ticker_map() -> dict[str, tuple[str, str]]:
 def usd_rates() -> dict[str, float | None]:
     """Market code -> local currency units per USD, from the cached DataPacks' FX series."""
     rates: dict[str, float | None] = {"US": 1.0}
-    for folder in (orchestrator.CACHE_DIR, orchestrator.MOCK_PACKS):
+    for folder in (orchestrator.CACHE_DIR,):  # real cached rates only, never the mock packs
         for path in folder.glob("*.json"):
             code = path.stem
             if code in rates:

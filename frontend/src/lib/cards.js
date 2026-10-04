@@ -15,12 +15,12 @@ export function stripIds(text = '') {
   return text.replace(/\s*\[[^\]]*\]/g, '').replace(/\s+([.,;:])/g, '$1').replace(/\s{2,}/g, ' ').trim()
 }
 
-const MARKET_SECTOR = /\b([A-Z]{2,4})[/ ](Tech|Financials|Property|Energy)\b/g // "HK/Tech" or "HK Tech"
+const MARKET_SECTOR = /\b([A-Z]{2,4})[/ ]([A-Z][A-Za-z]+)\b/g // "HK/Tech" or "HK Health": only known sectors are rewritten
 
 /** Model text made plain for the cards: no ids, no "bearish"/"cell"/"dissent", names written out. */
-export function plain(text = '', names = {}) {
+export function plain(text = '', names = {}, sectorNames = SECTOR_NAMES) {
   return stripIds(text)
-    .replace(MARKET_SECTOR, (_, code, sector) => `${names[code] || code} ${SECTOR_NAMES[sector]}`)
+    .replace(MARKET_SECTOR, (m, code, sector) => (sectorNames[sector] ? `${names[code] || code} ${sectorNames[sector]}` : m))
     .replace(/\bbearish\b/gi, (w) => (w[0] === 'B' ? 'Negative' : 'negative'))
     .replace(/\bbullish\b/gi, (w) => (w[0] === 'B' ? 'Positive' : 'positive'))
     .replace(/\bdissent\b/gi, 'disagreement')
@@ -98,7 +98,7 @@ function moveSentence(idx) {
  * One card per council market, sorted by the user's exposure; markets they don't hold last.
  * `packs` is code -> DataPack, `names` code -> market name.
  */
-export function buildCards(state, packs, names) {
+export function buildCards(state, packs, names, sectorNames = SECTOR_NAMES) {
   const markets = state.council?.markets?.map((m) => m.code) || Object.keys(names)
   const members = state.council?.members || []
   const exposure = Object.fromEntries((state.portfolio?.by_market || []).map((m) => [m.name, m.pct]))
@@ -119,13 +119,15 @@ export function buildCards(state, packs, names) {
       name: names[code] || code,
       exposure: exposure[code] ?? 0,
       happened: moveSentence(pack?.series?.find((s) => s.id === `${code}-idx`)),
-      view: report ? clip(plain(firstSentence(report.impact_summary), names), 25) : '',
+      view: report ? clip(plain(firstSentence(report.impact_summary), names, sectorNames), 25) : '',
       lean: leanOf(own),
       seatName: seat?.name,
       chips: [...new Set((report?.claims || []).flatMap((c) => c.source_ids))].slice(0, 4),
       council: cells.length ? (Math.max(...cells.map((c) => c.dissent)) >= SPLIT_AT ? 'split' : 'agree') : null,
       councilLean: leanOf(cells),
-      watch: trigger ? `${plain(trigger.condition, names).replace(/[.]$/, '')}: ${plain(trigger.would_change, names)}` : '',
+      watch: trigger ? `${plain(trigger.condition, names, sectorNames).replace(/[.]$/, '')}: ${plain(trigger.would_change, names, sectorNames)}` : '',
+      risk: state.brief?.risk?.markets?.[code] || null,
+      evidence: state.brief?.evidence_weights?.[seatId],
       pricesAsOf: pack?.as_of,
       headlinesAt: pack?.news_fetched_at || pack?.as_of,
     }

@@ -39,7 +39,7 @@
     {
       "id": "TW-n3",
       "title": "Musk confirms talks with TSMC over his Texas chip factory project",
-      "source": "digitimes.com",
+      "source": "digitimes",
       "url": "https://news.google.com/rss/articles/CBMikwFBVV95cUxPcGtjWHVkYVZrd1RyRFJFMk5MT2VDWmVBQ3ZFZTJpUFVZOFVtTjhIc2xuTGJvSTZrTkhhOFR5ekdXQXhuTDJodGx2MGdTTkFsdkZySjY4SFVSQjFrQ2JjMzAzdVlEWDdJcVppTlNleVVBUmpWSkZSMmg2YjZZQXJFVnJZY09ZaFYtNW5Mck9YTzVwdlU?oc=5",
       "published": "2026-10-03T14:36+00:00"
     },
@@ -59,25 +59,27 @@
     },
     {
       "id": "TW-n6",
+      "title": "Elon Musk Confirms TSMC-Terafab Talks",
+      "source": "culpium.com",
+      "url": "https://news.google.com/rss/articles/CBMicEFVX3lxTE41RmtOdC00YkxvRHNnNk9xNmlfakxIRkVMMno0cnRuQkd3cDF4RVNOVkVUQTJYcExpN1Q1dy1BR3pCZDljTk11RkxSNEltbC1lM2tNM00zd2RaVFNPS1VSOXRlME9HdEY4SDVTbXhnTk8?oc=5",
+      "published": "2026-10-03T10:15+00:00"
+    },
+    {
+      "id": "TW-n7",
+      "title": "TSMC Is Reportedly in Talks to Help Run Elon Musk's Terafab in Texas",
+      "source": "Startup Fortune",
+      "url": "https://news.google.com/rss/articles/CBMimwFBVV95cUxPMnhVWi1WVjVCdExRaW43bFRuMm9kMDdlcm9XZ2ZtWXBaVDRaYm1wUU1WMXFobTlDa2huQ0xLbWZPbFdiNHZDSldGQ3V1RHRoZWxkT1FIN3p5dktfR0tuMWRaYmRSdWUwWnhzVGV4NE03TUN4enBfNk9UUDJMcWJZS192SjdSM09OMkl3MFJBVElnVzczZnZ0X2xaUQ?oc=5",
+      "published": "2026-10-03T03:56+00:00"
+    },
+    {
+      "id": "TW-n8",
       "title": "AMD, Intel Hike Chip Prices 10% as TSMC Costs Bite [2026]",
       "source": "tech-insider.org",
       "url": "https://news.google.com/rss/articles/CBMifEFVX3lxTFBDS3ZXWWVVNFVIcEYzTmI4UlMzM0NjSTBXTVZxTTZhRGthSHA0eHVvZ3pmdUFhY0ZtX2ltSVJMZDVyZ0hDWE1fV0JMcUZVRUdMNkJCbVJSR3dPUlpTaGVjbW93RkpfTHpCQ2laUUdQZW1oUDdtb3p3Wi1EUTI?oc=5",
       "published": "2026-10-03T01:24+00:00"
-    },
-    {
-      "id": "TW-n7",
-      "title": "TSMC (TSM) Exceeds Market Returns: Some Facts to Consider",
-      "source": "Yahoo Finance",
-      "url": "https://news.google.com/rss/articles/CBMinAFBVV95cUxNZ0hHNmhfYy1ScnlWRTMxU2M0UXJMWDBrOWR0Zk5UQ3lveXMyRjdyS2FnWXYxT1hHVHo5eEItaWszSktqTEJQQjNDVUQzNnpyVVBvU0l3UzUyOG1SMWJrS05JUi1MSFdyNjU5TU1va1Y0U1k0NzVjdDhmX18zOWtqSGNWNmJHLWlpUUZyU1ZrajhZZ2laaVlPX2s5SS0?oc=5",
-      "published": "2026-10-02T20:45+00:00"
-    },
-    {
-      "id": "TW-n8",
-      "title": "Exclusive: TSMC Exploring Plans to Work With Elon Musk’s Terafab",
-      "source": "culpium.com",
-      "url": "https://news.google.com/rss/articles/CBMia0FVX3lxTE9qY0NDVDJLdkNxdnlFR0VXaWNvVmIzdEF1enBsWmloZE9HYWs3LWsyVEdPSXB5bVEydHJUdWU5YjlrOHpyZk1zc0dOQ2ozSzJfTDBjbTFLVzFPTjJJRXdqRmQ5RG1JSW4wbWRR?oc=5",
-      "published": "2026-10-02T18:48+00:00"
     }
   ],
-  "coverage": "partial"
+  "coverage": "partial",
+  "news_fetched_at": "2026-10-04T08:23:13+00:00",
+  "prices_fetched_at": "2026-10-04T08:23:13+00:00"
 }

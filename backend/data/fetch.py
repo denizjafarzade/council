@@ -30,40 +30,25 @@ CACHE_DIR = Path(__file__).resolve().parent / "cache"
 MANUAL_MACRO = Path(__file__).resolve().parent / "macro_manual.json"
 UA = {"User-Agent": "Mozilla/5.0 (council hackathon data fetcher)"}
 
-# One ticker per (country, role). Swap any that fail --check.
+# Index, FX and rates per market. Sector proxies live in the sector library (agents/sectors.json).
+# Swap any that fail --check.
 TICKERS: dict[str, dict[str, tuple[str, str]]] = {
     "HK": {
         "idx": ("^HSI", "Hang Seng Index"),
         "fx": ("HKD=X", "USD/HKD"),
-        "Tech": ("3033.HK", "CSOP Hang Seng TECH ETF"),
-        "Financials": ("0005.HK", "HSBC"),
-        "Property": ("0016.HK", "Sun Hung Kai Properties"),
-        "Energy": ("0883.HK", "CNOOC"),
     },
     "CN": {
         "idx": ("000001.SS", "Shanghai Composite"),
         "fx": ("CNY=X", "USD/CNY"),
-        "Tech": ("688981.SS", "SMIC"),
-        "Financials": ("601398.SS", "ICBC"),
-        "Property": ("000002.SZ", "China Vanke"),
-        "Energy": ("601857.SS", "PetroChina"),
     },
     "US": {
         "idx": ("^GSPC", "S&P 500"),
         "fx": ("DX-Y.NYB", "US Dollar Index"),
         "10y": ("^TNX", "US 10Y Treasury yield"),
-        "Tech": ("XLK", "Technology Select Sector SPDR"),
-        "Financials": ("XLF", "Financial Select Sector SPDR"),
-        "Property": ("XLRE", "Real Estate Select Sector SPDR"),
-        "Energy": ("XLE", "Energy Select Sector SPDR"),
     },
     "JP": {
         "idx": ("^N225", "Nikkei 225"),
         "fx": ("JPY=X", "USD/JPY"),
-        "Tech": ("8035.T", "Tokyo Electron"),
-        "Financials": ("8306.T", "Mitsubishi UFJ"),
-        "Property": ("8801.T", "Mitsui Fudosan"),
-        "Energy": ("5020.T", "ENEOS"),
     },
 }
 # CSI 300 (000300.SS) returns only 1 day of history on yfinance, hence Shanghai Composite.
@@ -103,8 +88,21 @@ def _library_market(country: str):
     return m
 
 
+def sector_ids() -> set[str]:
+    import library
+
+    return library.sector_ids()
+
+
 def tickers_for(country: str) -> dict[str, tuple[str, str]]:
-    return TICKERS[country] if country in TICKERS else {k: tuple(v) for k, v in _library_market(country).tickers.items()}
+    """role -> (ticker, name): the market's index/FX/rates plus every library sector with a proxy there."""
+    import library
+
+    base = dict(TICKERS[country]) if country in TICKERS else {k: tuple(v) for k, v in _library_market(country).tickers.items()}
+    for sector in library.sectors().values():
+        if country in sector.proxies and sector.id not in base:
+            base[sector.id] = tuple(sector.proxies[country])
+    return base
 
 
 def close_for(country: str) -> tuple[int, int, timezone]:
@@ -153,7 +151,7 @@ def fetch_prices(country: str, report: list) -> tuple[list, list, object]:
             continue
         report.append((country, role, ticker, s["last"], s["date"], "OK"))
         date = s.pop("date")
-        if role in SECTORS:
+        if role in sector_ids():
             sectors.append({"sector": role, "ticker": ticker,
                             "chg_1m_pct": s["chg_1m_pct"], "vol_20d_pct": s["vol_20d_pct"]})
         else:
@@ -189,10 +187,15 @@ def fetch_macro(country: str, report: list) -> list:
             report.append((country, "macro", mid, None, None, f"FAIL {str(e)[:50]}"))
 
     if country == "HK":
-        def hibor():
-            rec = json.loads(_get(HKMA))["result"]["records"][0]
-            return float(rec["hibor_fixing_1m"]), rec["end_of_date"]
-        add("HK-hibor", "1M HIBOR", hibor)
+        hkma: dict = {}
+
+        def hkma_record() -> dict:  # one request for both HKMA figures
+            if not hkma:
+                hkma.update(json.loads(_get(HKMA, timeout=40))["result"]["records"][0])
+            return hkma
+
+        add("HK-hibor", "1M HIBOR", lambda: (float(hkma_record()["hibor_fixing_1m"]), hkma_record()["end_of_date"]))
+        add("HK-base", "HKMA base rate", lambda: (float(hkma_record()["disc_win_base_rate"]), hkma_record()["end_of_date"]))
     elif country == "US":
         add("US-ffr", "Effective Fed funds rate", lambda: fred_latest("DFF"))
     elif country == "JP":
@@ -257,20 +260,77 @@ def fetch_news(country: str, report: list) -> list:
 
 # --- build -------------------------------------------------------------------------
 
+def _coverage(sectors: list) -> str:
+    """full = proxies for at least the four original sectors; partial = index, FX and news only."""
+    return "full" if {s["sector"] for s in sectors} >= set(SECTORS) else "partial"
+
+
+def _now() -> str:
+    return datetime.now(timezone.utc).isoformat(timespec="seconds")
+
+
+def _as_of(country: str, idx_date) -> str:
+    """The index's last close in market time; "unknown" if the index failed (never 'now')."""
+    if not idx_date:
+        return "unknown"
+    hour, minute, tz = close_for(country)
+    return datetime.combine(idx_date, datetime.min.time()).replace(hour=hour, minute=minute, tzinfo=tz).isoformat()
+
+
 def build(country: str, report: list) -> DataPack:
     series, sectors, idx_date = fetch_prices(country, report)
-    hour, minute, tz = close_for(country)
-    as_of = (datetime.combine(idx_date, datetime.min.time()).replace(hour=hour, minute=minute, tzinfo=tz)
-             if idx_date else datetime.now(tz))
     return DataPack.model_validate({
         "country": country,
-        "as_of": as_of.isoformat(),
+        "as_of": _as_of(country, idx_date),
         "series": series,
         "sectors": sectors,
         "macro": fetch_macro(country, report),
         "news": fetch_news(country, report),
-        "coverage": "full" if len(sectors) == len(SECTORS) else "partial",
+        "coverage": _coverage(sectors),
+        "prices_fetched_at": _now(),
+        "news_fetched_at": _now(),
     })
+
+
+def refresh_prices(pack: DataPack, report: list) -> DataPack:
+    """New prices and rates for a cached pack, keeping its headlines (their ids may be in use)."""
+    series, sectors, idx_date = fetch_prices(pack.country, report)
+    if not series:
+        raise RuntimeError(f"no prices returned for {pack.country}")
+    return DataPack.model_validate({
+        **pack.model_dump(),
+        "as_of": _as_of(pack.country, idx_date),
+        "series": series,
+        "sectors": sectors,
+        "macro": fetch_macro(pack.country, report),
+        "coverage": _coverage(sectors),
+        "prices_fetched_at": _now(),
+    })
+
+
+def latest_close(country: str, now: datetime | None = None):
+    """The date of the most recent weekday close that has already happened in that market."""
+    hour, minute, tz = close_for(country)
+    local = (now or datetime.now(timezone.utc)).astimezone(tz)
+    day = local.date()
+    if (local.hour, local.minute) < (hour, minute):
+        day -= timedelta(days=1)
+    while day.weekday() >= 5:  # Saturday, Sunday
+        day -= timedelta(days=1)
+    return day
+
+
+def is_stale(pack: DataPack, now: datetime | None = None, recheck_hours: float = 6) -> bool:
+    """True when a newer close should exist than the pack's, unless we checked recently
+    (holidays: the refetch returns the same date, and we don't hammer the source)."""
+    now = now or datetime.now(timezone.utc)
+    if pack.prices_fetched_at:
+        fetched = datetime.fromisoformat(pack.prices_fetched_at)
+        if (now - fetched).total_seconds() < recheck_hours * 3600:
+            return False
+    if pack.as_of == "unknown":
+        return True
+    return datetime.fromisoformat(pack.as_of).date() < latest_close(pack.country, now)
 
 
 def print_report(report: list) -> None:

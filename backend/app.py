@@ -21,7 +21,7 @@ import recorder
 from library import CouncilError
 from models import all_models, profile
 from orchestrator import run_council
-from schemas import SECTORS, Council, DataPack, MarketDef, RoleDef, RunRequest, RunResponse
+from schemas import SECTORS, Council, DataPack, MarketDef, RoleDef, RunRequest, RunResponse, SectorDef
 
 SAMPLE_PORTFOLIO = Path(__file__).resolve().parent.parent / "samples" / "sample_portfolio_FICTIONAL.csv"
 
@@ -187,7 +187,7 @@ async def replay(slug: str, speed: float = 1.0) -> StreamingResponse:
 
 def _data_status(code: str) -> dict:
     """What data a market has on disk right now (never touches the network)."""
-    for folder, source in ((orchestrator.CACHE_DIR, "cache"), (orchestrator.MOCK_PACKS, "mock")):
+    for folder, source in ((orchestrator.CACHE_DIR, "cache"),):  # live runs never use mock data
         path = folder / f"{code}.json"
         if path.exists():
             pack = DataPack.model_validate_json(path.read_text(encoding="utf-8"))
@@ -201,10 +201,30 @@ def get_library() -> dict:
     return {
         "markets": [{**m.model_dump(), "data": _data_status(m.code)} for m in library.markets().values()],
         "roles": [r.model_dump() for r in library.roles().values()],
-        "sectors": SECTORS,
+        "sectors": [x.model_dump() for x in library.sectors().values()],
+        "default_sectors": SECTORS,
         "models": all_models(),
         "profile": profile(),
     }
+
+
+@app.post("/library/sectors", status_code=201)
+def add_sector(sector: SectorDef) -> SectorDef:
+    """A custom sector: name plus optional proxy tickers per market. Markets without a proxy judge it
+    from their index and headlines. Proxies are fetched on the next data refresh."""
+    try:
+        return library.save_sector(sector)
+    except CouncilError as e:
+        raise HTTPException(422, str(e))
+
+
+@app.delete("/library/sectors/{sector_id}", status_code=204)
+def remove_sector(sector_id: str) -> Response:
+    try:
+        library.delete_sector(sector_id)
+    except KeyError:
+        raise HTTPException(404, f"no custom sector {sector_id}")
+    return Response(status_code=204)
 
 
 @app.post("/library/roles", status_code=201)

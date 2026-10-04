@@ -25,6 +25,7 @@ from pydantic import BaseModel
 
 import jev
 import library
+import risk
 from council_math import compute_matrix, compute_vote_shifts
 from library import Seat
 from llm import LLMError, LLMOutputError, call_llm
@@ -43,6 +44,7 @@ MOCK_PACKS = ROOT / "mocks" / "datapacks"
 CACHE_DIR = ROOT / "backend" / "data" / "cache"
 PROMPTS = ROOT / "backend" / "agents" / "prompts"
 MOCK_DELAY_S = 0.3
+JEV_RETRY_S = 1.0  # pause before retrying a failed Jev vote
 FETCH_TIMEOUT_S = 30.0
 # Profile seats whose models a market seat can borrow, for model diversity (models.py).
 DELEGATE_MODEL_KEYS = ["HK", "CN", "US", "JP"]
@@ -51,7 +53,7 @@ STAGE_MODEL_KEY = {"rebuttal": "BEAR", "spillover": "SPILLOVER", "chair": "CHAIR
 BLIND_TASK = (
     "Blind vote. You have not seen any other member's view. Give a view (bearish, neutral, bullish) and a "
     "confidence (0 to 1) for each of the {n} cells: {scope} crossed with every sector in "
-    "Tech, Financials, Property, Energy, each exactly once. Set agent to \"{agent}\", round to \"blind\", "
+    "{sectors}, each exactly once. Set agent to \"{agent}\", round to \"blind\", "
     "and leave because and source empty."
 )
 DEBATE_TASK = (
@@ -100,8 +102,8 @@ CHAIR_TASK = (
     "and that this is research, not advice to buy or sell."
 )
 COVERAGE_NOTE = (
-    "\nDATA COVERAGE: your market's DATA has the index, FX and headlines but no sector proxies. Judge its "
-    "sector cells from the index and news, keep confidence lower there, and say \"not in our data\" where needed."
+    "\nDATA COVERAGE: your market's DATA has no sector proxy for {missing}. Judge those cells from the index and "
+    "news, keep confidence lower there, and say \"not in our data\" where needed."
 )
 
 T = TypeVar("T", bound=BaseModel)
@@ -144,6 +146,7 @@ async def run_council(req: RunRequest) -> AsyncIterator[Event]:
     yield stage("data", "started")
     packs, problems = await load_data(council.markets)
     yield "council", council_event(council, seats, packs)
+    yield "data", {"packs": {c: p.model_dump(mode="json", exclude_none=True) for c, p in packs.items()}}
     import portfolio  # lazily: portfolio imports this module for its data paths
 
     held = portfolio.current()
@@ -176,7 +179,7 @@ async def run_council(req: RunRequest) -> AsyncIterator[Event]:
     yield stage("debate", "done" if reports else "failed")
 
     # 5-6. Revote, with spillover mapped in parallel (both only need the transcript).
-    transcript = render_transcript(reports)
+    transcript = run.transcript(reports)
     spiller = run.spillover_seat()
     spill_task = asyncio.create_task(run.ask(
         spiller, Spillover, SPILLOVER_TASK.format(markets=", ".join(council.markets)), event, packs, transcript,
@@ -233,12 +236,14 @@ def skipped(agent: str, stage_name: str, err: Exception) -> Event:
 
 def council_event(council: Council, seats: list[Seat], packs: dict[str, DataPack]) -> dict:
     lib = library.markets()
+    lib_sectors = library.sectors()
     return {
         "name": council.name,
         "markets": [{"code": c, "name": lib[c].name,
                      "coverage": packs[c].coverage or lib[c].coverage if c in packs else lib[c].coverage,
                      "as_of": packs[c].as_of if c in packs else None} for c in council.markets],
-        "sectors": list(SECTORS),
+        "sectors": list(council.sectors),
+        "sector_names": {x: lib_sectors[x].name for x in council.sectors if x in lib_sectors},
         "members": [{"id": s.id, "name": s.member.name, "role": s.role.id, "role_name": s.role.name,
                      "stage": s.stage, "market": s.market.code if s.market else None,
                      "phases": s.member.phases.model_dump()} for s in seats],
@@ -249,63 +254,104 @@ def council_event(council: Council, seats: list[Seat], packs: dict[str, DataPack
 # --- 1. load_data -------------------------------------------------------------------
 
 def _read_pack(code: str) -> DataPack | None:
-    for folder in (CACHE_DIR, MOCK_PACKS):
-        path = folder / f"{code}.json"
-        if path.exists():
-            if folder is MOCK_PACKS:
-                log.warning("no cached DataPack for %s, using mock", code)
-            return DataPack.model_validate_json(path.read_text(encoding="utf-8"))
-    return None
+    """The cached DataPack. Live runs never fall back to mocks/datapacks (made-up numbers)."""
+    path = CACHE_DIR / f"{code}.json"
+    return DataPack.model_validate_json(path.read_text(encoding="utf-8")) if path.exists() else None
+
+
+def _save_pack(pack: DataPack) -> DataPack:
+    CACHE_DIR.mkdir(parents=True, exist_ok=True)
+    (CACHE_DIR / f"{pack.country}.json").write_text(pack.model_dump_json(indent=2, exclude_none=True), encoding="utf-8")
+    return pack
 
 
 def _fetch_pack(code: str) -> DataPack:
     from data import fetch  # imported lazily: pulls in yfinance
 
-    pack = fetch.build(code, [])
-    CACHE_DIR.mkdir(parents=True, exist_ok=True)
-    (CACHE_DIR / f"{code}.json").write_text(pack.model_dump_json(indent=2), encoding="utf-8")
-    return pack
+    return _save_pack(fetch.build(code, []))
+
+
+def _refresh_pack(pack: DataPack) -> DataPack:
+    from data import fetch
+
+    return _save_pack(fetch.refresh_prices(pack, []))
+
+
+def _is_stale(pack: DataPack) -> bool:
+    from data import fetch
+
+    try:
+        return fetch.is_stale(pack)
+    except Exception:  # noqa: BLE001 - a market we cannot date is treated as current
+        return False
 
 
 def _empty_pack(code: str) -> DataPack:
     return DataPack(country=code, as_of="unknown", series=[], sectors=[], macro=[], news=[], coverage="none")
 
 
-async def load_data(markets: list[str] = COUNTRIES) -> tuple[dict[str, DataPack], list[str]]:
-    """DataPacks from data/cache, then mocks/datapacks, then a live fetch; never fails the run."""
-    packs, problems = {}, []
-    for code in markets:
-        pack = _read_pack(code)
-        if pack is None and os.getenv("COUNCIL_OFFLINE", "") not in ("", "0", "false"):
-            problems.append(f"Offline mode: no cached data for {code}; its members argue from their brief only.")
-            pack = _empty_pack(code)
+def _offline() -> bool:
+    return os.getenv("COUNCIL_OFFLINE", "") not in ("", "0", "false")
+
+
+async def _one_market(code: str) -> tuple[DataPack, str | None]:
+    """Cached data, refreshed first if a newer close should exist. Never invents data."""
+    pack = _read_pack(code)
+    if _offline():
         if pack is None:
-            try:
-                pack = await asyncio.wait_for(asyncio.to_thread(_fetch_pack, code), FETCH_TIMEOUT_S)
-            except Exception as e:  # noqa: BLE001 - any data failure leaves that market without data
-                log.error("no data for %s: %s", code, e)
-                problems.append(f"No market data for {code} ({e}); its members argue from their brief only.")
-                pack = _empty_pack(code)
-        packs[code] = pack
-    return packs, problems
+            return _empty_pack(code), f"Offline mode: no cached data for {code}; its members argue from their brief only."
+        return pack, None
+    if pack is not None and not _is_stale(pack):
+        return pack, None
+    try:
+        call = _refresh_pack if pack is not None else _fetch_pack
+        fresh = await asyncio.wait_for(asyncio.to_thread(call, pack if pack is not None else code), FETCH_TIMEOUT_S)
+        return fresh, None
+    except Exception as e:  # noqa: BLE001 - any data failure leaves the cached (dated) data or none
+        log.error("could not refresh %s: %s", code, e)
+        if pack is not None:
+            return pack, f"Could not refresh {code} prices ({str(e)[:80]}); using the cached close of {pack.as_of[:10]}."
+        return _empty_pack(code), f"No market data for {code} ({str(e)[:80]}); its members argue from their brief only."
+
+
+async def load_data(markets: list[str] = COUNTRIES) -> tuple[dict[str, DataPack], list[str]]:
+    """DataPacks for every market, fetched in parallel where stale or missing; never fails the run."""
+    results = await asyncio.gather(*(_one_market(c) for c in markets))
+    packs = {c: pack for c, (pack, _) in zip(markets, results)}
+    return packs, [problem for _, problem in results if problem]
 
 
 # --- prompts ------------------------------------------------------------------------------
 
-def data_for(seat: Seat, packs: dict[str, DataPack]) -> str:
+def _focus(pack: DataPack, sectors: list[str]) -> dict:
+    """A DataPack trimmed to the council's sectors, so prompts stay on what is being voted."""
+    d = pack.model_dump(mode="json", exclude_none=True)
+    d["sectors"] = [x for x in d["sectors"] if x["sector"] in sectors]
+    return d
+
+
+def data_for(seat: Seat, packs: dict[str, DataPack], sectors: list[str] = SECTORS) -> str:
     if seat.sees_all:
-        return json.dumps({c: p.model_dump(mode="json", exclude_none=True) for c, p in packs.items()})
-    return packs[seat.market.code].model_dump_json(exclude_none=True)
+        return json.dumps({c: _focus(p, sectors) for c, p in packs.items()})
+    return json.dumps(_focus(packs[seat.market.code], sectors), separators=(",", ":"))
+
+
+def missing_sectors(pack: DataPack | None, sectors: list[str]) -> list[str]:
+    have = {x.sector for x in pack.sectors} if pack else set()
+    return [x for x in sectors if x not in have]
 
 
 def build_prompt(seat: Seat, markets: list[str], task: str, event: str, data: str, transcript: str | None,
-                 schema: type) -> str:
-    """System prompt = shared rules + the seat template filled from the member, its role and market."""
+                 schema: type, sectors: list[str] = SECTORS, pack: DataPack | None = None) -> str:
+    """System prompt = shared rules + the seat template filled from the member, its role and market.
+    `pack` is the seat's own market data (market seats), used to say which sectors it has no proxy for."""
     lib = library.markets()
+    names = library.sectors()
     shared = (PROMPTS / "_shared.md").read_text(encoding="utf-8").replace(
-        "{MARKETS}", ", ".join(f"{lib[c].name} ({c})" if c in lib else c for c in markets))
+        "{MARKETS}", ", ".join(f"{lib[c].name} ({c})" if c in lib else c for c in markets)).replace(
+        "{SECTORS}", ", ".join(f"{names[x].name} ({x})" if x in names else x for x in sectors))
     market = seat.market
-    partial = market is not None and market.coverage == "partial"
+    missing = missing_sectors(pack, sectors) if market is not None and pack is not None else []
     fills = {
         "{NAME}": seat.member.name,
         "{ROLE_NAME}": seat.role.name,
@@ -314,7 +360,7 @@ def build_prompt(seat: Seat, markets: list[str], task: str, event: str, data: st
                    else "You see every market's DataPack and the full transcript."),
         "{INSTRUCTIONS}": seat.instructions,
         "{LOCAL_KNOWLEDGE}": f"LOCAL KNOWLEDGE:\n{seat.brief}\n" if seat.brief else "",
-        "{COVERAGE_NOTE}": COVERAGE_NOTE if partial else "",
+        "{COVERAGE_NOTE}": COVERAGE_NOTE.format(missing=", ".join(missing)) if missing else "",
         "{TASK}": task,
         "{EVENT}": event,
         "{DATAPACK_JSON}": data,
@@ -334,11 +380,17 @@ def render_votes(votes: dict[str, Vote]) -> str:
     )
 
 
-def render_transcript(reports: list[DelegateReport]) -> str:
+def render_transcript(reports: list[DelegateReport], flagged: dict[tuple[str, str], list[str]] | None = None) -> str:
+    """The debate as text for later turns. Claims that failed the trust checks are marked so other
+    members (and the Chair) don't build on them: a made-up number cannot spread through the debate."""
+    flagged = flagged or {}
     lines = []
     for r in reports:
         lines.append(f"[{r.agent}] {r.impact_summary}")
-        lines += [f"  claim: {c.text} [{', '.join(c.source_ids)}]" for c in r.claims]
+        for c in r.claims:
+            problems = flagged.get((r.agent, c.text))
+            note = f"  (UNVERIFIED: {'; '.join(problems)}. Do not rely on it.)" if problems else ""
+            lines.append(f"  claim: {c.text} [{', '.join(c.source_ids)}]{note}")
         lines += [f"  challenge to {c.to_agent}: {c.text}" for c in r.challenges]
         lines += [f"  trigger: if {t.condition} -> {t.would_change}" for t in r.triggers]
     return "\n".join(lines)
@@ -363,13 +415,14 @@ def report_events(report: DelegateReport, visible: list[DataPack], all_packs: li
     return events
 
 
-def check_vote(vote: Vote, agent: str, rnd: str, markets: list[str], source: str = "llm") -> Vote:
+def check_vote(vote: Vote, agent: str, rnd: str, markets: list[str], source: str = "llm",
+               sectors: list[str] = SECTORS) -> Vote:
     """Pin identity fields and require each cell exactly once."""
     vote = vote.model_copy(update={"agent": agent, "round": rnd, "source": source})
     if rnd == "blind":
         vote = vote.model_copy(update={"cells": [c.model_copy(update={"because": None}) for c in vote.cells]})
     cells = [(c.country, c.sector) for c in vote.cells]
-    expected = {(c, s) for c in markets for s in SECTORS}
+    expected = {(c, s) for c in markets for s in sectors}
     if len(cells) != len(expected) or set(cells) != expected:
         missing = sorted(f"{c}/{s}" for c, s in expected - set(cells))
         raise LLMOutputError(f"vote must cover all {len(expected)} cells once; got {len(cells)}, missing {missing}")
@@ -414,7 +467,28 @@ class Run:
         self.markets = council.markets
         self.seats = seats
         self.chair = next(s for s in seats if s.stage == "chair")
+        self.sectors = list(council.sectors)
         self.exposure: dict | None = None  # aggregated portfolio percentages, for the Chair only
+        self.flagged: dict[tuple[str, str], list[str]] = {}  # (seat, claim text) -> trust-check problems
+        self.claim_stats: dict[str, list[int]] = {}  # seat -> [verified claims, all claims]
+
+    def transcript(self, reports: list[DelegateReport]) -> str:
+        return render_transcript(reports, self.flagged)
+
+    def evidence_weights(self) -> dict[str, float]:
+        """0.25 + 0.75 x share of a seat's claims that passed the checks; seats without claims keep 1."""
+        return {a: round(0.25 + 0.75 * ok / n, 2) for a, (ok, n) in self.claim_stats.items() if n}
+
+    def unverified_share(self) -> dict[str, float]:
+        """Market code -> share of its specialist's claims that failed the checks."""
+        out = {}
+        for code in self.markets:
+            seat = next((s for s in self.seats if s.market and s.market.code == code and s.role.id == "macro"), None) \
+                or next((s for s in self.seats if s.market and s.market.code == code), None)
+            if seat and self.claim_stats.get(seat.id, [0, 0])[1]:
+                ok, n = self.claim_stats[seat.id]
+                out[code] = (n - ok) / n
+        return out
 
     def vote_markets(self, seat: Seat) -> list[str]:
         """Market seats vote on their own market's four cells; cross-market seats on every market."""
@@ -425,7 +499,16 @@ class Run:
 
     def report_events(self, report: DelegateReport, packs: dict[str, DataPack], event: str) -> list[Event]:
         seat = next(s for s in self.seats if s.id == report.agent)
-        return report_events(report, self.visible(seat, packs), list(packs.values()), event)
+        events = report_events(report, self.visible(seat, packs), list(packs.values()), event)
+        # events = summary, one message per claim, challenges...: record each claim's check result.
+        stats = self.claim_stats.setdefault(report.agent, [0, 0])
+        for claim, (_, msg) in zip(report.claims, events[1:1 + len(report.claims)]):
+            stats[1] += 1
+            if msg["unverified"]:
+                self.flagged[(report.agent, claim.text)] = msg["unverified"]
+            else:
+                stats[0] += 1
+        return events
 
     def agent_context(self, seat: Seat, event: str, packs: dict[str, DataPack], reports: list[DelegateReport],
                       transcript: str | None) -> dict:
@@ -437,7 +520,7 @@ class Run:
                        "local_knowledge": seat.brief},
             "event": event,
             "data": {p.country: data_lines(p) for p in self.visible(seat, packs)},
-            "debate_notes": render_transcript(own) or (
+            "debate_notes": self.transcript(own) or (
                 "Blind vote: no debate yet." if transcript is None else "This member did not speak in the debate."),
             "council_debate": (transcript or "")[-6000:],
         }
@@ -453,7 +536,8 @@ class Run:
     async def ask(self, seat: Seat, schema: type[T], task: str, event: str, packs: dict[str, DataPack],
                   transcript: str | None, user: str, check: Callable[[T], T] = lambda x: x) -> T:
         """One seat call. Retries once on invalid output; raises LLMError if it still fails."""
-        system = build_prompt(seat, self.markets, task, event, data_for(seat, packs), transcript, schema)
+        system = build_prompt(seat, self.markets, task, event, data_for(seat, packs, self.sectors), transcript, schema,
+                              self.sectors, packs.get(seat.market.code) if seat.market else None)
         for attempt in (1, 2):
             try:
                 out, _usage = await call_llm(system, f"EVENT: {event}\n{user}", schema, agent=seat.id,
@@ -468,20 +552,28 @@ class Run:
     async def ask_vote(self, seat: Seat, rnd: str, event: str, packs: dict[str, DataPack],
                        blinds: dict[str, Vote], transcript: str | None,
                        reports: list[DelegateReport] = ()) -> Vote:
-        """Jev's calibrated vote when it is configured; the LLM's vote if Jev is off or fails."""
+        """Jev's calibrated vote when it is configured (one retry on failure); otherwise the LLM's vote.
+        A vote that falls back from a failed Jev says so in `fallback`, so the screen can show it."""
+        reason = None
         if jev.enabled():
             own = [r for r in reports if r.agent == seat.id]
-            try:
-                vote = await jev.vote_with_jev(
-                    self.agent_context(seat, event, packs, list(reports), transcript),
-                    [(c, s) for c in self.vote_markets(seat) for s in SECTORS], agent=seat.id, rnd=rnd,
-                    market_names={c: library.markets()[c].name for c in self.vote_markets(seat)},
-                    previous=blinds.get(seat.id),
-                    reason=" ".join(own[-1].impact_summary.split()[:20]) if own else "")
-                return check_vote(vote, seat.id, rnd, self.vote_markets(seat), source="jev")
-            except (jev.JevError, LLMOutputError) as e:
-                log.warning("%s: Jev %s vote failed, using the LLM: %s", seat.id, rnd, e)
-        return await self.llm_vote(seat, rnd, event, packs, blinds, transcript)
+            for attempt in (1, 2):
+                try:
+                    vote = await jev.vote_with_jev(
+                        self.agent_context(seat, event, packs, list(reports), transcript),
+                        [(c, s) for c in self.vote_markets(seat) for s in self.sectors], agent=seat.id, rnd=rnd,
+                        market_names={c: library.markets()[c].name for c in self.vote_markets(seat)},
+                        sectors={x: library.sectors()[x].name for x in self.sectors},
+                        previous=blinds.get(seat.id),
+                        reason=" ".join(own[-1].impact_summary.split()[:20]) if own else "")
+                    return check_vote(vote, seat.id, rnd, self.vote_markets(seat), source="jev", sectors=self.sectors)
+                except (jev.JevError, LLMOutputError) as e:
+                    reason = str(e)[:120]
+                    log.warning("%s: Jev %s vote failed (attempt %d): %s", seat.id, rnd, attempt, e)
+                    if attempt == 1:
+                        await asyncio.sleep(JEV_RETRY_S)
+        vote = await self.llm_vote(seat, rnd, event, packs, blinds, transcript)
+        return vote.model_copy(update={"fallback": f"Jev unavailable ({reason})"}) if reason else vote
 
     def llm_vote(self, seat: Seat, rnd: str, event: str, packs: dict[str, DataPack],
                  blinds: dict[str, Vote], transcript: str | None) -> Awaitable[Vote]:
@@ -489,7 +581,8 @@ class Run:
         if rnd == "blind":
             scope = (f"every market in {', '.join(markets)}" if seat.sees_all
                      else f"your own market {markets[0]} only (other markets are voted by their own specialists)")
-            task = BLIND_TASK.format(n=len(markets) * len(SECTORS), scope=scope, agent=seat.id)
+            task = BLIND_TASK.format(n=len(markets) * len(self.sectors), scope=scope, agent=seat.id,
+                                     sectors=", ".join(self.sectors))
             user = "Return your blind vote as JSON."
         else:
             rules = (PROMPTS / "_revote.md").read_text(encoding="utf-8").strip()
@@ -499,7 +592,7 @@ class Run:
             task = REVOTE_TASK.format(revote=rules, blind=blind, agent=seat.id)
             user = "Return your revote as JSON."
         return self.ask(seat, Vote, task, event, packs, transcript, user,
-                        check=lambda v: check_vote(v, seat.id, rnd, markets))
+                        check=lambda v: check_vote(v, seat.id, rnd, markets, sectors=self.sectors))
 
     async def votes(self, rnd: str, event: str, packs: dict[str, DataPack], blinds: dict[str, Vote],
                     transcript: str | None, reports: list[DelegateReport] = ()) -> AsyncIterator[Event]:
@@ -516,7 +609,7 @@ class Run:
     async def debate_round(self, n: int, event: str, packs: dict[str, DataPack], blinds: dict[str, Vote],
                            reports: list[DelegateReport]) -> AsyncIterator[Event]:
         """Debating seats argue in parallel, each seeing all blind votes and every earlier report."""
-        context = f"BLIND VOTES:\n{render_votes(blinds)}\n\nDEBATE SO FAR:\n{render_transcript(reports) or 'Nothing yet.'}"
+        context = f"BLIND VOTES:\n{render_votes(blinds)}\n\nDEBATE SO FAR:\n{self.transcript(reports) or 'Nothing yet.'}"
         debaters = [s for s in self.seats if s.stage == "debate" and s.member.phases.debate]
         calls = {
             s.id: self.ask(s, DelegateReport, DEBATE_TASK.format(n=n, total=self.council.debate_rounds, agent=s.id),
@@ -539,12 +632,12 @@ class Run:
         seats = [s for s in self.seats if s.stage == "rebuttal" and s.member.phases.debate]
         if not seats:
             return
-        cells = compute_matrix(list(blinds.values()), self.markets)
+        cells = compute_matrix(list(blinds.values()), self.markets, self.sectors)
         consensus = sorted(cells, key=lambda c: (c.dissent, -c.confidence))[:3]
         contested = sorted(cells, key=lambda c: (c.view != "bearish", -c.dissent))[:3]
         task_for = lambda s: REBUTTAL_TASK.format(  # noqa: E731
             consensus=render_cells(consensus), contested=render_cells(contested), agent=s.id)
-        context = f"BLIND VOTES:\n{render_votes(blinds)}\n\nDEBATE:\n{render_transcript(reports)}"
+        context = f"BLIND VOTES:\n{render_votes(blinds)}\n\nDEBATE:\n{self.transcript(reports)}"
         calls = {s.id: self.ask(s, DelegateReport, task_for(s), event, packs, context,
                                 "Return your DelegateReport as JSON.", check=pin_agent(s.id)) for s in seats}
         new: list[DelegateReport] = []
@@ -569,8 +662,10 @@ class Run:
         final_votes = list(revotes.values()) or list(blinds.values())
         if not final_votes:
             return None, None
-        matrix = compute_matrix(final_votes, self.markets)
+        weights = self.evidence_weights()
+        matrix = compute_matrix(final_votes, self.markets, self.sectors, weights)
         shifts = compute_vote_shifts(list(blinds.values()), list(revotes.values()))
+        risk_score = risk.compute(packs, matrix, self.markets, self.unverified_share(), self.exposure)
         split = max(matrix, key=lambda c: c.dissent)
 
         notes = ChairNotes(headline=FALLBACK_HEADLINE, key_risks=[], triggers=[], questions_for_you=[],
@@ -590,7 +685,8 @@ class Run:
                                        "Return the Chair's notes as JSON.")
             except LLMError as e:
                 err = e
-        return Brief(**notes.model_dump(), matrix=matrix, vote_shifts=shifts, disclaimer=DISCLAIMER), err
+        return Brief(**notes.model_dump(), matrix=matrix, vote_shifts=shifts, disclaimer=DISCLAIMER,
+                     evidence_weights=weights, risk=risk_score), err
 
 
 def portfolio_brief(exposure: dict | None) -> str:

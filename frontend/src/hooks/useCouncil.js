@@ -2,7 +2,7 @@ import { useCallback, useEffect, useReducer, useRef } from 'react'
 import mockRun from '../../../mocks/council_run.json'
 import { councilReducer, initialState } from '../lib/council'
 
-const SSE_EVENTS = ['council', 'portfolio', 'replay', 'stage', 'vote', 'message', 'report', 'spillover', 'brief', 'error']
+const SSE_EVENTS = ['council', 'data', 'portfolio', 'replay', 'stage', 'vote', 'message', 'report', 'spillover', 'brief', 'error']
 const MOCK_DELAY_MS = 300
 // Recorded runs ship with the frontend too (loaded on demand), so a replay works even if the backend is down.
 const LOCAL_RUNS = Object.fromEntries(

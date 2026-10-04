@@ -11,7 +11,9 @@ from pydantic import BaseModel, ConfigDict, Field
 # Markets and council members are configurable (see Council below), so these are
 # plain strings. The defaults keep the original seven agents and four markets.
 Country = str  # a market code, e.g. "HK" or "UK"
-Sector = Literal["Tech", "Financials", "Property", "Energy"]
+# Sectors come from the sector library (agents/sectors.json + custom ones); a council picks
+# which to cover. The original four stay the default.
+Sector = str  # a sector id, e.g. "Tech" or "Health"
 View = Literal["bearish", "neutral", "bullish"]
 AgentId = str  # a council member id, e.g. "HK", "BEAR" or "US-TECHNICAL"
 
@@ -20,6 +22,7 @@ SECTORS: list[str] = ["Tech", "Financials", "Property", "Energy"]
 AGENTS: list[str] = ["CHAIR", "HK", "CN", "US", "JP", "BEAR", "SPILLOVER"]
 
 MarketCode = Annotated[str, Field(pattern=r"^[A-Z]{2,4}$")]
+SectorId = Annotated[str, Field(pattern=r"^[A-Za-z][A-Za-z0-9]{0,23}$")]
 MemberId = Annotated[str, Field(pattern=r"^[A-Z0-9][A-Z0-9-]{0,39}$")]
 Slug = Annotated[str, Field(pattern=r"^[a-z0-9][a-z0-9-]{0,39}$")]
 DISCLAIMER = "Research and decision support only. Not investment advice."
@@ -72,6 +75,8 @@ class DataPack(Model):
     coverage: Optional[Literal["full", "partial", "none"]] = None
     # When the headlines were last fetched (POST /news/refresh); None = with the prices.
     news_fetched_at: Optional[str] = None
+    # When prices and rates were last fetched (UTC). Used to refresh stale data before a live run.
+    prices_fetched_at: Optional[str] = None
 
     def source_ids(self) -> set[str]:
         ids = {s.id for s in self.series} | {m.id for m in self.macro} | {n.id for n in self.news}
@@ -95,6 +100,8 @@ class Vote(Model):
     cells: list[VoteCell]
     # Stage 3 (Jev): which engine produced the vote. Optional so Stage 0-2 votes stay valid.
     source: Optional[Literal["jev", "llm"]] = None
+    # Set when Jev is configured but failed (after a retry) and the LLM voted instead: why.
+    fallback: Optional[str] = None
 
 
 # Contract 3: DelegateReport (debate output)
@@ -173,6 +180,10 @@ class Brief(Model):
     # The same view for someone with no finance background: no jargon, no tickers. Empty in
     # runs recorded before it existed; the UI then words one from the matrix.
     plain_english: str = ""
+    # Seat id -> weight its votes carried in the matrix (0.25 + 0.75 x share of its claims verified).
+    evidence_weights: dict[str, float] = Field(default_factory=dict)
+    # Quantitative risk score computed in code (risk.py): per market, portfolio, and the method.
+    risk: Optional[dict] = None
 
 
 # SSE events the frontend listens for
@@ -208,6 +219,11 @@ class PortfolioEvent(Model):
     label: str = ""  # e.g. "Sample portfolio (fictional trades)"
 
 
+class DataEvent(Model):
+    """The exact DataPacks this run used, so replays resolve every cited id to what the members saw."""
+    packs: dict[str, DataPack]
+
+
 class ErrorEvent(Model):
     message: str
     agent: Optional[AgentId] = None
@@ -234,6 +250,16 @@ class RoleDef(Model):
     instructions: str = Field(min_length=1, max_length=4000)  # may use {MARKET_NAME}
     limited_data: bool = False
     required: bool = False
+    builtin: bool = False
+
+
+class SectorDef(Model):
+    """A sector the council can cover. Built-ins ship in agents/sectors.json; users add more.
+    proxies: market code -> [ticker, display name]. A market without a proxy is judged from
+    its index and headlines, with lower confidence."""
+    id: SectorId
+    name: str = Field(min_length=1, max_length=60)
+    proxies: dict[str, tuple[str, str]] = Field(default_factory=dict)
     builtin: bool = False
 
 
@@ -275,6 +301,7 @@ class Council(Model):
     name: str = Field("Untitled council", min_length=1, max_length=80)
     markets: list[MarketCode] = Field(min_length=1, max_length=16)
     members: list[Member] = Field(min_length=1, max_length=40)
+    sectors: list[SectorId] = Field(default_factory=lambda: list(SECTORS), min_length=1, max_length=12)
     debate_rounds: int = Field(1, ge=1, le=2)
 
 
@@ -300,6 +327,7 @@ class CouncilEvent(Model):
     name: str
     markets: list[CouncilMarket]
     sectors: list[str]
+    sector_names: dict[str, str] = Field(default_factory=dict)  # id -> "Health Care"
     members: list[CouncilMember]
     debate_rounds: int
 
@@ -314,6 +342,7 @@ EVENT_MODELS: dict[str, type[Model]] = {
     "brief": Brief,
     "error": ErrorEvent,
     "portfolio": PortfolioEvent,
+    "data": DataEvent,
 }
 
 EventPayload = Union[CouncilEvent, StageEvent, Vote, Message, DelegateReport, Spillover, Brief, ErrorEvent]

@@ -3,6 +3,7 @@
 import asyncio
 import json
 import sys
+from datetime import datetime, timezone
 from pathlib import Path
 
 import pytest
@@ -192,15 +193,68 @@ def test_votes_are_emitted_as_they_arrive(monkeypatch):
     assert order == list(reversed(AGENTS))
 
 
-def test_load_data_prefers_cache_and_falls_back_to_mocks(tmp_path, monkeypatch):
+def _cache_with(tmp_path, monkeypatch, **hk_updates):
     mock_hk = json.loads((orchestrator.MOCK_PACKS / "HK.json").read_text(encoding="utf-8"))
-    (tmp_path / "HK.json").write_text(json.dumps({**mock_hk, "as_of": "cached"}), encoding="utf-8")
+    (tmp_path / "HK.json").write_text(json.dumps({**mock_hk, **hk_updates}), encoding="utf-8")
     monkeypatch.setattr(orchestrator, "CACHE_DIR", tmp_path)
+    monkeypatch.delenv("COUNCIL_OFFLINE", raising=False)
 
+
+def test_live_runs_never_use_mock_data(tmp_path, monkeypatch):
+    _cache_with(tmp_path, monkeypatch, prices_fetched_at=datetime.now(timezone.utc).isoformat())
     packs, problems = asyncio.run(orchestrator.load_data())
-    assert problems == []
-    assert packs["HK"].as_of == "cached"
-    assert packs["US"].country == "US"
+    assert packs["HK"].prices_fetched_at  # fresh cache used as is
+    assert packs["US"].series == [] and packs["US"].news == []  # no cache, fetch failed: empty, not mock
+    assert any("No market data for US" in p for p in problems)
+
+
+def test_stale_cache_is_refreshed_before_the_run(tmp_path, monkeypatch):
+    _cache_with(tmp_path, monkeypatch, as_of="2026-09-01T16:00:00+08:00")
+    monkeypatch.setattr(orchestrator, "_is_stale", lambda pack: True)
+    refreshed = []
+
+    def refresh(pack):
+        refreshed.append(pack.country)
+        return pack.model_copy(update={"as_of": "2026-10-02T16:00:00+08:00"})
+
+    monkeypatch.setattr(orchestrator, "_refresh_pack", refresh)
+    packs, _ = asyncio.run(orchestrator.load_data(["HK"]))
+    assert refreshed == ["HK"] and packs["HK"].as_of.startswith("2026-10-02")
+
+
+def test_failed_refresh_keeps_the_dated_cache_and_says_so(tmp_path, monkeypatch):
+    _cache_with(tmp_path, monkeypatch, as_of="2026-09-01T16:00:00+08:00")
+    monkeypatch.setattr(orchestrator, "_is_stale", lambda pack: True)
+    packs, problems = asyncio.run(orchestrator.load_data(["HK"]))
+    assert packs["HK"].as_of.startswith("2026-09-01")
+    assert problems == ["Could not refresh HK prices (network disabled in tests); using the cached close of 2026-09-01."]
+
+
+def test_offline_never_fetches(tmp_path, monkeypatch):
+    _cache_with(tmp_path, monkeypatch, as_of="2026-09-01T16:00:00+08:00")
+    monkeypatch.setenv("COUNCIL_OFFLINE", "1")
+    packs, problems = asyncio.run(orchestrator.load_data(["HK", "US"]))
+    assert packs["HK"].as_of.startswith("2026-09-01")  # stale but offline: used, not refreshed
+    assert packs["US"].series == [] and "Offline mode" in problems[0]
+
+
+def test_latest_close_skips_weekends_and_waits_for_the_close():
+    from data import fetch
+
+    sunday = datetime(2026, 10, 4, 6, 0, tzinfo=timezone.utc)
+    assert str(fetch.latest_close("HK", sunday)) == "2026-10-02"  # Friday
+    tuesday_morning_hk = datetime(2026, 10, 6, 1, 0, tzinfo=timezone.utc)  # 09:00 HKT, before the close
+    assert str(fetch.latest_close("HK", tuesday_morning_hk)) == "2026-10-05"
+
+
+def test_recent_fetch_is_not_stale_even_on_a_holiday():
+    from data import fetch
+    from schemas import DataPack
+
+    pack = DataPack(country="CN", as_of="2026-09-30T15:00:00+08:00", series=[], sectors=[], macro=[], news=[],
+                    prices_fetched_at="2026-10-04T05:00:00+00:00")
+    assert not fetch.is_stale(pack, datetime(2026, 10, 4, 6, 0, tzinfo=timezone.utc))  # checked an hour ago
+    assert fetch.is_stale(pack, datetime(2026, 10, 4, 20, 0, tzinfo=timezone.utc))  # 15 h later: check again
 
 
 def test_every_seat_prompt_is_fully_filled():

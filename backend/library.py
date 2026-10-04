@@ -1,7 +1,7 @@
-"""Role library, market library and saved councils.
+"""Role, market and sector libraries, and saved councils.
 
-Built-in roles and markets ship in agents/*.json. Anything a user adds (custom roles,
-custom markets, saved councils) is one JSON file under data/library/ or data/councils/.
+Built-in roles, markets and sectors ship in agents/*.json. Anything a user adds (custom roles,
+markets, sectors, saved councils) is one JSON file under data/library/ or data/councils/.
 resolve() turns a Council config into the seats the orchestrator runs.
 """
 
@@ -10,14 +10,16 @@ import re
 from dataclasses import dataclass
 from pathlib import Path
 
-from schemas import COUNTRIES, Council, MarketDef, Member, RoleDef
+from schemas import COUNTRIES, SECTORS, Council, MarketDef, Member, RoleDef, SectorDef
 
 BACKEND = Path(__file__).resolve().parent
 BUILTIN_ROLES = BACKEND / "agents" / "roles.json"
 BUILTIN_MARKETS = BACKEND / "agents" / "markets.json"
+BUILTIN_SECTORS = BACKEND / "agents" / "sectors.json"
 DATA = BACKEND / "data"
 CUSTOM_ROLES = DATA / "library" / "roles"
 CUSTOM_MARKETS = DATA / "library" / "markets"
+CUSTOM_SECTORS = DATA / "library" / "sectors"
 COUNCILS = DATA / "councils"
 
 # Built-in cross-market seats keep the original agent ids (mocks, model profiles use them).
@@ -46,6 +48,35 @@ def markets() -> dict[str, MarketDef]:
     for m in _read_dir(CUSTOM_MARKETS):
         out.setdefault(m["code"], MarketDef(**{**m, "builtin": False}))
     return out
+
+
+def sectors() -> dict[str, SectorDef]:
+    out = {x["id"]: SectorDef(**{**x, "builtin": True}) for x in json.loads(BUILTIN_SECTORS.read_text(encoding="utf-8"))}
+    for x in _read_dir(CUSTOM_SECTORS):
+        out.setdefault(x["id"], SectorDef(**{**x, "builtin": False}))
+    return out
+
+
+def sector_ids() -> set[str]:
+    return set(sectors())
+
+
+def save_sector(sector: SectorDef) -> SectorDef:
+    """A custom sector: a name, plus optional proxy tickers per market (verified when data is fetched)."""
+    lib = sectors()
+    if sector.id in lib and lib[sector.id].builtin:
+        raise CouncilError(f"'{sector.id}' is a built-in sector; pick another id")
+    sector = sector.model_copy(update={"builtin": False})
+    CUSTOM_SECTORS.mkdir(parents=True, exist_ok=True)
+    (CUSTOM_SECTORS / f"{sector.id}.json").write_text(sector.model_dump_json(indent=2), encoding="utf-8")
+    return sector
+
+
+def delete_sector(sector_id: str) -> None:
+    path = CUSTOM_SECTORS / f"{sector_id}.json"
+    if not path.exists():
+        raise KeyError(sector_id)
+    path.unlink()
 
 
 def save_role(role: RoleDef) -> RoleDef:
@@ -124,7 +155,7 @@ def default_council(market_codes: list[str] | None = None) -> Council:
                for c in codes]
     members += [Member(id=CROSS_IDS[r], name=n, role=r)
                 for r, n in (("bear", "Bear Researcher"), ("spillover", "Spillover Analyst"), ("chair", "Chair"))]
-    return Council(id="default", name="Default council", markets=codes, members=members)
+    return Council(id="default", name="Default council", markets=codes, members=members, sectors=list(SECTORS))
 
 
 # --- resolve -----------------------------------------------------------------------------
@@ -157,6 +188,11 @@ def resolve(council: Council) -> list[Seat]:
     unknown = [c for c in council.markets if c not in market_lib]
     if unknown:
         raise CouncilError(f"unknown markets: {unknown}")
+    unknown_sectors = [x for x in council.sectors if x not in sector_ids()]
+    if unknown_sectors:
+        raise CouncilError(f"unknown sectors: {unknown_sectors}")
+    if len(set(council.sectors)) != len(council.sectors):
+        raise CouncilError("a sector is listed twice")
     if len(set(council.markets)) != len(council.markets):
         raise CouncilError("a market is listed twice")
     ids = [m.id for m in council.members]

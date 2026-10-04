@@ -43,6 +43,48 @@
       "ticker": "601857.SS",
       "chg_1m_pct": -1.84,
       "vol_20d_pct": 22.74
+    },
+    {
+      "sector": "Health",
+      "ticker": "600276.SS",
+      "chg_1m_pct": 2.45,
+      "vol_20d_pct": 31.79
+    },
+    {
+      "sector": "Industrials",
+      "ticker": "601766.SS",
+      "chg_1m_pct": -0.48,
+      "vol_20d_pct": 18.17
+    },
+    {
+      "sector": "ConsumerDisc",
+      "ticker": "002594.SZ",
+      "chg_1m_pct": -5.54,
+      "vol_20d_pct": 21.08
+    },
+    {
+      "sector": "Staples",
+      "ticker": "600519.SS",
+      "chg_1m_pct": -3.15,
+      "vol_20d_pct": 15.37
+    },
+    {
+      "sector": "Utilities",
+      "ticker": "600900.SS",
+      "chg_1m_pct": 1.6,
+      "vol_20d_pct": 12.61
+    },
+    {
+      "sector": "Materials",
+      "ticker": "601899.SS",
+      "chg_1m_pct": -11.52,
+      "vol_20d_pct": 35.0
+    },
+    {
+      "sector": "Communication",
+      "ticker": "600941.SS",
+      "chg_1m_pct": -3.28,
+      "vol_20d_pct": 11.59
     }
   ],
   "macro": [],
@@ -104,5 +146,7 @@
       "published": "2026-10-02T04:33+00:00"
     }
   ],
-  "news_fetched_at": "2026-10-04T07:31:21+00:00"
+  "coverage": "full",
+  "news_fetched_at": "2026-10-04T08:22:41+00:00",
+  "prices_fetched_at": "2026-10-04T08:22:41+00:00"
 }

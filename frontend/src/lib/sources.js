@@ -11,7 +11,8 @@ function pct(n) {
   return `${n > 0 ? '+' : ''}${fmt(n)}%`
 }
 
-function index(packs) {
+/** id -> what it points at, for a set of DataPacks (code -> pack, or a list). */
+export function indexPacks(packs) {
   const map = {}
   for (const p of Object.values(packs)) {
     for (const s of p.series) {
@@ -37,15 +38,15 @@ function index(packs) {
   return map
 }
 
-const SOURCES = { live: index(cachePacks), mock: index(mockPacks) }
+const SOURCES = { live: indexPacks(cachePacks), mock: indexPacks(mockPacks) }
 
+/** Fallback when a run did not send its own data (recordings made before the "data" event). */
 export function sourcesFor(mode) {
-  // Live runs and their recordings cite the cache; before the first fetch the engine also falls back to mocks.
-  return (mode === 'live' || mode === 'replay') && Object.keys(SOURCES.live).length ? SOURCES.live : SOURCES.mock
+  return mode === 'mock' ? SOURCES.mock : SOURCES.live
 }
 
 /** Market code -> the DataPack this run's mode reads (for prices dates and the index move). */
 export function packsFor(mode) {
-  const packs = Object.values((mode === 'live' || mode === 'replay') && Object.keys(cachePacks).length ? cachePacks : mockPacks)
+  const packs = Object.values(mode === 'mock' ? mockPacks : cachePacks) // never mock data for real runs
   return Object.fromEntries(packs.map((p) => [p.country, p]))
 }

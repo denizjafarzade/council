@@ -1,0 +1,13 @@
+[
+  {"id": "Tech", "name": "Technology", "proxies": {"HK": ["3033.HK", "CSOP Hang Seng TECH ETF"], "CN": ["688981.SS", "SMIC"], "US": ["XLK", "Technology Select Sector SPDR"], "JP": ["8035.T", "Tokyo Electron"]}, "builtin": true},
+  {"id": "Financials", "name": "Financials", "proxies": {"HK": ["0005.HK", "HSBC"], "CN": ["601398.SS", "ICBC"], "US": ["XLF", "Financial Select Sector SPDR"], "JP": ["8306.T", "Mitsubishi UFJ"]}, "builtin": true},
+  {"id": "Property", "name": "Property", "proxies": {"HK": ["0016.HK", "Sun Hung Kai Properties"], "CN": ["000002.SZ", "China Vanke"], "US": ["XLRE", "Real Estate Select Sector SPDR"], "JP": ["8801.T", "Mitsui Fudosan"]}, "builtin": true},
+  {"id": "Energy", "name": "Energy", "proxies": {"HK": ["0883.HK", "CNOOC"], "CN": ["601857.SS", "PetroChina"], "US": ["XLE", "Energy Select Sector SPDR"], "JP": ["5020.T", "ENEOS"]}, "builtin": true},
+  {"id": "Health", "name": "Health Care", "proxies": {"US": ["XLV", "Health Care Select Sector SPDR"], "HK": ["2269.HK", "WuXi Biologics"], "CN": ["600276.SS", "Jiangsu Hengrui Pharmaceuticals"], "JP": ["4502.T", "Takeda Pharmaceutical"]}, "builtin": true},
+  {"id": "Industrials", "name": "Industrials", "proxies": {"US": ["XLI", "Industrial Select Sector SPDR"], "HK": ["0066.HK", "MTR Corporation"], "CN": ["601766.SS", "CRRC"], "JP": ["6301.T", "Komatsu"]}, "builtin": true},
+  {"id": "ConsumerDisc", "name": "Consumer Discretionary", "proxies": {"US": ["XLY", "Consumer Discretionary Select Sector SPDR"], "HK": ["9988.HK", "Alibaba"], "CN": ["002594.SZ", "BYD"], "JP": ["7203.T", "Toyota Motor"]}, "builtin": true},
+  {"id": "Staples", "name": "Consumer Staples", "proxies": {"US": ["XLP", "Consumer Staples Select Sector SPDR"], "HK": ["0322.HK", "Tingyi"], "CN": ["600519.SS", "Kweichow Moutai"], "JP": ["2914.T", "Japan Tobacco"]}, "builtin": true},
+  {"id": "Utilities", "name": "Utilities", "proxies": {"US": ["XLU", "Utilities Select Sector SPDR"], "HK": ["0002.HK", "CLP Holdings"], "CN": ["600900.SS", "China Yangtze Power"], "JP": ["9501.T", "Tokyo Electric Power"]}, "builtin": true},
+  {"id": "Materials", "name": "Materials", "proxies": {"US": ["XLB", "Materials Select Sector SPDR"], "HK": ["2600.HK", "Aluminum Corporation of China"], "CN": ["601899.SS", "Zijin Mining"], "JP": ["5401.T", "Nippon Steel"]}, "builtin": true},
+  {"id": "Communication", "name": "Communication Services", "proxies": {"US": ["XLC", "Communication Services Select Sector SPDR"], "HK": ["0700.HK", "Tencent"], "CN": ["600941.SS", "China Mobile"], "JP": ["9432.T", "NTT"]}, "builtin": true}
+]

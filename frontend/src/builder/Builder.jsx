@@ -25,9 +25,12 @@ function reconcile(council, lib) {
   const markets = new Set(lib.markets.map((m) => m.code))
   const roles = new Set(lib.roles.map((r) => r.id))
   const keep = council.markets.filter((c) => markets.has(c))
+  const sectors = new Set(lib.sectors.map((x) => x.id))
+  const keepSectors = (council.sectors || []).filter((x) => sectors.has(x))
   return {
     ...council,
     markets: keep,
+    sectors: keepSectors.length ? keepSectors : lib.default_sectors,
     members: council.members.filter((m) => roles.has(m.role) && (!m.market || keep.includes(m.market))),
   }
 }
@@ -120,7 +123,7 @@ export default function Builder({ onConvene, onBackToSession }) {
 
       <main className="mx-auto max-w-[1440px] px-8 py-8">
         {step === 0 && (
-          <MarketsStep lib={lib} council={council} setCouncil={setCouncil} onNext={() => setStep(1)}
+          <MarketsStep lib={lib} council={council} setCouncil={setCouncil} onNext={() => setStep(1)} onLibraryChange={refresh}
             onAddMarket={() => setAddingMarket(true)} />
         )}
         {step === 1 && (

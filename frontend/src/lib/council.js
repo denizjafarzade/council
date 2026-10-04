@@ -9,6 +9,7 @@ export const initialState = {
   event: '',
   council: null, // the backend's "council" event: markets and seats for this run
   portfolio: null, // the user's exposure the Chair saw (percentages only)
+  packs: null, // the exact DataPacks the run used ("data" event), code -> pack
   stages: Object.fromEntries(STAGES.map((s) => [s.id, 'pending'])),
   votes: { blind: {}, revote: {} },
   feed: [], // messages, vote arrivals and errors, in arrival order
@@ -51,6 +52,8 @@ function applyEvent(state, event, data) {
       return { ...state, council: data }
     case 'portfolio':
       return { ...state, portfolio: data }
+    case 'data':
+      return { ...state, packs: data.packs }
     case 'replay':
       return { ...state, recording: data }
     case 'stage': {
@@ -63,7 +66,7 @@ function applyEvent(state, event, data) {
       return {
         ...state,
         votes: { ...state.votes, [data.round]: { ...state.votes[data.round], [data.agent]: data } },
-        feed: [...state.feed, { id, kind: 'vote', agent: data.agent, round: data.round, source: data.source }],
+        feed: [...state.feed, { id, kind: 'vote', agent: data.agent, round: data.round, source: data.source, fallback: data.fallback }],
       }
     case 'message':
       return { ...state, feed: [...state.feed, { id, kind: 'message', ...data }] }
@@ -95,11 +98,11 @@ function viewOf(score) {
 }
 
 /** Confidence-weighted matrix from a set of votes: { "HK/Tech": {view, confidence, dissent, n} } */
-export function computeMatrix(votes, markets = COUNTRIES) {
+export function computeMatrix(votes, markets = COUNTRIES, sectors = SECTORS) {
   const out = {}
   const list = Object.values(votes)
   for (const c of markets) {
-    for (const s of SECTORS) {
+    for (const s of sectors) {
       const cells = list.flatMap((v) => v.cells.filter((x) => x.country === c && x.sector === s))
       if (!cells.length) continue
       const weight = cells.reduce((a, x) => a + x.confidence, 0) || 1
@@ -133,4 +136,11 @@ export function computeShifts(blind, revote) {
     }
   }
   return shifts
+}
+
+/** The run's sectors (council event), the original four before it arrives; with display names. */
+export function sectorsOf(state) {
+  const ids = state.council?.sectors?.length ? state.council.sectors : SECTORS
+  const names = state.council?.sector_names || {}
+  return ids.map((id) => ({ id, name: names[id] || id }))
 }

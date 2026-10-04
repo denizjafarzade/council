@@ -65,6 +65,28 @@ The council discusses **real, current headlines** and relates them to **your own
 python scripts/record_presets.py --news US-n4 HK-n1 --portfolio samples/sample_portfolio_FICTIONAL.csv
 ```
 
+## Accurate data, configurable scope, trust and risk
+
+**Data is real and dated, never generated.**
+- Live runs never read `mocks/datapacks` (made-up numbers). A market with no cache is fetched for real; if that fails the run says so and that market's members argue from their brief only.
+- Before a live run, any market whose cache predates its latest weekday close is refreshed (prices and rates, in parallel, 30 s timeout). Headlines are kept so the chosen headline keeps its id. A market checked in the last 6 hours isn't refetched, so holidays don't cause repeated fetches. Offline mode never fetches.
+- If the index fetch fails, `as_of` is `"unknown"`, never "now". HK carries the HKMA 1M HIBOR and base rate; FRED supplies the Fed funds rate and the JGB 10Y (monthly, dated).
+- Every run emits a `data` event with the exact DataPacks it used, so recordings resolve every cited id to what the members saw, even after the cache is refreshed. Older recordings were backfilled from the cache committed with them.
+
+**Scope is configurable.**
+- 14 markets in the library, and custom markets can be added from the builder (data is fetched automatically).
+- 11 sectors in `backend/agents/sectors.json` (the GICS set), each with a verified proxy ticker in HK, CN, US and JP. Custom sectors are added from the builder or `POST /library/sectors` (a name plus optional proxies), with no code changes. Each council picks its sectors (default: the original four). A sector without a proxy in some market is judged there from the index and headlines; the seat's prompt says so and asks for lower confidence.
+
+**Defences against made-up claims.**
+- Every claim is checked: cited ids must exist in that member's data (sector tickers count), and numbers must match the cited values.
+- **Quarantine:** claims that fail are marked `UNVERIFIED ... Do not rely on it` in the transcript every later turn sees (debate, revote, Chair), so a made-up number cannot spread.
+- **Evidence-weighted matrix:** each seat's votes count `0.25 + 0.75 x` its share of verified claims. The weights ship in `brief.evidence_weights` and are shown on screen.
+- **Jev:** a failed Jev vote is retried once; only then does the LLM vote, and that vote carries `fallback: "Jev unavailable (...)"`, shown in the UI.
+
+**Quantitative risk score** (`backend/risk.py`, code only, 0-100): per market, volatility 30%, 1-month drawdown 20%, council view 30%, disagreement 10%, unverified claims 10%. Missing inputs are left out and the weights renormalised, never guessed. The portfolio score is the exposure-weighted market scores plus up to 10 points for concentration. Every component is shown on screen.
+
+**Result first.** The session screen opens with the Chair's headline, the portfolio risk score, the key risks and one card per market (with its risk score). The debate, matrix and spillover sit below under "How the council got here", and debate messages are folded to one line each.
+
 ## Demo safety (Stage 4)
 
 ```bash

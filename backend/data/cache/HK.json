@@ -43,14 +43,67 @@
       "ticker": "0883.HK",
       "chg_1m_pct": -6.0,
       "vol_20d_pct": 27.66
+    },
+    {
+      "sector": "Health",
+      "ticker": "2269.HK",
+      "chg_1m_pct": 10.78,
+      "vol_20d_pct": 38.13
+    },
+    {
+      "sector": "Industrials",
+      "ticker": "0066.HK",
+      "chg_1m_pct": -1.12,
+      "vol_20d_pct": 19.66
+    },
+    {
+      "sector": "ConsumerDisc",
+      "ticker": "9988.HK",
+      "chg_1m_pct": -5.0,
+      "vol_20d_pct": 31.65
+    },
+    {
+      "sector": "Staples",
+      "ticker": "0322.HK",
+      "chg_1m_pct": -8.05,
+      "vol_20d_pct": 17.5
+    },
+    {
+      "sector": "Utilities",
+      "ticker": "0002.HK",
+      "chg_1m_pct": -1.11,
+      "vol_20d_pct": 14.71
+    },
+    {
+      "sector": "Materials",
+      "ticker": "2600.HK",
+      "chg_1m_pct": -10.56,
+      "vol_20d_pct": 27.25
+    },
+    {
+      "sector": "Communication",
+      "ticker": "0700.HK",
+      "chg_1m_pct": -3.88,
+      "vol_20d_pct": 30.17
     }
   ],
-  "macro": [],
+  "macro": [
+    {
+      "id": "HK-hibor",
+      "name": "1M HIBOR (as of 2026-10-02)",
+      "value": 2.968
+    },
+    {
+      "id": "HK-base",
+      "name": "HKMA base rate (as of 2026-10-02)",
+      "value": 4.25
+    }
+  ],
   "news": [
     {
       "id": "HK-n1",
       "title": "Financial, Tech Heavyweights Rout Sends Hang Seng Down 2.2% For The Week",
-      "source": "businesstoday.com.my",
+      "source": "BusinessToday Malaysia",
       "url": "https://news.google.com/rss/articles/CBMitgFBVV95cUxPTmpqSDJSLTE0eEJHNWMtUXBsaUFWM2tsQnIxUHl2NWVoVklXNml5VGRNUFV3NDNTNUkya0RnM0JTU0g4TzRvMGl2cnFUSUxhOVh1YkVlYnlNdGdMaUdLLTV6aVh0LWI5X3VxejF1ZFJrS0pzN0JNNkMtVF9wcFNLXzQ1V21xelV0SnlCc05yc01UOFBFU0VKOXdGaUpqWE4tRnkzczdUcnBNc1ZhdjRRYnR6NWlvdw?oc=5",
       "published": "2026-10-04T00:51+00:00"
     },
@@ -71,7 +124,7 @@
     {
       "id": "HK-n4",
       "title": "Hang Seng Sinks Nearly 641 Points As Banks, Tech Stocks Slide",
-      "source": "businesstoday.com.my",
+      "source": "BusinessToday Malaysia",
       "url": "https://news.google.com/rss/articles/CBMiqAFBVV95cUxQVEtHTFl6Nk13ck5wVl9sakVLNnFuRXNxcElTRDdOc2pSREZEZXJrd182NHBPN3FFaTU5Ykh0R21pekJBZDI3S2d0c3JUUGtMRExqanNlOFZyQ0hjd1JEbEFBRGFfSHJrdHBTamFrdTlucWpieXBJV2JiandlbndXYWhBZ0FrUFAwMzZNaFR6TVNoZkZrdkFtM21wbjNZUTN2Z0hPSGZzT2w?oc=5",
       "published": "2026-10-03T01:52+00:00"
     },
@@ -104,5 +157,7 @@
       "published": "2026-10-02T12:03+00:00"
     }
   ],
-  "news_fetched_at": "2026-10-04T07:31:21+00:00"
+  "coverage": "full",
+  "news_fetched_at": "2026-10-04T08:22:34+00:00",
+  "prices_fetched_at": "2026-10-04T08:22:34+00:00"
 }

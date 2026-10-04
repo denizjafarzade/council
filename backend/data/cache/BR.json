@@ -25,7 +25,7 @@
     {
       "id": "BR-n1",
       "title": "Brazil Central Bank Tightens Betting Payment Rules",
-      "source": "lcb.org",
+      "source": "Latest Casino Bonuses",
       "url": "https://news.google.com/rss/articles/CBMie0FVX3lxTE9iM2ZoUnpkeXptWEk1ZEw4RWZOZGFrbzVEa0JNYnV5V01jNFphRWZYMDg4eDRKLVBIcEpMNV9OdF9nRFF1cmItVVZHQzNTLXZsVUxzNndqeWNKQmhmWm94RGlyUWhmUjZDVjJPLUZoWTYzRkx5TU5SaDZTMNIBgAFBVV95cUxNdlpTZi13TWdkS3VYVDMwdmJLYmF5ZjNRYWxIRzJWNXdLMUYzdnlYa2NoQmVLd2l2N0NjbDZfcERCd2d5Y1d6RXdJdW9KUHM5cTZmQzhNcXpNQ0RlUVRGSjF5NnZQaWt0R3ozNjN2ZkZOeF9Uai1mMmFkN1dCUWJPTQ?oc=5",
       "published": "2026-10-03T18:28+00:00"
     },
@@ -79,5 +79,7 @@
       "published": "2026-10-01T00:06+00:00"
     }
   ],
-  "coverage": "partial"
+  "coverage": "partial",
+  "news_fetched_at": "2026-10-04T08:23:21+00:00",
+  "prices_fetched_at": "2026-10-04T08:23:21+00:00"
 }

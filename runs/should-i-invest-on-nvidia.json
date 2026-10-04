@@ -182,6 +182,325 @@
   },
   {
    "t": 0.0,
+   "event": "data",
+   "data": {
+    "packs": {
+     "CN": {
+      "country": "CN",
+      "as_of": "2026-09-30T15:00:00+08:00",
+      "series": [
+       {
+        "id": "CN-idx",
+        "name": "Shanghai Composite",
+        "last": 3842.2,
+        "chg_1d_pct": 0.31,
+        "chg_1m_pct": -3.61,
+        "vol_20d_pct": 11.2
+       },
+       {
+        "id": "CN-fx",
+        "name": "USD/CNY",
+        "last": 6.7048,
+        "chg_1d_pct": 0.0,
+        "chg_1m_pct": -0.21,
+        "vol_20d_pct": 1.06
+       }
+      ],
+      "sectors": [
+       {
+        "sector": "Tech",
+        "ticker": "688981.SS",
+        "chg_1m_pct": -12.98,
+        "vol_20d_pct": 36.97
+       },
+       {
+        "sector": "Financials",
+        "ticker": "601398.SS",
+        "chg_1m_pct": 2.6,
+        "vol_20d_pct": 14.52
+       },
+       {
+        "sector": "Property",
+        "ticker": "000002.SZ",
+        "chg_1m_pct": 35.67,
+        "vol_20d_pct": 69.0
+       },
+       {
+        "sector": "Energy",
+        "ticker": "601857.SS",
+        "chg_1m_pct": -1.84,
+        "vol_20d_pct": 22.74
+       }
+      ],
+      "macro": [],
+      "news": [
+       {
+        "id": "CN-n1",
+        "title": "The fiscal fallout from China’s property bust",
+        "source": "East Asia Forum",
+        "url": "https://news.google.com/rss/articles/CBMiigFBVV95cUxOMEhRM1FrbTVJbzVyTlljVFM0X0ZLWUVlVlNTakRZb2JQa3U0ai15c2ZKSG1XeG1HTEVYNmVLUi03YlB1S19pdmpNa0RFejBjVGwxdHZwaTlOZnlhTWJtS1p3OW1Sb0ZhS3MtRG9UQ0VQWkF5ZFF2TE5PSmQxb3ZMVHdGZFJWcjZJUFE?oc=5",
+        "published": "2026-10-03T23:00+00:00"
+       },
+       {
+        "id": "CN-n2",
+        "title": "Best Chinese Stocks To Buy And Watch: Track The Latest China Stock News",
+        "source": "Investor's Business Daily",
+        "url": "https://news.google.com/rss/articles/CBMid0FVX3lxTE9xb0Q2UnVEMWdJTlo4ZUd5dTUzQ3p2eUdxdlB1MlE5LUxsU1VkdFpKQ2F6alh6R1ZsLU9KbURjZWRkN2djRGVsRElrbDFxcW1JNkFHZkMyZU01cHR1Smp2ZU1CdTNuNFBLS0V6Uk9LUXZKWjRXLVZV?oc=5",
+        "published": "2026-10-02T17:11+00:00"
+       },
+       {
+        "id": "CN-n3",
+        "title": "China stocks edge higher as property shares slide after new stimulus",
+        "source": "Prop News Time",
+        "url": "https://news.google.com/rss/articles/CBMivAFBVV95cUxQckczdFRxU3pqYnN2cTlUMXV6REpMZ1RHQmx1S2hIOUxsTng1UXhvdUQxV2FOdjVuQWJaRnQzQkhNNm5lMHZ5b1h5WXM3d3pDLUFFcWlQYmx2VE9PLXV3MmFDZWM5blRKQVNITDVvZnVzWVlNYzB5UG80OG81S2hHaXNCWDdxUFVvYWJuc1puVmV3UkFJZXRISm5XaFpiZGRWeU9Pa21BejlNMGc2UmwzQlpGQ0IzNmVWQVZlSA?oc=5",
+        "published": "2026-10-02T12:00+00:00"
+       },
+       {
+        "id": "CN-n4",
+        "title": "The yuan exchange rate on the Moscow Stock Exchange decreased by 0.0255 rubles by 10:20 MSK",
+        "source": "AKM.RU",
+        "url": "https://news.google.com/rss/articles/CBMivAFBVV95cUxNMVhRbC1jbjMza25MQkJkM3lTOVZUS3ViVmJkR1IxaE9hTmszSEVyTk0wSTBYWU9uY0d0dUdrOU0ySzNwbThNWTR2TkxRMTRtQ0JXdFFhb1Y5YzlSUnloaWQwSFZIc3Y2WWtDa1hZbDNDQTJIQnJrbXN2eUlzcFQ1MFRCZFplMXhrRUFNUlZnczJ6VG9IaHIwdTh1NXZmQVFFdlJGeVlwRzZrLU9scDdJamFrTlpJaXlraVNNNg?oc=5",
+        "published": "2026-10-02T09:28+00:00"
+       },
+       {
+        "id": "CN-n5",
+        "title": "China Stocks Fall to One-Year Low; PBOC Cuts PSL Rate to 1.5% - News and Statistics",
+        "source": "IndexBox",
+        "url": "https://news.google.com/rss/articles/CBMilwFBVV95cUxOS2k2NDJLWk1Sc3VFZUhWbk55RVZRLTc2U25mZjhqbVFQZ09IbGtwQ3BabllIcGlVdTMxbnpsQVhlOGxLbmtuMFNFVFNYWm9QSkQ0amZqM1V3THNkaXR4eGJCalpjWmpmT3pielJ1eGY4WlZna1RRaVltc21GMmsxWTlDUk1lV3BGeXJDczJLb1lIb0VscG9z?oc=5",
+        "published": "2026-10-02T05:31+00:00"
+       },
+       {
+        "id": "CN-n6",
+        "title": "Hong Kong stocks plunge 3% as China stimulus fails to impress investors",
+        "source": "Moneycontrol.com",
+        "url": "https://news.google.com/rss/articles/CBMi0AFBVV95cUxQTHloRzlyZ3RacEdXYU52SUFTTEFqRXJxWkx2M1NJUGRXUkxma0tMVGFpM240c3FKczkwaVZvYWlqYUs2R0VsV1pKYUhpbDUzMFgtSlNGQWxtVm90TFFSZXk5MWNQSVg5SjdPS1ZlN1Y1d0ZaeF9zYTJ1enFFWmpkVjVGbEc2ejF0ME5mb0RNa0piOFowTThYM0JlM3loZFhlVlFvWUgzWF9zTkRaTER6MUZkSWUyY3k1RmVrQ1cwTTRNUlY4allhVklHTGFjRWxM0gHWAUFVX3lxTFBCbzlLSmFJMjFGaV9nM0FzRGFTMmhIdzM5TlY4VXhWLTNxNVJTTng5QTk3NUJZLTFsYzNVU2w5N1V5QkJYd1l0WnVWcXB4cjRJSTdyZ1dVMUlJMXlwVkZ2S3h0MGpaQm1wNl82TFQ5cXE3ekd1RG11Qi1LbFVKQXhsX3E0Vlh3UFlXV3hiQ3JyZ3Mya0prMnNQLXV2c3pQWGhmd2EwQ1RLZWs4eDlQS2hHVmZaQWVCbmJ0TWEwMXQtVWNkUV92eUY1SHctQWVHUG9IUFdTLWc?oc=5",
+        "published": "2026-10-02T04:45+00:00"
+       },
+       {
+        "id": "CN-n7",
+        "title": "More aggressive China stimulus unlikely for now, BofA says",
+        "source": "Yahoo Finance",
+        "url": "https://news.google.com/rss/articles/CBMipwFBVV95cUxOZThtYTc5N2xMU0FmUk1rQ1JVaEo4aEVpUVdoWlhDZ3lsRGRnU1RnMWJmRTE5bm1JOGJTWElMeFBCNlpNaDNPanlSTGV4RnpmTEpHOG8xcUNGWi1LdmhjTHJTdUVaTmhaSU5SeEh4QU1CUkxRVTlOS0ZEdTgwUGxGWWpkX2MzUk45SHpqWVdmdWpWWE1NUzNvLU9QcjRTeEVBaGxNcmpIWQ?oc=5",
+        "published": "2026-10-02T04:33+00:00"
+       },
+       {
+        "id": "CN-n8",
+        "title": "Global Market: Chinese stocks slide as US-China optimism fades, tech shares tumble",
+        "source": "The Economic Times",
+        "url": "https://news.google.com/rss/articles/CBMi7gFBVV95cUxNano3T3U1WlVVUTJKaFBBSGYza3oyMnZGWXJ3d2N3VHR0Q3F6eFU5WFRwUWNXRGRyZXIyZ1pJcXBXcVRyRnpSbURaUVpCQlh3ZGRyYkIwYXFLN1JwNEQyb2o3LWNWaWROYmdVb1liMVRDazRXNTVaZmtFQ0hJelVZYlA4SWhuY0Z5cnlsZm9VNFVQNGlMZ2h5V1pFTjhMTlVwUWh4RlZSZnd3Nll1WVA3MHV1a0l4Y1dZWlZhdW1QWEVPVGk3QmNKZGs0RVBMLVhwNnBZQ2hyYU94UWhBLUFNc01acGhDNzhONHRKNzJn0gHzAUFVX3lxTE54N3diYVJ6QVRreWpUdFlYc01zQlM0cmU0bmpnMDNqbXBpUnpsQ0otMjE4OUxCZFBZS1g1dkM4NTZ6ZFVfNDFFTFQ0T2pGY05aSzlSTDVraEVSUndqai1PZW5IWUxYWWFwMXpTdDBmSzFTZVZvaVFOdkc0dVp0ZVlXMHdzVzFlUDJwWHZPMmdWdC1GYjVkRS11R3BRNWptWURsUUl1a2s3Mm5rU3dkMGF6VW9GamplcHdlOThYNWo4dmlMeFhISlpRcXdkNUVoRFk0aXVfM08yXzgtaXN3M1hnYVVzNklpLWsxMGFDTXdFRDMtSQ?oc=5",
+        "published": "2026-10-01T16:10+00:00"
+       }
+      ]
+     },
+     "US": {
+      "country": "US",
+      "as_of": "2026-10-02T16:00:00-04:00",
+      "series": [
+       {
+        "id": "US-idx",
+        "name": "S&P 500",
+        "last": 7722.72,
+        "chg_1d_pct": 0.73,
+        "chg_1m_pct": 0.73,
+        "vol_20d_pct": 10.35
+       },
+       {
+        "id": "US-fx",
+        "name": "US Dollar Index",
+        "last": 101.93,
+        "chg_1d_pct": -0.17,
+        "chg_1m_pct": 2.38,
+        "vol_20d_pct": 4.3
+       },
+       {
+        "id": "US-10y",
+        "name": "US 10Y Treasury yield",
+        "last": 5.277,
+        "chg_1d_pct": 0.76,
+        "chg_1m_pct": 10.03,
+        "vol_20d_pct": 15.23
+       }
+      ],
+      "sectors": [
+       {
+        "sector": "Tech",
+        "ticker": "XLK",
+        "chg_1m_pct": 8.83,
+        "vol_20d_pct": 17.55
+       },
+       {
+        "sector": "Financials",
+        "ticker": "XLF",
+        "chg_1m_pct": -7.23,
+        "vol_20d_pct": 11.11
+       },
+       {
+        "sector": "Property",
+        "ticker": "XLRE",
+        "chg_1m_pct": -6.68,
+        "vol_20d_pct": 9.15
+       },
+       {
+        "sector": "Energy",
+        "ticker": "XLE",
+        "chg_1m_pct": -3.5,
+        "vol_20d_pct": 20.98
+       }
+      ],
+      "macro": [
+       {
+        "id": "US-ffr",
+        "name": "Effective Fed funds rate (as of 2026-10-01)",
+        "value": 3.88
+       }
+      ],
+      "news": [
+       {
+        "id": "US-n1",
+        "title": "History Says Coca-Cola Stock Holds Up When the S&P 500 Falls",
+        "source": "The Motley Fool",
+        "url": "https://news.google.com/rss/articles/CBMiqwFBVV95cUxOc3RkUi1rZFpYcjNtWlVzaGlGT0JETU9HWUs4TFVlTWlPcklZb0l6WGVYakVYRnV4VzAwNjR1a1liTGZQNGRKN1d2S0kzTkphdkhVSUlPei0zVXRvZUQ2MGxranFFRjIxd0p4QmJBdUJpdVgtcnJjWUs5OXpjQ1NXdWdnTHZXRm5xakJqMmc2dmVjRDVReV8zNEdwME9DUkxSbzlsVC1aMkJVb0U?oc=5",
+        "published": "2026-10-03T22:23+00:00"
+       },
+       {
+        "id": "US-n2",
+        "title": "Bessent says rising Treasury yields reflect global trend, not cause for alarm",
+        "source": "Yahoo Finance",
+        "url": "https://news.google.com/rss/articles/CBMiogFBVV95cUxNSTAtU1NhTVU3VTRyQWIyQW9TcEdlcklkbk50Vjd0RW93Z1ZqOEZfLUpSYXZVaVJXYmp4bE82QUdoMlVTQm4tN3ZLMlIwUi01bWo3WVVYQXRwZjk1b2x3X1R1U0hGcGdmUmhRS25RdlJ5VkYzSEI3X185MEFMa0NTVUZWbWVMU2VvZUlCMVgyZWFaUV84azBILXB4QXM4VHpTY3c?oc=5",
+        "published": "2026-10-03T17:19+00:00"
+       },
+       {
+        "id": "US-n3",
+        "title": "Global Bond Selloff Pushes U.S. Treasury Yields to 24-Year Highs",
+        "source": "Yahoo Finance",
+        "url": "https://news.google.com/rss/articles/CBMijwFBVV95cUxQMUNTU1B2WHNZSy1CRU8yVDBqT0RWaEZHNjVQZ1FQM0g3T0JTbGlzM1YzWHhNeExfd0hlc1BuWU5QeXlzV0UzOFJRWWd5dGxheHdGcUNVZDhmYVRuS2F4Nm0tbHBoeEgxX1VzRVJ0dkpxMHVhb0ZRRXVTTjl6cDMyUWpaek4xWXZWYUViUEF0aw?oc=5",
+        "published": "2026-10-03T13:22+00:00"
+       },
+       {
+        "id": "US-n4",
+        "title": "3 Brokerage Stocks Tied To Higher Treasury Yields",
+        "source": "Yahoo Finance",
+        "url": "https://news.google.com/rss/articles/CBMimwFBVV95cUxQWm5ULWRnRUMtUDkwRTNCYVdPNUxfRUtfeEZNUW1nNmlHVktKRUdRZlFsSDIzVHBqN01UWkJrUWJmRnpWeTZzSDI0NXB1SXd2dkpCR2M0SHloMjA2cnNmX3RiWk9KX2RybXF6MTVlcE5sa1pGek43NWNicldfSzRpSEpJTTctdDZYX3FfVGRJMjlTdTRjVlgxNzJodw?oc=5",
+        "published": "2026-10-03T12:09+00:00"
+       },
+       {
+        "id": "US-n5",
+        "title": "As Treasury yields touch generational highs, investors brace for the market fallout",
+        "source": "MarketWatch",
+        "url": "https://news.google.com/rss/articles/CBMiwwFBVV95cUxQOFdhOGNEVXNJbzQxSVVuTHF2Tk1KbFN3TE9oeFhiUFI1SndMQndzNWtkUzA0YVVhbFpJU0VRMjhnQ3FtbnJQcWZ5VE9vRjZ5YTJBN2RZOHNrazVGazhTMGxfTW0zcXhoNl9XWlgtZWd3ZVBjMGVVY2oteEF5Q1dkcTh1RHpMRFFvMVpKZXdTWmlsOURBa3RJM3VNRjdqajdxSlFxSDlRblZFUFczc1lha001R0pOeGZ1b1ZkMGRsYTF2N0E?oc=5",
+        "published": "2026-10-03T11:30+00:00"
+       },
+       {
+        "id": "US-n6",
+        "title": "Bond market zig zags threaten S&P 500's smooth ride",
+        "source": "Axios",
+        "url": "https://news.google.com/rss/articles/CBMiigFBVV95cUxPb1pSU3RsYk9QZzdoU0t4UlY1S1QtRUFtOTBFTEp0TkdxY2stLVhFckw5bHdNUUxRVGdUdHhnVmFQRmhhcVRnZE9FV0NxbmdFVnY3dWgtbDBkX1BDRDBEZ0lKTHZ0Z1Y0SWNYaDY2ZEhuMldyUDdZLTFIY21TVENBdjdidjZVNld5alE?oc=5",
+        "published": "2026-10-03T11:06+00:00"
+       },
+       {
+        "id": "US-n7",
+        "title": "The mystery of spiking Treasury yields",
+        "source": "Axios",
+        "url": "https://news.google.com/rss/articles/CBMie0FVX3lxTE1ocnhfTHBGODQyMmpLRTM2eDNzZnRXNnJPUE9aZy1fR2lBY2c0ekkzR19SWm93Y1ZiZVFicG9Oa2VfUGFMQ2l1V3NIbW83eVBMdE9NZ0d6THJrc3hHY05OUmFmS2N3bFpvbmVQOVpDenNRNTlTVVYySE4zaw?oc=5",
+        "published": "2026-10-03T04:16+00:00"
+       },
+       {
+        "id": "US-n8",
+        "title": "Surging Treasury yields and Fed minutes put markets on watch.",
+        "source": "CME Group",
+        "url": "https://news.google.com/rss/articles/CBMisAFBVV95cUxNRmtob2RJVlpmTGxNWUpDMkZsYVdoQ29iX1JvY0huZGRwM1NfUkVZbWFPYjdUelktRGNUcW9GLTNSLXlTTFJXWG1aSjBEZjlfUUpaRmZiMVk1aTI2Nzhqa29UUkkyRkkzN2RrRTc5SEplM0tOR1ZVZU5yMXBIc3BhNTlscDA2d0ZCTnkzV05rMzJBZDhRd1I4RG56TWF5eUV6aTRZSjdkMlpSeVphaUFUaA?oc=5",
+        "published": "2026-10-03T01:33+00:00"
+       }
+      ]
+     },
+     "SG": {
+      "country": "SG",
+      "as_of": "2026-10-02T17:00:00+08:00",
+      "series": [
+       {
+        "id": "SG-idx",
+        "name": "Straits Times Index",
+        "last": 5634.82,
+        "chg_1d_pct": -0.58,
+        "chg_1m_pct": -1.96,
+        "vol_20d_pct": 8.42
+       },
+       {
+        "id": "SG-fx",
+        "name": "USD/SGD",
+        "last": 1.2789,
+        "chg_1d_pct": -0.1,
+        "chg_1m_pct": 0.96,
+        "vol_20d_pct": 2.79
+       }
+      ],
+      "sectors": [],
+      "macro": [],
+      "news": [
+       {
+        "id": "SG-n1",
+        "title": "Not SGX’s fault if stocks have no liquidity, says chairman: Markets this week",
+        "source": "The Straits Times",
+        "url": "https://news.google.com/rss/articles/CBMiygFBVV95cUxNTEdNbEtfbG51TFFnMkd4SG9vVHVzb1d6QW15dTZEX2JRa0VCUUNMNzJFV2VRUVFOdk9ET0NjX2RxVmZ4TmRQUEJvODljeEJEci1hMG1Ma3B1elVlNzNNUWQ5bnN3RHBMX1BBTmJUMmRzODFxOUEyclJiWmRYNi0zak1SWDFOcW5kb21xWXlmUEJveGNtQ3RIdF92OHhoWE5lRmtfVXhUZFR6UWthWWotazVaa0xXazQ2T3ZFYXcxc2w2a056MGpYdURR?oc=5",
+        "published": "2026-10-04T04:00+00:00"
+       },
+       {
+        "id": "SG-n2",
+        "title": "Convert 50 SGD (Singapore Dollar) to RECALL (RECALL)",
+        "source": "Bybit",
+        "url": "https://news.google.com/rss/articles/CBMiX0FVX3lxTE1ncU9MbWhBU3pvdWF1bHpDMHRTWTRfd2RLM3VnNmJSd0J3bVJRZEI2bjAyaUd1djBwckxaUkdWVTduNmlHWGR6QThHbk1JZjJLM3l6cngyNm16UDAzdjVz?oc=5",
+        "published": "2026-10-03T00:00+00:00"
+       },
+       {
+        "id": "SG-n3",
+        "title": "Convert 5 CARV (CARV) to SGD (Singapore Dollar)",
+        "source": "Bybit",
+        "url": "https://news.google.com/rss/articles/CBMiW0FVX3lxTE41UXdJYWx6TE9FUmtWSGN6TjZ5V205aUx0XzFxaml6NUNXUVgxQXVDZjNVMzJxUVVRb0w3LW9POWFYdlZ3cC1JNTVQS1hveWoxZ2U2T3AxWTBNQVk?oc=5",
+        "published": "2026-10-03T00:00+00:00"
+       },
+       {
+        "id": "SG-n4",
+        "title": "Convert 10000 SGD (Singapore Dollar) to PIEVERSE (Pieverse)",
+        "source": "Bybit",
+        "url": "https://news.google.com/rss/articles/CBMiZkFVX3lxTE8wTkY2YVAxbUcxYkVJWlNaZ0dUMUt0TWJDSTgxSEQ1cnh0ZXIzQWhkOFdEM25jaDF2RGpfcmZXWlFMN2l4T2Rqcm9BV0Zjbi05WUx6TkhnVzBFS1J0U2tNb2hHdF8xUQ?oc=5",
+        "published": "2026-10-03T00:00+00:00"
+       },
+       {
+        "id": "SG-n5",
+        "title": "Convert 1 SGD (Singapore Dollar) to KAIA (Kaia)",
+        "source": "Bybit",
+        "url": "https://news.google.com/rss/articles/CBMiW0FVX3lxTE1NRE81SXdybDlraURuY3I2dXU5U01vTkk3T21SanNDbmhpTzBiNTRla1R2ckJibHNsWXdrWjdsN2k3M3J1azlGeWdtXzg3dGIzMDJnOG1mNjRtWmM?oc=5",
+        "published": "2026-10-03T00:00+00:00"
+       },
+       {
+        "id": "SG-n6",
+        "title": "RCRWD to SGD: CrowdStrike Tokenized Stock (Reality) Price in Singapore Dollar",
+        "source": "CoinGecko",
+        "url": "https://news.google.com/rss/articles/CBMiaEFVX3lxTE91bVB3OVJSOG9VWDVhSDA0LU5KUUhnaWpmU0RkcjlNcjE5alhfUnY0Rm1aUk9fWHBfNkR0WkN0QWtJMWk0MXFZSk9rZ1NoeXFaSU1TcWxtemRxVHZUS3dhdmtUZkJPcmtx?oc=5",
+        "published": "2026-10-02T21:00+00:00"
+       },
+       {
+        "id": "SG-n7",
+        "title": "Convert 1 ETH (Ethereum) to SGD (Singapore Dollar)",
+        "source": "Bybit",
+        "url": "https://news.google.com/rss/articles/CBMiV0FVX3lxTE1uQkdrelJRZzJDR0tIM2htMVBUUFBKNXVqU042UXhCOWxZc3RQa0ZwVzZtLVFnQ1dNT0dSWVN1Nm9aTXRuSVFDdW9BTGdHWG1LbUZSTHE2aw?oc=5",
+        "published": "2026-10-02T20:09+00:00"
+       },
+       {
+        "id": "SG-n8",
+        "title": "Convert 1 SGD (Singapore Dollar) to USDT (Tether USDT)",
+        "source": "Bybit",
+        "url": "https://news.google.com/rss/articles/CBMiWEFVX3lxTFA0MmViV0lrNkhKWkdZR3lXSktKREUzWExaMUs5eGpwUDRtSkJVSEl6UC1zMDdFREFoUDRudmZqMmlaQy12cnBCUW5yZWxVdTFERklYYUZQTzA?oc=5",
+        "published": "2026-10-02T18:52+00:00"
+       }
+      ],
+      "coverage": "partial"
+     }
+    }
+   }
+  },
+  {
+   "t": 0.0,
    "event": "stage",
    "data": {
     "name": "data",
