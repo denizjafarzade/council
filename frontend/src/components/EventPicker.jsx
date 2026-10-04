@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import { PRESETS, STAGES } from '../lib/constants'
 import { slugify } from '../lib/council'
 import { votersOf } from '../lib/roster'
+import { GuardrailToggle } from './GuardrailBadge'
 
 /** Recordings bundled with the frontend, plus any the backend has saved since. */
 function useRecordings(bundled, status) {
@@ -18,7 +19,7 @@ function useRecordings(bundled, status) {
 const button = 'inline-flex min-h-12 items-center justify-center gap-2 rounded-xl px-4 disabled:cursor-not-allowed disabled:opacity-40'
 
 /** Pick an event and start it: live, from a recording, or from the mock. */
-export default function EventPicker({ state, onRun, onReplay, recordings: bundled = [], onReplayRecorded }) {
+export default function EventPicker({ state, onRun, onReplay, recordings: bundled = [], onReplayRecorded, guard }) {
   const [text, setText] = useState(state.event || PRESETS[0])
   const running = state.status === 'running'
   const recordings = useRecordings(bundled, state.status)
@@ -82,6 +83,7 @@ export default function EventPicker({ state, onRun, onReplay, recordings: bundle
           Mock run
         </button>
       </div>
+      <div className="flex flex-wrap items-center justify-between gap-3">
       <div className="flex flex-wrap gap-2">
         {PRESETS.map((p) => (
           <button
@@ -98,6 +100,8 @@ export default function EventPicker({ state, onRun, onReplay, recordings: bundle
             {p}
           </button>
         ))}
+      </div>
+      {guard && <GuardrailToggle guard={guard} compact />}
       </div>
     </form>
   )

@@ -11,6 +11,7 @@ from fastapi import FastAPI, HTTPException, Response
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import StreamingResponse
 
+import guardrail
 import library
 import orchestrator
 import recorder
@@ -31,7 +32,8 @@ RUNS: dict[str, RunRequest] = {}
 
 @app.get("/health")
 def health() -> dict:
-    return {"ok": True}
+    # guardrail: its label when it is set up (the UI then offers the on/off toggle), else null.
+    return {"ok": True, "guardrail": guardrail.label()}
 
 
 @app.post("/council/run", response_model=RunResponse)

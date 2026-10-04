@@ -1,12 +1,31 @@
 import { useEffect, useMemo, useRef } from 'react'
 import { useAgent } from '../lib/roster'
 import { Avatar, Panel, SourceChip } from './bits'
+import { ShieldIcon } from './GuardrailBadge'
 
 // A claim is unverified if the backend flags it (Stage 3A) or a cited id is not in the data.
 function problemsOf(msg, sources) {
   const flagged = Array.isArray(msg.unverified) ? msg.unverified : msg.unverified === true ? ['flagged by the backend'] : []
   const missing = (msg.source_ids || []).filter((id) => !sources[id]).map((id) => `${id} is not in the data`)
   return [...flagged, ...missing.filter((m) => !flagged.some((f) => f.startsWith(m.split(' ')[0])))]
+}
+
+function Withheld({ msg }) {
+  const a = useAgent(msg.agent)
+  return (
+    <li className="flex flex-col gap-1.5 rounded-xl border border-[#2f3d57] bg-[#141b26] px-3.5 py-3">
+      <div className="flex items-center gap-2.5">
+        <Avatar agent={msg.agent} />
+        <span className="flex min-w-0 flex-1 flex-col leading-tight">
+          <span className="truncate font-semibold">{a.label}</span>
+          <span className="inline-flex items-center gap-1.5 text-[13px] text-[#b9d3f2]">
+            <ShieldIcon size={14} />Blocked by the compliance guardrail · {msg.guardrail.reasons.join(', ')}
+          </span>
+        </span>
+      </div>
+      <p className="text-sm italic leading-snug text-muted">{msg.text}</p>
+    </li>
+  )
 }
 
 function Message({ msg, sources }) {
@@ -107,6 +126,8 @@ export default function DebateStream({ state, sources }) {
               </li>
             ) : item.kind === 'ballots' ? (
               <Ballots key={item.id} items={item.items} />
+            ) : item.kind === 'message' && item.guardrail?.action === 'blocked' ? (
+              <Withheld key={item.id} msg={item} />
             ) : item.kind === 'message' ? (
               <Message key={item.id} msg={item} sources={sources} />
             ) : (

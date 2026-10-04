@@ -4,11 +4,13 @@ import { Brand } from './builder/ui'
 import Brief, { PlainEnglish } from './components/Brief'
 import DebateStream from './components/DebateStream'
 import EventPicker, { StageBar } from './components/EventPicker'
+import GuardrailBadge from './components/GuardrailBadge'
 import Matrix from './components/Matrix'
 import SpilloverGraph from './components/SpilloverGraph'
 import WhoChanged from './components/WhoChanged'
 import { useCouncil } from './hooks/useCouncil'
 import { DISCLAIMER } from './lib/constants'
+import { useGuardrailSetting } from './lib/guardrail'
 import { RosterContext, buildRoster, marketsOf } from './lib/roster'
 import { asOfFor, sourcesFor } from './lib/sources'
 
@@ -64,16 +66,17 @@ export default function App() {
   const [view, setView] = useState('build')
   const [council, setCouncil] = useState(null)
   const [controlsOpen, setControlsOpen] = useState(false)
+  const guard = useGuardrailSetting()
 
   function convene(event, config) {
     setCouncil(config)
     setView('session')
     setControlsOpen(false)
-    runLive(event, config)
+    runLive(event, config, guard.on)
   }
 
   if (view === 'build') {
-    return <Builder onConvene={convene} onBackToSession={state.mode === 'idle' ? null : () => setView('session')} />
+    return <Builder onConvene={convene} guard={guard} onBackToSession={state.mode === 'idle' ? null : () => setView('session')} />
   }
 
   const running = state.status === 'running'
@@ -94,6 +97,7 @@ export default function App() {
             </span>
             <h1 className="text-[30px] font-semibold leading-tight">{state.event || 'Council ready'}</h1>
           </div>
+          <GuardrailBadge state={state} available={guard.available} />
           <RunStatus state={state} />
           <button type="button" disabled={running} onClick={() => setControlsOpen((o) => !o)}
             className="min-h-11 rounded-xl border border-line-strong px-4 font-medium hover:bg-raised disabled:cursor-not-allowed disabled:opacity-40">
@@ -113,7 +117,8 @@ export default function App() {
           {showControls && (
             <EventPicker
               state={state}
-              onRun={start((event) => runLive(event, council))}
+              onRun={start((event) => runLive(event, council, guard.on))}
+              guard={guard}
               onReplay={start(replayMock)}
               recordings={recordings}
               onReplayRecorded={start(replayRecorded)}

@@ -171,6 +171,7 @@ class Brief(Model):
     # The same view for someone with no finance background: no jargon, no tickers. Empty in
     # runs recorded before it existed; the UI then words one from the matrix.
     plain_english: str = ""
+    guardrail: list[GuardrailNote] = Field(default_factory=list)  # lines the guardrail withheld
 
 
 # SSE events the frontend listens for
@@ -180,6 +181,13 @@ class StageEvent(Model):
     status: Literal["started", "done", "failed", "skipped"]  # skipped: no seat for this stage
 
 
+class GuardrailNote(Model):
+    """What the compliance guardrail did to a piece of text (only present when it acted)."""
+    action: Literal["blocked", "unchecked"]  # unchecked = the guardrail call failed; text shown as written
+    reasons: list[str]
+    field: Optional[str] = None  # brief only: which line, e.g. "key_risks[1]"
+
+
 class Message(Model):
     agent: AgentId
     text: str
@@ -187,6 +195,7 @@ class Message(Model):
     # Stage 3A trust checks: why this message is unverified (unknown ids, numbers that don't
     # match the cited data, no source). Empty = verified, or nothing to check.
     unverified: list[str] = Field(default_factory=list)
+    guardrail: Optional[GuardrailNote] = None
 
 
 class ErrorEvent(Model):
@@ -283,6 +292,7 @@ class CouncilEvent(Model):
     sectors: list[str]
     members: list[CouncilMember]
     debate_rounds: int
+    guardrail: Optional[str] = None  # set when the Bedrock compliance guardrail is on
 
 
 EVENT_MODELS: dict[str, type[Model]] = {
@@ -306,6 +316,8 @@ class RunRequest(Model):
     council_id: Optional[Slug] = None
     countries: list[Country] = Field(default_factory=lambda: list(COUNTRIES))  # default council's markets
     sectors: list[Sector] = Field(default_factory=lambda: list(SECTORS))
+    # Compliance guardrail for this run: True/False from the UI toggle; None = on whenever it is set up.
+    guardrail: Optional[bool] = None
 
 
 class RunResponse(Model):

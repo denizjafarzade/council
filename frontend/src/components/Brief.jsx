@@ -48,6 +48,12 @@ export default function Brief({ state, asOf }) {
         ) : (
           <>
             <p className="text-[21px] font-semibold leading-snug text-ink">{b.headline}</p>
+            {b.guardrail?.some((g) => g.action === 'blocked') && (
+              <p className="rounded-xl bg-[#1d2740] px-3 py-2 text-sm text-[#b9d3f2]">
+                The compliance guardrail withheld {b.guardrail.filter((g) => g.action === 'blocked').length} line(s) of this brief
+                ({[...new Set(b.guardrail.flatMap((g) => g.reasons))].join(', ').toLowerCase()}).
+              </p>
+            )}
             {split && split.dissent > 0 && (
               <p className="rounded-xl bg-gold-soft px-3 py-2 text-sm text-gold-text">
                 Most split: <b>{names[split.country] || split.country} {split.sector}</b> (dissent {Math.round(split.dissent * 100)}%)

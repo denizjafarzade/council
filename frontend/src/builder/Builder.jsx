@@ -32,7 +32,7 @@ function reconcile(council, lib) {
   }
 }
 
-export default function Builder({ onConvene, onBackToSession }) {
+export default function Builder({ onConvene, onBackToSession, guard }) {
   const [lib, setLib] = useState(null)
   const [error, setError] = useState('')
   const [step, setStep] = useState(0)
@@ -128,7 +128,7 @@ export default function Builder({ onConvene, onBackToSession }) {
             onEditMember={(member, defaults) => setEditor({ member, defaults })} onDeleteRole={deleteRole} />
         )}
         {step === 2 && (
-          <ReviewStep lib={lib} council={council} setCouncil={setCouncil} councils={councils}
+          <ReviewStep lib={lib} council={council} setCouncil={setCouncil} councils={councils} guard={guard}
             onBack={() => setStep(1)} onGoto={setStep}
             onConvene={(event) => onConvene(event, normalise(council, lib))}
             onSave={saveCouncil} onDeleteSaved={deleteSaved}
