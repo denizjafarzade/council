@@ -160,7 +160,7 @@ async def _call_openrouter(system: str, user: str, schema: type[T], agent: str,
         "reasoning": {"effort": EFFORT},
         "usage": {"include": True},
     }
-    headers = {"Authorization": f"Bearer {key}", "X-Title": "AI Trading Council"}
+    headers = {"Authorization": f"Bearer {key}", "X-Title": "Verdisk"}
     start = time.monotonic()
     errors = []
 

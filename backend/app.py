@@ -22,7 +22,7 @@ from schemas import SECTORS, Council, DataPack, MarketDef, RoleDef, RunRequest, 
 # Per-agent token usage and skipped agents show up in the uvicorn console.
 logging.basicConfig(level=logging.INFO, format="%(asctime)s %(name)s %(levelname)s %(message)s")
 
-app = FastAPI(title="AI Trading Council")
+app = FastAPI(title="Verdisk")
 app.add_middleware(CORSMiddleware, allow_origins=["*"], allow_methods=["*"], allow_headers=["*"])
 
 # In-memory only: no database by design.

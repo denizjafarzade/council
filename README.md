@@ -1,6 +1,6 @@
-# council
+# Verdisk
 
-AI Trading Council: pick a market event, watch four country delegates (HK, CN, US, JP) debate it live, and get a spillover map plus a country × sector stance matrix.
+Verdisk: an AI research council. Pick a market event, watch four country delegates (HK, CN, US, JP) debate it live, and get a spillover map plus a country × sector stance matrix.
 
 **Demo flow:** event in → blind votes → debate → revote → spillover map + matrix + brief.
 

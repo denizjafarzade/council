@@ -7,7 +7,7 @@ import MemberEditor from './MemberEditor'
 import { defaultCouncil, normalise, removeMember, slug, toggleMarket, upsertMember } from './model'
 import ReviewStep from './ReviewStep'
 import RolesStep from './RolesStep'
-import { Button, Logo, StepNav } from './ui'
+import { Brand, Button, StepNav } from './ui'
 
 const DRAFT_KEY = 'council.draft'
 
@@ -110,10 +110,7 @@ export default function Builder({ onConvene, onBackToSession }) {
   return (
     <div className="min-h-full bg-desk font-sans text-base leading-normal text-ink">
       <header className="flex flex-wrap items-center justify-between gap-4 border-b border-line px-8 py-4">
-        <div className="flex items-center gap-3">
-          <Logo />
-          <span className="text-xl font-semibold tracking-[0.01em]">Council</span>
-        </div>
+        <Brand />
         <StepNav step={step} onStep={setStep} canReach={canReach} />
         <div className="flex items-center gap-4">
           {onBackToSession && <Button onClick={onBackToSession}>Back to session</Button>}
