@@ -13,10 +13,10 @@
     {
       "id": "CN-fx",
       "name": "USD/CNY",
-      "last": 6.7048,
-      "chg_1d_pct": 0.0,
-      "chg_1m_pct": -0.21,
-      "vol_20d_pct": 1.06
+      "last": 6.6973,
+      "chg_1d_pct": -0.11,
+      "chg_1m_pct": -0.32,
+      "vol_20d_pct": 1.12
     }
   ],
   "sectors": [
@@ -91,62 +91,62 @@
   "news": [
     {
       "id": "CN-n1",
+      "title": "A Verb Upgrade: China’s Stimulus Pivot Is Real in Tense, Not Yet in Substance",
+      "source": "IndraStra Global",
+      "url": "https://news.google.com/rss/articles/CBMihAFBVV95cUxNS20tOXFFLS1UN0RfOGRaS1IwTlRpSEJJRGRNZlBDV3Eydzg0TkJlZmx3X2E2dktiWjlxbk1xY3dXa1NsSHQ5UVRKbFdxOTd1NjUtZnVFdkRuTjFNZzZfbnJ4Z2F6c2l6bG9MM3pGbS1YeG85VkU1R3lqS0VBOGJ2QUN6dVk?oc=5",
+      "published": "2026-10-05T05:23+00:00"
+    },
+    {
+      "id": "CN-n2",
+      "title": "China's State Council Deploys Incremental Policies; PBOC Ramps Up Structural Tools to Stabilize Growth",
+      "source": "finance.biggo.com",
+      "url": "https://news.google.com/rss/articles/CBMidkFVX3lxTFA5MFJ6Y24zRWxEbjZlbnJaUUg3NmYwTkh3SVNSbXROWDhETmVuX3JmU2xTMHJ2M2s0OGh6ejJIeVotOTZoNUlJSHNodFJkckk3N2U3NzVZNThTWmFGVHhCQkg0RzNMRUN1cG96UUM3ZzVJRDhYZWc?oc=5",
+      "published": "2026-10-04T15:05+00:00"
+    },
+    {
+      "id": "CN-n3",
       "title": "China’s property bust exposes deep cracks in local government finances: Report",
       "source": "IANS LIVE",
       "url": "https://news.google.com/rss/articles/CBMisgFBVV95cUxPLUQyNmdzUXdOZzFJcTk5QzdHcExleTRwendFZVc3VHBxdEZuWnF5dXhSMXhmR1NEZTJhN0U0ZHBtcG84NFVKVWdfT1gtNm9ZTlhSZUVYVFI3OFpGUlloYmFKOW0wNEhkWWJOYkRORTUxYmsxTFM4SDFsM2FxZVRPYndlNzhUVGd0TlV1ejhqalZpOC1lckN6aG43Rk9yV0RwV1hGR21ZTVFzREhMblJTbTNB?oc=5",
       "published": "2026-10-04T07:23+00:00"
     },
     {
-      "id": "CN-n2",
+      "id": "CN-n4",
       "title": "The fiscal fallout from China’s property bust",
-      "source": "East Asia Forum",
+      "source": "eastasiaforum.org",
       "url": "https://news.google.com/rss/articles/CBMiigFBVV95cUxOMEhRM1FrbTVJbzVyTlljVFM0X0ZLWUVlVlNTakRZb2JQa3U0ai15c2ZKSG1XeG1HTEVYNmVLUi03YlB1S19pdmpNa0RFejBjVGwxdHZwaTlOZnlhTWJtS1p3OW1Sb0ZhS3MtRG9UQ0VQWkF5ZFF2TE5PSmQxb3ZMVHdGZFJWcjZJUFE?oc=5",
       "published": "2026-10-03T23:00+00:00"
     },
     {
-      "id": "CN-n3",
+      "id": "CN-n5",
       "title": "Best Chinese Stocks To Buy And Watch: Track The Latest China Stock News",
       "source": "Investor's Business Daily",
       "url": "https://news.google.com/rss/articles/CBMid0FVX3lxTE9xb0Q2UnVEMWdJTlo4ZUd5dTUzQ3p2eUdxdlB1MlE5LUxsU1VkdFpKQ2F6alh6R1ZsLU9KbURjZWRkN2djRGVsRElrbDFxcW1JNkFHZkMyZU01cHR1Smp2ZU1CdTNuNFBLS0V6Uk9LUXZKWjRXLVZV?oc=5",
       "published": "2026-10-02T17:11+00:00"
     },
     {
-      "id": "CN-n4",
+      "id": "CN-n6",
+      "title": "New ETF targets large language model builders b...",
+      "source": "Pluang",
+      "url": "https://news.google.com/rss/articles/CBMijwFBVV95cUxQUjhuZEFtZS12LUdGdnBTdXNZenVaT0ZVVHZMZElCQlo4alEtY1B6MV9RNU1uVURIc1NhWXBBazFDNXBFX2tVZ3Z4MHVlZHR4YkIzOHdjUGduUWRPM2tYZHR2QjZHQnEzeUFQVjFoUThTWkcxTG9GRWR4RFVBSy1ZZXlmX1BtMm1ZdzVJVWVGYw?oc=5",
+      "published": "2026-10-02T15:04+00:00"
+    },
+    {
+      "id": "CN-n7",
       "title": "China stocks edge higher as property shares slide after new stimulus",
       "source": "Prop News Time",
       "url": "https://news.google.com/rss/articles/CBMivAFBVV95cUxQckczdFRxU3pqYnN2cTlUMXV6REpMZ1RHQmx1S2hIOUxsTng1UXhvdUQxV2FOdjVuQWJaRnQzQkhNNm5lMHZ5b1h5WXM3d3pDLUFFcWlQYmx2VE9PLXV3MmFDZWM5blRKQVNITDVvZnVzWVlNYzB5UG80OG81S2hHaXNCWDdxUFVvYWJuc1puVmV3UkFJZXRISm5XaFpiZGRWeU9Pa21BejlNMGc2UmwzQlpGQ0IzNmVWQVZlSA?oc=5",
       "published": "2026-10-02T12:00+00:00"
     },
     {
-      "id": "CN-n5",
+      "id": "CN-n8",
       "title": "The yuan exchange rate on the Moscow Stock Exchange decreased by 0.0255 rubles by 10:20 MSK",
       "source": "AKM.RU",
       "url": "https://news.google.com/rss/articles/CBMivAFBVV95cUxNMVhRbC1jbjMza25MQkJkM3lTOVZUS3ViVmJkR1IxaE9hTmszSEVyTk0wSTBYWU9uY0d0dUdrOU0ySzNwbThNWTR2TkxRMTRtQ0JXdFFhb1Y5YzlSUnloaWQwSFZIc3Y2WWtDa1hZbDNDQTJIQnJrbXN2eUlzcFQ1MFRCZFplMXhrRUFNUlZnczJ6VG9IaHIwdTh1NXZmQVFFdlJGeVlwRzZrLU9scDdJamFrTlpJaXlraVNNNg?oc=5",
       "published": "2026-10-02T09:28+00:00"
-    },
-    {
-      "id": "CN-n6",
-      "title": "China Stocks Fall to One-Year Low; PBOC Cuts PSL Rate to 1.5% - News and Statistics",
-      "source": "IndexBox",
-      "url": "https://news.google.com/rss/articles/CBMilwFBVV95cUxOS2k2NDJLWk1Sc3VFZUhWbk55RVZRLTc2U25mZjhqbVFQZ09IbGtwQ3BabllIcGlVdTMxbnpsQVhlOGxLbmtuMFNFVFNYWm9QSkQ0amZqM1V3THNkaXR4eGJCalpjWmpmT3pielJ1eGY4WlZna1RRaVltc21GMmsxWTlDUk1lV3BGeXJDczJLb1lIb0VscG9z?oc=5",
-      "published": "2026-10-02T05:31+00:00"
-    },
-    {
-      "id": "CN-n7",
-      "title": "Hong Kong stocks plunge 3% as China stimulus fails to impress investors",
-      "source": "Moneycontrol.com",
-      "url": "https://news.google.com/rss/articles/CBMi0AFBVV95cUxQTHloRzlyZ3RacEdXYU52SUFTTEFqRXJxWkx2M1NJUGRXUkxma0tMVGFpM240c3FKczkwaVZvYWlqYUs2R0VsV1pKYUhpbDUzMFgtSlNGQWxtVm90TFFSZXk5MWNQSVg5SjdPS1ZlN1Y1d0ZaeF9zYTJ1enFFWmpkVjVGbEc2ejF0ME5mb0RNa0piOFowTThYM0JlM3loZFhlVlFvWUgzWF9zTkRaTER6MUZkSWUyY3k1RmVrQ1cwTTRNUlY4allhVklHTGFjRWxM0gHWAUFVX3lxTFBCbzlLSmFJMjFGaV9nM0FzRGFTMmhIdzM5TlY4VXhWLTNxNVJTTng5QTk3NUJZLTFsYzNVU2w5N1V5QkJYd1l0WnVWcXB4cjRJSTdyZ1dVMUlJMXlwVkZ2S3h0MGpaQm1wNl82TFQ5cXE3ekd1RG11Qi1LbFVKQXhsX3E0Vlh3UFlXV3hiQ3JyZ3Mya0prMnNQLXV2c3pQWGhmd2EwQ1RLZWs4eDlQS2hHVmZaQWVCbmJ0TWEwMXQtVWNkUV92eUY1SHctQWVHUG9IUFdTLWc?oc=5",
-      "published": "2026-10-02T04:45+00:00"
-    },
-    {
-      "id": "CN-n8",
-      "title": "More aggressive China stimulus unlikely for now, BofA says",
-      "source": "Yahoo Finance",
-      "url": "https://news.google.com/rss/articles/CBMipwFBVV95cUxOZThtYTc5N2xMU0FmUk1rQ1JVaEo4aEVpUVdoWlhDZ3lsRGRnU1RnMWJmRTE5bm1JOGJTWElMeFBCNlpNaDNPanlSTGV4RnpmTEpHOG8xcUNGWi1LdmhjTHJTdUVaTmhaSU5SeEh4QU1CUkxRVTlOS0ZEdTgwUGxGWWpkX2MzUk45SHpqWVdmdWpWWE1NUzNvLU9QcjRTeEVBaGxNcmpIWQ?oc=5",
-      "published": "2026-10-02T04:33+00:00"
     }
   ],
   "coverage": "full",
-  "news_fetched_at": "2026-10-04T08:22:41+00:00",
-  "prices_fetched_at": "2026-10-04T08:22:41+00:00"
+  "news_fetched_at": "2026-10-05T06:27:11+00:00",
+  "prices_fetched_at": "2026-10-05T06:27:57+00:00"
 }

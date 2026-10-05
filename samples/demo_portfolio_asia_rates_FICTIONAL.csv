@@ -1,0 +1,19 @@
+# DEMO PORTFOLIO - fictional trades made up for the Verdisk demo. Not anyone's real account.
+# Story: an Asia-focused investor tilted to rate-sensitive stocks (Hong Kong property and banks,
+# Japanese banks and property), so a rates headline (Fed cut, BoJ hike, bond sell-off) hits home.
+# Also shows: averaging down (0016.HK), a closed winner (XLK), a closed loser (8801.T), a partial-data
+# market held through its index (^FTSE), and one ticker Verdisk does not cover (TSLA).
+# Columns: date,ticker,side,qty,price (price in the ticker's own currency)
+date,ticker,side,qty,price
+2026-05-12,0016.HK,buy,2000,118.00
+2026-05-12,0005.HK,buy,1200,128.00
+2026-06-03,8801.T,buy,1500,1520
+2026-06-03,8306.T,buy,800,3180
+2026-06-16,XLK,buy,40,176.00
+2026-06-16,XLRE,buy,120,43.50
+2026-07-07,601398.SS,buy,5000,7.40
+2026-07-21,^FTSE,buy,0.5,9850
+2026-08-04,TSLA,buy,15,310.00
+2026-08-18,0016.HK,buy,500,109.00
+2026-09-08,XLK,sell,15,196.00
+2026-09-22,8801.T,sell,500,1440

@@ -1,8 +1,9 @@
 import { useState } from 'react'
-import PortfolioPanel from '../components/PortfolioPanel'
+import { PortfolioSection } from '../components/PortfolioPanel'
 import { api } from '../lib/api'
 import { toggleMarket, toggleSector } from './model'
-import { Button, Card, Icon, StepTitle } from './ui'
+import { field } from './styles'
+import { Button, Chip, Icon, SectionHeader, StepTitle } from './ui'
 
 // The dot map is equirectangular from latitude 80 to -58 (see public/world-dots.svg).
 const LAT_TOP = 80
@@ -14,7 +15,7 @@ const LABEL = {
 }
 
 const coverageText = (m) =>
-  m.coverage === 'full' ? 'Index, 4 sector proxies, FX, rates, news' : 'Index, FX, news. No sector proxies'
+  m.coverage === 'full' ? 'Full data: index, sector proxies, FX, rates, news' : 'Partial data: index, FX and news; no sector proxies'
 
 function Marker({ market, on, onToggle }) {
   const [lx, ly] = LABEL[market.code] || [12, -14]
@@ -47,126 +48,115 @@ function Marker({ market, on, onToggle }) {
 
 export default function MarketsStep({ lib, council, setCouncil, onNext, onAddMarket, onLibraryChange }) {
   const byCode = Object.fromEntries(lib.markets.map((m) => [m.code, m]))
+  const names = Object.fromEntries(lib.markets.map((m) => [m.code, m.name]))
   const onMap = lib.markets.filter((m) => m.lat != null && m.lon != null)
-  const offMap = lib.markets.filter((m) => m.lat == null || m.lon == null)
+  // Custom markets added without a map position are offered as chips instead.
+  const offMap = lib.markets.filter((m) => (m.lat == null || m.lon == null) && !council.markets.includes(m.code))
   const toggle = (code) => setCouncil((c) => toggleMarket(c, code))
   const asOf = council.markets.map((c) => byCode[c]?.data?.as_of).filter(Boolean).sort()
+  const sectors = sectorCount(council, lib)
+  const partial = council.markets.filter((c) => byCode[c]?.coverage !== 'full').length
 
   return (
     <>
       <StepTitle step={1} title="Which markets sit on the council?">
-        Each market you pick gets its own specialist seats in the next step. Specialists only see their own market's
-        data, so every market adds a genuinely local view to the debate.
+        Pick markets on the map. Each one gets its own specialists in the next step, and they only see that market's data.
       </StepTitle>
 
-      <div className="flex flex-wrap items-start gap-6">
-        <section aria-label="World map" className="min-w-0 flex-[999_1_640px] rounded-2xl border border-line bg-panel px-6 pb-6 pt-5">
-          <div className="mb-3 flex flex-wrap items-center justify-between gap-3 text-sm text-muted">
-            <div className="flex flex-wrap gap-5">
+      <div className="grid items-start gap-5 lg:grid-cols-[minmax(0,1fr)_minmax(320px,380px)]">
+        <section aria-label="Markets" className="flex min-w-0 flex-col gap-4 rounded-2xl border border-line bg-panel p-5">
+          <div className="flex flex-wrap items-center justify-between gap-x-5 gap-y-2 text-[13px] text-muted">
+            <div className="flex flex-wrap gap-4">
               <span className="inline-flex items-center gap-2"><span className="size-3 rounded-full border-2 border-ink" />Full data</span>
               <span className="inline-flex items-center gap-2"><span className="size-3 rounded-full border-2 border-dashed border-ink" />Partial data</span>
               <span className="inline-flex items-center gap-2"><span className="size-3 rounded-full bg-gold" />On the council</span>
             </div>
             <span>Click a market to seat or remove it</span>
           </div>
+
           <div className="relative aspect-[1800/690] w-full">
             <img src="/world-dots.svg" alt="" className="absolute inset-0 block size-full select-none" draggable="false" />
             {onMap.map((m) => (
               <Marker key={m.code} market={m} on={council.markets.includes(m.code)} onToggle={() => toggle(m.code)} />
             ))}
           </div>
-          {!!offMap.length && (
-            <div className="mt-4 flex flex-wrap items-center gap-2 border-t border-line pt-4 text-sm">
-              <span className="text-muted">Your markets:</span>
-              {offMap.map((m) => (
-                <button key={m.code} type="button" onClick={() => toggle(m.code)} aria-pressed={council.markets.includes(m.code)}
-                  className={`min-h-11 rounded-lg border px-3 font-mono font-semibold ${
-                    council.markets.includes(m.code) ? 'border-gold bg-gold text-gold-ink' : 'border-line-strong text-ink hover:bg-raised'
-                  }`}>
-                  {m.code}
-                </button>
-              ))}
-            </div>
-          )}
-        </section>
 
-        <aside aria-label="Selected markets" className="flex min-w-0 flex-[1_1_340px] flex-col gap-4">
-          {/* Trading history first: the run reads the portfolio that is loaded when the council convenes. */}
-          <PortfolioPanel names={Object.fromEntries(lib.markets.map((m) => [m.code, m.name]))} />
-          <Card className="flex flex-col gap-3">
-            <div className="flex items-baseline justify-between">
-              <h2 className="text-lg font-semibold">On the council</h2>
-              <span className="font-mono text-[15px] text-gold">{council.markets.length} markets</span>
-            </div>
-            {!council.markets.length && <p className="text-sm text-muted">No markets yet. Pick at least one on the map.</p>}
-            <ul className="flex flex-col gap-2">
+          <div className="flex flex-col gap-2 border-t border-line pt-4">
+            <SectionHeader title={`On the council · ${council.markets.length}`}>
+              {partial > 0 && <span className="text-[13px] text-muted">{partial} with partial data (dashed)</span>}
+            </SectionHeader>
+            <div className="flex flex-wrap gap-2">
               {council.markets.map((code) => {
                 const m = byCode[code]
                 return (
-                  <li key={code} className="flex items-center gap-3 rounded-xl bg-raised py-2.5 pl-3 pr-2">
-                    <span className="w-9 font-mono text-sm font-semibold text-gold">{code}</span>
-                    <span className="flex min-w-0 flex-1 flex-col">
-                      <span className="font-medium">{m?.name || code}</span>
-                      <span className="text-[13px] text-muted">
-                        {m ? coverageText(m) : 'Unknown market'}
-                        {m?.data?.source == null && ' · data fetched at run time'}
-                      </span>
-                    </span>
-                    <button type="button" onClick={() => toggle(code)} aria-label={`Remove ${m?.name || code}`}
-                      className="inline-flex size-11 items-center justify-center rounded-lg text-muted hover:bg-panel hover:text-ink">
-                      <Icon name="close" size={18} />
-                    </button>
-                  </li>
+                  <Chip key={code} on aria-pressed={undefined} onClick={() => toggle(code)} aria-label={`Remove ${m?.name || code}`}
+                    title={m ? coverageText(m) : 'Unknown market'}
+                    className={m?.coverage === 'full' ? '' : 'border-dashed'}>
+                    <span className="font-mono font-semibold">{code}</span>
+                    <span className="text-ink">{m?.name || code}</span>
+                    <Icon name="close" size={14} />
+                  </Chip>
                 )
               })}
-            </ul>
-            <Button variant="ghost" onClick={onAddMarket}>
-              <Icon name="plus" />
-              Add a market that isn't on the map
-            </Button>
-          </Card>
+              {offMap.map((m) => (
+                <Chip key={m.code} onClick={() => toggle(m.code)} title={coverageText(m)}>
+                  <span className="font-mono font-semibold">{m.code}</span>{m.name}
+                </Chip>
+              ))}
+              <Chip dashed onClick={onAddMarket}><Icon name="plus" size={14} />Add a market</Chip>
+            </div>
+            {!council.markets.length && <p className="text-sm text-gold-text">Pick at least one market on the map to continue.</p>}
+          </div>
+        </section>
 
-          <SectorsCard lib={lib} council={council} setCouncil={setCouncil} onLibraryChange={onLibraryChange} />
+        <aside aria-label="Council setup"
+          className="flex min-w-0 flex-col rounded-2xl border border-line bg-panel lg:sticky lg:top-5 lg:max-h-[calc(100vh-2.5rem)]">
+          <div className="flex min-h-0 flex-1 flex-col divide-y divide-line overflow-y-auto">
+            <div className="p-5">
+              {/* Trading history first: the run reads the portfolio that is loaded when the council convenes. */}
+              <PortfolioSection names={names} />
+            </div>
+            <div className="p-5">
+              <SectorsSection lib={lib} council={council} setCouncil={setCouncil} onLibraryChange={onLibraryChange} />
+            </div>
+          </div>
 
-          <Card className="flex flex-col gap-2.5">
-            <span className="font-mono text-[13px] uppercase tracking-[0.08em] text-muted">Stance matrix</span>
-            <span className="text-[22px] font-semibold">
-              <span className="font-mono">{council.markets.length} × {sectorCount(council, lib)}</span> = {council.markets.length * sectorCount(council, lib)} cells
-            </span>
-            <span className="text-sm text-muted">
-              Market specialists vote on their own market's sectors; cross-market seats vote on every cell.
-            </span>
+          <footer className="flex flex-col gap-3 border-t border-line p-5">
+            <div className="flex items-baseline justify-between gap-3">
+              <span className="text-sm text-muted">Stance matrix</span>
+              <span className="text-[15px]">
+                <span className="font-mono">{council.markets.length} × {sectors}</span> = <b className="font-semibold">{council.markets.length * sectors} cells</b>
+              </span>
+            </div>
             {!!asOf.length && (
-              <span className="border-t border-line pt-2.5 text-sm text-muted">
-                Data as of {asOf[0].slice(0, 10)}
-                {asOf[0].slice(0, 10) !== asOf[asOf.length - 1].slice(0, 10) && ` to ${asOf[asOf.length - 1].slice(0, 10)}`} (each
-                market's last close).
+              <span className="text-[13px] text-muted">
+                Prices as of {asOf[0].slice(0, 10)}
+                {asOf[0].slice(0, 10) !== asOf[asOf.length - 1].slice(0, 10) && ` to ${asOf[asOf.length - 1].slice(0, 10)}`} (each market's last close)
               </span>
             )}
-          </Card>
-
-          <Button variant="primary" className="min-h-13 text-[17px]" onClick={onNext} disabled={!council.markets.length}>
-            Continue to roles
-            <Icon name="arrow" size={18} stroke={2.2} />
-          </Button>
+            <Button variant="primary" className="min-h-12 text-base" onClick={onNext} disabled={!council.markets.length}>
+              Continue to roles
+              <Icon name="arrow" size={18} stroke={2.2} />
+            </Button>
+          </footer>
         </aside>
       </div>
     </>
   )
 }
 
-
 function sectorCount(council, lib) {
   return (council.sectors?.length ? council.sectors : lib.default_sectors).length
 }
 
 /** Which sectors the council covers. Custom sectors need no code: a name plus optional proxy tickers. */
-function SectorsCard({ lib, council, setCouncil, onLibraryChange }) {
+function SectorsSection({ lib, council, setCouncil, onLibraryChange }) {
   const chosen = council.sectors?.length ? council.sectors : lib.default_sectors
   const [adding, setAdding] = useState(false)
   const [name, setName] = useState('')
   const [proxies, setProxies] = useState('')
   const [error, setError] = useState('')
+  const anyMissing = lib.sectors.some((x) => chosen.includes(x.id) && council.markets.some((m) => !x.proxies?.[m]))
 
   async function add(e) {
     e.preventDefault()
@@ -190,43 +180,41 @@ function SectorsCard({ lib, council, setCouncil, onLibraryChange }) {
   }
 
   return (
-    <Card className="flex flex-col gap-2.5">
-      <span className="font-mono text-[13px] uppercase tracking-[0.08em] text-muted">Sectors</span>
+    <div className="flex flex-col gap-2">
+      <SectionHeader title={`Sectors · ${chosen.length}`} />
       <div className="flex flex-wrap gap-2">
         {lib.sectors.map((x) => {
           const on = chosen.includes(x.id)
           const missing = council.markets.filter((m) => !x.proxies?.[m])
           return (
-            <button key={x.id} type="button" aria-pressed={on} onClick={() => setCouncil((c) => toggleSector(c, x.id))}
-              title={missing.length ? `No price proxy in ${missing.join(', ')}: judged from the index and news there` : 'Price proxy in every chosen market'}
-              className={`min-h-9 rounded-full border px-3 text-sm ${on ? 'border-gold bg-gold-soft text-gold-text' : 'border-line-strong text-ink hover:bg-raised'}`}>
-              {x.name}{missing.length > 0 && on && <span className="ml-1 text-muted">*</span>}
-            </button>
+            <Chip key={x.id} on={on} onClick={() => setCouncil((c) => toggleSector(c, x.id))}
+              title={missing.length ? `No price proxy in ${missing.join(', ')}: judged from the index and news there` : 'Price proxy in every chosen market'}>
+              {x.name}{missing.length > 0 && on && <span className="text-muted">*</span>}
+            </Chip>
           )
         })}
+        {!adding && <Chip dashed onClick={() => setAdding(true)}><Icon name="plus" size={14} />Add</Chip>}
       </div>
-      <span className="text-[13px] text-muted">
-        More sectors mean longer, costlier runs. * = no price proxy in some chosen market; members judge it from the index and headlines there, with lower confidence.
-      </span>
-      {adding ? (
-        <form onSubmit={add} className="flex flex-col gap-2 border-t border-line pt-2.5">
-          <input value={name} onChange={(e) => setName(e.target.value)} placeholder="Sector name, e.g. Shipping" required maxLength={60}
-            className="min-h-10 rounded-lg border border-line-strong bg-desk px-3 text-ink outline-none focus:border-gold" />
-          <input value={proxies} onChange={(e) => setProxies(e.target.value)} placeholder="Optional proxies, e.g. US:ZIM, HK:0316.HK"
-            className="min-h-10 rounded-lg border border-line-strong bg-desk px-3 text-ink outline-none focus:border-gold" />
+      <p className="text-[13px] leading-snug text-muted">
+        More sectors mean longer runs.{anyMissing && ' * No price proxy in some chosen market: judged from the index and headlines there.'}
+      </p>
+      {adding && (
+        <form onSubmit={add} className="flex flex-col gap-2 rounded-xl bg-raised p-3">
+          <label className="flex flex-col gap-1 text-[13px] text-muted">Sector name
+            <input value={name} onChange={(e) => setName(e.target.value)} placeholder="e.g. Shipping" required maxLength={60}
+              className={`${field} min-h-10 text-sm`} autoFocus />
+          </label>
+          <label className="flex flex-col gap-1 text-[13px] text-muted">Proxy tickers (optional)
+            <input value={proxies} onChange={(e) => setProxies(e.target.value)} placeholder="US:ZIM, HK:0316.HK"
+              className={`${field} min-h-10 font-mono text-sm`} />
+          </label>
           {error && <span className="text-sm text-bear">{error}</span>}
           <div className="flex gap-2">
-            <Button variant="primary" type="submit" disabled={!name.trim()}>Add sector</Button>
-            <Button type="button" onClick={() => setAdding(false)}>Cancel</Button>
+            <Button variant="primary" type="submit" className="min-h-10" disabled={!name.trim()}>Add sector</Button>
+            <Button type="button" className="min-h-10" onClick={() => { setAdding(false); setError('') }}>Cancel</Button>
           </div>
-          <span className="text-[13px] text-muted">Proxy prices are fetched on the next data refresh. A ticker that returns no data is reported, never guessed.</span>
         </form>
-      ) : (
-        <Button variant="ghost" onClick={() => setAdding(true)}>
-          <Icon name="plus" />
-          Add a sector
-        </Button>
       )}
-    </Card>
+    </div>
   )
 }

@@ -112,7 +112,7 @@ export default function Builder({ onConvene, onBackToSession, guard }) {
 
   return (
     <div className="min-h-full bg-desk font-sans text-base leading-normal text-ink">
-      <header className="flex flex-wrap items-center justify-between gap-4 border-b border-line px-8 py-4">
+      <header className="flex flex-wrap items-center justify-between gap-4 border-b border-line px-8 py-3">
         <Brand />
         <StepNav step={step} onStep={setStep} canReach={canReach} />
         <div className="flex items-center gap-4">
@@ -121,7 +121,7 @@ export default function Builder({ onConvene, onBackToSession, guard }) {
         </div>
       </header>
 
-      <main className="mx-auto max-w-[1440px] px-8 py-8">
+      <main className="mx-auto max-w-[1440px] px-8 py-6">
         {step === 0 && (
           <MarketsStep lib={lib} council={council} setCouncil={setCouncil} onNext={() => setStep(1)} onLibraryChange={refresh}
             onAddMarket={() => setAddingMarket(true)} />

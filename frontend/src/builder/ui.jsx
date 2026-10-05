@@ -70,11 +70,39 @@ export function StepNav({ step, onStep, canReach }) {
 
 export function StepTitle({ step, title, children }) {
   return (
-    <div className="mb-7 flex max-w-3xl flex-col gap-2">
-      <span className="font-mono text-[13px] uppercase tracking-[0.08em] text-gold">Step {step} of 3</span>
-      <h1 className="text-[34px] font-semibold leading-tight text-ink">{title}</h1>
-      <p className="text-[17px] text-muted">{children}</p>
+    <div className="mb-5 flex max-w-4xl flex-col gap-1">
+      <span className="font-mono text-xs uppercase tracking-[0.08em] text-gold">Step {step} of 3</span>
+      <h1 className="text-[28px] font-semibold leading-tight text-ink">{title}</h1>
+      <p className="text-base text-muted">{children}</p>
     </div>
+  )
+}
+
+/** The one section header style for builder panels: small caps label, optional action on the right. */
+export function SectionHeader({ title, children }) {
+  return (
+    <div className="flex min-h-7 items-center justify-between gap-3">
+      <h2 className="font-mono text-xs uppercase tracking-[0.08em] text-muted">{title}</h2>
+      {children}
+    </div>
+  )
+}
+
+/** The one toggle chip for multi-select choices (markets, sectors): soft gold when selected. */
+export function Chip({ on = false, dashed = false, className = '', children, ...rest }) {
+  return (
+    <button
+      type="button"
+      aria-pressed={dashed ? undefined : on}
+      className={`inline-flex min-h-10 items-center gap-1.5 rounded-full border px-3.5 text-sm disabled:cursor-not-allowed disabled:opacity-40 ${
+        on ? 'border-gold bg-gold-soft text-gold-text' : dashed
+          ? 'border-dashed border-line-strong text-muted hover:bg-raised hover:text-ink'
+          : 'border-line-strong text-ink hover:bg-raised'
+      } ${className}`}
+      {...rest}
+    >
+      {children}
+    </button>
   )
 }
 

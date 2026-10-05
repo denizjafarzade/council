@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import { SectionHeader } from '../builder/ui'
 import { api } from '../lib/api'
 import { SECTOR_NAMES } from '../lib/cards'
 import { Panel } from './bits'
@@ -6,17 +7,16 @@ import { Panel } from './bits'
 function Bar({ label, pct }) {
   return (
     <li className="flex items-center gap-2 text-sm">
-      <span className="w-32 shrink-0 truncate text-ink">{label}</span>
-      <span className="h-2 flex-1 overflow-hidden rounded-full bg-raised">
+      <span className="w-28 shrink-0 truncate text-ink">{label}</span>
+      <span className="h-1.5 flex-1 overflow-hidden rounded-full bg-raised">
         <span className="block h-full rounded-full bg-gold" style={{ width: `${Math.min(100, pct)}%` }} />
       </span>
-      <span className="w-12 text-right font-mono text-muted">{pct}%</span>
+      <span className="w-11 text-right font-mono text-[13px] text-muted">{pct}%</span>
     </li>
   )
 }
 
-/** Upload trades (kept in the backend's memory only) or load the fictional sample. */
-export default function PortfolioPanel({ names, disabled }) {
+function usePortfolio() {
   const [summary, setSummary] = useState(null)
   const [error, setError] = useState('')
   const [busy, setBusy] = useState(false)
@@ -37,55 +37,85 @@ export default function PortfolioPanel({ names, disabled }) {
     }
   }
 
-  async function upload(e) {
+  return {
+    summary, error, busy,
+    upload: (file) => act(async () => api.uploadPortfolio(await file.text(), file.name.replace(/\.csv$/i, ''))),
+    sample: () => act(api.samplePortfolio),
+    clear: () => act(async () => { await api.clearPortfolio(); return null }),
+  }
+}
+
+/** Upload trades (kept in the backend's memory only) or load the fictional sample. */
+function PortfolioBody({ p, names, disabled }) {
+  const off = disabled || p.busy
+  const name = (code) => names[code] || code
+  const s = p.summary
+  function pick(e) {
     const file = e.target.files?.[0]
     e.target.value = ''
-    if (file) act(async () => api.uploadPortfolio(await file.text(), file.name.replace(/\.csv$/i, '')))
+    if (file) p.upload(file)
   }
+  return (
+    <div className="flex flex-col gap-2.5">
+      <div className="flex flex-wrap gap-2">
+        <label className={`inline-flex min-h-10 cursor-pointer items-center rounded-xl border border-line-strong px-3.5 text-sm text-ink hover:bg-raised ${off ? 'pointer-events-none opacity-40' : ''}`}>
+          {s ? 'Replace CSV' : 'Upload CSV'}
+          <input type="file" accept=".csv,text/csv" className="sr-only" onChange={pick} disabled={off} />
+        </label>
+        <button type="button" disabled={off} onClick={p.sample}
+          className="min-h-10 rounded-xl border border-dashed border-line-strong px-3.5 text-sm text-muted hover:bg-raised hover:text-ink disabled:opacity-40">
+          Use sample
+        </button>
+      </div>
+      {p.error && <p className="text-sm text-bear">{p.error}</p>}
+      {!s ? (
+        <p className="text-[13px] leading-snug text-muted">
+          Optional. Columns: date, ticker, side, qty, price. Kept in memory; only percentages reach the council.
+        </p>
+      ) : (
+        <>
+          <p className="truncate text-sm font-semibold text-ink" title={s.label}>{s.label}</p>
+          <ul className="flex flex-col gap-1">
+            {s.by_market.slice(0, 4).map((m) => <Bar key={m.market} label={name(m.market)} pct={m.pct} />)}
+          </ul>
+          {s.by_market.length > 4 && <p className="text-[13px] text-muted">+ {s.by_market.length - 4} more markets</p>}
+          {s.largest && (
+            <p className="text-[13px] leading-snug text-muted" title="Costs converted to US dollars at the cached exchange rates.">
+              Largest: <span className="text-ink">{s.largest.ticker}</span> ({name(s.largest.market)}{' '}
+              {SECTOR_NAMES[s.largest.sector] || s.largest.sector}), {s.largest.pct}%
+              {s.not_covered.length > 0 && ` · not covered: ${s.not_covered.join(', ')}`}
+            </p>
+          )}
+        </>
+      )}
+    </div>
+  )
+}
 
-  const name = (code) => names[code] || code
+/** Compact form for the builder's setup panel. */
+export function PortfolioSection({ names, disabled }) {
+  const p = usePortfolio()
+  return (
+    <div className="flex flex-col gap-2">
+      <SectionHeader title="Your trading history">
+        {p.summary && (
+          <button type="button" disabled={disabled || p.busy} onClick={p.clear}
+            className="text-sm text-muted hover:text-ink disabled:opacity-40">Clear</button>
+        )}
+      </SectionHeader>
+      <PortfolioBody p={p} names={names} disabled={disabled} />
+    </div>
+  )
+}
+
+/** Stand-alone panel (for screens that show it as its own card). */
+export default function PortfolioPanel({ names, disabled }) {
+  const p = usePortfolio()
   return (
     <Panel title="Your trading history" bodyClassName="px-5 py-4"
-      right={summary && <button type="button" disabled={disabled || busy} onClick={() => act(async () => { await api.clearPortfolio(); return null })}
+      right={p.summary && <button type="button" disabled={disabled || p.busy} onClick={p.clear}
         className="text-sm text-muted hover:text-ink disabled:opacity-40">Clear</button>}>
-      <div className="flex flex-col gap-3">
-        <div className="flex flex-wrap gap-2">
-          <label className={`inline-flex min-h-10 cursor-pointer items-center rounded-xl border border-line-strong px-3.5 text-sm text-ink hover:bg-raised ${disabled || busy ? 'pointer-events-none opacity-40' : ''}`}>
-            Upload CSV
-            <input type="file" accept=".csv,text/csv" className="sr-only" onChange={upload} disabled={disabled || busy} />
-          </label>
-          <button type="button" disabled={disabled || busy} onClick={() => act(api.samplePortfolio)}
-            className="min-h-10 rounded-xl border border-dashed border-line-strong px-3.5 text-sm text-muted hover:bg-raised hover:text-ink disabled:opacity-40">
-            Use sample portfolio
-          </button>
-        </div>
-        <p className="text-[13px] text-muted">Upload it before convening. Columns: date, ticker, side, qty, price. Kept in memory only; only percentages reach the council.</p>
-        {error && <p className="text-sm text-bear">{error}</p>}
-        {summary && (
-          <>
-            <p className="font-semibold text-ink">{summary.label}</p>
-            <ul className="flex flex-col gap-1.5">
-              {summary.by_market.map((m) => <Bar key={m.market} label={name(m.market)} pct={m.pct} />)}
-            </ul>
-            {summary.largest && (
-              <p className="text-sm text-ink">
-                Largest position: <b>{summary.largest.ticker}</b> ({name(summary.largest.market)}, {SECTOR_NAMES[summary.largest.sector] || summary.largest.sector}), {summary.largest.pct}% of invested money.
-              </p>
-            )}
-            {summary.realised_by_market.length > 0 && (
-              <p className="text-sm text-muted">
-                Closed trades: {summary.realised_by_market.map((r) => `${name(r.market)} ${r.pct > 0 ? '+' : ''}${r.pct}%`).join(' · ')}
-              </p>
-            )}
-            {summary.not_covered.length > 0 && (
-              <p className="rounded-lg bg-raised px-3 py-2 text-sm text-ink">
-                Not covered: {summary.not_covered.join(', ')}. The council only maps tickers it already tracks.
-              </p>
-            )}
-            <p className="text-[13px] text-muted">Costs converted to US dollars at the cached exchange rates.</p>
-          </>
-        )}
-      </div>
+      <PortfolioBody p={p} names={names} disabled={disabled} />
     </Panel>
   )
 }
