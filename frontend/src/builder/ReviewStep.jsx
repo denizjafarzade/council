@@ -6,7 +6,7 @@ import { estimateCalls, seatId } from './model'
 import { Button, Card, Icon, Pill, StepTitle } from './ui'
 import { field } from './styles'
 
-const CROSS_COLOR = '#b8a1e3'
+const CROSS_COLOR = '#6b5ba8'
 const SHORT_ROLE = { macro: 'Macro', technical: 'Market', fundamentals: 'Fundamentals', news: 'News', sentiment: 'Sentiment' }
 
 /** Seats on a half-circle around the Chair. Placed elements, so it scales with the panel width. */
@@ -23,13 +23,13 @@ function Chamber({ seats }) {
               style={{ borderColor: s.color }}>
               {s.code}
             </span>
-            <span className="line-clamp-2 text-[13px] leading-tight text-[#c4cbd5]">{s.label}</span>
+            <span className="line-clamp-2 text-[13px] leading-tight text-ink-soft">{s.label}</span>
           </div>
         )
       })}
       <div className="absolute bottom-0 left-1/2 -ml-20 flex w-40 flex-col items-center gap-1.5">
         <span className="inline-flex size-[72px] items-center justify-center rounded-full bg-gold font-mono text-[15px] font-semibold text-gold-ink">CHAIR</span>
-        <span className="text-center text-[13px] text-[#c4cbd5]">Runs the session, writes the brief</span>
+        <span className="text-center text-[13px] text-ink-soft">Runs the session, writes the brief</span>
       </div>
     </div>
   )
@@ -87,7 +87,7 @@ export default function ReviewStep({ lib, council, setCouncil, councils, onBack,
       </StepTitle>
 
       <div className="flex flex-wrap items-start gap-6">
-        <section aria-label="Seating" className="flex min-w-0 flex-[999_1_680px] flex-col gap-5 rounded-2xl border border-line bg-panel p-6">
+        <section aria-label="Seating" className="flex min-w-0 flex-[999_1_680px] flex-col gap-5 rounded-md border border-line bg-panel p-6">
           <Chamber seats={seats} />
           <div className="grid grid-cols-[repeat(auto-fit,minmax(200px,1fr))] gap-3 border-t border-line pt-5">
             {groups.map((g) => (
@@ -95,7 +95,7 @@ export default function ReviewStep({ lib, council, setCouncil, councils, onBack,
                 <span className="flex items-center gap-2 font-semibold">
                   <span className="size-2.5 rounded-full" style={{ background: g.color }} />{g.name}
                 </span>
-                <ul className="flex flex-col gap-1 text-sm text-[#c4cbd5]">
+                <ul className="flex flex-col gap-1 text-sm text-ink-soft">
                   {g.members.map((m) => <li key={m.id}>{m.name}</li>)}
                   {!g.members.length && <li className="text-muted">No seats</li>}
                 </ul>

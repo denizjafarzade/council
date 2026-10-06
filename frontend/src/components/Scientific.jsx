@@ -5,7 +5,7 @@ import SpilloverGraph from './SpilloverGraph'
 // The same result in technical terms: exact numbers, source ids, every risk component, each
 // AI's own risk score next to the council's combined one, evidence weights and data provenance.
 
-const RISK_STYLE = { low: 'text-ok', moderate: 'text-gold-text', high: 'text-bear' }
+const RISK_STYLE = { low: 'text-ok', moderate: 'text-[#8a5a00]', high: 'text-bear' }
 const COMPONENTS = ['volatility', 'drawdown', 'council_view', 'disagreement', 'uncertainty']
 const LABEL = { volatility: 'Vol', drawdown: 'Drawdown', council_view: 'View', disagreement: 'Dissent', uncertainty: 'Unverified' }
 

@@ -7,7 +7,8 @@ import MemberEditor from './MemberEditor'
 import { defaultCouncil, normalise, removeMember, slug, toggleMarket, upsertMember } from './model'
 import ReviewStep from './ReviewStep'
 import RolesStep from './RolesStep'
-import { Brand, Button, StepNav } from './ui'
+import { OakBar, oakButton } from '../components/chamber'
+import { Button, StepNav } from './ui'
 
 const DRAFT_KEY = 'council.draft'
 
@@ -112,14 +113,13 @@ export default function Builder({ onConvene, onBackToSession, guard }) {
 
   return (
     <div className="min-h-full bg-desk font-sans text-base leading-normal text-ink">
-      <header className="flex flex-wrap items-center justify-between gap-4 border-b border-line px-8 py-3">
-        <Brand />
+      <OakBar subtitle="Seating the council · Westminster chamber">
+        {onBackToSession && <button type="button" className={oakButton} onClick={onBackToSession}>Back to the session</button>}
+      </OakBar>
+      <div className="flex flex-wrap items-center justify-between gap-3 border-b border-line bg-panel px-8 py-2">
         <StepNav step={step} onStep={setStep} canReach={canReach} />
-        <div className="flex items-center gap-4">
-          {onBackToSession && <Button onClick={onBackToSession}>Back to session</Button>}
-          <span className="text-[13px] text-muted">{DISCLAIMER}</span>
-        </div>
-      </header>
+        <span className="text-[13px] text-muted">{DISCLAIMER}</span>
+      </div>
 
       <main className="mx-auto max-w-[1440px] px-8 py-6">
         {step === 0 && (

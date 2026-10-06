@@ -26,7 +26,7 @@ export function slugify(text) {
 
 let seq = 0
 
-const FEED_SECTIONS = { blind_vote: 'Blind vote', debate: 'Debate', revote: 'Revote' }
+const FEED_SECTIONS = { blind_vote: 'Secret ballot', debate: 'Debate', revote: 'Second ballot' }
 
 export function councilReducer(state, action) {
   switch (action.type) {
@@ -47,6 +47,7 @@ export function councilReducer(state, action) {
 
 function applyEvent(state, event, data) {
   const id = ++seq
+  const at = Date.now() // when it reached the floor, for the minutes
   switch (event) {
     case 'council':
       return { ...state, council: data }
@@ -60,16 +61,16 @@ function applyEvent(state, event, data) {
       const stages = { ...state.stages, [data.name]: data.status }
       // Each voting or debating stage opens a section of the feed.
       const divider = data.status === 'started' && FEED_SECTIONS[data.name]
-      return divider ? { ...state, stages, feed: [...state.feed, { id, kind: 'divider', stage: data.name, label: divider }] } : { ...state, stages }
+      return divider ? { ...state, stages, feed: [...state.feed, { id, at, kind: 'divider', stage: data.name, label: divider }] } : { ...state, stages }
     }
     case 'vote':
       return {
         ...state,
         votes: { ...state.votes, [data.round]: { ...state.votes[data.round], [data.agent]: data } },
-        feed: [...state.feed, { id, kind: 'vote', agent: data.agent, round: data.round, source: data.source, fallback: data.fallback }],
+        feed: [...state.feed, { id, at, kind: 'vote', agent: data.agent, round: data.round, source: data.source, fallback: data.fallback }],
       }
     case 'message':
-      return { ...state, feed: [...state.feed, { id, kind: 'message', ...data }] }
+      return { ...state, feed: [...state.feed, { id, at, kind: 'message', ...data }] }
     case 'report':
       return { ...state, reports: { ...state.reports, [data.agent]: data } }
     case 'spillover':
@@ -79,7 +80,7 @@ function applyEvent(state, event, data) {
     case 'error':
       return {
         ...state,
-        feed: [...state.feed, { id, kind: 'error', ...data }],
+        feed: [...state.feed, { id, at, kind: 'error', ...data }],
         toasts: [...state.toasts, { id, text: data.message }],
       }
     default:

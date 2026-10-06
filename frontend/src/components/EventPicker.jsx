@@ -17,7 +17,7 @@ function useRecordings(bundled, status) {
   return Object.fromEntries([...bundled, ...remote].map((r) => [r.slug, r])) // backend entries carry dates, so they win
 }
 
-const button = 'inline-flex min-h-12 items-center justify-center gap-2 rounded-xl px-4 disabled:cursor-not-allowed disabled:opacity-40'
+const button = 'inline-flex min-h-12 items-center justify-center gap-2 rounded-md px-4 disabled:cursor-not-allowed disabled:opacity-40'
 
 /** Pick a real headline (or type an event) and start it: live, from a recording, or from the mock. */
 export default function EventPicker({ state, markets, onRun, onReplay, recordings: bundled = [], onReplayRecorded, guard }) {
@@ -37,7 +37,7 @@ export default function EventPicker({ state, markets, onRun, onReplay, recording
   }
 
   return (
-    <form onSubmit={submit} className="flex flex-col gap-3 rounded-2xl border border-line bg-panel px-5 py-4">
+    <form onSubmit={submit} className="flex flex-col gap-3 rounded-md border border-line bg-panel px-5 py-4">
       <NewsPicker markets={markets} selectedId={newsId} disabled={running}
         onPick={(n) => { setText(n.title); setNewsId(n.id); setRecordingSlug(null) }} />
       <div className="flex flex-wrap items-end gap-2.5">
@@ -47,7 +47,7 @@ export default function EventPicker({ state, markets, onRun, onReplay, recording
             value={text}
             onChange={(e) => { setText(e.target.value); setNewsId(null); setRecordingSlug(null) }}
             placeholder="Pick a headline above, or describe an event…"
-            className="min-h-12 rounded-xl border border-line-strong bg-desk px-3.5 text-lg text-ink outline-none focus:border-gold"
+            className="min-h-12 rounded-md border border-line-strong bg-desk px-3.5 text-lg text-ink outline-none focus:border-gold"
           />
         </label>
         <button type="submit" disabled={running || !text.trim()} className={`${button} bg-gold px-5 font-semibold text-gold-ink hover:bg-gold-hover`}>
@@ -70,7 +70,7 @@ export default function EventPicker({ state, markets, onRun, onReplay, recording
                 onChange={(e) => setSpeed(Number(e.target.value))}
                 disabled={running}
                 aria-label="Replay speed"
-                className="rounded-xl border border-line-strong bg-desk px-2 text-sm text-ink"
+                className="rounded-md border border-line-strong bg-desk px-2 text-sm text-ink"
                 title="Replay speed: 2× fits the 90-second live-run slot in the pitch"
               >
                 <option value={1}>1×</option>
@@ -102,7 +102,7 @@ export default function EventPicker({ state, markets, onRun, onReplay, recording
               aria-pressed={recorded?.slug === r.slug}
               title={r.event || r.slug}
               className={`min-h-9 max-w-[22rem] truncate rounded-full border px-3 text-sm disabled:opacity-40 ${
-                recorded?.slug === r.slug ? 'border-gold bg-gold-soft text-gold-text' : 'border-line-strong text-ink hover:bg-raised'
+                recorded?.slug === r.slug ? 'border-oat bg-gold-soft text-gold-text' : 'border-line-strong text-ink hover:bg-raised'
               }`}
             >
               <span className="mr-1.5 inline-block size-2 rounded-full bg-ok align-middle" />
@@ -127,34 +127,37 @@ function stageDetail(id, state) {
       return status === 'pending' ? '' : `${n(state.votes.blind)}/${votersOf(state, 'blind')}`
     case 'debate': {
       const msgs = state.feed.filter((f) => f.kind === 'message').length
-      return msgs ? `${msgs} msgs` : ''
+      return msgs ? `${msgs} entries` : ''
     }
     case 'revote':
       return status === 'pending' ? '' : `${n(state.votes.revote)}/${votersOf(state, 'revote')}`
     case 'spillover':
       return status === 'skipped' ? 'no seat' : state.spillover ? `${state.spillover.edges.length} links` : ''
     case 'brief':
-      return state.brief ? 'ready' : ''
+      return state.brief ? 'delivered' : ''
     default:
       return ''
   }
 }
 
-const BAR = { pending: 'bg-line', started: 'bg-gold animate-pulse', done: 'bg-gold', failed: 'bg-bear', skipped: 'bg-line-strong' }
+const RULE = { pending: 'border-line', started: 'border-brass animate-pulse', done: 'border-brass', failed: 'border-bear', skipped: 'border-line-strong' }
 
+/** The order of proceedings: Roman numerals over a brass rule that fills in as each stage completes. */
 export function StageBar({ state }) {
   return (
-    <ol className="grid grid-cols-3 gap-x-2 gap-y-3 sm:grid-cols-6" aria-label="Session progress">
+    <ol className="grid grid-cols-3 gap-x-3 gap-y-3 sm:grid-cols-6" aria-label="Order of proceedings">
       {STAGES.map((s) => {
         const status = state.stages[s.id] || 'pending'
+        const pending = status === 'pending'
         return (
-          <li key={s.id} className="flex flex-col gap-1.5" aria-current={status === 'started' ? 'step' : undefined}>
-            <span className={`h-1.5 rounded-full transition-colors ${BAR[status] || BAR.pending}`} />
-            <span className="flex items-baseline justify-between gap-2 text-sm">
-              <span className={`font-semibold ${status === 'pending' ? 'text-muted' : status === 'failed' ? 'text-bear' : 'text-ink'}`}>
+          <li key={s.id} className={`flex items-baseline gap-2 border-b-[3px] pb-1.5 transition-colors ${RULE[status] || RULE.pending}`}
+            aria-current={status === 'started' ? 'step' : undefined}>
+            <span className={`font-serif text-lg font-bold ${pending ? 'text-line-strong' : 'text-oat'}`}>{s.num}</span>
+            <span className="flex min-w-0 flex-col leading-tight">
+              <span className={`truncate text-sm font-semibold ${pending ? 'text-muted' : status === 'failed' ? 'text-bear' : 'text-ink'}`}>
                 {s.label}{status === 'failed' && ' (failed)'}
               </span>
-              <span className="font-mono text-[13px] text-muted">{stageDetail(s.id, state)}</span>
+              <span className="truncate font-mono text-xs text-muted">{stageDetail(s.id, state) || ' '}</span>
             </span>
           </li>
         )

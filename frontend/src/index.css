@@ -1,24 +1,36 @@
 @import "tailwindcss";
 
-/* Council builder palette ("night desk"): near-black ground, one gold accent. */
+/* "Westminster" palette (finals): the council as a chamber. Parchment and oak, green-leather
+   actions, brass for labels and rules. Token names are kept from earlier themes: "gold" is the
+   green-leather action colour, "gold-soft"/"gold-text"/"oat" the brass-tinted soft states and labels,
+   "desk" the parchment ground. */
 @theme {
-  --font-sans: "IBM Plex Sans", ui-sans-serif, system-ui, sans-serif;
+  --font-sans: "Source Sans 3", ui-sans-serif, system-ui, sans-serif;
+  --font-serif: "Libre Caslon Text", Georgia, serif;
   --font-mono: "IBM Plex Mono", ui-monospace, monospace;
-  --color-desk: #0d1015;
-  --color-panel: #151a21;
-  --color-raised: #1b222b;
-  --color-line: #29313c;
-  --color-line-strong: #3a4452;
-  --color-ink: #eceff3;
-  --color-muted: #a3adba;
-  --color-gold: #e8b04a;
-  --color-gold-hover: #f3c873;
-  --color-gold-soft: #2a2414;
-  --color-gold-ink: #1a1408;
-  --color-gold-text: #f3d08a;
-  --color-bull: #8cc2f7;
-  --color-bear: #f7b37e;
-  --color-ok: #8ee3b8;
+  --color-desk: #efe7d4;
+  --color-panel: #f8f2e4;
+  --color-raised: #eee5cf;
+  --color-line: #d4c5a3;
+  --color-line-strong: #b5a47e;
+  --color-ink: #1e1912;
+  --color-ink-soft: #3a3226;
+  --color-muted: #5e5442;
+  --color-gold: #1f4d3a;
+  --color-gold-hover: #173d2e;
+  --color-gold-soft: #ebdfc2;
+  --color-gold-ink: #ffffff;
+  --color-gold-text: #5f4516;
+  --color-oat: #7a5a1e; /* brass text: labels, numerals, counts */
+  --color-brass: #a8823e; /* brass rules, rings and seals */
+  --color-wood: #3a2a1c; /* oak header bar */
+  --color-wood-ink: #f3ead6;
+  --color-wood-muted: #cbbb98;
+  --color-bull: #24508f;
+  --color-bear: #9a3f14;
+  --color-bear-soft: #f1dbc9;
+  --color-ok: #2d6442;
+  --color-ok-soft: #dce6d3;
 }
 
 html,
@@ -29,5 +41,6 @@ body,
 
 body {
   @apply bg-desk text-ink antialiased;
+  color-scheme: light;
   font-size: 18px; /* readable from the back of a lecture hall */
 }

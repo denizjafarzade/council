@@ -39,17 +39,17 @@ export default function AddMarketDialog({ taken, onAdd, onClose }) {
   }
 
   return (
-    <div className="fixed inset-0 z-40 flex items-start justify-center overflow-y-auto bg-black/70 px-4 py-10"
+    <div className="fixed inset-0 z-40 flex items-start justify-center overflow-y-auto bg-ink/40 px-4 py-10"
       onKeyDown={(e) => e.key === 'Escape' && onClose()}>
       <form role="dialog" aria-modal="true" aria-labelledby="market-title" onSubmit={submit}
-        className="w-full max-w-[640px] overflow-hidden rounded-[20px] border border-line bg-panel shadow-[0_30px_80px_rgba(0,0,0,0.55)]">
+        className="w-full max-w-[640px] overflow-hidden rounded-[20px] border border-line bg-panel shadow-[0_30px_80px_rgba(26,30,37,0.25)]">
         <div className="flex items-start justify-between gap-4 border-b border-line px-7 py-6">
           <div className="flex flex-col gap-1">
-            <span className="font-mono text-[13px] uppercase tracking-[0.08em] text-gold">New market</span>
+            <span className="font-mono text-[13px] uppercase tracking-[0.08em] text-oat">New market</span>
             <h2 id="market-title" className="text-2xl font-semibold">Add a market by ticker</h2>
           </div>
           <button type="button" onClick={onClose} aria-label="Close"
-            className="inline-flex size-11 items-center justify-center rounded-xl text-muted hover:bg-raised hover:text-ink">
+            className="inline-flex size-11 items-center justify-center rounded-md text-muted hover:bg-raised hover:text-ink">
             <Icon name="close" size={20} />
           </button>
         </div>

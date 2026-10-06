@@ -57,8 +57,8 @@ export default function NewsPicker({ markets, selectedId, onPick, disabled, limi
             return (
               <li key={n.id}>
                 <button type="button" disabled={disabled} onClick={() => onPick(n)} aria-pressed={on}
-                  className={`flex w-full items-start gap-2.5 rounded-xl border px-3 py-2 text-left disabled:opacity-40 ${
-                    on ? 'border-gold bg-gold-soft' : 'border-line hover:bg-raised'}`}>
+                  className={`flex w-full items-start gap-2.5 rounded-md border px-3 py-2 text-left disabled:opacity-40 ${
+                    on ? 'border-oat bg-gold-soft' : 'border-line hover:bg-raised'}`}>
                   <span className="mt-0.5 rounded bg-raised px-1.5 font-mono text-xs text-muted">{n.market}</span>
                   <span className="flex min-w-0 flex-col">
                     <span className={`leading-snug ${on ? 'text-gold-text' : 'text-ink'}`}>{n.title}</span>

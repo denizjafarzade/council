@@ -30,8 +30,8 @@ function SeatToggle({ on, label, onClick }) {
   return (
     <div className="flex border-b border-l border-line p-2.5">
       <button type="button" onClick={onClick} aria-pressed={on} aria-label={label}
-        className={`inline-flex min-h-12 flex-1 items-center justify-center gap-2 rounded-xl border text-sm font-medium ${
-          on ? 'border-gold bg-gold-soft text-gold-text' : 'border-dashed border-line-strong text-muted hover:bg-raised hover:text-ink'
+        className={`inline-flex min-h-12 flex-1 items-center justify-center gap-2 rounded-md border text-sm font-medium ${
+          on ? 'border-oat bg-gold-soft text-gold-text' : 'border-dashed border-line-strong text-muted hover:bg-raised hover:text-ink'
         }`}>
         <Icon name={on ? 'check' : 'plus'} size={on ? 16 : 14} stroke={on ? 2.6 : 2} />
         {on ? 'Seated' : 'Seat'}
@@ -62,7 +62,7 @@ export default function RolesStep({ lib, council, setCouncil, onBack, onNext, on
               <h2 id="market-seats" className="text-xl font-semibold">Market seats</h2>
               <span className="text-sm text-muted">Sees only its own market's data</span>
             </div>
-            <div className="overflow-x-auto rounded-2xl border border-line bg-panel">
+            <div className="overflow-x-auto rounded-md border border-line bg-panel">
               <div className="grid" style={{
                 gridTemplateColumns: `170px repeat(${marketRoles.length + 1}, minmax(132px, 1fr))`,
                 minWidth: 170 + (marketRoles.length + 1) * 132,
@@ -81,7 +81,7 @@ export default function RolesStep({ lib, council, setCouncil, onBack, onNext, on
                     <div key={code} className="contents">
                       <div className="flex flex-col justify-center border-b border-line px-4 py-3">
                         <span className="flex items-center gap-2.5">
-                          <span className="font-mono font-semibold text-gold">{code}</span>
+                          <span className="font-mono font-semibold text-oat">{code}</span>
                           <span className="font-medium">{byCode[code]?.name}</span>
                         </span>
                         <span className={`text-[13px] ${n ? 'text-muted' : 'text-gold-text'}`}>
@@ -96,13 +96,13 @@ export default function RolesStep({ lib, council, setCouncil, onBack, onNext, on
                       <div className="flex flex-col gap-1.5 border-b border-l border-line p-2.5">
                         {custom.map((m) => (
                           <button key={m.id} type="button" onClick={() => onEditMember(m)}
-                            className="flex min-h-11 flex-col items-center justify-center rounded-xl border border-gold bg-gold-soft px-2 text-center text-sm font-medium leading-tight text-gold-text hover:bg-[#332b17]">
+                            className="flex min-h-11 flex-col items-center justify-center rounded-md border border-oat bg-gold-soft px-2 text-center text-sm font-medium leading-tight text-gold-text hover:bg-gold-soft">
                             {m.name}
-                            <span className="text-xs text-[#c9ad72]">Edit</span>
+                            <span className="text-xs text-gold-text/80">Edit</span>
                           </button>
                         ))}
                         <button type="button" onClick={() => onEditMember(null, { market: code })}
-                          className="inline-flex min-h-11 items-center justify-center gap-1.5 rounded-xl border border-dashed border-line-strong text-sm text-muted hover:bg-raised hover:text-ink">
+                          className="inline-flex min-h-11 items-center justify-center gap-1.5 rounded-md border border-dashed border-line-strong text-sm text-muted hover:bg-raised hover:text-ink">
                           <Icon name="plus" size={14} />Create
                         </button>
                       </div>
@@ -124,12 +124,12 @@ export default function RolesStep({ lib, council, setCouncil, onBack, onNext, on
                 return (
                   <button key={r.id} type="button" disabled={r.required} aria-pressed={on}
                     onClick={() => setCouncil((c) => toggleCross(c, r.id))}
-                    className={`flex min-h-[150px] flex-col gap-2 rounded-2xl border p-4 text-left disabled:cursor-default ${
-                      on ? 'border-gold bg-[#1f1c14]' : 'border-line bg-panel hover:border-line-strong'
+                    className={`flex min-h-[150px] flex-col gap-2 rounded-md border p-4 text-left disabled:cursor-default ${
+                      on ? 'border-oat bg-gold-soft' : 'border-line bg-panel hover:border-line-strong'
                     }`}>
                     <span className="flex w-full items-center justify-between gap-2">
                       <span className="font-semibold">{r.name}</span>
-                      <span className={`rounded-full px-2 py-0.5 font-mono text-xs tracking-wide ${on ? 'bg-gold text-gold-ink' : 'bg-[#232a33] text-muted'}`}>
+                      <span className={`rounded-full px-2 py-0.5 font-mono text-xs tracking-wide ${on ? 'bg-gold text-gold-ink' : 'bg-raised text-muted'}`}>
                         {r.required ? 'REQUIRED' : on ? 'SEATED' : 'OFF'}
                       </span>
                     </span>
@@ -140,7 +140,7 @@ export default function RolesStep({ lib, council, setCouncil, onBack, onNext, on
               })}
               {extraCross.map((m) => (
                 <button key={m.id} type="button" onClick={() => onEditMember(m)}
-                  className="flex min-h-[150px] flex-col gap-2 rounded-2xl border border-gold bg-[#1f1c14] p-4 text-left">
+                  className="flex min-h-[150px] flex-col gap-2 rounded-md border border-oat bg-gold-soft p-4 text-left">
                   <span className="flex w-full items-center justify-between gap-2">
                     <span className="font-semibold">{m.name}</span>
                     <span className="rounded-full bg-gold px-2 py-0.5 font-mono text-xs tracking-wide text-gold-ink">CUSTOM</span>
@@ -150,7 +150,7 @@ export default function RolesStep({ lib, council, setCouncil, onBack, onNext, on
                 </button>
               ))}
               <button type="button" onClick={() => onEditMember(null, { market: null })}
-                className="flex min-h-[150px] flex-col items-center justify-center gap-2 rounded-2xl border border-dashed border-line-strong p-4 text-muted hover:bg-raised hover:text-ink">
+                className="flex min-h-[150px] flex-col items-center justify-center gap-2 rounded-md border border-dashed border-line-strong p-4 text-muted hover:bg-raised hover:text-ink">
                 <Icon name="plus" size={20} />
                 <span className="font-medium">Create a cross-market member</span>
                 <span className="text-center text-sm">A thematic view, like a commodities or rates specialist</span>
@@ -163,7 +163,7 @@ export default function RolesStep({ lib, council, setCouncil, onBack, onNext, on
           <Card className="flex flex-col gap-3.5">
             <h2 className="text-lg font-semibold">Your council</h2>
             <span className="flex items-baseline gap-2.5">
-              <span className="font-mono text-[44px] font-semibold leading-none text-gold">{total}</span>
+              <span className="font-mono text-[44px] font-semibold leading-none text-oat">{total}</span>
               <span className="text-muted">seats</span>
             </span>
             <dl className="grid grid-cols-[1fr_auto] gap-x-3 gap-y-2 text-[15px]">

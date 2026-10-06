@@ -32,11 +32,11 @@ function Marker({ market, on, onToggle }) {
       <span
         className={`absolute left-1/2 top-1/2 -ml-[7px] -mt-[7px] size-3.5 rounded-full border-2 transition-shadow ${
           market.coverage === 'full' ? 'border-solid' : 'border-dashed'
-        } ${on ? 'border-gold bg-gold shadow-[0_0_0_6px_rgba(232,176,74,0.22)]' : 'border-ink bg-desk group-hover:shadow-[0_0_0_5px_rgba(236,239,243,0.15)]'}`}
+        } ${on ? 'border-oat bg-oat shadow-[0_0_0_6px_rgba(110,82,42,0.25)]' : 'border-ink bg-desk group-hover:shadow-[0_0_0_5px_rgba(26,30,37,0.12)]'}`}
       />
       <span
         className={`absolute whitespace-nowrap rounded-md border px-2 py-0.5 font-mono text-[13px] font-semibold tracking-wide ${
-          on ? 'border-gold bg-gold text-gold-ink' : 'border-line-strong bg-raised text-ink group-hover:border-ink'
+          on ? 'border-oat bg-oat text-gold-ink' : 'border-line-strong bg-raised text-ink group-hover:border-ink'
         }`}
         style={{ left: `calc(50% + ${lx}px)`, top: `calc(50% + ${ly}px)` }}
       >
@@ -64,12 +64,12 @@ export default function MarketsStep({ lib, council, setCouncil, onNext, onAddMar
       </StepTitle>
 
       <div className="grid items-start gap-5 lg:grid-cols-[minmax(0,1fr)_minmax(320px,380px)]">
-        <section aria-label="Markets" className="flex min-w-0 flex-col gap-4 rounded-2xl border border-line bg-panel p-5">
+        <section aria-label="Markets" className="flex min-w-0 flex-col gap-4 rounded-md border border-line bg-panel p-5">
           <div className="flex flex-wrap items-center justify-between gap-x-5 gap-y-2 text-[13px] text-muted">
             <div className="flex flex-wrap gap-4">
               <span className="inline-flex items-center gap-2"><span className="size-3 rounded-full border-2 border-ink" />Full data</span>
               <span className="inline-flex items-center gap-2"><span className="size-3 rounded-full border-2 border-dashed border-ink" />Partial data</span>
-              <span className="inline-flex items-center gap-2"><span className="size-3 rounded-full bg-gold" />On the council</span>
+              <span className="inline-flex items-center gap-2"><span className="size-3 rounded-full bg-oat" />On the council</span>
             </div>
             <span>Click a market to seat or remove it</span>
           </div>
@@ -110,7 +110,7 @@ export default function MarketsStep({ lib, council, setCouncil, onNext, onAddMar
         </section>
 
         <aside aria-label="Council setup"
-          className="flex min-w-0 flex-col rounded-2xl border border-line bg-panel lg:sticky lg:top-5 lg:max-h-[calc(100vh-2.5rem)]">
+          className="flex min-w-0 flex-col rounded-md border border-line bg-panel lg:sticky lg:top-5 lg:max-h-[calc(100vh-2.5rem)]">
           <div className="flex min-h-0 flex-1 flex-col divide-y divide-line overflow-y-auto">
             <div className="p-5">
               {/* Trading history first: the run reads the portfolio that is loaded when the council convenes. */}
@@ -199,7 +199,7 @@ function SectorsSection({ lib, council, setCouncil, onLibraryChange }) {
         More sectors mean longer runs.{anyMissing && ' * No price proxy in some chosen market: judged from the index and headlines there.'}
       </p>
       {adding && (
-        <form onSubmit={add} className="flex flex-col gap-2 rounded-xl bg-raised p-3">
+        <form onSubmit={add} className="flex flex-col gap-2 rounded-md bg-raised p-3">
           <label className="flex flex-col gap-1 text-[13px] text-muted">Sector name
             <input value={name} onChange={(e) => setName(e.target.value)} placeholder="e.g. Shipping" required maxLength={60}
               className={`${field} min-h-10 text-sm`} autoFocus />

@@ -4,12 +4,12 @@ import { createContext, useContext } from 'react'
 import { AGENTS, COUNTRIES } from './constants'
 
 // One colour per market, in seating order. Kept clear of the green/red used for views.
-const MARKET_PALETTE = ['#f472b6', '#fb923c', '#38bdf8', '#a78bfa', '#facc15', '#5eead4', '#c084fc', '#fda4af',
-  '#93c5fd', '#fcd34d', '#67e8f9', '#f0abfc', '#fdba74', '#a5b4fc', '#d9f99d', '#e2e8f0']
-const ORIGINAL_MARKET_COLOR = { HK: '#f472b6', CN: '#fb923c', US: '#38bdf8', JP: '#a78bfa' }
+const MARKET_PALETTE = ['#b83a77', '#b85a12', '#1f6fa3', '#6a4fc0', '#8a6d00', '#0f766e', '#8e44ad', '#b03a48',
+  '#2f5fa8', '#8a5a00', '#0e7490', '#a3379a', '#a14d12', '#4a50b0', '#4d7c0f', '#55606e']
+const ORIGINAL_MARKET_COLOR = { HK: '#b83a77', CN: '#b85a12', US: '#1f6fa3', JP: '#6a4fc0' }
 const CROSS_STYLE = {
   BEAR: AGENTS.BEAR, SPILLOVER: AGENTS.SPILLOVER, CHAIR: AGENTS.CHAIR,
-  BULL: { color: '#34d399', icon: '🐂' }, RISK: { color: '#fbbf24', icon: '🛡️' },
+  BULL: { color: '#1e7a4c', icon: '🐂' }, RISK: { color: '#9a6b00', icon: '🛡️' },
 }
 
 const DEFAULT_ROLES = { BEAR: 'Bear Researcher', SPILLOVER: 'Spillover Analyst', CHAIR: 'Chair' }
@@ -45,7 +45,7 @@ export function buildRoster(council) {
         role: m.role_name,
       }
     } else {
-      const style = CROSS_STYLE[m.id] || { color: '#e2e8f0', icon: '◆' }
+      const style = CROSS_STYLE[m.id] || { color: '#55606e', icon: '◆' }
       roster[m.id] = { label: AGENTS[m.id]?.label || m.name, ...style, market: null, role: m.role_name }
     }
   }
@@ -59,7 +59,7 @@ export function useRoster() {
 }
 
 export function useAgent(id) {
-  return useContext(RosterContext)[id] || { label: id, color: '#cbd5e1' }
+  return useContext(RosterContext)[id] || { label: id, color: '#6b7280' }
 }
 
 /** Market codes covered by this run (the original four until the council event arrives). */

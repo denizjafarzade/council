@@ -12,22 +12,22 @@ const MODES = [
 const SPLIT = 0.5 // dissent at or above this marks the council as split on a cell
 
 function Cell({ cell, before, mode }) {
-  if (!cell) return <div className="h-16 rounded-xl bg-raised/60" aria-label="No votes yet" />
+  if (!cell) return <div className="h-16 rounded-md bg-raised/60" aria-label="No votes yet" />
   const changed = !!(before && before.view !== cell.view)
   const v = VIEW_STYLE[cell.view]
   const dim = mode === 'changed' && !changed
-  const alpha = dim ? 0.08 : 0.22 + 0.7 * cell.confidence // stronger colour = higher confidence
+  const alpha = dim ? 0.08 : 0.14 + 0.5 * cell.confidence // stronger colour = higher confidence
   const sub = mode === 'changed'
     ? changed ? `was ${before.view}` : 'no change'
     : `${Math.round(cell.confidence * 100)}%`
   return (
     <div
-      className="relative flex h-16 flex-col items-center justify-center gap-0.5 rounded-xl transition-all duration-700"
+      className="relative flex h-16 flex-col items-center justify-center gap-0.5 rounded-md transition-all duration-700"
       style={{ backgroundColor: `rgba(${v.rgb}, ${alpha})`, boxShadow: mode !== 'blind' && changed ? 'inset 0 0 0 2px #e8b04a' : 'none' }}
       title={`${v.label}, confidence ${Math.round(cell.confidence * 100)}%, dissent ${Math.round(cell.dissent * 100)}%${changed ? ` (was ${before.view})` : ''}`}
     >
-      <span className={`text-[15px] font-semibold ${dim ? 'text-muted' : 'text-white'}`}>{v.arrow} {v.label}</span>
-      <span className={`font-mono text-[13px] ${dim ? 'text-muted' : 'text-white/85'}`}>{sub}</span>
+      <span className={`text-[15px] font-semibold ${dim ? 'text-muted' : 'text-ink'}`}>{v.arrow} {v.label}</span>
+      <span className={`font-mono text-[13px] ${dim ? 'text-muted' : 'text-ink-soft'}`}>{sub}</span>
       {mode !== 'blind' && cell.dissent >= SPLIT && (
         <span className="absolute right-1.5 top-1 rounded bg-desk/75 px-1 text-[10px] font-bold tracking-wide text-gold-text" title="The council is split on this cell">
           SPLIT
@@ -65,12 +65,12 @@ export default function Matrix({ state }) {
     <Panel
       title="Stance matrix"
       right={
-        <div role="group" aria-label="Matrix view" className="inline-flex rounded-xl border border-line bg-desk p-[3px]">
+        <div role="group" aria-label="Matrix view" className="inline-flex rounded-md border border-line bg-desk p-[3px]">
           {MODES.map(([id, label]) => (
             <button key={id} type="button" aria-pressed={mode === id} onClick={() => setPicked({ runKey, mode: id })}
               disabled={id !== 'blind' && !nRevote && !state.brief}
               className={`min-h-10 rounded-[9px] px-3.5 text-sm font-medium disabled:cursor-not-allowed disabled:opacity-40 ${
-                mode === id ? 'bg-gold text-gold-ink' : 'text-[#c4cbd5] hover:text-ink'
+                mode === id ? 'bg-gold text-gold-ink' : 'text-ink-soft hover:text-ink'
               }`}>
               {label}
             </button>
@@ -100,7 +100,7 @@ export default function Matrix({ state }) {
       <div className="mt-3.5 flex flex-wrap items-center justify-between gap-3 text-[13px] text-muted">
         <span className="flex flex-wrap gap-4">
           <span className="font-semibold text-bull">▲ Bullish</span>
-          <span className="font-semibold text-[#c4cbd5]">● Neutral</span>
+          <span className="font-semibold text-ink-soft">● Neutral</span>
           <span className="font-semibold text-bear">▼ Bearish</span>
           <span>Stronger colour = higher confidence{mode !== 'blind' && ' · gold ring = changed after the debate'}</span>
         </span>

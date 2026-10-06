@@ -37,7 +37,7 @@ export default function GuardrailBadge({ state, available }) {
   return (
     <span
       className={`inline-flex items-center gap-2 rounded-full px-3 py-1.5 text-sm font-medium ${
-        parts.length ? 'bg-[#1d2740] text-[#b9d3f2]' : 'bg-raised text-muted'
+        parts.length ? 'bg-gold-soft text-gold-text' : 'bg-raised text-muted'
       }`}
       title={`${state.council.guardrail}: every message and brief line is checked for personal buy/sell advice and political commentary before it is shown.${
         unchecked ? ` ${unchecked} could not be checked (guardrail unavailable).` : ''
@@ -63,7 +63,7 @@ export function GuardrailToggle({ guard, compact = false }) {
         disabled={disabled}
         onClick={() => guard.setOn(!guard.on)}
         className={`relative inline-flex h-7 w-12 shrink-0 items-center rounded-full border transition-colors disabled:cursor-not-allowed disabled:opacity-40 ${
-          guard.active ? 'border-[#5aa2f0] bg-[#2f5f99]' : 'border-line-strong bg-desk'
+          guard.active ? 'border-gold bg-gold' : 'border-line-strong bg-desk'
         }`}
       >
         <span className={`inline-block size-5 rounded-full bg-ink transition-transform ${guard.active ? 'translate-x-6' : 'translate-x-1'}`} />

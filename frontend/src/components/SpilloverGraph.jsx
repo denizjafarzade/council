@@ -10,8 +10,8 @@ const H = 300
 const NODE_W = 112
 const NODE_H = 40
 // Same blue/orange as the matrix: blue pushes up, orange pushes down.
-const POS = '#5aa2f0'
-const NEG = '#f08a4b'
+const POS = '#285594'
+const NEG = '#a9501d'
 
 const MAX_PER_COL = 5 // taller columns split into staggered sub-columns
 
@@ -122,18 +122,18 @@ function Graph({ spill, graph, label, sources, hover, setHover, big, markets }) 
         })}
         {spill.nodes.map((n) => {
           const p = graph.pos[n.id]
-          const color = n.country ? marketColor(n.country, markets) : '#e8b04a'
+          const color = n.country ? marketColor(n.country, markets) : '#425f87'
           const lines = wrap(n.label)
           const tx = n.country ? 26 : NODE_W / 2
           return (
             <g key={n.id} transform={`translate(${p.x},${p.y})`}>
-              <rect width={NODE_W} height={NODE_H} rx="9" fill="#1b222b" stroke={color} strokeWidth="1.5" />
+              <rect width={NODE_W} height={NODE_H} rx="9" fill="#f3f2ed" stroke={color} strokeWidth="1.5" />
               {n.country && (
                 <text x="6" y={NODE_H / 2 + 4} fontSize="10.5" fontWeight="700" fill={color}>
                   {n.country}
                 </text>
               )}
-              <text fontSize="12.5" fill="#eceff3" textAnchor={n.country ? 'start' : 'middle'}>
+              <text fontSize="12.5" fill="#1a1e25" textAnchor={n.country ? 'start' : 'middle'}>
                 {lines.map((l, k) => (
                   <tspan key={k} x={tx} y={NODE_H / 2 + 4.5 + (k - (lines.length - 1) / 2) * 14}>
                     {l}
@@ -148,8 +148,8 @@ function Graph({ spill, graph, label, sources, hover, setHover, big, markets }) 
           const p = graph.paths[i]
           return (
             <g key={`b${i}`} onMouseEnter={() => setHover(i)} onMouseLeave={() => setHover(null)} opacity={hover === null || hover === i ? 1 : 0.15}>
-              <circle cx={p.bx} cy={p.by} r="8.5" fill="#0d1015" stroke={e.sign === '+' ? POS : NEG} strokeWidth="1.5" />
-              <text x={p.bx} y={p.by + 4} textAnchor="middle" fontSize="11" fontWeight="700" fill="#eceff3">
+              <circle cx={p.bx} cy={p.by} r="8.5" fill="#e9e8e2" stroke={e.sign === '+' ? POS : NEG} strokeWidth="1.5" />
+              <text x={p.bx} y={p.by + 4} textAnchor="middle" fontSize="11" fontWeight="700" fill="#1a1e25">
                 {i + 1}
               </text>
             </g>
@@ -237,8 +237,8 @@ export default function SpilloverGraph({ state, sources }) {
         )}
       </Panel>
       {expanded && graph && (
-        <div className="fixed inset-0 z-40 flex bg-black/80 p-6 backdrop-blur-sm" onClick={() => setExpanded(false)}>
-          <div className="flex min-h-0 flex-1 flex-col rounded-2xl border border-line bg-panel p-5" onClick={(e) => e.stopPropagation()}>
+        <div className="fixed inset-0 z-40 flex bg-ink/40 p-6 backdrop-blur-sm" onClick={() => setExpanded(false)}>
+          <div className="flex min-h-0 flex-1 flex-col rounded-md border border-line bg-panel p-5" onClick={(e) => e.stopPropagation()}>
             <div className="mb-3 flex items-center justify-between">
               <h2 className="text-xl font-semibold">How it spreads · {state.event}</h2>
               <span className="flex items-center gap-4">

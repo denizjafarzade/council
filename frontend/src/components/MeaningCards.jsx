@@ -16,7 +16,7 @@ function savedTab() {
   }
 }
 
-const RISK_STYLE = { low: 'text-ok', moderate: 'text-gold-text', high: 'text-bear' }
+const RISK_STYLE = { low: 'text-ok', moderate: 'text-[#8a5a00]', high: 'text-bear' }
 const COMPONENT_LABELS = {
   volatility: 'Volatility (20-day)', drawdown: 'Fall over 1 month', council_view: 'Council view',
   disagreement: 'Disagreement', uncertainty: 'Unverified claims',
@@ -50,7 +50,7 @@ function RiskBreakdown({ risk }) {
 
 function Card({ card, portfolio, sources }) {
   return (
-    <article className="flex flex-col gap-2.5 rounded-xl border border-line bg-desk px-4 py-3.5">
+    <article className="flex flex-col gap-2.5 rounded-md border border-line bg-desk px-4 py-3.5">
       <header className="flex items-center gap-2">
         <Flag code={card.code} />
         <h3 className="flex-1 text-lg font-semibold text-ink">{card.name}</h3>
@@ -96,7 +96,7 @@ function Card({ card, portfolio, sources }) {
 
 const OUTLOOK = {
   cautious: { label: 'Cautious', style: 'text-bear', border: 'border-bear' },
-  mixed: { label: 'Mixed', style: 'text-gold-text', border: 'border-gold' },
+  mixed: { label: 'Mixed', style: 'text-[#8a5a00]', border: 'border-[#8a5a00]' },
   positive: { label: 'Positive', style: 'text-bull', border: 'border-bull' },
 }
 const LEAN_SHORT = { bearish: ['Negative', 'text-bear'], neutral: ['No clear lean', 'text-muted'], bullish: ['Positive', 'text-bull'] }
@@ -105,7 +105,7 @@ const LEAN_SHORT = { bearish: ['Negative', 'text-bear'], neutral: ['No clear lea
 function BottomLine({ line }) {
   const o = OUTLOOK[line.outlook]
   return (
-    <section className={`flex flex-wrap items-center gap-5 rounded-xl border-l-4 ${o.border} bg-desk px-5 py-4`}>
+    <section className={`flex flex-wrap items-center gap-5 rounded-md border-l-4 ${o.border} bg-desk px-5 py-4`}>
       <div className="flex min-w-[15rem] flex-1 flex-col gap-1.5">
         <span className="text-[13px] font-semibold uppercase tracking-[0.06em] text-muted">Bottom line</span>
         <span className={`text-[28px] font-semibold leading-none ${o.style}`}>{o.label} outlook</span>
@@ -129,7 +129,7 @@ function BottomLine({ line }) {
 function MarketRow({ card, portfolio, sources }) {
   const [lean, leanStyle] = LEAN_SHORT[card.councilLean] || ['Waiting', 'text-muted']
   return (
-    <details className="group rounded-xl border border-line bg-desk">
+    <details className="group rounded-md border border-line bg-desk">
       <summary className="flex cursor-pointer list-none items-center gap-3 px-4 py-2.5">
         <Flag code={card.code} />
         <span className="flex-1 font-semibold text-ink">{card.name}</span>
@@ -177,10 +177,10 @@ function Tabs({ tab, setTab }) {
     }
   }
   return (
-    <div role="tablist" aria-label="Result language" className="inline-flex rounded-xl border border-line bg-desk p-[3px]">
-      {[['plain', 'Plain English'], ['scientific', 'Scientific']].map(([id, label]) => (
+    <div role="tablist" aria-label="Result language" className="inline-flex rounded-md border border-line bg-desk p-[3px]">
+      {[['plain', 'Plain reading'], ['scientific', 'Full record']].map(([id, label]) => (
         <button key={id} type="button" role="tab" aria-selected={tab === id} onClick={() => choose(id)}
-          className={`min-h-9 rounded-[9px] px-3.5 text-sm font-medium ${tab === id ? 'bg-gold text-gold-ink' : 'text-[#c4cbd5] hover:text-ink'}`}>
+          className={`min-h-9 rounded-[9px] px-3.5 text-sm font-medium ${tab === id ? 'bg-gold text-gold-ink' : 'text-ink-soft hover:text-ink'}`}>
           {label}
         </button>
       ))}
@@ -207,7 +207,11 @@ export default function MeaningCards({ state, packs, names, sources }) {
   const line = useMemo(() => bottomLine(cards, portfolio, risk), [cards, portfolio, risk])
 
   return (
-    <Panel title="Result" bodyClassName="px-5 py-4"
+    <Panel ruled bodyClassName="px-5 py-4"
+      title={<span className="flex items-center gap-3">
+        <span aria-hidden="true" className="inline-flex size-9 items-center justify-center rounded-full bg-gold font-serif text-base font-bold normal-case tracking-normal text-gold-ink shadow-[0_0_0_2px_var(--color-panel),0_0_0_3px_var(--color-brass)]">V</span>
+        Ruling of the Council
+      </span>}
       right={<span className="flex flex-wrap items-center gap-3">
         {portfolio?.label && <span className="text-xs text-muted">{portfolio.label}</span>}
         <Tabs tab={tab} setTab={setTab} />
@@ -239,7 +243,7 @@ export default function MeaningCards({ state, packs, names, sources }) {
               </div>
             )}
             {brief && (
-              <details className="rounded-xl border border-line px-4 py-2.5">
+              <details className="rounded-md border border-line px-4 py-2.5">
                 <summary className="cursor-pointer text-sm font-medium text-ink">Why the council thinks this</summary>
                 <div className="mt-3 flex flex-col gap-3">
                   <p className="text-[17px] font-semibold leading-snug">{plain(brief.headline, names, sectorNames)}</p>
@@ -255,7 +259,7 @@ export default function MeaningCards({ state, packs, names, sources }) {
             )}
           </>
         )}
-        <p className="border-t border-line pt-2.5 text-[13px] font-semibold text-[#c4cbd5]">{brief?.disclaimer || DISCLAIMER}</p>
+        <p className="border-t border-line pt-2.5 text-[13px] font-semibold text-ink-soft">{brief?.disclaimer || DISCLAIMER}</p>
       </div>
     </Panel>
   )

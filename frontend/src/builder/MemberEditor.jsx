@@ -93,17 +93,17 @@ export default function MemberEditor({ lib, council, member, defaults, onSave, o
     (phases.debate ? (role?.stage === 'debate' ? council.debate_rounds : 1) : 0)
 
   return (
-    <div className="fixed inset-0 z-40 flex items-start justify-center overflow-y-auto bg-black/70 px-4 py-10"
+    <div className="fixed inset-0 z-40 flex items-start justify-center overflow-y-auto bg-ink/40 px-4 py-10"
       onKeyDown={(e) => e.key === 'Escape' && onClose()}>
       <form role="dialog" aria-modal="true" aria-labelledby="editor-title" onSubmit={save}
-        className="w-full max-w-[980px] overflow-hidden rounded-[20px] border border-line bg-panel shadow-[0_30px_80px_rgba(0,0,0,0.55)]">
+        className="w-full max-w-[980px] overflow-hidden rounded-[20px] border border-line bg-panel shadow-[0_30px_80px_rgba(26,30,37,0.25)]">
         <div className="flex items-start justify-between gap-4 border-b border-line px-7 py-6">
           <div className="flex flex-col gap-1">
-            <span className="font-mono text-[13px] uppercase tracking-[0.08em] text-gold">{editing ? 'Edit council member' : 'New council member'}</span>
+            <span className="font-mono text-[13px] uppercase tracking-[0.08em] text-oat">{editing ? 'Edit council member' : 'New council member'}</span>
             <h2 id="editor-title" className="text-[28px] font-semibold">{name.trim() || 'Untitled member'}</h2>
           </div>
           <button type="button" onClick={onClose} aria-label="Close"
-            className="inline-flex size-11 items-center justify-center rounded-xl text-muted hover:bg-raised hover:text-ink">
+            className="inline-flex size-11 items-center justify-center rounded-md text-muted hover:bg-raised hover:text-ink">
             <Icon name="close" size={20} />
           </button>
         </div>
@@ -177,9 +177,9 @@ export default function MemberEditor({ lib, council, member, defaults, onSave, o
             </label>
           </div>
 
-          <aside aria-label="Preview" className="flex min-w-0 flex-[1_1_300px] flex-col gap-3.5 border-l border-line bg-[#10141a] px-7 py-6">
+          <aside aria-label="Preview" className="flex min-w-0 flex-[1_1_300px] flex-col gap-3.5 border-l border-line bg-raised px-7 py-6">
             <span className="font-mono text-[13px] uppercase tracking-[0.08em] text-muted">How it will appear</span>
-            <div className="flex items-center gap-2.5 rounded-2xl border border-line bg-panel p-4">
+            <div className="flex items-center gap-2.5 rounded-md border border-line bg-panel p-4">
               <span className="inline-flex size-9 items-center justify-center rounded-full bg-gold-soft font-mono text-[13px] font-semibold text-gold-text">
                 {market || 'ALL'}
               </span>

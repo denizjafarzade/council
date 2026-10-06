@@ -1,9 +1,11 @@
 import { useEffect, useMemo, useState } from 'react'
 import Builder from './builder/Builder'
-import { Brand } from './builder/ui'
 import DebateStream from './components/DebateStream'
 import EventPicker, { StageBar } from './components/EventPicker'
 import GuardrailBadge from './components/GuardrailBadge'
+import Hemicycle from './components/Hemicycle'
+import { OakBar, brassButton, oakButton } from './components/chamber'
+import KeyNumbers from './components/KeyNumbers'
 import MeaningCards from './components/MeaningCards'
 import { useCouncil } from './hooks/useCouncil'
 import { COUNTRY_NAMES, DISCLAIMER } from './lib/constants'
@@ -19,7 +21,7 @@ function Toasts({ toasts, dismiss }) {
   return (
     <div className="fixed bottom-4 right-4 z-50 flex w-96 max-w-[calc(100vw-2rem)] flex-col gap-2" role="status">
       {toasts.map((t) => (
-        <div key={t.id} className="flex items-start gap-2.5 rounded-xl border border-[#5a3a22] bg-[#24180f] px-3.5 py-2.5 text-sm text-[#f7d2b5] shadow-xl">
+        <div key={t.id} className="flex items-start gap-2.5 rounded-md border border-bear/40 bg-bear-soft px-3.5 py-2.5 text-sm text-bear shadow-xl">
           <span aria-hidden="true">⚠</span>
           <span className="flex-1">{t.text}</span>
           <button type="button" onClick={() => dismiss(t.id)} className="-m-1 p-1 text-bear hover:text-ink" aria-label="Dismiss">✕</button>
@@ -44,9 +46,9 @@ function RunStatus({ state }) {
   if (state.mode === 'mock') return <span className={`${base} bg-raised text-muted`}>Mock run · made-up data</span>
   const live = state.status === 'running'
   return (
-    <span className={`${base} ${state.status === 'error' ? 'bg-[#24180f] text-bear' : 'bg-[#10271f] text-[#8ee3b8]'}`}>
-      <span className={`size-2 rounded-full ${state.status === 'error' ? 'bg-bear' : 'bg-[#3dd68c]'} ${live ? 'animate-pulse' : ''}`} />
-      {state.status === 'error' ? 'Run stopped' : live ? 'Live' : 'Live run · finished'}
+    <span className={`${base} ${state.status === 'error' ? 'bg-bear-soft text-bear' : 'bg-ok-soft text-ok'}`}>
+      <span className={`size-2 rounded-full ${state.status === 'error' ? 'bg-bear' : 'bg-ok'} ${live ? 'animate-pulse' : ''}`} />
+      {state.status === 'error' ? 'Session suspended' : live ? 'In session · live' : state.brief ? 'Ruling delivered' : 'Session closed'}
     </span>
   )
 }
@@ -93,28 +95,18 @@ export default function App() {
   return (
     <RosterContext.Provider value={roster}>
       <div className="min-h-full bg-desk font-sans text-base text-ink">
-        <header className="flex flex-wrap items-center gap-x-6 gap-y-3 border-b border-line px-7 py-4">
-          <Brand />
-          <span className="hidden h-10 w-px bg-line sm:block" aria-hidden="true" />
-          <div className="flex min-w-64 flex-1 flex-col">
-            <span className="font-mono text-xs uppercase tracking-[0.08em] text-muted">
-              {state.council?.name || council?.name || 'Default council'} · {seats} seats · {marketCount} markets
-            </span>
-            <h1 className="text-[30px] font-semibold leading-tight">{state.event || 'Council ready'}</h1>
-          </div>
+        <OakBar subtitle={`${state.council?.name || council?.name || 'Default council'} · ${seats} members · ${marketCount} markets · Westminster chamber`}>
           <GuardrailBadge state={state} available={guard.available} />
           <RunStatus state={state} />
-          <button type="button" disabled={running} onClick={() => setControlsOpen((o) => !o)}
-            className="min-h-11 rounded-xl border border-line-strong px-4 font-medium hover:bg-raised disabled:cursor-not-allowed disabled:opacity-40">
-            {showControls && state.mode !== 'idle' ? 'Hide' : 'New event'}
+          <button type="button" disabled={running} onClick={() => setControlsOpen((o) => !o)} className={oakButton}>
+            {showControls && state.mode !== 'idle' ? 'Hide' : 'New matter'}
           </button>
-          <button type="button" disabled={running} onClick={() => setView('build')}
-            className="min-h-11 rounded-xl border border-line-strong px-4 font-medium hover:bg-raised disabled:cursor-not-allowed disabled:opacity-40">
-            Edit council
+          <button type="button" disabled={running} onClick={() => setView('build')} className={brassButton}>
+            Seat the council
           </button>
-        </header>
+        </OakBar>
 
-        <div className="border-b border-line px-7 py-3.5">
+        <div className="border-b border-line bg-panel px-7 py-3">
           <StageBar state={state} />
         </div>
 
@@ -131,13 +123,21 @@ export default function App() {
             />
           )}
 
-          {/* The floor (debate, then who changed their mind) on the left; the result on the right, in plain
-              English or scientific terms. The matrix and spillover map live in the Scientific tab. */}
-          <div className="grid grid-cols-1 items-start gap-5 xl:grid-cols-[minmax(22rem,27rem)_minmax(0,1fr)]">
+          {/* Westminster: the matter, the key numbers, then the ruling (plain reading or full record) and the
+              chamber, with the minutes of the debate beside them. */}
+          <div className="flex flex-col gap-1">
+            <span className="text-xs font-bold uppercase tracking-[0.18em] text-oat">In the matter of</span>
+            <h1 className="font-serif text-[32px] font-bold leading-tight">{state.event ? `“${state.event}”` : 'No matter before the council'}</h1>
+          </div>
+          <KeyNumbers state={state} names={names} />
+          <div className="grid grid-cols-1 items-start gap-5 xl:grid-cols-[minmax(0,1fr)_minmax(22rem,27rem)]">
+            <div className="flex min-w-0 flex-col gap-5">
+              <MeaningCards state={state} packs={packs} names={names} sources={sources} />
+              <Hemicycle state={state} names={names} />
+            </div>
             <div className="h-[70vh] min-h-[28rem] xl:sticky xl:top-5 xl:h-[calc(100vh-2.5rem)]">
               <DebateStream state={state} sources={sources} />
             </div>
-            <MeaningCards state={state} packs={packs} names={names} sources={sources} />
           </div>
           <p className="text-center text-[13px] text-muted">{DISCLAIMER}</p>
         </main>

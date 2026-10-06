@@ -58,12 +58,12 @@ function PortfolioBody({ p, names, disabled }) {
   return (
     <div className="flex flex-col gap-2.5">
       <div className="flex flex-wrap gap-2">
-        <label className={`inline-flex min-h-10 cursor-pointer items-center rounded-xl border border-line-strong px-3.5 text-sm text-ink hover:bg-raised ${off ? 'pointer-events-none opacity-40' : ''}`}>
+        <label className={`inline-flex min-h-10 cursor-pointer items-center rounded-md border border-line-strong px-3.5 text-sm text-ink hover:bg-raised ${off ? 'pointer-events-none opacity-40' : ''}`}>
           {s ? 'Replace CSV' : 'Upload CSV'}
           <input type="file" accept=".csv,text/csv" className="sr-only" onChange={pick} disabled={off} />
         </label>
         <button type="button" disabled={off} onClick={p.sample}
-          className="min-h-10 rounded-xl border border-dashed border-line-strong px-3.5 text-sm text-muted hover:bg-raised hover:text-ink disabled:opacity-40">
+          className="min-h-10 rounded-md border border-dashed border-line-strong px-3.5 text-sm text-muted hover:bg-raised hover:text-ink disabled:opacity-40">
           Use sample
         </button>
       </div>

@@ -13,10 +13,10 @@
     {
       "id": "CN-fx",
       "name": "USD/CNY",
-      "last": 6.6973,
-      "chg_1d_pct": -0.11,
-      "chg_1m_pct": -0.32,
-      "vol_20d_pct": 1.12
+      "last": 6.6918,
+      "chg_1d_pct": -0.19,
+      "chg_1m_pct": -0.28,
+      "vol_20d_pct": 1.24
     }
   ],
   "sectors": [
@@ -91,62 +91,62 @@
   "news": [
     {
       "id": "CN-n1",
+      "title": "Chinese Stocks Rise, TSMC (TSM) Gains 2.75%",
+      "source": "GuruFocus",
+      "url": "https://news.google.com/rss/articles/CBMigwFBVV95cUxNd2k0dmRlNVNzUUN5T1lKMDE2V2FHUFB2bWd5QS1tb3U5MWx3RHBsanVGd2phb0U2b2NrWWhqTzZvbTMtSk5KdElHaVJvbE9mUjRzeHBPUnlVSVdNcWV2MVRyMmVPRHh4WS1zUFFiN19sN0pqdWhiaFRQNWVYY1Z3Zm5QRQ?oc=5",
+      "published": "2026-10-06T04:37+00:00"
+    },
+    {
+      "id": "CN-n2",
+      "title": "Promising Chinese Stocks To Watch Today - October 5th",
+      "source": "MarketBeat",
+      "url": "https://news.google.com/rss/articles/CBMirwFBVV95cUxOUGJIRGZCY0xXTFhLWUdJZkFLOG0yTVNfWVdiVzFyb0pKRGdPLXgwemNBTTdzY0RaTGR3blFHX1M2QlpOLURHS1BfWHdnWUh3RTRYU1VDOUZsRkdNZnJlN0VvZ2lKZzBiakQxZ0tBOC02ZFFMa2ktRFRtVElFbnZaNlVyNWg3cFNYZ1NiQnFsT29hSUN4bGNmSXNaOE94LWpVYjAzZWxpSF8xZ1oyVTN3?oc=5",
+      "published": "2026-10-05T17:19+00:00"
+    },
+    {
+      "id": "CN-n3",
+      "title": "Hang Seng opens flat as China's stimulus package sets a growth floor",
+      "source": "24/7 Wall St.",
+      "url": "https://news.google.com/rss/articles/CBMiyAFBVV95cUxNam5HY2doYkFNVHFObXgwaUoxRmVCT3BocWRkcHpkNnpWQl85Z2xkNlk4d2RrUU05UktTOFRMT0dJSGYxcFhxZjF3aWpuYXRVZ2VjOVlacTBhZjRRM3JiUHVlQ2Q1UDc1Q2R1RkdxWE9kNXYzZGo3NVZ2WjAtN01IM3ZiNWQ5ZHBKSkVNa0VOcDRxRUFQM0JUM0FsQmIzcXozcFFQNVd4WXBqU1d5eTRBZG5WcEZnVktmMk5jQ3dpeUEzVEFxZHFzXw?oc=5",
+      "published": "2026-10-05T11:05+00:00"
+    },
+    {
+      "id": "CN-n4",
+      "title": "The yuan exchange rate on the Moscow Stock Exchange increased by 0.111 rubles",
+      "source": "AKM.RU",
+      "url": "https://news.google.com/rss/articles/CBMiqgFBVV95cUxPUGFOR05fUmZDcGFLZE0zQnZtbGhDM3ZpRGlDbk94WlFKeHR5SGZXa1MyQlR2VjA2UHU4NmdNcHk4UWxZSHZLSFhlRDl5VWVSN1YzUGwtUW83QVA2aHVCQ25KTU0wR3UtQ01OX2I2NkpVUlFkUHRKd3JDY09wZmFpbFVvYXY5NTE5eGtpYWJLOE1QNHNUTzBoUnhqRGV0TGVMVDBzODcyOXlpUQ?oc=5",
+      "published": "2026-10-05T09:26+00:00"
+    },
+    {
+      "id": "CN-n5",
       "title": "A Verb Upgrade: China’s Stimulus Pivot Is Real in Tense, Not Yet in Substance",
       "source": "IndraStra Global",
       "url": "https://news.google.com/rss/articles/CBMihAFBVV95cUxNS20tOXFFLS1UN0RfOGRaS1IwTlRpSEJJRGRNZlBDV3Eydzg0TkJlZmx3X2E2dktiWjlxbk1xY3dXa1NsSHQ5UVRKbFdxOTd1NjUtZnVFdkRuTjFNZzZfbnJ4Z2F6c2l6bG9MM3pGbS1YeG85VkU1R3lqS0VBOGJ2QUN6dVk?oc=5",
       "published": "2026-10-05T05:23+00:00"
     },
     {
-      "id": "CN-n2",
+      "id": "CN-n6",
       "title": "China's State Council Deploys Incremental Policies; PBOC Ramps Up Structural Tools to Stabilize Growth",
       "source": "finance.biggo.com",
       "url": "https://news.google.com/rss/articles/CBMidkFVX3lxTFA5MFJ6Y24zRWxEbjZlbnJaUUg3NmYwTkh3SVNSbXROWDhETmVuX3JmU2xTMHJ2M2s0OGh6ejJIeVotOTZoNUlJSHNodFJkckk3N2U3NzVZNThTWmFGVHhCQkg0RzNMRUN1cG96UUM3ZzVJRDhYZWc?oc=5",
       "published": "2026-10-04T15:05+00:00"
     },
     {
-      "id": "CN-n3",
+      "id": "CN-n7",
       "title": "China’s property bust exposes deep cracks in local government finances: Report",
       "source": "IANS LIVE",
       "url": "https://news.google.com/rss/articles/CBMisgFBVV95cUxPLUQyNmdzUXdOZzFJcTk5QzdHcExleTRwendFZVc3VHBxdEZuWnF5dXhSMXhmR1NEZTJhN0U0ZHBtcG84NFVKVWdfT1gtNm9ZTlhSZUVYVFI3OFpGUlloYmFKOW0wNEhkWWJOYkRORTUxYmsxTFM4SDFsM2FxZVRPYndlNzhUVGd0TlV1ejhqalZpOC1lckN6aG43Rk9yV0RwV1hGR21ZTVFzREhMblJTbTNB?oc=5",
       "published": "2026-10-04T07:23+00:00"
     },
     {
-      "id": "CN-n4",
-      "title": "The fiscal fallout from China’s property bust",
-      "source": "eastasiaforum.org",
-      "url": "https://news.google.com/rss/articles/CBMiigFBVV95cUxOMEhRM1FrbTVJbzVyTlljVFM0X0ZLWUVlVlNTakRZb2JQa3U0ai15c2ZKSG1XeG1HTEVYNmVLUi03YlB1S19pdmpNa0RFejBjVGwxdHZwaTlOZnlhTWJtS1p3OW1Sb0ZhS3MtRG9UQ0VQWkF5ZFF2TE5PSmQxb3ZMVHdGZFJWcjZJUFE?oc=5",
-      "published": "2026-10-03T23:00+00:00"
-    },
-    {
-      "id": "CN-n5",
-      "title": "Best Chinese Stocks To Buy And Watch: Track The Latest China Stock News",
-      "source": "Investor's Business Daily",
-      "url": "https://news.google.com/rss/articles/CBMid0FVX3lxTE9xb0Q2UnVEMWdJTlo4ZUd5dTUzQ3p2eUdxdlB1MlE5LUxsU1VkdFpKQ2F6alh6R1ZsLU9KbURjZWRkN2djRGVsRElrbDFxcW1JNkFHZkMyZU01cHR1Smp2ZU1CdTNuNFBLS0V6Uk9LUXZKWjRXLVZV?oc=5",
-      "published": "2026-10-02T17:11+00:00"
-    },
-    {
-      "id": "CN-n6",
-      "title": "New ETF targets large language model builders b...",
-      "source": "Pluang",
-      "url": "https://news.google.com/rss/articles/CBMijwFBVV95cUxQUjhuZEFtZS12LUdGdnBTdXNZenVaT0ZVVHZMZElCQlo4alEtY1B6MV9RNU1uVURIc1NhWXBBazFDNXBFX2tVZ3Z4MHVlZHR4YkIzOHdjUGduUWRPM2tYZHR2QjZHQnEzeUFQVjFoUThTWkcxTG9GRWR4RFVBSy1ZZXlmX1BtMm1ZdzVJVWVGYw?oc=5",
-      "published": "2026-10-02T15:04+00:00"
-    },
-    {
-      "id": "CN-n7",
-      "title": "China stocks edge higher as property shares slide after new stimulus",
-      "source": "Prop News Time",
-      "url": "https://news.google.com/rss/articles/CBMivAFBVV95cUxQckczdFRxU3pqYnN2cTlUMXV6REpMZ1RHQmx1S2hIOUxsTng1UXhvdUQxV2FOdjVuQWJaRnQzQkhNNm5lMHZ5b1h5WXM3d3pDLUFFcWlQYmx2VE9PLXV3MmFDZWM5blRKQVNITDVvZnVzWVlNYzB5UG80OG81S2hHaXNCWDdxUFVvYWJuc1puVmV3UkFJZXRISm5XaFpiZGRWeU9Pa21BejlNMGc2UmwzQlpGQ0IzNmVWQVZlSA?oc=5",
-      "published": "2026-10-02T12:00+00:00"
-    },
-    {
       "id": "CN-n8",
-      "title": "The yuan exchange rate on the Moscow Stock Exchange decreased by 0.0255 rubles by 10:20 MSK",
-      "source": "AKM.RU",
-      "url": "https://news.google.com/rss/articles/CBMivAFBVV95cUxNMVhRbC1jbjMza25MQkJkM3lTOVZUS3ViVmJkR1IxaE9hTmszSEVyTk0wSTBYWU9uY0d0dUdrOU0ySzNwbThNWTR2TkxRMTRtQ0JXdFFhb1Y5YzlSUnloaWQwSFZIc3Y2WWtDa1hZbDNDQTJIQnJrbXN2eUlzcFQ1MFRCZFplMXhrRUFNUlZnczJ6VG9IaHIwdTh1NXZmQVFFdlJGeVlwRzZrLU9scDdJamFrTlpJaXlraVNNNg?oc=5",
-      "published": "2026-10-02T09:28+00:00"
+      "title": "China stock market: how to trade Chinese stocks on Bybit",
+      "source": "Bybit",
+      "url": "https://news.google.com/rss/articles/CBMiakFVX3lxTE1CVnFKbWRmNXR1clFMaGhSam55VXIzTG5LR2dTZ3lUVnRhUmtrenV3Y1B5aW04OW1jakRPR1hueFVhbkVmdXVaaVMwOGtzMUgzekNqNkVtZ3Q3Y3FNc1NNV0ZhZHIwX0JvRnc?oc=5",
+      "published": "2026-10-04T07:00+00:00"
     }
   ],
   "coverage": "full",
-  "news_fetched_at": "2026-10-05T06:27:11+00:00",
-  "prices_fetched_at": "2026-10-05T06:27:57+00:00"
+  "news_fetched_at": "2026-10-06T10:14:25+00:00",
+  "prices_fetched_at": "2026-10-06T10:15:34+00:00"
 }

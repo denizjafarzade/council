@@ -53,7 +53,7 @@ export function StepNav({ step, onStep, canReach }) {
               >
                 <span
                   className={`inline-flex size-6 items-center justify-center rounded-full font-mono ${
-                    current ? 'bg-gold font-semibold text-gold-ink' : done ? 'bg-[#2e3743] text-ink' : 'border border-line-strong'
+                    current ? 'bg-gold font-semibold text-gold-ink' : done ? 'bg-line-strong text-ink' : 'border border-line-strong'
                   }`}
                 >
                   {done ? <Icon name="check" size={14} stroke={3} /> : i + 1}
@@ -71,7 +71,7 @@ export function StepNav({ step, onStep, canReach }) {
 export function StepTitle({ step, title, children }) {
   return (
     <div className="mb-5 flex max-w-4xl flex-col gap-1">
-      <span className="font-mono text-xs uppercase tracking-[0.08em] text-gold">Step {step} of 3</span>
+      <span className="font-mono text-xs uppercase tracking-[0.08em] text-oat">Step {step} of 3</span>
       <h1 className="text-[28px] font-semibold leading-tight text-ink">{title}</h1>
       <p className="text-base text-muted">{children}</p>
     </div>
@@ -95,7 +95,7 @@ export function Chip({ on = false, dashed = false, className = '', children, ...
       type="button"
       aria-pressed={dashed ? undefined : on}
       className={`inline-flex min-h-10 items-center gap-1.5 rounded-full border px-3.5 text-sm disabled:cursor-not-allowed disabled:opacity-40 ${
-        on ? 'border-gold bg-gold-soft text-gold-text' : dashed
+        on ? 'border-oat bg-gold-soft text-gold-text' : dashed
           ? 'border-dashed border-line-strong text-muted hover:bg-raised hover:text-ink'
           : 'border-line-strong text-ink hover:bg-raised'
       } ${className}`}
@@ -108,7 +108,7 @@ export function Chip({ on = false, dashed = false, className = '', children, ...
 
 export function Card({ className = '', children, ...rest }) {
   return (
-    <div className={`rounded-2xl border border-line bg-panel p-5 ${className}`} {...rest}>
+    <div className={`rounded-md border border-line bg-panel p-5 ${className}`} {...rest}>
       {children}
     </div>
   )
@@ -124,7 +124,7 @@ export function Button({ variant = 'secondary', className = '', children, ...res
   return (
     <button
       type="button"
-      className={`inline-flex min-h-11 items-center justify-center gap-2 rounded-xl px-4 disabled:cursor-not-allowed disabled:opacity-40 ${BUTTON[variant]} ${className}`}
+      className={`inline-flex min-h-11 items-center justify-center gap-2 rounded-md px-4 disabled:cursor-not-allowed disabled:opacity-40 ${BUTTON[variant]} ${className}`}
       {...rest}
     >
       {children}

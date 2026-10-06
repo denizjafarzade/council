@@ -51,7 +51,7 @@ export function SourceChip({ id, sources }) {
   const base = 'inline-flex items-center rounded-md border px-1.5 py-0.5 font-mono text-xs'
   if (!s)
     return (
-      <span className={`${base} border-[#5a3a22] bg-[#2a1d14] text-bear`} title="Not found in this run's data">
+      <span className={`${base} border-bear/40 bg-bear-soft text-bear`} title="Not found in this run's data">
         {id} ?
       </span>
     )
@@ -60,7 +60,7 @@ export function SourceChip({ id, sources }) {
     const left = Math.min(r.left, window.innerWidth - 300)
     setTip(r.top > 160 ? { left, bottom: window.innerHeight - r.top + 6 } : { left, top: r.bottom + 6 })
   }
-  const chipClass = `${base} cursor-help border-[#33404f] bg-[#232b36] text-[#b9d3f2] hover:border-bull`
+  const chipClass = `${base} cursor-help border-line-strong bg-gold-soft text-gold-text hover:border-bull`
   return (
     <span className="inline-block">
       {s.url ? (
@@ -75,7 +75,7 @@ export function SourceChip({ id, sources }) {
         </span>
       )}
       {tip && (
-        <span style={tip} className="pointer-events-none fixed z-50 block w-72 rounded-xl border border-line-strong bg-raised p-3 text-left text-sm shadow-xl">
+        <span style={tip} className="pointer-events-none fixed z-50 block w-72 rounded-md border border-line-strong bg-raised p-3 text-left text-sm shadow-xl">
           <span className="block text-muted">{s.label}</span>
           <span className="mt-0.5 block text-lg font-semibold text-ink">{s.value}</span>
           {s.detail && <span className="block text-xs text-muted">{s.detail}</span>}
@@ -87,11 +87,12 @@ export function SourceChip({ id, sources }) {
   )
 }
 
-export function Panel({ title, right, children, className = '', bodyClassName = 'p-4' }) {
+/** A chamber panel: square-cornered parchment with a small-caps title. `ruled` = double brass frame (the ruling). */
+export function Panel({ title, right, children, className = '', bodyClassName = 'p-4', ruled = false }) {
   return (
-    <section className={`flex min-h-0 flex-col rounded-2xl border border-line bg-panel ${className}`}>
-      <header className="flex items-center justify-between gap-3 border-b border-line px-5 py-3.5">
-        <h2 className="text-lg font-semibold text-ink">{title}</h2>
+    <section className={`flex min-h-0 flex-col rounded bg-panel ${ruled ? 'border-[3px] border-double border-brass' : 'border border-line'} ${className}`}>
+      <header className="flex items-center justify-between gap-3 border-b border-line px-5 py-3">
+        <h2 className="text-[13px] font-bold uppercase tracking-[0.18em] text-ink">{title}</h2>
         {right}
       </header>
       <div className={`min-h-0 flex-1 overflow-auto ${bodyClassName}`}>{children}</div>
