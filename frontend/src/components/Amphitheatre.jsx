@@ -39,9 +39,6 @@ function spread(k, r, mid, span) {
   return Array.from({ length: k }, (_, i) => mid + ((k - 1) / 2 - i) * step)
 }
 
-/** Shorten a label to fit under a seat. */
-export const seatLabel = (text = '') => (text.length > 10 ? `${text.slice(0, 9)}…` : text)
-
 /**
  * One seat. `s`: {id, code, label, title, color (ring), fill?, ink?, dashed?, changed?}.
  * `changed` adds a brass outer ring.
@@ -83,12 +80,10 @@ export default function Amphitheatre({ delegations, cross, active = null, label 
   const H = cy + 12
 
   // Wedges run left to right, each as wide as its front tier needs.
-  let cur = Math.PI - EDGE
+  const spans = weights.map((w) => (w / totalW) * avail)
   const wedges = delegations.map((d, i) => {
-    const span = (weights[i] / totalW) * avail
-    const w = { d, a1: cur, a0: cur - span, rows: splits[i] }
-    cur -= span + AISLE
-    return w
+    const a1 = Math.PI - EDGE - spans.slice(0, i).reduce((a, b) => a + b + AISLE, 0)
+    return { d, a1, a0: a1 - spans[i], rows: splits[i] }
   })
   // Bull on the left of the front row, Bear on the right, everyone else between them.
   const rank = (s) => (s.role === 'bull' ? 0 : s.role === 'bear' ? 2 : 1)

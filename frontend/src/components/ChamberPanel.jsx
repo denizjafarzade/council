@@ -2,7 +2,8 @@
 import { useState } from 'react'
 import { useShifts } from '../hooks/useShifts'
 import { marketColor, marketsOf, useRoster } from '../lib/roster'
-import Amphitheatre, { seatLabel } from './Amphitheatre'
+import { seatLabel } from '../lib/formal'
+import Amphitheatre from './Amphitheatre'
 import { Caps } from './chamber'
 
 const SCORE = { bearish: -1, neutral: 0, bullish: 1 }
@@ -32,7 +33,7 @@ function stanceOf(vote, market) {
   return score > 0.25 ? 'rise' : score < -0.25 ? 'fall' : 'none'
 }
 
-export default function Hemicycle({ state, names }) {
+export default function ChamberPanel({ state, names }) {
   const roster = useRoster()
   const markets = marketsOf(state)
   const shifts = useShifts(state)

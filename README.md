@@ -1,161 +1,193 @@
 # Verdisk
 
-Verdisk: an AI research council. Pick a market event, watch four country delegates (HK, CN, US, JP) debate it live, and get a spillover map plus a country × sector stance matrix.
+**A council of AI analysts that debates market news before it reaches your portfolio.**
 
-**Demo flow:** event in → blind votes → debate → revote → spillover map + matrix + brief.
+Pick a headline. A council you configure (market delegates, a Bull, a Bear, a Risk Officer, a Spillover Analyst and a Chair) votes in secret, debates on the record, votes again, maps how the shock spreads between markets, and delivers a ruling: a stance matrix, a 0–100 risk score, and a plain-English reading of what it means for your own holdings.
 
-> Research and decision support only. Not investment advice.
+> Research and decision support only. Not investment advice. Verdisk never says buy, sell or hold.
 
-## Layout
+---
 
-```
-backend/
-  app.py              # FastAPI: POST /council/run, GET /council/stream/{run_id}
-  llm.py              # call_llm: OpenRouter (model per agent), Anthropic or Bedrock
-  models.py           # model per agent per profile (premium / cheap / free)
-  orchestrator.py     # stages: data -> blind vote -> debate -> revote -> spillover -> brief
-  council_math.py     # Chair maths in Python: matrix, dissent, vote shifts
-  schemas.py          # pydantic models mirroring the five shared contracts
-  agents/prompts/     # one .md per agent (+ _shared.md rules, _revote.md)
-  data/fetch.py       # builds DataPacks, writes data/cache/*.json
-  tests/              # mock run validates against the contracts
-frontend/             # Vite + React + Tailwind: EventPicker, DebateStream, Matrix, SpilloverGraph, Brief
-mocks/
-  council_run.json    # a full fake run (43 SSE events) so the UI can be built before the engine works
-  datapacks/*.json    # fake DataPacks the mock run cites
-  generate_mock.py    # regenerates both
-```
+## How a sitting works
 
-## Run it
+The session follows a parliamentary order of proceedings.
 
-```bash
-python -m venv .venv
-.venv/Scripts/python -m pip install -r backend/requirements.txt   # macOS/Linux: .venv/bin/python
-cd frontend && npm install
-```
-
-| What | Command (Makefile) | Plain command |
+| | Stage | What happens |
 |---|---|---|
-| Backend on :8000 | `make backend` | `cd backend && ../.venv/Scripts/python -m uvicorn app:app --reload --port 8000` |
-| Frontend on :5173 | `make frontend` | `cd frontend && npm run dev` |
-| Check API keys | `make keys` | `.venv/Scripts/python backend/check_keys.py` |
-| Tests | `make test` | `.venv/Scripts/python -m pytest backend/tests -q` |
-| Regenerate mocks | `make mocks` | `.venv/Scripts/python mocks/generate_mock.py` |
-| Fetch real data into the cache | | `.venv/Scripts/python backend/data/fetch.py` |
-| Validate the cache, no network | | `.venv/Scripts/python backend/data/fetch.py --offline` |
-| Verify tickers | | `.venv/Scripts/python backend/data/fetch.py --check` |
+| I | **Evidence** | Real, dated market data (indices, sector proxies, rates, FX, headlines) is loaded for every seated market. |
+| II | **Secret ballot** | Each member votes bearish / neutral / bullish with a confidence on every market × sector cell, without seeing anyone else's vote. Votes come from **TypeSafe Jev** as calibrated probabilities, with an LLM fallback. |
+| III | **Debate** | Members argue on the record, citing evidence by id. Bull and Bear challenge the strongest consensus cells. Every claim is checked against the data. |
+| IV | **Second ballot** | Members vote again and give a reason for every change of position. |
+| V | **Spillover inquiry** | The Spillover Analyst maps how the shock travels between markets. |
+| VI | **Ruling** | The Chair writes the brief; code computes the matrix, dissent, vote shifts and risk scores. |
 
-Copy `.env.example` to `.env` and add the OpenRouter key. The Vite dev server proxies `/council` to the backend.
+Market members vote only on their own market; cross-market members vote on all of them.
 
-**Stage 0 behaviour:** `/council/stream/{run_id}` replays `mocks/council_run.json` with a 300 ms delay, so the UI can point at the real endpoint from the start. Stage 1A swaps in real agents behind the same stream.
+## What makes it trustworthy
 
-## Real news and your trades
+- **Real data, never generated.** Live runs read cached or freshly fetched market data (yfinance, FRED, HKMA, Google News RSS), each value dated. Missing data is reported as missing, never filled in.
+- **Every claim is checked.** Cited ids must exist in that member's data, and numbers must match the cited values. Failed claims are **quarantined**: marked `UNVERIFIED` in every later turn, so a made-up number can't spread. In the minutes they show as *Objection sustained: … is not in evidence*.
+- **Evidence-weighted votes.** Each seat's votes count `0.25 + 0.75 ×` its share of verified claims.
+- **Calibrated confidence.** Jev returns a probability per view, so confidence is measured, not a number the model wrote. A failed Jev call is retried once before the LLM votes, and the fallback is labelled in the UI.
+- **Different labs per seat.** Delegates run on models from different providers so their mistakes are less correlated.
+- **Compliance guardrail.** An optional Amazon Bedrock Guardrail screens every message and brief line for personalised investment advice and political commentary. Struck passages are recorded by the Clerk. It can be switched off per run.
+- **Quantitative risk score** (`backend/risk.py`, code only, 0–100). Per market: council view 35%, volatility 25%, 1-month drawdown 20%, disagreement 10%, unverified claims 10%. Missing inputs are dropped and the weights renormalised. The portfolio score is exposure-weighted plus up to 10 points for concentration. Labels: low < 30, moderate < 55, high otherwise.
 
-The council discusses **real, current headlines** and relates them to **your own trading history**.
+## The app
 
-- `GET /news/top?markets=HK,CN` lists cached headlines, newest first, with market, source and publish time. `POST /news/refresh` re-runs only `fetch_news` for those markets, updates the cache and stamps `news_fetched_at`. It is never called during a run, and is refused in offline mode.
-- `POST /council/run` takes an optional `news_id` (e.g. `HK-n5`). The event becomes the headline with its source and publish time, and every seat may cite it as `[EVENT]`.
-- `POST /portfolio` takes a CSV (`date,ticker,side,qty,price`; `#` lines are comments). `backend/portfolio.py` makes no model calls. It computes holdings at average cost, exposure by market and sector (costs converted to USD at the cached FX rates), the largest position and realised results per market. Tickers map only through the tickers we already fetch; anything else is listed as "not covered", never guessed.
-- **Privacy:** uploads stay in memory only (never written to disk, and `uploads/` is gitignored, because this repo is public). Only aggregated percentages reach the model (the Chair) and recordings, never trades or tickers.
-- `samples/sample_portfolio_FICTIONAL.csv` is a clearly labelled, made-up portfolio for the demo. `POST /portfolio/sample` loads it.
-- Market seats vote only on their own market's four sectors; cross-market seats vote on all. Debate defaults to 1 round.
-- The UI's **What this means for you** cards (one per market, sorted by your exposure) are worded in code from the portfolio, the index moves and each market seat's own report, plus the Chair's questions about your largest exposures.
+**Seat the council** (builder, three steps):
+1. **Markets:** choose markets on a world map (14 in the library, custom markets can be added and are fetched automatically), choose sectors (11 GICS sectors plus custom ones), and optionally upload your trading history as CSV.
+2. **Roles:** choose which roles sit for each market and across markets, or add custom members with their own brief and model.
+3. **Review & convene:** the council drawn as an amphitheatre (the Chair on the stage, cross-market members in the front row, one wedge per market delegation). Pick a live headline or type an event, choose 1 or 2 debate rounds, toggle the guardrail, save the council, and convene.
 
-```bash
-python scripts/record_presets.py --news US-n4 HK-n1 --portfolio samples/sample_portfolio_FICTIONAL.csv
-```
+**The session** (Westminster chamber theme):
+- **Order of proceedings** I–VI, live.
+- **Key numbers:** risk to the matter, the two riskiest markets, and how much of your money this council covers.
+- **Ruling of the Council:** *Plain reading* (bottom line, risk, one card per market, in plain words) or *Full record* (the Chair's exact text with sources, risk components, evidence weights, data provenance, stance matrix and spillover map).
+- **The chamber:** every member in the amphitheatre, coloured by how they voted on the selected market, with a brass ring for anyone who changed position.
+- **Minutes of the debate:** a two-sided conversation. Members leaning fall speak from the left, members leaning rise from the right; challenges quote the speech they answer; "Hear, hear" marks a member backing the previous speaker with the same evidence; divisions, Clerk notes and floor-crossings sit in the middle.
 
-## Accurate data, configurable scope, trust and risk
+**Your portfolio.** Upload `date,ticker,side,qty,price` CSV. `backend/portfolio.py` computes holdings, exposure by market and sector (USD at cached FX rates) and the largest position with no model calls. Uploads stay in memory only; only aggregated percentages reach the Chair and the recordings. Two clearly fictional samples are in `samples/`.
 
-**Data is real and dated, never generated.**
-- Live runs never read `mocks/datapacks` (made-up numbers). A market with no cache is fetched for real; if that fails the run says so and that market's members argue from their brief only.
-- Before a live run, any market whose cache predates its latest weekday close is refreshed (prices and rates, in parallel, 30 s timeout). Headlines are kept so the chosen headline keeps its id. A market checked in the last 6 hours isn't refetched, so holidays don't cause repeated fetches. Offline mode never fetches.
-- If the index fetch fails, `as_of` is `"unknown"`, never "now". HK carries the HKMA 1M HIBOR and base rate; FRED supplies the Fed funds rate and the JGB 10Y (monthly, dated).
-- Every run emits a `data` event with the exact DataPacks it used, so recordings resolve every cited id to what the members saw, even after the cache is refreshed. Older recordings were backfilled from the cache committed with them.
+---
 
-**Scope is configurable.**
-- 14 markets in the library, and custom markets can be added from the builder (data is fetched automatically).
-- 11 sectors in `backend/agents/sectors.json` (the GICS set), each with a verified proxy ticker in HK, CN, US and JP. Custom sectors are added from the builder or `POST /library/sectors` (a name plus optional proxies), with no code changes. Each council picks its sectors (default: the original four). A sector without a proxy in some market is judged there from the index and headlines; the seat's prompt says so and asks for lower confidence.
+## Quick start
 
-**Defences against made-up claims.**
-- Every claim is checked: cited ids must exist in that member's data (sector tickers count), and numbers must match the cited values.
-- **Quarantine:** claims that fail are marked `UNVERIFIED ... Do not rely on it` in the transcript every later turn sees (debate, revote, Chair), so a made-up number cannot spread.
-- **Evidence-weighted matrix:** each seat's votes count `0.25 + 0.75 x` its share of verified claims. The weights ship in `brief.evidence_weights` and are shown on screen.
-- **Jev:** a failed Jev vote is retried once; only then does the LLM vote, and that vote carries `fallback: "Jev unavailable (...)"`, shown in the UI.
-
-**Quantitative risk score** (`backend/risk.py`, code only, 0-100): per market, council view 35% (only negative views add risk; neutral adds none, positive views take off half), volatility 25% (8% to 25% annualised), 1-month drawdown 20% (0 to -6%), disagreement 10% and unverified claims 10%. Missing inputs are left out and the weights renormalised, never guessed. Ranges match where major indices actually trade, so markets spread out (e.g. Hong Kong about 50 vs the US about 15 on the same news). The portfolio score is the exposure-weighted market scores plus up to 10 points for concentration: a diversified portfolio lands in the middle by design. Labels: low < 30, moderate < 55, high otherwise. `scripts/rescore_recordings.py` re-scores saved runs from their own recorded data after a calibration change.
-
-**Bottom line** (Plain English tab): an outlook for the user's money (cautious, mixed or positive, exposure-weighted from the council's final views), the risk level and one sentence why, worded in code. It never says buy, sell or hold.
-
-**Risk by AI.** `brief.risk.by_seat` scores each seat on its own final votes and its own unverified-claim share (no disagreement term), next to the council's evidence-weighted score (`together`). The council event names the model in each seat.
-
-**Layout.** Trading history is uploaded on the builder's first page, before the council convenes. The session screen has the floor on the left (messages folded to one line, then who changed their mind) and the result on the right, with tabs:
-- **Plain English:** headline, the plain summary, portfolio risk, key risks and one card per market.
-- **Scientific:** the Chair's exact text with source ids, risk by AI vs together, risk components and inputs, evidence weights, data provenance, the stance matrix and the spillover map.
-
-**Guardrail calls** are capped at 4 in flight with adaptive retries, since Bedrock throttles the 20-40 checks a run sends at once.
-
-## Demo safety (Stage 4)
+Requires Python 3 (developed on 3.14) and Node 20.19 or newer.
 
 ```bash
-python scripts/record_presets.py   # record the 4 presets into runs/ (real LLM calls; ~$0.45 each on premium)
-python scripts/demo.py             # backend OFFLINE + frontend, opens the browser; works with Wi-Fi off
-python scripts/demo.py --live      # same, but runs call the LLMs
+make install            # or: python -m venv .venv && .venv/Scripts/python -m pip install -r backend/requirements.txt && (cd frontend && npm install)
+cp .env.example .env    # add OPENROUTER_API_KEY (and optionally TYPESAFE_API_KEY, AWS keys for the guardrail)
+make keys               # check every configured key works
+make backend            # FastAPI on :8000
+make frontend           # Vite on :5173 (proxies the API to :8000)
 ```
 
-(`make record` and `make demo` do the same.)
+On macOS/Linux use `.venv/bin/python` in place of `.venv/Scripts/python`.
 
-- Every complete live run is saved to `runs/{event_slug}.json` with event timings, so the latest good run is always on disk. Incomplete runs never overwrite a recording.
-- `GET /council/replay/{slug}?speed=1` streams a recording at real speed (pauses capped at 12 s); `GET /council/recordings` lists them.
-- `COUNCIL_OFFLINE=1`: `POST /council/run` for a recorded event serves its recording; any other event gets a clear error. Data loading never fetches.
-- The UI marks recorded presets with ●, has **▶ Replay recorded** with 1×/2×/4× speed (2× fits the 90-second slot), and labels the screen "Replay of recorded run". Recordings are also bundled into the frontend, so a replay still plays if the backend is down.
+### Demo without the internet
 
-## Frontend
+```bash
+make demo               # backend in offline mode + frontend, opens the browser; Wi-Fi can be off
+make record             # (before the demo) record preset events into runs/ with real LLM calls
+```
 
-One dark screen sized for a projector. **Replay mock** plays `mocks/council_run.json` with no backend; **Convene council** POSTs `/council/run` and streams `/council/stream/{run_id}` over `EventSource`.
+Every complete live run is saved to `runs/{event-slug}.json`. Offline mode serves recorded events and never touches the network. Recordings are also bundled into the frontend, so **Replay recorded** (1×/2×/4×) works even with the backend down. **Replay mock** plays `mocks/council_run.json` with no backend at all.
 
-- `src/lib/council.js`: one reducer for every SSE event (mock, live or recorded), plus the Chair maths mirrored from `council_math.py`
-- `src/hooks/useCouncil.js`: mock replay, live stream, error toasts; the stream closes on `end` instead of auto-reconnecting
-- `src/lib/sources.js`: resolves cited ids (`HK-hibor`, `US-n3`) from `backend/data/cache` (live) or `mocks/datapacks` (mock)
-- Panels: stage bar, `DebateStream`, `Matrix` (blind vs final, opacity = confidence, ↻ = changed, "split" = dissent ≥ 0.5), `SpilloverGraph` (numbered edges plus a mechanism list, ⤢ Expand for full screen), `Brief`, `WhoChanged`
-- Trust UI (3B): hover a source chip for the value or headline (news chips link out), ⚠ unverified when a cited id is missing or the backend flags it, "votes by Jev" when `vote.source == "jev"`
+### Commands
 
-## LLMs (OpenRouter)
+| What | Command |
+|---|---|
+| Install everything | `make install` |
+| Backend / frontend | `make backend` / `make frontend` |
+| Offline demo / record presets | `make demo` / `make record` |
+| Tests (90) | `make test` |
+| Frontend lint (oxlint) | `make lint` |
+| Check API keys | `make keys` |
+| Create the Bedrock guardrail | `make guardrail` |
+| Regenerate mocks | `make mocks` |
+| Fetch real data into the cache | `.venv/Scripts/python backend/data/fetch.py` (`--offline` validates, `--check` verifies tickers) |
+| Re-score recordings after a risk change | `.venv/Scripts/python scripts/rescore_recordings.py` |
 
-Every LLM call goes through `call_llm(system, user, schema, agent=...)` in [`backend/llm.py`](backend/llm.py). With `LLM_PROVIDER=openrouter` it asks for JSON-schema output, falls through to backup models on API errors within the timeout, and logs tokens and USD cost per agent. Invalid JSON raises `LLMOutputError`, and the orchestrator retries once.
+## Configuration
 
-Each delegate runs on a model from a different lab, so mistakes are less correlated (see [`backend/models.py`](backend/models.py)). Switch profiles with `COUNCIL_PROFILE`:
+All settings live in `.env` (see `.env.example`).
 
-| Agent | premium (demo) | cheap (dev) |
+| Variable | Purpose |
+|---|---|
+| `LLM_PROVIDER` | `openrouter` (default in the example), `anthropic` or `bedrock` |
+| `OPENROUTER_API_KEY` | Agent calls through OpenRouter |
+| `COUNCIL_PROFILE` | `premium` (demo, about $1 a run), `cheap` (development, a few cents), `free` (50 requests/day) |
+| `MODEL_<AGENT>` | Override one seat's model, e.g. `MODEL_BEAR=anthropic/claude-opus-5.5` |
+| `ANTHROPIC_API_KEY`, `CLAUDE_MODEL`, `CLAUDE_EFFORT` | Direct Anthropic provider |
+| `AWS_REGION`, `AWS_ACCESS_KEY_ID`, `AWS_SECRET_ACCESS_KEY`, `BEDROCK_MODEL_ID` | Bedrock provider and guardrail |
+| `LLM_TIMEOUT_S` | Seconds per LLM call, shared with backup models |
+| `TYPESAFE_API_KEY` | Jev votes; empty or `JEV=0` uses LLM votes |
+| `GUARDRAIL_ID`, `GUARDRAIL_VERSION` | Bedrock guardrail; `GUARDRAIL=0` turns it off globally |
+| `COUNCIL_OFFLINE` | `1` serves recordings only, no network |
+| `COUNCIL_MOCK` | `1` makes the stream replay the mock run, no keys needed |
+
+`.env` wins over variables already set in the shell, so a stale key in your environment can't shadow it.
+
+---
+
+## Architecture
+
+```
+backend/                 FastAPI + asyncio
+  app.py                 HTTP API and the SSE stream
+  orchestrator.py        the six stages; market seats vote on their own market, debate rounds per council
+  llm.py                 call_llm(system, user, schema, agent=...): OpenRouter, Anthropic or Bedrock, JSON-schema output
+  models.py              model per seat per profile, with fallbacks
+  jev.py                 TypeSafe Jev calibrated votes
+  verify.py              citation and number checks, quarantine
+  council_math.py        stance matrix, dissent, vote shifts
+  risk.py                0–100 risk scores
+  guardrail.py           Bedrock ApplyGuardrail, throttled with retries
+  portfolio.py           CSV trades to exposure, no model calls
+  news.py                headline cache and refresh
+  library.py             markets, sectors, roles and saved councils
+  recorder.py            saves complete runs to runs/
+  schemas.py             Pydantic contracts for every event
+  agents/                roles.json, markets.json, sectors.json and the shared prompts
+  data/                  fetch.py, cached DataPacks, hand-entered macro gaps, saved councils
+  tests/                 90 tests: contracts, orchestrator, trust, risk, recorder, guardrail, portfolio
+frontend/                React 19 + Vite + Tailwind v4
+  src/App.jsx            the session screen
+  src/builder/           the three-step council builder
+  src/components/        Amphitheatre, ChamberPanel, DebateStream, MeaningCards, KeyNumbers, Scientific,
+                         Matrix, SpilloverGraph, EventPicker (and the order of proceedings), NewsPicker, ...
+  src/lib/council.js     one reducer for every SSE event (live, recorded or mock) + the Chair maths
+  src/hooks/useCouncil.js  live stream, recorded and mock replay
+mocks/                   a full fake run and fake DataPacks (never used by live runs)
+runs/                    recorded runs for replay and the offline demo
+samples/                 fictional portfolios for the demo
+scripts/                 demo, recording, guardrail setup, re-scoring
+```
+
+### API
+
+| Method | Path | Purpose |
 |---|---|---|
-| CHAIR | Claude Opus 5.5 | Claude Sonnet 5.5 |
-| HK | Claude Sonnet 5.5 | Gemini 3.8 Flash |
-| CN | GPT-6.1 Sol | DeepSeek V4.1 Flash |
-| US | Gemini Pro (latest) | GPT-6 Luna |
-| JP | Grok 4.7 | Qwen 3.8 Flash |
-| BEAR | Qwen 3.8 Max | GLM 5.3 Flash |
-| SPILLOVER | GPT-6.1 Sol Pro | GPT-6 Luna Pro |
+| `POST` | `/council/run` | Start a run: event or `news_id`, council, guardrail flag. Returns a `run_id`. |
+| `GET` | `/council/stream/{run_id}` | Server-sent events for that run |
+| `GET` | `/council/recordings`, `/council/replay/{slug}?speed=1` | List and replay recordings |
+| `GET` / `POST` | `/news/top?markets=HK,CN`, `/news/refresh` | Cached headlines; refresh (refused offline) |
+| `GET` / `POST` / `DELETE` | `/portfolio`, `/portfolio/sample` | Upload, load the sample, clear |
+| `GET` | `/library` | Markets, sectors and roles |
+| `POST` / `DELETE` | `/library/markets`, `/library/sectors`, `/library/roles` | Add or remove custom entries |
+| `GET` / `PUT` / `DELETE` | `/councils`, `/councils/{id}` | Saved councils |
+| `GET` | `/health` | Liveness |
 
-`free` uses free Qwen/Nemotron models (50 requests/day on a $0 balance). Stage 3 votes use `typesafe/jev-router` (Jev). Smoke test: `cd backend && ../.venv/Scripts/python smoke_llm.py HK`.
+### Event stream
 
-## Contracts
+Every stage is wrapped in `stage` {name, status} events. During `data` the stream sends `council` (markets and seats), `data` (the exact DataPacks used) and `portfolio` (exposure percentages, if trades were loaded); the later stages send `vote`, `message` {agent, text, source_ids, unverified, guardrail?}, `report`, `spillover` and `brief`, plus `error` {message, agent?} at any point, and a final `end`. The contracts are in [`backend/schemas.py`](backend/schemas.py); the frontend reducer in [`frontend/src/lib/council.js`](frontend/src/lib/council.js) handles every one of them the same way whether the run is live, recorded or mocked.
 
-The five JSON contracts live in [`backend/schemas.py`](backend/schemas.py). Don't change a field without telling the other track.
+Stage names: `data`, `blind_vote`, `debate`, `revote`, `spillover`, `brief`.
 
-SSE events: `stage` {name, status}, `vote` (Contract 2), `message` {agent, text, source_ids}, `report` (Contract 3), `spillover` (Contract 4), `brief` (Contract 5), `error` {message, agent?}, then a final `end`.
+### Models
 
-Two optional fields added on top of the build guide's contracts:
-- `Vote.source`: `"jev"` or `"llm"`, for the Stage 3 Jev badge.
-- `VoteCell.because`: revote only, the reason a view changed. The Chair builds `vote_shifts` from it.
+Each delegate in the default council runs on a different lab's model (see [`backend/models.py`](backend/models.py)); a custom member uses the model picked for it in the builder, otherwise the model of the seat it is modelled on.
 
-Agent ids: `CHAIR`, `HK`, `CN`, `US`, `JP`, `BEAR`, `SPILLOVER`. Stage names: `data`, `blind_vote`, `debate`, `revote`, `spillover`, `brief`.
+| Seat | premium | cheap |
+|---|---|---|
+| Chair | Claude Opus 5.5 | Claude Sonnet 5.5 |
+| Hong Kong | Claude Sonnet 5.5 | Gemini 3.8 Flash |
+| Mainland China | GPT-6.1 Sol | DeepSeek V4.1 Flash |
+| United States | Gemini Pro (latest) | GPT-6 Luna |
+| Japan | Grok 4.7 | Qwen 3.8 Flash |
+| Bear | Qwen 3.8 Max | GLM 5.3 Flash |
+| Spillover | GPT-6.1 Sol Pro | GPT-6 Luna Pro |
 
 ## Data notes
 
-- Tickers (one per cell) are in `backend/data/fetch.py`. All 25 verified on 4 Oct with Friday 2 Oct closes.
-- CN index is the Shanghai Composite (`000001.SS`): CSI 300 has only 1 day of history on yfinance.
-- Mainland markets are closed for Golden Week (1 to 7 Oct), so CN data is as of 30 Sep.
-- `backend/data/cache/*.json` is committed: real Friday-close DataPacks, so the engine runs without fetching.
-- Rates: US 10Y from yfinance; Fed funds (DFF) and JGB 10Y (monthly) from FRED; 1M HIBOR from the HKMA API.
-- The HKMA API was down (502) on 4 Oct, so HK has no `macro` yet. Gaps are filled from `backend/data/macro_manual.json` (hand-entered, with date and source), then from the previous cache. Values are never invented.
-- News: 8 newest unique headlines per country from Google News RSS over the last 7 days, using market-focused queries (see `NEWS_QUERY`).
+- Each market has an index, one proxy ticker per sector where one exists, rates and FX. A sector without a proxy in a market is judged from the index and headlines, and the member is told to lower its confidence.
+- Before a live run, any market whose cache predates its latest weekday close is refreshed (30 s timeout); a market checked in the last 6 hours isn't refetched.
+- HK carries the HKMA 1M HIBOR and base rate; FRED supplies the Fed funds rate and the JGB 10Y. Gaps are filled only from `backend/data/macro_manual.json` (hand-entered, dated, sourced) or the previous cache.
+- The mainland index is the Shanghai Composite (`000001.SS`), because CSI 300 has too little history on yfinance.
+- News: the 8 newest unique headlines per market from Google News RSS over the last 7 days.
+- `backend/data/cache/*.json` is committed so the engine runs without fetching.
+
+---
+
+Built for the iFX Hackathon.

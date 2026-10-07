@@ -15,7 +15,7 @@ const CROSS_STYLE = {
 const DEFAULT_ROLES = { BEAR: 'Bear Researcher', SPILLOVER: 'Spillover Analyst', CHAIR: 'Chair' }
 
 /** The original seven seats, used before the council event arrives and in mock replays. */
-export const DEFAULT_ROSTER = Object.fromEntries(
+const DEFAULT_ROSTER = Object.fromEntries(
   Object.entries(AGENTS).map(([id, a]) => [
     id,
     { ...a, market: COUNTRIES.includes(id) ? id : null, role: DEFAULT_ROLES[id] || 'Macro Strategist' },

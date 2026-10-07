@@ -4,7 +4,7 @@
 
 const CROSS_IDS = { bear: 'BEAR', spillover: 'SPILLOVER', chair: 'CHAIR', bull: 'BULL', risk: 'RISK' }
 
-export const DEFAULT_SECTORS = ['Tech', 'Financials', 'Property', 'Energy']
+const DEFAULT_SECTORS = ['Tech', 'Financials', 'Property', 'Energy']
 
 /** A market seat's id: the market code for its Macro Strategist, else MARKET-ROLE. */
 export function seatId(roleId, market) {

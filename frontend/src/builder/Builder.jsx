@@ -36,6 +36,8 @@ function reconcile(council, lib) {
   }
 }
 
+const fetchLibrary = () => Promise.all([api.library(), api.councils()])
+
 export default function Builder({ onConvene, onBackToSession, guard }) {
   const [lib, setLib] = useState(null)
   const [error, setError] = useState('')
@@ -45,20 +47,20 @@ export default function Builder({ onConvene, onBackToSession, guard }) {
   const [editor, setEditor] = useState(null) // { member, defaults } while the member editor is open
   const [addingMarket, setAddingMarket] = useState(false)
 
-  const refresh = useCallback(async () => {
-    try {
-      const [library, saved] = await Promise.all([api.library(), api.councils()])
-      setLib(library)
-      setCouncils(saved)
-      setCouncil((c) => reconcile(c, library))
-    } catch (e) {
-      setError(e.message)
-    }
+  const applyLibrary = useCallback(([library, saved]) => {
+    setLib(library)
+    setCouncils(saved)
+    setCouncil((c) => reconcile(c, library))
   }, [])
+  const refresh = useCallback(
+    () => fetchLibrary().then(applyLibrary).catch((e) => setError(e.message)),
+    [applyLibrary],
+  )
 
   useEffect(() => {
-    refresh()
-  }, [refresh])
+    // State is set only once the requests resolve, never synchronously in the effect.
+    fetchLibrary().then(applyLibrary).catch((e) => setError(e.message))
+  }, [applyLibrary])
 
   useEffect(() => {
     try {

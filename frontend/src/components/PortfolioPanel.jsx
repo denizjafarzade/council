@@ -2,7 +2,6 @@ import { useEffect, useState } from 'react'
 import { SectionHeader } from '../builder/ui'
 import { api } from '../lib/api'
 import { SECTOR_NAMES } from '../lib/cards'
-import { Panel } from './bits'
 
 function Bar({ label, pct }) {
   return (
@@ -105,17 +104,5 @@ export function PortfolioSection({ names, disabled }) {
       </SectionHeader>
       <PortfolioBody p={p} names={names} disabled={disabled} />
     </div>
-  )
-}
-
-/** Stand-alone panel (for screens that show it as its own card). */
-export default function PortfolioPanel({ names, disabled }) {
-  const p = usePortfolio()
-  return (
-    <Panel title="Your trading history" bodyClassName="px-5 py-4"
-      right={p.summary && <button type="button" disabled={disabled || p.busy} onClick={p.clear}
-        className="text-sm text-muted hover:text-ink disabled:opacity-40">Clear</button>}>
-      <PortfolioBody p={p} names={names} disabled={disabled} />
-    </Panel>
   )
 }

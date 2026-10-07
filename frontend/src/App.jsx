@@ -3,7 +3,7 @@ import Builder from './builder/Builder'
 import DebateStream from './components/DebateStream'
 import EventPicker, { StageBar } from './components/EventPicker'
 import GuardrailBadge from './components/GuardrailBadge'
-import Hemicycle from './components/Hemicycle'
+import ChamberPanel from './components/ChamberPanel'
 import { OakBar, brassButton, oakButton } from './components/chamber'
 import KeyNumbers from './components/KeyNumbers'
 import MeaningCards from './components/MeaningCards'
@@ -133,7 +133,7 @@ export default function App() {
           <div className="grid grid-cols-1 items-start gap-5 xl:grid-cols-[minmax(0,1fr)_minmax(22rem,27rem)]">
             <div className="flex min-w-0 flex-col gap-5">
               <MeaningCards state={state} packs={packs} names={names} sources={sources} />
-              <Hemicycle state={state} names={names} />
+              <ChamberPanel state={state} names={names} />
             </div>
             <div className="h-[70vh] min-h-[28rem] xl:sticky xl:top-5 xl:h-[calc(100vh-2.5rem)]">
               <DebateStream state={state} sources={sources} />

@@ -4,7 +4,7 @@ else
 VENV_PY := .venv/bin/python
 endif
 
-.PHONY: install mocks test keys guardrail backend frontend demo record
+.PHONY: install mocks test lint keys guardrail backend frontend demo record
 
 install:
 	python -m venv .venv
@@ -22,6 +22,9 @@ keys:
 
 test:
 	$(VENV_PY) -m pytest backend/tests -q
+
+lint:
+	cd frontend && npm run lint
 
 backend:
 	cd backend && ../$(VENV_PY) -m uvicorn app:app --reload --port 8000

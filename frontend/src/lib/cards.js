@@ -11,7 +11,7 @@ const SPLIT_AT = 0.5 // same threshold as the matrix's "split" tag
 export const SECTOR_NAMES = { Tech: 'Technology', Financials: 'Financials', Property: 'Property', Energy: 'Energy' }
 
 /** Drop [HK-n3, US-10y] style citations from a sentence and tidy the spacing. */
-export function stripIds(text = '') {
+function stripIds(text = '') {
   return text.replace(/\s*\[[^\]]*\]/g, '').replace(/\s+([.,;:])/g, '$1').replace(/\s{2,}/g, ' ').trim()
 }
 
@@ -34,7 +34,7 @@ export function clip(text, n = 25) {
   return `${words.slice(0, n).join(' ').replace(/[,;:]$/, '')}…`
 }
 
-export function firstSentence(text) {
+function firstSentence(text) {
   const m = text.match(/^.*?[.!?](\s|$)/)
   return (m ? m[0] : text).trim()
 }
@@ -133,21 +133,6 @@ export function buildCards(state, packs, names, sectorNames = SECTOR_NAMES) {
     }
   })
   return cards.sort((a, b) => b.exposure - a.exposure || a.name.localeCompare(b.name))
-}
-
-/** The line above the cards: how much invested money sits where the council leans negative. */
-export function bearishShareLine(cards, portfolio) {
-  if (!portfolio?.by_market?.length) return 'Load your trades to see how this news touches your own money.'
-  const bearish = cards.filter((c) => c.councilLean === 'bearish' && c.exposure > 0)
-  const share = bearish.reduce((a, c) => a + c.exposure, 0)
-  if (!cards.some((c) => c.councilLean)) return 'The council has not finished yet.'
-  if (!bearish.length) return 'None of your invested money sits in markets the council leans negative on.'
-  if (bearish.length === cards.filter((c) => c.exposure > 0).length) {
-    return 'All of your invested money sits in markets the council leans negative on.'
-  }
-  const list = bearish.map((c) => c.name)
-  const named = list.length > 1 ? `${list.slice(0, -1).join(', ')} and ${list[list.length - 1]}` : list[0]
-  return `About ${pct(share)} of your invested money sits in markets the council leans negative on: ${named}.`
 }
 
 export function exposureLine(card, portfolio) {

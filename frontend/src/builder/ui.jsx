@@ -23,16 +23,6 @@ export function Logo({ size = 36 }) {
   return <img src="/verdisk-logo.png" alt="" width={size} height={size} className="shrink-0 select-none" draggable="false" />
 }
 
-/** Logo plus product name, for page headers. */
-export function Brand() {
-  return (
-    <span className="flex items-center gap-2.5">
-      <Logo />
-      <span className="text-xl font-semibold tracking-[0.01em]">Verdisk</span>
-    </span>
-  )
-}
-
 export function StepNav({ step, onStep, canReach }) {
   return (
     <nav aria-label="Build steps">

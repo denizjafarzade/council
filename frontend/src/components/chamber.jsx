@@ -3,7 +3,7 @@
 import { Logo } from '../builder/ui'
 
 /** Verdisk's crest: the logo in a parchment roundel ringed in brass. */
-export function Crest({ size = 48 }) {
+function Crest({ size = 48 }) {
   return (
     <span className="inline-flex shrink-0 items-center justify-center rounded-full bg-wood-ink shadow-[0_0_0_3px_var(--color-brass)]"
       style={{ width: size, height: size }}>

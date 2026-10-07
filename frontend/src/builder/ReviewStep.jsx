@@ -1,5 +1,6 @@
 import { useState } from 'react'
-import Amphitheatre, { seatLabel } from '../components/Amphitheatre'
+import Amphitheatre from '../components/Amphitheatre'
+import { seatLabel } from '../lib/formal'
 import { GuardrailToggle } from '../components/GuardrailBadge'
 import { marketColor } from '../lib/roster'
 import NewsPicker from '../components/NewsPicker'

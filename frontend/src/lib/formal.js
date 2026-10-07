@@ -20,3 +20,6 @@ export function minuteTime(at) {
   if (!at) return ''
   return new Date(at).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' })
 }
+
+/** Shorten a label to fit under a seat in the amphitheatre. */
+export const seatLabel = (text = '') => (text.length > 10 ? `${text.slice(0, 9)}…` : text)

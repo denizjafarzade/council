@@ -40,10 +40,6 @@ FALLBACKS: dict[str, list[str]] = {
     "free": ["nvidia/nemotron-3-super-120b-a12b:free"],
 }
 
-# Stage 3 voting engine (TypeSafe Jev, routed). Pricing varies per request.
-JEV_MODEL = "typesafe/jev-router"
-
-
 def profile() -> str:
     name = os.getenv("COUNCIL_PROFILE", "cheap")
     if name not in PROFILES:

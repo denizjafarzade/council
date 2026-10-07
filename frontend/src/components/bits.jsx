@@ -16,29 +16,12 @@ export function Avatar({ agent, size = 34 }) {
   )
 }
 
-/** Kept for older callers: a market code badge. */
+/** A market code badge, used on the market cards. */
 export function Flag({ code, className = 'h-4 w-6' }) {
   return (
     <span className={`${className} inline-flex shrink-0 items-center justify-center rounded-[3px] bg-raised font-mono text-[9px] font-semibold leading-none text-ink`}
       aria-label={code}>
       {code}
-    </span>
-  )
-}
-
-export function AgentIcon({ agent }) {
-  return <Avatar agent={agent} size={22} />
-}
-
-export function AgentName({ agent, withRole = false }) {
-  const a = useAgent(agent)
-  return (
-    <span className="inline-flex min-w-0 items-center gap-2">
-      <Avatar agent={agent} size={24} />
-      <span className="flex min-w-0 flex-col leading-tight">
-        <span className="truncate font-semibold text-ink">{a.label}</span>
-        {withRole && a.role && <span className="truncate text-[13px] text-muted">{a.role}</span>}
-      </span>
     </span>
   )
 }
