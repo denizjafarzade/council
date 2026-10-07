@@ -1,7 +1,8 @@
-// The chamber: every member on a hemicycle, coloured by how they voted on one market.
+// The chamber: every member in the amphitheatre, coloured by how they voted on one market.
 import { useState } from 'react'
 import { useShifts } from '../hooks/useShifts'
-import { marketsOf, useRoster } from '../lib/roster'
+import { marketColor, marketsOf, useRoster } from '../lib/roster'
+import Amphitheatre, { seatLabel } from './Amphitheatre'
 import { Caps } from './chamber'
 
 const SCORE = { bearish: -1, neutral: 0, bullish: 1 }
@@ -11,6 +12,16 @@ const STANCE = {
   none: { label: 'no clear view', fill: 'bg-[#7a7264]', text: 'text-wood-ink' },
   absent: { label: 'not yet voted', fill: 'bg-panel border-2 border-dashed border-line-strong', text: 'text-muted' },
 }
+// The same stances as SVG paint for the seats.
+const SEAT_PAINT = {
+  fall: { fill: '#9a3f14', ink: '#ffffff', color: '#f8f2e4' },
+  rise: { fill: '#24508f', ink: '#ffffff', color: '#f8f2e4' },
+  none: { fill: '#7a7264', ink: '#ffffff', color: '#f8f2e4' },
+  absent: { fill: '#f8f2e4', ink: '#5e5442', color: '#b5a47e', dashed: true },
+}
+const ROLE_SHORT = { 'Macro Strategist': 'Macro', 'Market Analyst': 'Market', 'Fundamentals Analyst': 'Fundam.',
+  'News Analyst': 'News', 'Sentiment Analyst': 'Mood' }
+const CROSS_CODE = { BULL: 'BULL', BEAR: 'BEAR', RISK: 'RISK', SPILLOVER: 'SPILL' }
 
 /** A member's lean on one market: confidence-weighted average of their latest votes there. */
 function stanceOf(vote, market) {
@@ -29,17 +40,31 @@ export default function Hemicycle({ state, names }) {
   const market = markets.includes(picked) ? picked : markets[0]
   const second = Object.keys(state.votes.revote).length > 0
 
-  const ids = state.council ? state.council.members.map((m) => m.id) : Object.keys(roster)
+  const ids = (state.council ? state.council.members.map((m) => m.id) : Object.keys(roster)).filter((id) => id !== 'CHAIR')
+  const roleOf = Object.fromEntries((state.council?.members || []).map((m) => [m.id, m.role]))
   // Market seats vote only on their own market, so on another market they show as "not voted".
-  const seats = ids.filter((id) => id !== 'CHAIR').map((id) => ({
-    id,
-    agent: roster[id] || { label: id },
-    stance: stanceOf(state.votes.revote[id] || state.votes.blind[id], market),
-    changed: shifts.some((s) => s.agent === id && s.cell.startsWith(`${market}/`)),
+  const seats = ids.map((id) => {
+    const agent = roster[id] || { label: id }
+    const stance = stanceOf(state.votes.revote[id] || state.votes.blind[id], market)
+    const changed = shifts.some((s) => s.agent === id && s.cell.startsWith(`${market}/`))
+    const place = names[agent.market] || agent.market
+    // Grid delegates are named after their market, so show their role; custom members keep their name.
+    const gridSeat = agent.market && (agent.label === place || agent.label?.startsWith(`${place} `))
+    return {
+      id, stance, changed, market: agent.market,
+      role: (roleOf[id] || id).toLowerCase(),
+      code: agent.market || CROSS_CODE[id] || (agent.label || id).slice(0, 4).toUpperCase(),
+      label: gridSeat ? ROLE_SHORT[agent.role] || seatLabel(agent.role)
+        : CROSS_CODE[id] ? (agent.label || id).split(' ')[0] : seatLabel(agent.label || id),
+      title: `${agent.label}${agent.role && agent.label !== agent.role ? ` (${agent.role})` : ''}: ${STANCE[stance].label}${changed ? ', changed position' : ''}`,
+      ...SEAT_PAINT[stance],
+    }
+  })
+  const delegations = markets.map((code) => ({
+    code, name: names[code] || code, color: marketColor(code, markets), seats: seats.filter((s) => s.market === code),
   }))
+  const cross = seats.filter((s) => !s.market)
 
-  const n = seats.length
-  const size = n > 14 ? 40 : n > 9 ? 46 : 54
   const counts = ['fall', 'rise', 'none'].map((k) => [k, seats.filter((s) => s.stance === k).length]).filter(([, c]) => c)
   const changed = seats.filter((s) => s.changed)
 
@@ -60,28 +85,8 @@ export default function Hemicycle({ state, names }) {
         )}
       </div>
 
-      <div className="relative h-[270px]" role="img"
-        aria-label={`Seating: ${counts.map(([k, c]) => `${c} ${STANCE[k].label}`).join(', ') || 'no votes yet'}`}>
-        {seats.map((s, i) => {
-          const a = n === 1 ? Math.PI / 2 : Math.PI - (i * Math.PI) / (n - 1)
-          const st = STANCE[s.stance]
-          return (
-            <div key={s.id} className="absolute flex w-[118px] -translate-x-1/2 flex-col items-center gap-1 text-center"
-              style={{ left: `${50 + 41 * Math.cos(a)}%`, top: `${150 - 140 * Math.sin(a)}px` }}
-              title={`${s.agent.label}: ${st.label}${s.changed ? ' (changed position)' : ''}`}>
-              <span className={`inline-flex items-center justify-center rounded-full font-mono text-[13px] font-semibold ${st.fill} ${st.text}`}
-                style={{ width: size, height: size, boxShadow: s.changed ? '0 0 0 3px var(--color-panel), 0 0 0 6px var(--color-brass)' : 'none' }}>
-                {s.agent.market || 'ALL'}
-              </span>
-              <span className="line-clamp-2 text-xs font-semibold leading-tight">{s.agent.label}</span>
-            </div>
-          )
-        })}
-        <div className="absolute bottom-0 left-1/2 flex w-56 -translate-x-1/2 flex-col items-center gap-1">
-          <span className="rounded border-b-[3px] border-brass bg-wood px-4 py-1.5 text-[13px] font-bold tracking-[0.16em] text-wood-ink">THE CHAIR</span>
-          <span className="text-xs text-muted">presides and delivers the ruling</span>
-        </div>
-      </div>
+      <Amphitheatre delegations={delegations} cross={cross} active={markets.length > 1 ? market : null}
+        label={`Seating on ${names[market] || market || 'the matter'}: ${counts.map(([k, c]) => `${c} ${STANCE[k].label}`).join(', ') || 'no votes yet'}`} />
 
       <div className="flex flex-wrap items-center justify-between gap-3 border-t border-line pt-3 text-[15px] text-ink-soft">
         <p>

@@ -1,21 +1,21 @@
 {
   "country": "HK",
-  "as_of": "2026-10-06T16:00:00+08:00",
+  "as_of": "2026-10-07T16:00:00+08:00",
   "series": [
     {
       "id": "HK-idx",
       "name": "Hang Seng Index",
-      "last": 24280.56,
-      "chg_1d_pct": 1.0,
-      "chg_1m_pct": -5.34,
-      "vol_20d_pct": 14.11
+      "last": 24130.5,
+      "chg_1d_pct": -0.62,
+      "chg_1m_pct": -5.05,
+      "vol_20d_pct": 14.17
     },
     {
       "id": "HK-fx",
       "name": "USD/HKD",
-      "last": 7.847,
-      "chg_1d_pct": 0.0,
-      "chg_1m_pct": 0.08,
+      "last": 7.8479,
+      "chg_1d_pct": 0.02,
+      "chg_1m_pct": 0.1,
       "vol_20d_pct": 0.21
     }
   ],
@@ -23,141 +23,141 @@
     {
       "sector": "Tech",
       "ticker": "3033.HK",
-      "chg_1m_pct": -5.52,
-      "vol_20d_pct": 18.99
+      "chg_1m_pct": -8.3,
+      "vol_20d_pct": 17.74
     },
     {
       "sector": "Financials",
       "ticker": "0005.HK",
-      "chg_1m_pct": -8.34,
-      "vol_20d_pct": 26.42
+      "chg_1m_pct": -10.56,
+      "vol_20d_pct": 26.61
     },
     {
       "sector": "Property",
       "ticker": "0016.HK",
-      "chg_1m_pct": -12.64,
-      "vol_20d_pct": 31.14
+      "chg_1m_pct": -10.49,
+      "vol_20d_pct": 32.53
     },
     {
       "sector": "Energy",
       "ticker": "0883.HK",
-      "chg_1m_pct": -6.46,
-      "vol_20d_pct": 27.06
+      "chg_1m_pct": -5.47,
+      "vol_20d_pct": 22.19
     },
     {
       "sector": "Health",
       "ticker": "2269.HK",
-      "chg_1m_pct": 17.73,
-      "vol_20d_pct": 37.78
+      "chg_1m_pct": 16.96,
+      "vol_20d_pct": 39.1
     },
     {
       "sector": "Industrials",
       "ticker": "0066.HK",
-      "chg_1m_pct": -5.53,
-      "vol_20d_pct": 21.77
+      "chg_1m_pct": -5.43,
+      "vol_20d_pct": 22.02
     },
     {
       "sector": "ConsumerDisc",
       "ticker": "9988.HK",
-      "chg_1m_pct": -1.73,
-      "vol_20d_pct": 32.11
+      "chg_1m_pct": -3.83,
+      "vol_20d_pct": 33.36
     },
     {
       "sector": "Staples",
       "ticker": "0322.HK",
-      "chg_1m_pct": -8.29,
-      "vol_20d_pct": 17.34
+      "chg_1m_pct": -6.89,
+      "vol_20d_pct": 18.98
     },
     {
       "sector": "Utilities",
       "ticker": "0002.HK",
-      "chg_1m_pct": -1.75,
-      "vol_20d_pct": 14.4
+      "chg_1m_pct": -1.43,
+      "vol_20d_pct": 14.41
     },
     {
       "sector": "Materials",
       "ticker": "2600.HK",
-      "chg_1m_pct": -12.21,
-      "vol_20d_pct": 27.48
+      "chg_1m_pct": -13.54,
+      "vol_20d_pct": 25.1
     },
     {
       "sector": "Communication",
       "ticker": "0700.HK",
-      "chg_1m_pct": -3.3,
-      "vol_20d_pct": 29.21
+      "chg_1m_pct": -4.06,
+      "vol_20d_pct": 29.75
     }
   ],
   "macro": [
     {
       "id": "HK-hibor",
-      "name": "1M HIBOR (as of 2026-10-02)",
-      "value": 2.968
+      "name": "1M HIBOR (as of 2026-10-07)",
+      "value": 2.839
     },
     {
       "id": "HK-base",
-      "name": "HKMA base rate (as of 2026-10-02)",
+      "name": "HKMA base rate (as of 2026-10-07)",
       "value": 4.25
     }
   ],
   "news": [
     {
       "id": "HK-n1",
-      "title": "Hong Kong Stocks Extend Gains After Reclaiming 24,000; Biotech and Pharma Surge Across the Board; Zhipu Jumps Over 7%",
-      "source": "finance.biggo.com",
-      "url": "https://news.google.com/rss/articles/CBMidkFVX3lxTE5MRHJmX1NfWm5XQlhqcHNGRUxYRXlKTXNOdVVVbUlqaUtTTWc1MVpFYWZPZGszNUQxb2p1dXFaaG1SUHJ0RklzWTdjWWFPOE92Q19EaDNvd0ptX2EzRXJvVTFndHI0azk2YWdZU1BhdUIzRnFNN0E?oc=5",
-      "published": "2026-10-06T09:35+00:00"
+      "title": "Hang Seng Tech Index Adds 10 Fast-Growing Firms with HK$500M Sales Rule - News and Statistics",
+      "source": "IndexBox",
+      "url": "https://news.google.com/rss/articles/CBMinwFBVV95cUxQVlV2TVBBbHYxWE5CMFJ2QkZNSTJXM1pIdS0zWHJlckJBYjNFdlFpNmdLRG5xMnZiTWUtaVBHWnhQZUxGX3RTWWEzRHJRQXFHdFgxSlhWdnZBSC0yTVlXcGc3VDFZWGNxcVZvclgxQUhiUEl5aTFheDhrclVKN3pqczVNQmtpdExaaDgtLXdsU2VpTmxsblFPRGxPQVFWcDA?oc=5",
+      "published": "2026-10-07T12:33+00:00"
     },
     {
       "id": "HK-n2",
-      "title": "Hong Kong stocks end higher on pharma, tech gains",
-      "source": "TradingView",
-      "url": "https://news.google.com/rss/articles/CBMiugFBVV95cUxOY1lVb0xQa1JVclQ2ZGNvenlyMWtQQWZkWDg5Sko5UnA1THpOZTJTcUpiamhteUowTmo1Vl85d1lnUWZVN2w4TEpsaVVaZjUtRWQ3REdOMDZ3c2hBeG82ajNOQ1N3TjRpWFFtRV9vTWsxUVEwaDdFVmNlQmQzN3diUFExVUNOTjg4MUcyMHVvdklGeUV2cWF6LW9TS2VzN3dBU2xVb3hGMnd6aWhieU9BQWpOTnZRblN0aUE?oc=5",
-      "published": "2026-10-06T08:53+00:00"
+      "title": "Hong Kong tech index to harness fast-growth firms for performance boost",
+      "source": "South China Morning Post",
+      "url": "https://news.google.com/rss/articles/CBMixgFBVV95cUxPMDRjdEtCaHZuRjNUcWxma1pxdF92SUNwT0RqYUVxaGpkMnh5MnBDMEd0TEVtZ1VXV3REMkU5emRKczR6YS1xaUVIWkJEbzdRaWIyb2xEd1Z4WUVZLUwwckFJZTFkWURQaEpfRjBRbXE4Q2ozV2RGNHdocFdZWER0MFpJUC1KRDRHZGg3T2lZVzdfYnY4WDNJcUl4bjI2cUdBTklnb09MVEZDVEdiUkNCQzV4elRwR2x1ME53enJUbFVMdG9zN0HSAcYBQVVfeXFMUGg4S2JwTzlYVUpjTVprcHF5UlZIM2U2SDg0Z053Ujd1NXFNNFpCUVV0MUdocnNyekREaDc0WHd2Sl9ZZzczM200a21CaTlxSWkzWkNKM2k0RHdKRjRqemdpcDZTRHlWSWpnQ2pHLTJTOHFYYjFoTzlqWU1adl9GaDV5T0cxVERIMHRPN3Z6Sm95S29lSjRWQmJINUkyVDZtQy05cWJYOTBxelA0TzV2djRMdXNRVFlaRmE4dE5XV2tGeW1paVhn?oc=5",
+      "published": "2026-10-07T11:34+00:00"
     },
     {
       "id": "HK-n3",
-      "title": "Hang Seng Index closes 1 percent higher on Tuesday",
+      "title": "Hang Seng TECH Index to revise 6 tech themes and expand constituents to 50 in December",
       "source": "The Standard (HK)",
-      "url": "https://news.google.com/rss/articles/CBMipwFBVV95cUxNSHFLNGh3cV9BNDRDdXpLdXVWbF9WMDAtNEh0OHc3LXJLYmtKSUtydzZwbFNWdzdjNXJrWGh5Nms4SEtSR21MN3FoS19wdW1yTWhnSHRfcDhMM0pFcDlIaHY0eXNVNEFnay0yWTRlZlgwanNlN0hKMEhjTlpmYWZtNnJfNWVnbHVVRkdqN2pzbHJwQk1tWkNUTDI3eVVuVjIzeHVBRUdYMA?oc=5",
-      "published": "2026-10-06T08:45+00:00"
+      "url": "https://news.google.com/rss/articles/CBMi1wFBVV95cUxObnJmeHl3RG5KQTRVME93a3hRWDAtS1JveUR3R2E5NEpqanlHd25RMDZISkRVVUdvb21yWmVSMkpvZWIzeWt1SUxPd0lVeUpoWWJiYkpPcjlGeVAxRzR5ejJYdEQ5SThqdlA1OXFzVVA0SEdFTGxOQU8tV214aGd0YldiTHNLajU0bXBkamNVODFVVXdGMWFCMEhEeEx3ZFdCSnlPWXBPb3FDX0dlSFd4TzhxSXFvdE5jM3FFM2NjSDVmMklDQ2xWQ1h6M3pkY3dUOTBPUnVwSQ?oc=5",
+      "published": "2026-10-07T11:15+00:00"
     },
     {
       "id": "HK-n4",
-      "title": "Hong Kong Stocks Gain As Technology And Pharmaceutical Shares Lead The Market",
-      "source": "DirectorsTalk Interviews",
-      "url": "https://news.google.com/rss/articles/CBMixwFBVV95cUxNTVlwM3pwdTItdW1yS1hCLWZZd2JPaC10amY3Z1g5MlJZMmpwRUROb01Gek1SenRRQi1hNFlrdngyUlFvNmJON0hxb3dMS0tMR2JjMEhZQ1lkbm00MkoteWI5RUZLTkdLaDRTaGV5QWtobmg3cHRXZFVIcEdoQXJETGhfVUJIeHgxUlFXd1dlNW9oQVd4MlJUTmszOXVNc3dFdFhuY2dRc0g4d3VpYUx6WEt4OVRpb3BFTjg4SHI0MVk1VGY1OWpv?oc=5",
-      "published": "2026-10-06T08:38+00:00"
+      "title": "Hong Kong Stocks Slipped As Tech And Biotech Sold Off",
+      "source": "Finimize",
+      "url": "https://news.google.com/rss/articles/CBMiigFBVV95cUxQbGNCR0RXUURYN1Z1R0R0cTBJdEJKRW5XczJ6TnB0YXpxNE1lQ2NqdFN4QVpySXg1NHNHTTI4LThTLXJoZllMWnRJa0hQVmJ2VkxiSTJMbnZlakFZNlQ0S2FYRFdjbDQtSnFiWHV3bHBkODZyMVNEVzl6SGlwLVZKYmlhakNycHB0aEE?oc=5",
+      "published": "2026-10-07T09:23+00:00"
     },
     {
       "id": "HK-n5",
-      "title": "Hong Kong Stocks Rise as Tech Rally, Lower Oil Support Sentiment; Pan Asia Data Surges",
-      "source": "marketscreener.com",
-      "url": "https://news.google.com/rss/articles/CBMi0wFBVV95cUxOSW1NbXF3OVh5Nlh5QmhlekNjTFRJcTAxcEtpZk9oUmh5UWEyMVVrQm40S240YXBCU19OVEU3Vno5dEFVNmI0LXJIci1QcWF6RXNYVzA5U3oxNjlKMm5MNW5MXzFFYUZHajhiNG1YY1pZSWxzY1gzVURCTVFJZG40TkhjYno5OGVwa2lJQzEtWUZ4b1VxM29NM2hhVDJ5Vkp3Q25MZERVbGpER1BqS2F1Y0RPc1JnZXBmallEa2JuNVhKbUQzckxHWm1OVXZyNm95U0NR?oc=5",
-      "published": "2026-10-06T08:34+00:00"
+      "title": "Hang Seng Index dips on Wednesday",
+      "source": "The Standard (HK)",
+      "url": "https://news.google.com/rss/articles/CBMikAFBVV95cUxQbExyUXNydjdEdHZMX2FobXNCQy15R21yOUc0VnhDbk03Y3l3OFEzemJpejRQNUNQaUVXdXFRd1YxVzVMbzM2S3dCNXdpTDA2R3E5M2huWDV4ZlVqM3I4QlhsazAyN0stbEFPZm0ycURSbWN1cDJlZ1lSVnltcU1qbUZKYnAyRlpXVEJiUWd6QjQ?oc=5",
+      "published": "2026-10-07T09:13+00:00"
     },
     {
       "id": "HK-n6",
-      "title": "Global Market: Hong Kong stocks rise as pharma, tech shares lead gains",
-      "source": "economictimes.com",
-      "url": "https://news.google.com/rss/articles/CBMi3gFBVV95cUxOejk3MnJObTNwV2RQcHBVUmtvMnRZZTg5SUlOUVNmNk05eTRmS3ZNMldKVVdGNG5OaXplenc2VzNnTEhrV1ZLZmRBSVhldV96Q2ZXZ1g0dzh3cTdsTWl4MmNXT3NBUFMwYi1meTNNa1EwLWVBMzJLMHBSZTNVZFl5ZklMaXotYi1IaXhVWlNYT1ZFeldub3U0NFFoUnU4RkJwUk5MQXRHTm4tbmlRTnJzakJqSzRaNy1zRl9wTlBidC1ORUR0VmhJWi1jbEVra3BETkduS2lXbjRNelFTeXfSAeMBQVVfeXFMT1VLTjhEbkdXYnFVUE52alY4TVZ6Qk5sWWJKLUYxQVd2eDJsSVNCbmYtNTJ6VEIxeDRKQ3B0Q1BsQXRCWjNhNzRrdzM0R3V1Slo5MUptOHpvUmliZUlYa1FyWERtUEZMZUM2RTh1RXA0V1N1eDlPM0Z2Y2NUcWRLVDcxajdyWXhGUjE4dFlPR2ZjcFFqNElqQks0MHZSQ2NKUDRUUTRfazRDUDZYbTRFRkdwNnBuRFFtcF9VSFR1UklseTVZZUplOUY2MmJKUHgwTEZoSFFwbzRBQU9qZmRYdGppd0U?oc=5",
-      "published": "2026-10-06T05:38+00:00"
+      "title": "Hong Kong Stocks Fall on Higher Oil, Tech Weakness; Robotics Group Drops 9%",
+      "source": "marketscreener.com",
+      "url": "https://news.google.com/rss/articles/CBMiwwFBVV95cUxPYThDaVRORnlrb1dPZ1dMbEg4RlJPenVodTlNMFh3b3NKU1pMelBSdmsxVDlBWHRpNm5VWEJnUWhZWjBGbTBoRlRYX2FXdDR5SVZJWmpodHVXdnlsbHlUMjBhS2lLdHFvRVFoWEI0c2hnYU91WkVIOTVxWm5VOW02UWVCR0Rkd2lCbjdjcXozWVZQRGJJR2t6UDl4N1pRSVhNeGlfaDdZWU1QY0J2V0xreDRvR3pxMG5oTXVGcWlyekVTOUU?oc=5",
+      "published": "2026-10-07T09:06+00:00"
     },
     {
       "id": "HK-n7",
-      "title": "Hang Seng Index rises by noon on Tuesday, tracking Wall Street rally",
-      "source": "The Standard (HK)",
-      "url": "https://news.google.com/rss/articles/CBMivgFBVV95cUxQMlFNZlZVZDRBcDFDNVV3Ym5BUUk2cmNMbE5Malo2T0YydldmT21LbndNTXJ4WkpOTER4REhfV2tBVjV2UEVKOG8yQlJCdTJKUWt0TFhsREdfS3hGdTBya3h1VmhlTTM5VXhxbmFuWWJCaEJ4c1ZKWHJvYTJKT3BqeTFhU19BM2ZvN0J2ZndCYkpOcUdubFNQQ1VaeWo5OTRhSEZKcko5dFJJRzlkb3FIT192c0EwaEs3cElMdi13?oc=5",
-      "published": "2026-10-06T04:11+00:00"
+      "title": "HK Stocks Midday Review | Hang Seng Index fell 0.53% in morning session; Hang Seng Biotech Index dropped 2.73%",
+      "source": "Moomoo",
+      "url": "https://news.google.com/rss/articles/CBMimAFBVV95cUxPX0dleFJsUjJLWUJuLXBrczRUQ3daLWR3SHhYaFRJQjQzS2hhQ3J4STFwZTdadnB4dU9KZGVleG80WFFjNlY5UzlGcEtPZ0lVRm5Nc3c2SndLNlNDcW1HS1F0ajdZUjZobWJIOGQxYjlDV2UxMzAwaEgxV3RCc2NrNngzekYxSWZCcm1hYmxWOVlxMndGVW11bw?oc=5",
+      "published": "2026-10-07T06:06+00:00"
     },
     {
       "id": "HK-n8",
-      "title": "Hong Kong Stocks Open Higher After Nasdaq Record Close",
-      "source": "Finimize",
-      "url": "https://news.google.com/rss/articles/CBMiiwFBVV95cUxNQnREX0xEM2Zvdjd1cXBqVE9BNmRNYnhra0xNN21iWXE5TjVWWl9rTEtYTXVWLXY5eHFVc1BsUEVIVzRCV3pzX1N3QV9QVGwzcVF0YU9VWXl2ZHhCWjczalBnRkp0UEllTVc4bnNOTkZpTFp4WWpLMWZ6Q3NqS2RieFJqVTgyeFR4dzhZ?oc=5",
-      "published": "2026-10-06T02:26+00:00"
+      "title": "Hang Seng Index drops by noon on Wednesday",
+      "source": "The Standard (HK)",
+      "url": "https://news.google.com/rss/articles/CBMinAFBVV95cUxQSjNuZjduZFlPQS1BYjgtQmE2NHpOdlhLNlh0TmUyUHdNVGNZOVNKR2huNUtNblMwNEtlSzNidHJOUndmY21YdjR5UThJdndBSUNWT09lMS00QUhhRE92ZkJIMUdTZFNfRmg4YjFXbDNNTll1cTVmQllEdWg3WUFvTVhiT3ZJMW5lQm0tQjI1YVJvY2RlenVyV1dpZmc?oc=5",
+      "published": "2026-10-07T04:14+00:00"
     }
   ],
   "coverage": "full",
-  "news_fetched_at": "2026-10-06T10:14:25+00:00",
-  "prices_fetched_at": "2026-10-06T10:17:07+00:00"
+  "news_fetched_at": "2026-10-07T13:10:40+00:00",
+  "prices_fetched_at": "2026-10-07T13:14:54+00:00"
 }

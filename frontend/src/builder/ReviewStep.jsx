@@ -1,39 +1,17 @@
 import { useState } from 'react'
+import Amphitheatre, { seatLabel } from '../components/Amphitheatre'
 import { GuardrailToggle } from '../components/GuardrailBadge'
 import { marketColor } from '../lib/roster'
 import NewsPicker from '../components/NewsPicker'
-import { estimateCalls, seatId } from './model'
+import { crossId, estimateCalls, seatId } from './model'
 import { Button, Card, Icon, Pill, StepTitle } from './ui'
 import { field } from './styles'
 
-const CROSS_COLOR = '#6b5ba8'
+const CROSS_COLOR = '#7a5a1e'
+const SIDE_COLOR = { bull: '#24508f', bear: '#9a3f14' }
+const CROSS_CODE = { bull: 'BULL', bear: 'BEAR', risk: 'RISK', spillover: 'SPILL' }
 const SHORT_ROLE = { macro: 'Macro', technical: 'Market', fundamentals: 'Fundamentals', news: 'News', sentiment: 'Sentiment' }
-
-/** Seats on a half-circle around the Chair. Placed elements, so it scales with the panel width. */
-function Chamber({ seats }) {
-  const n = seats.length
-  return (
-    <div className="relative h-[340px] w-full" aria-hidden="true">
-      {seats.map((s, i) => {
-        const t = n === 1 ? Math.PI / 2 : Math.PI - (i * Math.PI) / (n - 1)
-        return (
-          <div key={s.id} className="absolute -ml-[60px] flex w-[120px] flex-col items-center gap-1.5 text-center"
-            style={{ left: `${50 + 44 * Math.cos(t)}%`, top: `${230 - 210 * Math.sin(t)}px` }}>
-            <span className="inline-flex size-14 items-center justify-center rounded-full border-[3px] bg-desk font-mono text-[15px] font-semibold"
-              style={{ borderColor: s.color }}>
-              {s.code}
-            </span>
-            <span className="line-clamp-2 text-[13px] leading-tight text-ink-soft">{s.label}</span>
-          </div>
-        )
-      })}
-      <div className="absolute bottom-0 left-1/2 -ml-20 flex w-40 flex-col items-center gap-1.5">
-        <span className="inline-flex size-[72px] items-center justify-center rounded-full bg-gold font-mono text-[15px] font-semibold text-gold-ink">CHAIR</span>
-        <span className="text-center text-[13px] text-ink-soft">Runs the session, writes the brief</span>
-      </div>
-    </div>
-  )
-}
+const TIER_ROLE = { ...SHORT_ROLE, fundamentals: 'Fundam.', sentiment: 'Mood' }
 
 export default function ReviewStep({ lib, council, setCouncil, councils, onBack, onGoto, onConvene, onSave, onLoad, onDeleteSaved, guard }) {
   const [event, setEvent] = useState('')
@@ -44,17 +22,24 @@ export default function ReviewStep({ lib, council, setCouncil, councils, onBack,
   const markets = Object.fromEntries(lib.markets.map((m) => [m.code, m]))
 
   const seated = council.members.filter((m) => roles[m.role]?.stage !== 'chair')
-  const ordered = [
-    ...council.markets.flatMap((code) => seated.filter((m) => m.market === code)),
-    ...seated.filter((m) => !m.market),
-  ]
-  const seats = ordered.map((m) => ({
-    id: m.id,
-    code: m.market || 'ALL',
-    color: m.market ? marketColor(m.market, council.markets) : CROSS_COLOR,
-    // Grid seats show their role in short; custom members show their own name.
-    label: m.market && m.id === seatId(m.role, m.market) ? SHORT_ROLE[m.role] || roles[m.role]?.name : m.name,
+  const toSeat = (m) => {
+    const grid = m.market && m.id === seatId(m.role, m.market)
+    return {
+      id: m.id,
+      role: m.role,
+      title: m.name || roles[m.role]?.name || m.id,
+      code: m.market || CROSS_CODE[m.role] || (m.name || m.id).slice(0, 4).toUpperCase(),
+      color: m.market ? marketColor(m.market, council.markets) : SIDE_COLOR[m.role] || CROSS_COLOR,
+      // Grid seats show their role in short; custom members show their own name.
+      label: grid ? TIER_ROLE[m.role] || seatLabel(roles[m.role]?.name || '')
+        : !m.market && CROSS_CODE[m.role] && m.id === crossId(m.role) ? roles[m.role]?.name.split(' ')[0] : seatLabel(m.name || m.id),
+    }
+  }
+  const delegations = council.markets.map((code) => ({
+    code, name: markets[code]?.name || code, color: marketColor(code, council.markets),
+    seats: seated.filter((m) => m.market === code).map(toSeat),
   }))
+  const cross = seated.filter((m) => !m.market).map(toSeat)
   const groups = [
     ...council.markets.map((code) => ({
       name: markets[code]?.name || code, color: marketColor(code, council.markets),
@@ -88,7 +73,11 @@ export default function ReviewStep({ lib, council, setCouncil, councils, onBack,
 
       <div className="flex flex-wrap items-start gap-6">
         <section aria-label="Seating" className="flex min-w-0 flex-[999_1_680px] flex-col gap-5 rounded-md border border-line bg-panel p-6">
-          <Chamber seats={seats} />
+          <Amphitheatre delegations={delegations} cross={cross} label={`Seating plan: ${seated.length} members around the Chair`} />
+          <p className="-mt-2 text-[13px] text-muted">
+            The Chair speaks from the stage. Cross-market members sit in the front row, Bull to the left and Bear to the
+            right; each market’s delegation takes a wedge of the tiers.
+          </p>
           <div className="grid grid-cols-[repeat(auto-fit,minmax(200px,1fr))] gap-3 border-t border-line pt-5">
             {groups.map((g) => (
               <div key={g.name} className="flex flex-col gap-2">
