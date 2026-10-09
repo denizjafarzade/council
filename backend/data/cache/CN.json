@@ -1,152 +1,152 @@
 {
   "country": "CN",
-  "as_of": "2026-09-30T15:00:00+08:00",
+  "as_of": "2026-10-08T15:00:00+08:00",
   "series": [
     {
       "id": "CN-idx",
       "name": "Shanghai Composite",
-      "last": 3842.2,
-      "chg_1d_pct": 0.31,
-      "chg_1m_pct": -3.61,
-      "vol_20d_pct": 11.2
+      "last": 3830.89,
+      "chg_1d_pct": -0.29,
+      "chg_1m_pct": -3.74,
+      "vol_20d_pct": 10.82
     },
     {
       "id": "CN-fx",
       "name": "USD/CNY",
-      "last": 6.6933,
-      "chg_1d_pct": -0.17,
-      "chg_1m_pct": -0.26,
-      "vol_20d_pct": 1.2
+      "last": 6.7026,
+      "chg_1d_pct": -0.03,
+      "chg_1m_pct": -0.12,
+      "vol_20d_pct": 1.06
     }
   ],
   "sectors": [
     {
       "sector": "Tech",
       "ticker": "688981.SS",
-      "chg_1m_pct": -12.98,
-      "vol_20d_pct": 36.97
+      "chg_1m_pct": -14.28,
+      "vol_20d_pct": 37.56
     },
     {
       "sector": "Financials",
       "ticker": "601398.SS",
-      "chg_1m_pct": 2.6,
-      "vol_20d_pct": 14.52
+      "chg_1m_pct": 2.33,
+      "vol_20d_pct": 14.43
     },
     {
       "sector": "Property",
       "ticker": "000002.SZ",
-      "chg_1m_pct": 35.67,
-      "vol_20d_pct": 69.0
+      "chg_1m_pct": 31.65,
+      "vol_20d_pct": 68.85
     },
     {
       "sector": "Energy",
       "ticker": "601857.SS",
-      "chg_1m_pct": -1.84,
-      "vol_20d_pct": 22.74
+      "chg_1m_pct": 1.57,
+      "vol_20d_pct": 25.52
     },
     {
       "sector": "Health",
       "ticker": "600276.SS",
-      "chg_1m_pct": 2.45,
-      "vol_20d_pct": 31.79
+      "chg_1m_pct": 2.08,
+      "vol_20d_pct": 31.27
     },
     {
       "sector": "Industrials",
       "ticker": "601766.SS",
-      "chg_1m_pct": -0.48,
-      "vol_20d_pct": 18.17
+      "chg_1m_pct": -1.74,
+      "vol_20d_pct": 17.3
     },
     {
       "sector": "ConsumerDisc",
       "ticker": "002594.SZ",
-      "chg_1m_pct": -5.54,
-      "vol_20d_pct": 21.08
+      "chg_1m_pct": -7.03,
+      "vol_20d_pct": 20.12
     },
     {
       "sector": "Staples",
       "ticker": "600519.SS",
-      "chg_1m_pct": -3.15,
-      "vol_20d_pct": 15.37
+      "chg_1m_pct": -3.38,
+      "vol_20d_pct": 15.38
     },
     {
       "sector": "Utilities",
       "ticker": "600900.SS",
-      "chg_1m_pct": 1.6,
-      "vol_20d_pct": 12.61
+      "chg_1m_pct": 1.8,
+      "vol_20d_pct": 12.82
     },
     {
       "sector": "Materials",
       "ticker": "601899.SS",
-      "chg_1m_pct": -11.52,
-      "vol_20d_pct": 35.0
+      "chg_1m_pct": -12.54,
+      "vol_20d_pct": 34.44
     },
     {
       "sector": "Communication",
       "ticker": "600941.SS",
-      "chg_1m_pct": -3.28,
-      "vol_20d_pct": 11.59
+      "chg_1m_pct": -2.14,
+      "vol_20d_pct": 13.55
     }
   ],
   "macro": [],
   "news": [
     {
       "id": "CN-n1",
-      "title": "Shanghai Composite heads into Thursday at 3,842.19 after holiday closure",
-      "source": "AD HOC NEWS",
-      "url": "https://news.google.com/rss/articles/CBMizwFBVV95cUxNZHR3VGE0QUM0dGJ1OThGNk1WczNrT0tjVGE0MGxyX1d6NXJ3UFVsZGNyS2RJX1J0MHNrSWgwVkFCS0pySHdubTRqR1RLSlRSSktWdDEyQmw4OUduc05JZm95ZkJ3b2dGNFhiREhULU5VcU1lYkt1WlU4QTJUcXdZRlNleWxOMXVlaE1qSzM0dnJNQnpRRTdSWTQyN3djV1dIeXNCaVhYNGFyVk85YlhwTWlwWml1cm1tQjFNbEVZMGdEUHFqVGtWZzFCN3pTeWc?oc=5",
-      "published": "2026-10-07T11:03+00:00"
+      "title": "Chinese stocks firm slightly as trade resumes after Golden Week break",
+      "source": "Yahoo Finance Singapore",
+      "url": "https://news.google.com/rss/articles/CBMiiwFBVV95cUxPM1hwQ0NhOHV2b0VlWlNhMHRRU1h5QkdRUUkzZWEyZXhZblYtVnhXY0hmUzI4ZVRpTkxzalhrb2s1OVE5a2FxdzVJdVNVb3RRdXhSTUg2ZXpTS0p3czlLZE5NT2xacTkxSkRZVkp6MG96b1NjRldEaUVrUHNkSmhWYWoyNThaTUNNMjlB?oc=5",
+      "published": "2026-10-08T03:06+00:00"
     },
     {
       "id": "CN-n2",
-      "title": "Vision Synergy boosts revenue as it pivots beyond China property",
-      "source": "TipRanks",
-      "url": "https://news.google.com/rss/articles/CBMitwFBVV95cUxQYURrRWxoS3ZUOURwYTJQMFZQOEpudElad3VzWWtKOFc2a1p3ajNBVE11VmctdVFMaEI0R21DUXRTcWsyOEU1bFNGMTVCbFNFWm5uYVRBT0NCSzhxN2NhNmpOcy1DMHo4MUdUQU83YVkxanVtRUpSU0hQb0pXZ0xIdkxCRFQtRUEzN0VVV05Ya0pzb21lclVlUGh6UFF4M29Kd1BpbWstcy0zaTNQTjlEbE9fcUI4ajA?oc=5",
-      "published": "2026-10-07T10:16+00:00"
+      "title": "China Stocks Tiptoe Back After National Day Break",
+      "source": "Finimize",
+      "url": "https://news.google.com/rss/articles/CBMihAFBVV95cUxOaDdaRzRBcFhwb1c5Z3FzTnFhZVBnX05QNUduS2hwbVd6SzgxU0NfODdoMGJoMHRhR194aGlNLXlQcmRoZHg4Wi1rZDJHVXE3U20zVEhab19HX2lXZnhUYmxvSjVyZE8zUUFQVWFZQ1pIY1dkZFNIZzRrWExlS2NtdDQ2Mmc?oc=5",
+      "published": "2026-10-08T02:17+00:00"
     },
     {
       "id": "CN-n3",
-      "title": "Gold Slid Over 6% in September and China Bought More of It Than in Any Month Since 2023",
-      "source": "BeInCrypto",
-      "url": "https://news.google.com/rss/articles/CBMic0FVX3lxTE50SzFtNkNSQ25GWmE5Y3RMeWJSR0tDQ0F4RzlSWllNcU0xR19mU3hzcVdzQXpMQlUtUzRWeWhncWpCMXJnbGQycUxGQWU1VkppZjBtRWM4VmM1Z1hRN1JMSUMtbVQxeWdwcm5DWkllbk53NHc?oc=5",
-      "published": "2026-10-07T09:47+00:00"
+      "title": "China’s Weak Holiday Spending Casts Shadow as Markets Reopen",
+      "source": "Bloomberg.com",
+      "url": "https://news.google.com/rss/articles/CBMisAFBVV95cUxNWnhKSmNYUFpNRmlEeTM0dmRodENSS0lEY0txYjUtbTFHbHlrZVY0YXVJZlBGOWJXQWdTOE9FenRtVzZjOXVNaGQ3QzZpdW51TkFKVXotaHlzOXg1cTlPY0lvcTJQVFhHNUk4R3ZRcDZwbWowSWFxWUxZZmpSdkJSWm40WGx6eUhHTEhEbV9pa09HbkdFM3UwdTNXbVc3a0d3WHgyTFZCSWZZWmRLYzdCNg?oc=5",
+      "published": "2026-10-08T02:10+00:00"
     },
     {
       "id": "CN-n4",
-      "title": "Global institutions are bullish on Chinese stocks, eyeing AI, emerging industrial sectors",
-      "source": "Global Times",
-      "url": "https://news.google.com/rss/articles/CBMiYkFVX3lxTFBfTVRTTG5QamVYZnpPRnJXejdId2RnOTllMVZLWXlBNk1yVDQ1THNscTI5OVZSQUZYdmNRQ2ptZ2JFZUJWMkhPUVpQMWNZc1VxSUdMYW4zY0JMNUIxNllUckZn?oc=5",
-      "published": "2026-10-07T08:37+00:00"
+      "title": "China Stocks Gain on Return From Golden Week",
+      "source": "TradingView",
+      "url": "https://news.google.com/rss/articles/CBMimwFBVV95cUxQNmgwR0g1Z0ZUY0NVUlJka2Mzb1NfQk4yZEdPMEdiYWE2WlVjUHExS2p6QkVPZUZJSl9hblhldzZESk9JVU1QelZIbHdZU0Q1emdaQndhbW9DbDBpVHBpY0syel9DamZ2VkVPd1A3ZWQzYWtQeXB1SHc5d2ZtdUM1cERpYTBvMVNDV1F3LWlydERSX0hVNnJwMDdJWQ?oc=5",
+      "published": "2026-10-08T02:02+00:00"
     },
     {
       "id": "CN-n5",
-      "title": "PBOC Extends Gold Buying Streak to 23 Months, Holdings Hit Record High in September",
-      "source": "BigGo Finance",
-      "url": "https://news.google.com/rss/articles/CBMidkFVX3lxTE1Ca0FrVzdoNGNBS0RHUTFnbnpuS2tYZjFyTGIxOU9VUURsWmVzRmxyS29kaHV4bHM4WndINF9nWWl1M2o2TUdXbUdHbnBldlU2T1NWSXV0MmlEblloX2NGSmUtbGpwR0RWZzVOcjlDTGJnUnM3Q2c?oc=5",
-      "published": "2026-10-07T04:55+00:00"
+      "title": "PBOC sets USD/CNY reference rate at 6.7367 vs. 6.7351 previous",
+      "source": "Mitrade",
+      "url": "https://news.google.com/rss/articles/CBMigwFBVV95cUxNWUdKc1c4VGNVUm95U0Y4cFZFbkZral84RFdTWlEzTVhhcUJGMm9TVFkySWwyeVJGUWtpdjdVbmtlOUtXejNTY2dRcFZJTXlJWS1seGVLMlhCWGtTZU9qMW50UUxkb1BQT21qR2Jzalp3TTd3b2RNRUR6cnB1WUFiQ2RsNA?oc=5",
+      "published": "2026-10-08T01:24+00:00"
     },
     {
       "id": "CN-n6",
-      "title": "SSE Composite Stays Parked at 3,842.19 on 6 October 2026 as Golden Week Keeps Shanghai Shut While Hong Kong Rallies 1%",
-      "source": "BBN Times",
-      "url": "https://news.google.com/rss/articles/CBMi5gFBVV95cUxNak9xdDFDV3Q4RkdaZklDNzAwUk5abnZMdE0tenFYTE1feW1tM0tUS2FESUd1QWJSSy1FOWwyLW1vS1JBSnpTNDkybmFuWU43S253b2VZTG94Q1ctYVA1czVKZHNVamRqSG4yWlR6aXRLRnctLVVpZGRKSEppVFQ1Q182UVRKbmJLR1lnQ0hWZmpIa2FYR1NnU0xSeFBtanB0bmt2V1VuQ1ZlU0s0T25mQUNiNmlXT1ZMQ3FNVTg3RnpqVE5jamFjc1NqX3R5c2NNc0xhbE1rZldLMW5SZW9HVFM5c1FqQQ?oc=5",
-      "published": "2026-10-06T21:52+00:00"
+      "title": "More global investors eye Chinese stocks after 4 years underweight",
+      "source": "South China Morning Post",
+      "url": "https://news.google.com/rss/articles/CBMi2wFBVV95cUxQVEowSFVYMDJ4eEJuLXAxcmZYbFJ2YTgwZmJXTS1JSUxBem5ObGo3WjlTQ2ZJemxjNUU1eVVLc3pqX0k3NjQ1M2p0a1M4WUVES01SdTk0Q0JGLWNvN1NHclBtakF4TjJ2ZXQ1aUJURHdZOG1qYjVJUnJnaDV0a2djeVRVaE1MWkRHOFBkaG44NmtHS21iYzNhc2xibHV3Z0lMU2dGQm9jUVZpczM2MEFNWmJHTzZSVFRPNy1lOFRQcE1CeHJLQU4ybVlRazc5TW9qOWtJS3lwU251TUnSAdsBQVVfeXFMUEN4Ni1KbXl2U29zR0M0clo4Q0FHUXR6T2puRDRYSzZJTU83ZTgzWmJ2N21UbGZNVDB6cWVneU9LLWpnRC1PNVAxVUl6TnU2OVRaRHRBa1ozTmhqb01nUGEtSDVSdlFFRlVGVUk5cVN3eDZGelc0a3l5MVF4dEpoc3p6QW1RQ1FIX0ZMdXo1WDJ1TkhFbVBzSkt6TTJkR3Z5VFhfSHdkMXdINTA2TjFzdXZvN0RaeXQ1UmVtbEhFSjV2RUx5TWY5MW95aDRheXlZeTR6MU1XeDF1bVpj?oc=5",
+      "published": "2026-10-08T01:00+00:00"
     },
     {
       "id": "CN-n7",
-      "title": "Shanghai Composite heads into Thursday at 3,842 points after holiday pause",
-      "source": "AD HOC NEWS",
-      "url": "https://news.google.com/rss/articles/CBMi0wFBVV95cUxNTnFKanluSHhUa3E4emF6MElDUTFRbUhlYlRWZlBlMHhlR0RRbTNpOVZ1T21JeTVZRGpiUUwyQ1JPT3FlMzh4ZGY2c2ZMWm1YNmZiY25obzE5UGtjZEN6VFBKZk14eVo4T2o3OUROYk5yc0VyZzJQYjdFeHZRTEhtbnBxcThPdHc3Q0RFelJONEltMm1JcVAxTm1iNzk1dXp5WXgtTzZwTXhCeHV1elRuUFpWRzZ0NEZvS2d1SXN0NHl3M3R5V1JQV1Bsblltenc5aFBr?oc=5",
-      "published": "2026-10-06T19:44+00:00"
+      "title": "PBoC is expected to set USD/CNY mid-point at 6.7254 (prev. 6.7351)",
+      "source": "Newsquawk",
+      "url": "https://news.google.com/rss/articles/CBMinAFBVV95cUxPdjNoMWp4UjJKSTl4aWdiZ1pLazFPVkJ6WUhEYTYwaVJnVVVVbm9oV2toUHpuakpxMkVrcEFPQk1TMVZKVEt6OU5uMUhPOEdOMmp6Y0tXMzg3SkFLeXNnc2JHVVpvOHV6RWVKOWhGclFEdWJEU1N3bWJLYU4ydEZKY0pBaW5kdUc3QWNOMG5UTXVCemhSRUw5cGRCOV8?oc=5",
+      "published": "2026-10-08T00:44+00:00"
     },
     {
       "id": "CN-n8",
-      "title": "Best Chinese Stocks To Buy And Watch: Track The Latest China Stock News",
-      "source": "Investor's Business Daily",
-      "url": "https://news.google.com/rss/articles/CBMid0FVX3lxTE9xb0Q2UnVEMWdJTlo4ZUd5dTUzQ3p2eUdxdlB1MlE5LUxsU1VkdFpKQ2F6alh6R1ZsLU9KbURjZWRkN2djRGVsRElrbDFxcW1JNkFHZkMyZU01cHR1Smp2ZU1CdTNuNFBLS0V6Uk9LUXZKWjRXLVZV?oc=5",
-      "published": "2026-10-06T16:30+00:00"
+      "title": "PBOC's September Gold Purchases Hit Record Since Resumption; Fed Minutes Signal Possible Year-End Hike",
+      "source": "BigGo Finance",
+      "url": "https://news.google.com/rss/articles/CBMidkFVX3lxTE5GSVk4OUQyNTFKRVlOdzJZNFJ2YkNYRnpzbXZiaHA3MFBoYnduc3g4UGswZ3J2ckx4NnhuRnZYVVdieXFCNmlHMWMzY0kxQV9DU0hEZGNQblpYUWJfT0RrTGxPVDVnYmRxQ2VLSlJFNGZJbmo4bmc?oc=5",
+      "published": "2026-10-07T23:55+00:00"
     }
   ],
   "coverage": "full",
-  "news_fetched_at": "2026-10-07T13:10:40+00:00",
-  "prices_fetched_at": "2026-10-07T13:14:52+00:00"
+  "news_fetched_at": "2026-10-08T03:27:36+00:00",
+  "prices_fetched_at": "2026-10-08T03:28:24+00:00"
 }

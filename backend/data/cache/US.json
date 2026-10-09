@@ -1,166 +1,166 @@
 {
   "country": "US",
-  "as_of": "2026-10-06T16:00:00-04:00",
+  "as_of": "2026-10-07T16:00:00-04:00",
   "series": [
     {
       "id": "US-idx",
       "name": "S&P 500",
-      "last": 7818.93,
-      "chg_1d_pct": 0.58,
-      "chg_1m_pct": 1.3,
-      "vol_20d_pct": 10.42
+      "last": 7801.77,
+      "chg_1d_pct": -0.22,
+      "chg_1m_pct": 1.67,
+      "vol_20d_pct": 10.27
     },
     {
       "id": "US-fx",
       "name": "US Dollar Index",
-      "last": 102.42,
-      "chg_1d_pct": 0.58,
-      "chg_1m_pct": 3.62,
-      "vol_20d_pct": 4.5
+      "last": 102.27,
+      "chg_1d_pct": 0.43,
+      "chg_1m_pct": 3.47,
+      "vol_20d_pct": 4.36
     },
     {
       "id": "US-10y",
       "name": "US 10Y Treasury yield",
-      "last": 5.343,
-      "chg_1d_pct": 1.4,
-      "chg_1m_pct": 11.17,
-      "vol_20d_pct": 16.27
+      "last": 5.277,
+      "chg_1d_pct": 0.15,
+      "chg_1m_pct": 9.8,
+      "vol_20d_pct": 15.96
     }
   ],
   "sectors": [
     {
       "sector": "Tech",
       "ticker": "XLK",
-      "chg_1m_pct": 7.86,
-      "vol_20d_pct": 17.54
+      "chg_1m_pct": 7.2,
+      "vol_20d_pct": 17.65
     },
     {
       "sector": "Financials",
       "ticker": "XLF",
-      "chg_1m_pct": -7.04,
-      "vol_20d_pct": 11.35
+      "chg_1m_pct": -6.2,
+      "vol_20d_pct": 11.36
     },
     {
       "sector": "Property",
       "ticker": "XLRE",
-      "chg_1m_pct": -6.44,
-      "vol_20d_pct": 10.37
+      "chg_1m_pct": -7.59,
+      "vol_20d_pct": 10.57
     },
     {
       "sector": "Energy",
       "ticker": "XLE",
-      "chg_1m_pct": -0.48,
-      "vol_20d_pct": 20.83
+      "chg_1m_pct": -2.18,
+      "vol_20d_pct": 20.62
     },
     {
       "sector": "Health",
       "ticker": "XLV",
-      "chg_1m_pct": -2.54,
-      "vol_20d_pct": 10.78
+      "chg_1m_pct": 1.01,
+      "vol_20d_pct": 11.29
     },
     {
       "sector": "Industrials",
       "ticker": "XLI",
-      "chg_1m_pct": -2.11,
-      "vol_20d_pct": 13.09
+      "chg_1m_pct": -3.77,
+      "vol_20d_pct": 14.23
     },
     {
       "sector": "ConsumerDisc",
       "ticker": "XLY",
-      "chg_1m_pct": -2.78,
-      "vol_20d_pct": 14.48
+      "chg_1m_pct": -2.31,
+      "vol_20d_pct": 13.75
     },
     {
       "sector": "Staples",
       "ticker": "XLP",
-      "chg_1m_pct": -3.29,
-      "vol_20d_pct": 12.42
+      "chg_1m_pct": -2.76,
+      "vol_20d_pct": 11.82
     },
     {
       "sector": "Utilities",
       "ticker": "XLU",
-      "chg_1m_pct": -4.46,
-      "vol_20d_pct": 18.17
+      "chg_1m_pct": -5.29,
+      "vol_20d_pct": 17.87
     },
     {
       "sector": "Materials",
       "ticker": "XLB",
-      "chg_1m_pct": -5.17,
-      "vol_20d_pct": 14.02
+      "chg_1m_pct": -5.7,
+      "vol_20d_pct": 14.46
     },
     {
       "sector": "Communication",
       "ticker": "XLC",
-      "chg_1m_pct": -0.34,
-      "vol_20d_pct": 20.73
+      "chg_1m_pct": -0.23,
+      "vol_20d_pct": 20.65
     }
   ],
   "macro": [
     {
       "id": "US-ffr",
-      "name": "Effective Fed funds rate (as of 2026-10-05)",
+      "name": "Effective Fed funds rate (as of 2026-10-06)",
       "value": 3.88
     }
   ],
   "news": [
     {
       "id": "US-n1",
-      "title": "Wall St futures fall as yields and oil rebound; Fed minutes in focus",
+      "title": "Wall Street ends lower, off record highs, as Treasury yields climb",
       "source": "Reuters",
       "url": "https://news.google.com/rss/articles/CBMipAFBVV95cUxOYlBxMHUzb2ZDaHpMY3JBZUl2Rk9XSE94bjQ2aFVndHhYeU4zS1Rwb2I1SlFJWjVpaE9sS0V4c2ZiQ2JsMzd0R0lydzlFejhJVkNYbU5ZTGVjeW9tWUJtTmUzX2VwY0N1SnpLVmdvQWRvM20xS25hRmhXRDdHVUppRk9hS2JhVExxdVUtX0hfQlNqWnd0OUhHWEpaa2w1Z3hXNVRkaw?oc=5",
-      "published": "2026-10-07T11:50+00:00"
+      "published": "2026-10-07T23:14+00:00"
     },
     {
       "id": "US-n2",
-      "title": "Three Stocks Are Now 21% of the S&P 500, the Most Ever",
+      "title": "S&P 500 And Nasdaq 100 Slip From Record Highs Amid Pressure From Soaring Treasury Yields — SPCX, AMD, NVDA, MRVL In Focus",
       "source": "Yahoo Finance",
-      "url": "https://news.google.com/rss/articles/CBMijwFBVV95cUxOX3RJazE1WVZPVkN2WmZWNkhLRHVnT00zeDJJZGFfWDdtdFBGLXBTZ1VyRGdfZkF3RjRTNFlRY0lFMkZkbkJlaEtLVDNOSk5hZ0hxZTc0Vl9nR1RjQV9qSzZWc1JqUTR5WGd2LVY4QkNndUd0T1R2UHBMaHRKcmtTTkFfdFNoNjdZRXc1eGFaRQ?oc=5",
-      "published": "2026-10-07T11:30+00:00"
+      "url": "https://news.google.com/rss/articles/CBMijwFBVV95cUxQclBPX2xMZTFnZnRveWxfOGlEaWctQTY2SXp0RU9RNHdGS0l2WXUycHRGTVJwTjRLOERWR2FYVUhYY1VGNUZpSV9aandyQVkxX0dEaFpPdEgwS3JqVTR4STJqQmt6bW1BUHd6UXl1VnpYNmFWYlZuUTRUODg4NzY0WGxiS1kyVmJvakhwcmwwWQ?oc=5",
+      "published": "2026-10-07T22:50+00:00"
     },
     {
       "id": "US-n3",
-      "title": "S&P 500 Futures Fall in Premarket Trading; Brookfield Wealth Solns, Molson Coors A Lead",
-      "source": "Barron's",
-      "url": "https://news.google.com/rss/articles/CBMixgFBVV95cUxPMDNRRU50cC1hXzFKV0ZrWDhjdTNFVXNzX1hDekJGTVlOX0xOU2R2Z25aanRveHFJVHpxNjkxU3Bxb01KSGF6OVd3al9DTmVTUWtOVVdWUTZRRTNsUFotVjJMY3F1QkJacGhPWU1aWG1vcTRzUGNpeGgzcmxvb1I3UWI0THBOSkdsZzVqWXMtY2RkQVhtYTNLeXF3dTFYWld2RkdqS1ZSN01pbzYyX05LelVVVGI0dDJmR3pwYlhLYlIxb19CNWc?oc=5",
-      "published": "2026-10-07T11:30+00:00"
+      "title": "The S&P 500 Just Reached a New Record. Here’s What History Says About Buying Stocks Now.",
+      "source": "Yahoo Finance",
+      "url": "https://news.google.com/rss/articles/CBMilAFBVV95cUxQUGczeXR3YnhTNUdmV2x5SkNLaFB2aWQ0UWJYMkIzdFFOVDdjY0E2dGNpaE5wak15a3VlazhkNGdtTF8zVUpka19DMHY1N252YnF4Q185Y0NZMHJ4eWpxODlHclhMVmd0cGZRc2tfOWJFTzYtNGU2cGVRc3FWVzBpd1ZISXRIdkxSaFZsU1NSVGtkR21x?oc=5",
+      "published": "2026-10-07T22:30+00:00"
     },
     {
       "id": "US-n4",
-      "title": "S&P 500 high aside, rate surge is hitting stocks",
-      "source": "Axios",
-      "url": "https://news.google.com/rss/articles/CBMiY0FVX3lxTE4zQzVpWGZIX0cyWTVJeEdNcmc2RkloWGp1UWF1cF9VVkxHcy1vOHNfQVAyXzFwT01TTmZKbUhYNlFsb01JM1hjTktfVUVCeXRYSXdzN01CN2xmamRNVlJ1UEVSNA?oc=5",
-      "published": "2026-10-07T11:12+00:00"
+      "title": "Treasury Yields Keep Hitting New Highs. Can Savers Still Cash In?",
+      "source": "Investopedia",
+      "url": "https://news.google.com/rss/articles/CBMiowFBVV95cUxPb0F3UFppQ01GbDM4RENjRVVCcm5QSUE0aFZSRTQ4dTRGOHVLT0daQm9hVjM4eXhFWGg5dnI1OG9taUxnU1k4dWNFSjQtUnpuLVdxUVJhWVNsaE9MY3pyOWFrREVnb1FjLXo2MTNuYjBnWEZfSjFxZnBZVnBxbW1vUTdqNDFkUmdUR3IwY0lUei04QXh0S0RwcGtqcGdaeEJPRlNJ?oc=5",
+      "published": "2026-10-07T22:01+00:00"
     },
     {
       "id": "US-n5",
-      "title": "Is the S&P 500 Historically Expensive or Cheap? The Answer Depends on How You Look at It.",
+      "title": "Stock Market Today, Oct. 7: Markets Edge Lower as Treasury Yields Surge",
       "source": "Yahoo Finance",
-      "url": "https://news.google.com/rss/articles/CBMioAFBVV95cUxNZGI1c3U2ODRseDFGTFVjelE3Ni1UNWkxSWZaUDJoYjcxdDMteS1PZXBHVGF3TjFoM3lJQy1NNEk5TlhtdzNLZ2hPU1VSX1l1ZzMtc3NzMUZGdlYtSnk5cTd5M21pUEdHOUljVG1mZHhtQVNmaGc3bVktVEFhVEF6MnVWeU5pTmpBM0ZVV2FxWTBUS0xXVmY5UzVCbzJaa1Iw?oc=5",
-      "published": "2026-10-07T11:05+00:00"
+      "url": "https://news.google.com/rss/articles/CBMikwFBVV95cUxQUDhpSktta0xIeDlVNUhyYVplTS1ZTTRBQjlHdmdjZW5sUURzc3FiajdRZjRxX0UwZW9yck1aeHNCSEJmeXQxQ2tqMWlWQk1qSEFqVnBBX1JVbllzMGZhUUxQV3pXSEY5UGdIZVdZZlJYY2tUUFdjWUxqdlI2a3dteGt1WkV0WWd0R1hrNll0TkxzVXM?oc=5",
+      "published": "2026-10-07T21:17+00:00"
     },
     {
       "id": "US-n6",
-      "title": "U.S. 30-Year Yield Hits New 24-Year High; French Bonds Underperform on Budget Worries",
+      "title": "U.S. Stocks Fall as Treasury Yields Test Multidecade Highs",
       "source": "WSJ",
-      "url": "https://news.google.com/rss/articles/CBMiywFBVV95cUxOS3lkUHdVT3kyMlo2aEQ4TWZDNDFYdVh2YzAxYXBoengxU2dkM0lVWjVia3pDRVJGUmVmaVFsaldoWThMVlZ4eG03dTNKZW1oeElRbUU4MTRlVi1NcVl1QzEwcmI4Z25EQXFZZkgyeDZCSzNzUm5GTEJycGFRSy1CQ1ZqS0xnTzk4RjJiaDFKbHU0QTFGZkw3SDllZEZobDVGSTF6QVFVRU12TVpSUTJzZ2QtN3oxd05lVE9hNU5fck9yMHRxa3RYV0F4MA?oc=5",
-      "published": "2026-10-07T10:56+00:00"
+      "url": "https://news.google.com/rss/articles/CBMipwFBVV95cUxPc0kta0ZSTzVRZ0RIME01UkItZW9vRl82MmdGM19yUHlhbklXRmlHaU5lZjRVSW5mYmZTOTVKYWhJSEpMRm5qT2I1eGxVTkJQQXM3N004ZjRxS19fTVZyYm16QTBxUTJlTnRXX1JRaDlRcUtUNmJzeEx5RkpVazRnOEtXdWZPTXpISTZCeWhPUG5LLVhOUzY4a2lMN3NCR1Frd2lGSVZrcw?oc=5",
+      "published": "2026-10-07T20:53+00:00"
     },
     {
       "id": "US-n7",
-      "title": "Stock futures inch lower after S&P 500 hits fresh record",
-      "source": "CNBC",
-      "url": "https://news.google.com/rss/articles/CBMinwFBVV95cUxQWDliOHBibHZkUXFDQ0pic1IwWElsZTFYRm9JTWhlVVhBbEJHa2hQa1lHSXpMMFRhVGJWbG10cDZ3dl9vcW1QTEhpLW1pS1hGRnk3dlpmMExzRWotaVNpVVljdGFWd2lfQ0doZVJYcmhXZ0hQejF4LUNwcHRMQWRmTnBuMDBxdTBFZEU0TUd5WkZyS255QndKV1VDVkpGMDg?oc=5",
-      "published": "2026-10-07T10:44+00:00"
+      "title": "US stocks close lower as elevated Treasury yields weigh on markets",
+      "source": "Anadolu Ajansı",
+      "url": "https://news.google.com/rss/articles/CBMipgFBVV95cUxOOU9NMk5WZmFpWVZyaU1mQW1MN1g0UlFmV1Q5U1gtWkYzTlpIcmRzQi1Qc0RycVdUMG1MVXF2TTUxRXZBWjFodjlKMFh4MXQ3WHNXX0ZGNHM1NWJpN3RjMzFEZ3dpdEk3LXB1ZjZJYmlsbnpyaWh0R3p4dE4xX0pDMmdmUEVmUHVyWEVQWDFZVmtUZ3BrOVp5d2p5NzhqRVpDZDdxeVZ3?oc=5",
+      "published": "2026-10-07T20:35+00:00"
     },
     {
       "id": "US-n8",
-      "title": "S&P 500, Nasdaq hit records — but 'the breadth of the rally has narrowed': Chart of the Day",
-      "source": "Yahoo Finance",
-      "url": "https://news.google.com/rss/articles/CBMi2gFBVV95cUxPVEp4d2xwaDVOY2E0UmQ3WGxzdV9aRnJwV3JEUWczMUNRU3VORE1taVNseWwybUNwejFRb2trT3BVVV9ialFBdkpwZFdjOG0ySGIwblE4QlJISEVnRlZLSEk0Q1I2MkxBcHZuMHVvNzlIZGF3SE5qU1BGOVVvRHFSM0U2amhXUTJOTmFXcnQ2bVMycmg4dm5Tak5zbzR5LTdKVlZlRGlZT19FLVJqM1hzWlUxYVliLWRrd3NuVXprZk1xd2hkYko4OWxnUVpkejZ3SHM4Unc3ZUdhUQ?oc=5",
-      "published": "2026-10-07T10:00+00:00"
+      "title": "Global bond sell-off pushes U.S. Treasury yields to fresh 24-year highs",
+      "source": "NBC News",
+      "url": "https://news.google.com/rss/articles/CBMirgFBVV95cUxNU0tXSkYtT2J0RTMzS2VKOF9uRHhzVV9YME85OHRmeXV1TC1DLUttNk1hRU9TZmFCdzZfNHVNbURkUm5TN1ZJYmVKN1c2UXZ4d3Y5NDJNZndlc0hXUXZlME5NR0JiNE9rV0l6UUU1MTQtNzUwdmhUdTBObTVtUWFmdGtQUUZfR3J3aWVSS1EyOTZsU0UwZG9QOUxIdGVSdlB5OE8tX0JpTHgtZnBLeVE?oc=5",
+      "published": "2026-10-07T20:09+00:00"
     }
   ],
   "coverage": "full",
-  "news_fetched_at": "2026-10-07T13:10:40+00:00",
-  "prices_fetched_at": "2026-10-07T13:14:54+00:00"
+  "news_fetched_at": "2026-10-08T03:27:36+00:00",
+  "prices_fetched_at": "2026-10-08T03:28:29+00:00"
 }
